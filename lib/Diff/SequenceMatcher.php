@@ -1,6 +1,6 @@
 <?php
 /**
- * Sequence matcher PHP DiffLib.
+ * Sequence matcher for Diff
  *
  * PHP version 5
  *
@@ -16,7 +16,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the Chris Boulton, Inc. nor the names of its contributors 
+ *  - Neither the name of the Chris Boulton nor the names of its contributors 
  *    may be used to endorse or promote products derived from this software 
  *    without specific prior written permission.
  *
@@ -32,15 +32,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package DiffLib
+ * @package Diff
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version 1.0
- * @link http://github.com/chrisboulton/phpdifflib/
+ * @link http://github.com/chrisboulton/phpdiff
  */
 
-class DiffLib_SequenceMatcher
+class Diff_SequenceMatcher
 {
 	/**
 	 * @var string|array Either a string or an array containing a callback function to determine if a line is "junk" or not.
@@ -81,7 +81,7 @@ class DiffLib_SequenceMatcher
 		$this->a = null;
 		$this->b = null;
 		$this->junkCallback = $junkCallback;
-		$this->SetSequences($a, $b);
+		$this->setSequences($a, $b);
 	}
 
 	/**
@@ -90,10 +90,10 @@ class DiffLib_SequenceMatcher
 	 * @param string|array $a A string or array containing the lines to compare against.
 	 * @param string|array $b A string or array containing the lines to compare.
 	 */
-	public function SetSequences($a, $b)
+	public function setSequences($a, $b)
 	{
-		$this->SetSeq1($a);
-		$this->SetSeq2($b);
+		$this->setSeq1($a);
+		$this->setSeq2($b);
 	}
 
 	/**
@@ -102,7 +102,7 @@ class DiffLib_SequenceMatcher
 	 *
 	 * @param string|array $a The sequence to set as the first sequence.
 	 */
-	public function SetSeq1($a)
+	public function setSeq1($a)
 	{
 		if(!is_array($a)) {
 			$a = str_split($a);
@@ -122,7 +122,7 @@ class DiffLib_SequenceMatcher
 	 *
 	 * @param string|array $b The sequence to set as the second sequence.
 	 */
-	public function SetSeq2($b)
+	public function setSeq2($b)
 	{
 		if(!is_array($b)) {
 			$b = str_split($b);
@@ -135,14 +135,14 @@ class DiffLib_SequenceMatcher
 		$this->matchingBlocks = null;
 		$this->opCodes = null;
 		$this->fullBCount = null;
-		$this->ChainB();
+		$this->chainB();
 	}
 
 	/**
 	 * Generate the internal arrays containing the list of junk and non-junk
 	 * characters for the second ($b) sequence.
 	 */
-	private function ChainB()
+	private function chainB()
 	{
 		$length = count ($this->b);
 		$this->b2j = array();
@@ -195,7 +195,7 @@ class DiffLib_SequenceMatcher
 	 *
 	 * @return boolean $b True if the character is considered junk. False if not.
 	 */
-	private function IsBJunk($b)
+	private function isBJunk($b)
 	{
 		if(isset($this->juncDict[$b])) {
 			return true;
@@ -223,7 +223,7 @@ class DiffLib_SequenceMatcher
 	 * @param int $bhi The upper constraint for the second sequence.
 	 * @return array Array containing the longest match that includes the starting position in $a, start in $b and the length/size.
 	 */
-	public function FindLongestMatch($alo, $ahi, $blo, $bhi)
+	public function findLongestMatch($alo, $ahi, $blo, $bhi)
 	{
 		$a = $this->a;
 		$b = $this->b;
@@ -237,7 +237,7 @@ class DiffLib_SequenceMatcher
 
 		for($i = $alo; $i < $ahi; ++$i) {
 			$newJ2Len = array();
-			$jDict = $this->ArrayGetDefault($this->b2j, $a[$i], $nothing);
+			$jDict = $this->arrayGetDefault($this->b2j, $a[$i], $nothing);
 			foreach($jDict as $jKey => $j) {
 				if($j < $blo) {
 					continue;
@@ -246,7 +246,7 @@ class DiffLib_SequenceMatcher
 					break;
 				}
 
-				$k = $this->ArrayGetDefault($j2Len, $j -1, 0) + 1;
+				$k = $this->arrayGetDefault($j2Len, $j -1, 0) + 1;
 				$newJ2Len[$j] = $k;
 				if($k > $bestSize) {
 					$bestI = $i - $k + 1;
@@ -258,23 +258,23 @@ class DiffLib_SequenceMatcher
 			$j2Len = $newJ2Len;
 		}
 
-		while($bestI > $alo && $bestJ > $blo && !$this->IsBJunk($b[$bestJ - 1]) && $a[$bestI - 1] == $b[$bestJ - 1]) {
+		while($bestI > $alo && $bestJ > $blo && !$this->isBJunk($b[$bestJ - 1]) && $a[$bestI - 1] == $b[$bestJ - 1]) {
 			--$bestI;
 			--$bestJ;
 			++$bestSize;
 		}
 
-		while($bestI + $bestSize < $ahi && ($bestJ + $bestSize) < $bhi && !$this->IsBJunk($b[$bestJ + $bestSize]) & $a[$bestI + $bestSize] == $b[$bestJ + $bestSize]) {
+		while($bestI + $bestSize < $ahi && ($bestJ + $bestSize) < $bhi && !$this->isBJunk($b[$bestJ + $bestSize]) & $a[$bestI + $bestSize] == $b[$bestJ + $bestSize]) {
 			++$bestSize;
 		}
 
-		while($bestI > $alo && $bestJ > $blo && $this->IsBJunk($b[$bestJ - 1]) && $a[$bestI - 1] == $b[$bestJ - 1]) {
+		while($bestI > $alo && $bestJ > $blo && $this->isBJunk($b[$bestJ - 1]) && $a[$bestI - 1] == $b[$bestJ - 1]) {
 			--$bestI;
 			--$bestJ;
 			++$bestSize;
 		}
 
-		while($bestI + $bestSize < $ahi && $bestJ + $bestSize < $bhi && $this->IsBJunk($b[$bestJ + $bestSize]) && $a[$bestI + $bestSize] == $b[$bestJ + $bestSize]) {
+		while($bestI + $bestSize < $ahi && $bestJ + $bestSize < $bhi && $this->isBJunk($b[$bestJ + $bestSize]) && $a[$bestI + $bestSize] == $b[$bestJ + $bestSize]) {
 			++$bestSize;
 		}
 
@@ -295,7 +295,7 @@ class DiffLib_SequenceMatcher
 	 *
 	 * @return array Nested array of the matching blocks, as described by the function.
 	 */
-	public function GetMatchingBlocks()
+	public function getMatchingBlocks()
 	{
 		if(!empty($this->matchingBlocks)) {
 			return $this->matchingBlocks;
@@ -340,7 +340,7 @@ class DiffLib_SequenceMatcher
 			}
 		}
 
-		usort($matchingBlocks, array($this, 'TupleSort'));
+		usort($matchingBlocks, array($this, 'tupleSort'));
 
 		$i1 = 0;
 		$j1 = 0;
@@ -406,7 +406,7 @@ class DiffLib_SequenceMatcher
 	 *
 	 * @return array Array of the opcodes describing the differences between the strings.
 	 */
-	public function GetOpCodes()
+	public function getOpCodes()
 	{
 		if(!empty($this->opCodes)) {
 			return $this->opCodes;
@@ -416,7 +416,7 @@ class DiffLib_SequenceMatcher
 		$j = 0;
 		$this->opCodes = array();
 
-		$blocks = $this->GetMatchingBlocks();
+		$blocks = $this->getMatchingBlocks();
 		foreach($blocks as $block) {
 			list($ai, $bj, $size) = $block;
 			$tag = '';
@@ -469,9 +469,9 @@ class DiffLib_SequenceMatcher
 	 * @param int $context The number of lines of context to provide around the groups.
 	 * @return array Nested array of all of the grouped opcodes.
 	 */
-	public function GetGroupedOpcodes($context=3)
+	public function getGroupedOpcodes($context=3)
 	{
-		$opCodes = $this->GetOpCodes();
+		$opCodes = $this->getOpCodes();
 		if(empty($opCodes)) {
 			$opCodes = array(
 				array(
@@ -545,8 +545,8 @@ class DiffLib_SequenceMatcher
 	 * This will be a float value between 0 and 1.
 	 *
 	 * Out of all of the ratio calculation functions, this is the most
-	 * expensive to call if GetMatchingBlocks or GetOpCodes is yet to be
-	 * called. The other calculation methods (QuickRatio and RealQuickRatio)
+	 * expensive to call if getMatchingBlocks or getOpCodes is yet to be
+	 * called. The other calculation methods (quickRatio and realquickRatio)
 	 * can be used to perform quicker calculations but may be less accurate.
 	 *
 	 * The ratio is calculated as (2 * number of matches) / total number of
@@ -556,8 +556,8 @@ class DiffLib_SequenceMatcher
 	 */
 	public function Ratio()
 	{
-		$matches = array_reduce($this->GetMatchingBlocks(), array($this, 'RatioReduce'), 0);
-		return $this->CalculateRatio($matches, count ($this->a) + count ($this->b));
+		$matches = array_reduce($this->getMatchingBlocks(), array($this, 'ratioReduce'), 0);
+		return $this->calculateRatio($matches, count ($this->a) + count ($this->b));
 	}
 
 	/**
@@ -567,7 +567,7 @@ class DiffLib_SequenceMatcher
 	 * @param array $triple Array containing the matching block triple to add to the running total.
 	 * @return int The new running total for the number of matches.
 	 */
-	private function RatioReduce($sum, $triple)
+	private function ratioReduce($sum, $triple)
 	{
 		return $sum + ($triple[count($triple) - 1]);
 	}
@@ -578,14 +578,14 @@ class DiffLib_SequenceMatcher
 	 *
 	 * @return float The calculated ratio.
 	 */
-	private function QuickRatio()
+	private function quickRatio()
 	{
 		if($this->fullBCount === null) {
 			$this->fullBCount = array();
 			$bLength = count ($b);
 			for($i = 0; $i < $bLength; ++$i) {
 				$char = $this->b[$i];
-				$this->fullBCount[$char] = $this->ArrayGetDefault($this->fullBCount, $char, 0) + 1;
+				$this->fullBCount[$char] = $this->arrayGetDefault($this->fullBCount, $char, 0) + 1;
 			}
 		}
 
@@ -598,7 +598,7 @@ class DiffLib_SequenceMatcher
 				$numb = $avail[$char];
 			}
 			else {
-				$numb = $this->ArrayGetDefault($this->fullBCount, $char, 0);
+				$numb = $this->arrayGetDefault($this->fullBCount, $char, 0);
 			}
 			$avail[$char] = $numb - 1;
 			if($numb > 0) {
@@ -606,21 +606,21 @@ class DiffLib_SequenceMatcher
 			}
 		}
 
-		$this->CalculateRatio($matches, count ($this->a) + count ($this->b));
+		$this->calculateRatio($matches, count ($this->a) + count ($this->b));
 	}
 
 	/**
 	 * Return an upper bound ratio really quickly for the similarity of the strings.
-	 * This is quicker to compute than Ratio() and QuickRatio().
+	 * This is quicker to compute than Ratio() and quickRatio().
 	 *
 	 * @return float The calculated ratio.
 	 */
-	private function RealQuickRatio()
+	private function realquickRatio()
 	{
 		$aLength = count ($this->a);
 		$bLength = count ($this->b);
 
-		return $this->CalculateRatio(min($aLength, $bLength), $aLength + $bLength);
+		return $this->calculateRatio(min($aLength, $bLength), $aLength + $bLength);
 	}
 
 	/**
@@ -631,7 +631,7 @@ class DiffLib_SequenceMatcher
 	 * @param int $length The length of the two strings.
 	 * @return float The calculated ratio.
 	 */
-	private function CalculateRatio($matches, $length=0)
+	private function calculateRatio($matches, $length=0)
 	{
 		if($length) {
 			return 2 * ($matches / $length);
@@ -651,7 +651,7 @@ class DiffLib_SequenceMatcher
 	 * @param mixed $default The value to return as the default value if the key doesn't exist.
 	 * @return mixed The value from the array if the key exists or otherwise the default.
 	 */
-	private function ArrayGetDefault($array, $key, $default)
+	private function arrayGetDefault($array, $key, $default)
 	{
 		if(isset($array[$key])) {
 			return $array[$key];
@@ -662,13 +662,13 @@ class DiffLib_SequenceMatcher
 	}
 
 	/**
-	 * Sort an array by the nested arrays it contains. Helper function for GetMatchingBlocks
+	 * Sort an array by the nested arrays it contains. Helper function for getMatchingBlocks
 	 *
 	 * @param array $a First array to compare.
 	 * @param array $b Second array to compare.
 	 * @return int -1, 0 or 1, as expected by the usort function.
 	 */
-	private function TupleSort($a, $b)
+	private function tupleSort($a, $b)
 	{
 		$max = max(count($a), count($b));
 		for($i = 0; $i < $max; ++$i) {

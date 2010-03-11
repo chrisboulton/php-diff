@@ -1,6 +1,6 @@
 <?php
 /**
- * Unified diff generator for PHP DiffLib.
+ * Abstract class for diff renderers in PHP DiffLib.
  *
  * PHP version 5
  *
@@ -16,7 +16,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the Chris Boulton, Inc. nor the names of its contributors 
+ *  - Neither the name of the Chris Boulton nor the names of its contributors 
  *    may be used to endorse or promote products derived from this software 
  *    without specific prior written permission.
  *
@@ -37,51 +37,46 @@
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version 1.0
- * @link http://github.com/chrisboulton/phpdifflib/
+ * @link http://github.com/chrisboulton/phpdiff
  */
 
-require_once dirname(__FILE__).'/base.php';
-
-class DiffLib_Renderer_Unified extends DiffLib_Renderer_Base
+abstract class Diff_Renderer_Abstract
 {
 	/**
-	 * Render and return a unified diff.
-	 *
-	 * @return string The unified diff.
+	 * @var object Instance of the diff class that this renderer is generating the rendered diff for.
 	 */
-	public function Render()
+	public $diff;
+
+	/**
+	 * @var array Array of the default options that apply to this renderer.
+	 */
+	protected $defaultOptions = array();
+
+	/**
+	 * @var array Array containing the user applied and merged default options for the renderer.
+	 */
+	protected $options = array();
+
+	/**
+	 * The constructor. Instantiates the rendering engine and if options are passed,
+	 * sets the options for the renderer.
+	 *
+	 * @param array $options Optionally, an array of the options for the renderer.
+	 */
+	public function __construct($options=array())
 	{
-		$diff = '';
-		$opCodes = $this->diff->GetGroupedOpCodes();
-		foreach($opCodes as $group) {
-			$lastItem = count($group)-1;
-			$i1 = $group[0][1];
-			$i2 = $group[$lastItem][2];
-			$j1 = $group[0][3];
-			$j2 = $group[$lastItem][4];
+		$this->SetOptions($options);
+	}
 
-			if($i1 == 0 && $i2 == 0) {
-				$i1 = -1;
-				$i2 = -1;
-			}
-
-			$diff .= '@@ -'.($i1 + 1).','.($i2 - $i1).' +'.($j1 + 1).','.($j2 - $j1)." @@\n";
-			foreach($group as $code) {
-				list($tag, $i1, $i2, $j1, $j2) = $code;
-				if($tag == 'equal') {
-					$diff .= ' '.implode("\n ", $this->diff->GetA($i1, $i2))."\n";
-				}
-				else {
-					if($tag == 'replace' || $tag == 'delete') {
-						$diff .= '-'.implode("\n-", $this->diff->GetA($i1, $i2))."\n";
-					}
-
-					if($tag == 'replace' || $tag == 'insert') {
-						$diff .= '+'.implode("\n+", $this->diff->GetB($j1, $j2))."\n";
-					}
-				}
-			}
-		}
-		return $diff;
+	/**
+	 * Set the options of the renderer to those supplied in the passed in array.
+	 * Options are merged with the default to ensure that there aren't any missing
+	 * options.
+	 *
+	 * @param array $options Array of options to set.
+	 */
+	public function SetOptions($options)
+	{
+		$this->options = array_merge($this->defaultOptions, $options);
 	}
 }

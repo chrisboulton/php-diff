@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP LibDiff
+ * Diff
  *
  * A comprehensive library for generating differences between two strings
  * in multiple formats (unified, side by side HTML etc)
@@ -19,7 +19,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the Chris Boulton, Inc. nor the names of its contributors 
+ *  - Neither the name of the Chris Boulton nor the names of its contributors 
  *    may be used to endorse or promote products derived from this software 
  *    without specific prior written permission.
  *
@@ -35,15 +35,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package DiffLib
+ * @package Diff
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version 1.0
- * @link http://github.com/chrisboulton/phpdifflib/
+ * @link http://github.com/chrisboulton/phpdiff
  */
 
-class DiffLib
+class Diff
 {
 	/**
 	 * @var array The "old" sequence to use as the basis for the comparison.
@@ -95,7 +95,7 @@ class DiffLib
 	 * @param object $renderer An instance of the rendering object to use for generating the diff.
 	 * @return mixed The generated diff. Exact return value depends on the rendered.
 	 */
-	public function Render(DiffLib_Renderer_Base $renderer)
+	public function render(Diff_Renderer_Abstract $renderer)
 	{
 		$renderer->diff = $this;
 		return $renderer->Render();
@@ -111,7 +111,7 @@ class DiffLib
 	 * @param int $end The ending number. If not supplied, only the item in $start will be returned.
 	 * @return array Array of all of the lines between the specified range.
 	 */
-	public function GetA($start=0, $end=null)
+	public function getA($start=0, $end=null)
 	{
 		if($start == 0 && $end === null) {
 			return $this->a;
@@ -138,7 +138,7 @@ class DiffLib
 	 * @param int $end The ending number. If not supplied, only the item in $start will be returned.
 	 * @return array Array of all of the lines between the specified range.
 	 */
-	public function GetB($start=0, $end=null)
+	public function getB($start=0, $end=null)
 	{
 		if($start == 0 && $end === null) {
 			return $this->b;
@@ -162,15 +162,15 @@ class DiffLib
 	 *
 	 * @return array Array of the grouped opcodes for the generated diff.
 	 */
-	public function GetGroupedOpcodes()
+	public function getGroupedOpcodes()
 	{
 		if(!is_null($this->groupedCodes)) {
 			return $this->groupedCodes;
 		}
 
-		require_once dirname(__FILE__).'/sequencematcher.php';
-		$sequenceMatcher = new DiffLib_SequenceMatcher($this->a, $this->b);
-		$this->groupedCodes = $sequenceMatcher->GetGroupedOpCodes();
+		require_once dirname(__FILE__).'/Diff/SequenceMatcher.php';
+		$sequenceMatcher = new Diff_SequenceMatcher($this->a, $this->b);
+		$this->groupedCodes = $sequenceMatcher->getGroupedOpcodes();
 		return $this->groupedCodes;
 	}
 }

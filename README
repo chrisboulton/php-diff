@@ -1,9 +1,10 @@
-PHP DiffLib
+PHP Diff Class
+--------------
 
 Introduction
 ------------
-PHP DiffLib is a comprehensive library for generating differences between
-two hasable objects (strings or arrays). Generated differences can be
+A comprehensive library for generating differences between
+two hashable objects (strings or arrays). Generated differences can be
 rendered in all of the standard formats including:
  * Unified
  * Context
@@ -40,7 +41,7 @@ modification, are permitted provided that the following conditions are met:
  - Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
- - Neither the name of the Chris Boulton, Inc. nor the names of its contributors 
+ - Neither the name of the Chris Boulton nor the names of its contributors 
    may be used to endorse or promote products derived from this software 
    without specific prior written permission.
 

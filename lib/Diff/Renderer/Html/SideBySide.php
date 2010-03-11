@@ -1,6 +1,6 @@
 <?php
 /**
- * Inline HTML diff generator for PHP DiffLib.
+ * Side by Side HTML diff generator for PHP DiffLib.
  *
  * PHP version 5
  *
@@ -16,7 +16,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the Chris Boulton, Inc. nor the names of its contributors 
+ *  - Neither the name of the Chris Boulton nor the names of its contributors 
  *    may be used to endorse or promote products derived from this software 
  *    without specific prior written permission.
  *
@@ -37,44 +37,40 @@
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version 1.0
- * @link http://github.com/chrisboulton/phpdifflib/
+ * @link http://github.com/chrisboulton/phpdiff
  */
 
-require_once dirname(__FILE__).'/array_html.php';
+require_once dirname(__FILE__).'/Array.php';
 
-class DiffLib_Renderer_Inline_Html extends DiffLib_Renderer_Array_Html
+class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 {
 	/**
 	 * Render a and return diff with changes between the two sequences
-	 * displayed inline (under each other)
+	 * displayed side by side.
 	 *
-	 * @return string The generated inline diff.
+	 * @return string The generated side by side diff.
 	 */
 	public function Render()
 	{
 		$changes = parent::Render();
+
 		$html = '';
 		if(empty($changes)) {
 			return $html;
 		}
 
-		$html .= '<table class="Differences DifferencesInline">';
+		$html .= '<table class="Differences DifferencesSideBySide">';
 		$html .= '<thead>';
 		$html .= '<tr>';
-		$html .= '<th>Old</th>';
-		$html .= '<th>New</th>';
-		$html .= '<th>Differences</th>';
+		$html .= '<th colspan="2">Old Version</th>';
+		$html .= '<th colspan="2">New Version</th>';
 		$html .= '</tr>';
 		$html .= '</thead>';
 		foreach($changes as $i => $blocks) {
-			// If this is a separate block, we're condensing code so output ...,
-			// indicating a significant portion of the code has been collapsed as
-			// it is the same
 			if($i > 0) {
 				$html .= '<tbody class="Skipped">';
-				$html .= '<th>&hellip;</th>';
-				$html .= '<th>&hellip;</th>';
-				$html .= '<td>&nbsp;</td>';
+				$html .= '<th>&hellip;</th><td>&nbsp;</td>';
+				$html .= '<th>&hellip;</th><td>&nbsp;</td>';
 				$html .= '</tbody>';
 			}
 
@@ -87,8 +83,9 @@ class DiffLib_Renderer_Inline_Html extends DiffLib_Renderer_Array_Html
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
+						$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</span></td>';
 						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Left">'.$line.'</td>';
+						$html .= '<td class="Right"><span>'.$line.'</span>&nbsp;</span></td>';
 						$html .= '</tr>';
 					}
 				}
@@ -98,6 +95,7 @@ class DiffLib_Renderer_Inline_Html extends DiffLib_Renderer_Array_Html
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>&nbsp;</th>';
+						$html .= '<td class="Left">&nbsp;</td>';
 						$html .= '<th>'.$toLine.'</th>';
 						$html .= '<td class="Right"><ins>'.$line.'</ins>&nbsp;</td>';
 						$html .= '</tr>';
@@ -109,29 +107,51 @@ class DiffLib_Renderer_Inline_Html extends DiffLib_Renderer_Array_Html
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<th>&nbsp;</th>';
 						$html .= '<td class="Left"><del>'.$line.'</del>&nbsp;</td>';
+						$html .= '<th>&nbsp;</th>';
+						$html .= '<td class="Right">&nbsp;</td>';
 						$html .= '</tr>';
 					}
 				}
 				// Show modified lines on both sides
 				else if($change['tag'] == 'replace') {
-					foreach($change['base']['lines'] as $no => $line) {
-						$fromLine = $change['base']['offset'] + $no + 1;
-						$html .= '<tr>';
-						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<th>&nbsp;</th>';
-						$html .= '<td class="Left"><span>'.$line.'</span></td>';
-						$html .= '</tr>';
+					if(count($change['base']['lines']) >= count($change['changed']['lines'])) {
+						foreach($change['base']['lines'] as $no => $line) {
+							$fromLine = $change['base']['offset'] + $no + 1;
+							$html .= '<tr>';
+							$html .= '<th>'.$fromLine.'</th>';
+							$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</td>';
+							if(!isset($change['changed']['lines'][$no])) {
+								$toLine = '&nbsp;';
+								$changedLine = '&nbsp;';
+							}
+							else {
+								$toLine = $change['base']['offset'] + $no + 1;
+								$changedLine = '<span>'.$change['changed']['lines'][$no].'</span>';
+							}
+							$html .= '<th>'.$toLine.'</th>';
+							$html .= '<td class="Right">'.$changedLine.'</td>';
+							$html .= '</tr>';
+						}
 					}
-
-					foreach($change['changed']['lines'] as $no => $line) {
-						$toLine = $change['changed']['offset'] + $no + 1;
-						$html .= '<tr>';
-						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<th>&nbsp;</th>';
-						$html .= '<td class="Right"><span>'.$line.'</span></td>';
-						$html .= '</tr>';
+					else {
+						foreach($change['changed']['lines'] as $no => $changedLine) {
+							if(!isset($change['base']['lines'][$no])) {
+								$fromLine = '&nbsp;';
+								$line = '&nbsp;';
+							}
+							else {
+								$fromLine = $change['base']['offset'] + $no + 1;
+								$line = '<span>'.$change['base']['lines'][$no].'</span>';
+							}
+							$html .= '<tr>';
+							$html .= '<th>'.$fromLine.'</th>';
+							$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</td>';
+							$toLine = $change['changed']['offset'] + $no + 1;
+							$html .= '<th>'.$toLine.'</th>';
+							$html .= '<td class="Right">'.$changedLine.'</td>';
+							$html .= '</tr>';
+						}
 					}
 				}
 				$html .= '</tbody>';

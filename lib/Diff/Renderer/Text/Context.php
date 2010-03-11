@@ -16,7 +16,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the Chris Boulton, Inc. nor the names of its contributors 
+ *  - Neither the name of the Chris Boulton nor the names of its contributors 
  *    may be used to endorse or promote products derived from this software 
  *    without specific prior written permission.
  *
@@ -37,12 +37,12 @@
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version 1.0
- * @link http://github.com/chrisboulton/phpdifflib/
+ * @link http://github.com/chrisboulton/phpdiff
  */
 
-require_once dirname(__FILE__).'/base.php';
+require_once dirname(__FILE__).'/../Abstract.php';
 
-class DiffLib_Renderer_Context extends DiffLib_Renderer_Base
+class Diff_Renderer_Text_Context extends Diff_Renderer_Abstract
 {
 	/**
 	 * @var array Array of the different opcode tags and how they map to the context diff equivalent.
@@ -62,7 +62,7 @@ class DiffLib_Renderer_Context extends DiffLib_Renderer_Base
 	public function Render()
 	{
 		$diff = '';
-		$opCodes = $this->diff->GetGroupedOpCodes();
+		$opCodes = $this->diff->getGroupedOpcodes();
 		foreach($opCodes as $group) {
 			$diff .= "***************\n";
 			$lastItem = count($group)-1;
