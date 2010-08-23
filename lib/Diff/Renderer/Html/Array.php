@@ -146,7 +146,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @param string $toLine The second string.
 	 * @return array Array containing the starting position (0 by default) and the ending position (-1 by default)
 	 */
-	private function GetChangeExtent($fromLine, $toLine)
+	private function getChangeExtent($fromLine, $toLine)
 	{
 		$start = 0;
 		$limit = min(strlen($fromLine), strlen($toLine));

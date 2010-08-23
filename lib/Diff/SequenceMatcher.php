@@ -273,14 +273,14 @@ class Diff_SequenceMatcher
 		}
 
 		while($bestI > $alo && $bestJ > $blo && !$this->isBJunk($b[$bestJ - 1]) &&
-			!$this->isLineDifferent($bestI - 1, $bestJ - 1)) {
+			!$this->linesAreDifferent($bestI - 1, $bestJ - 1)) {
 				--$bestI;
 				--$bestJ;
 				++$bestSize;
 		}
 
 		while($bestI + $bestSize < $ahi && ($bestJ + $bestSize) < $bhi &&
-			!$this->isBJunk($b[$bestJ + $bestSize]) && !$this->isLineDifferent($bestI + $bestSize, $bestJ + $bestSize)) {
+			!$this->isBJunk($b[$bestJ + $bestSize]) && !$this->linesAreDifferent($bestI + $bestSize, $bestJ + $bestSize)) {
 				++$bestSize;
 		}
 
@@ -292,7 +292,7 @@ class Diff_SequenceMatcher
 		}
 
 		while($bestI + $bestSize < $ahi && $bestJ + $bestSize < $bhi &&
-			$this->isBJunk($b[$bestJ + $bestSize]) && !$this->isLineDifferent($bestI + $bestSize, $bestJ + $bestSize)) {
+			$this->isBJunk($b[$bestJ + $bestSize]) && !$this->linesAreDifferent($bestI + $bestSize, $bestJ + $bestSize)) {
 					++$bestSize;
 		}
 
@@ -303,7 +303,14 @@ class Diff_SequenceMatcher
 		);
 	}
 
-	public function isLineDifferent($aIndex, $bIndex)
+	/**
+	 * Check if the two lines at the given indexes are different or not.
+	 *
+	 * @param int $aIndex Line number to check against in a.
+	 * @param int $bIndex Line number to check against in b.
+	 * @return boolean True if the lines are different and false if not.
+	 */
+	public function linesAreDifferent($aIndex, $bIndex)
 	{
 		$lineA = $this->a[$aIndex];
 		$lineB = $this->b[$bIndex];
