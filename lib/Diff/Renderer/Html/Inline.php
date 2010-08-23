@@ -37,7 +37,7 @@
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version 1.1
- * @link http://github.com/chrisboulton/phpdiff
+ * @link http://github.com/chrisboulton/php-diff
  */
 
 require_once dirname(__FILE__).'/Array.php';
