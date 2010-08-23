@@ -39,7 +39,7 @@
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.0
+ * @version 1.1
  * @link http://github.com/chrisboulton/phpdiff
  */
 
@@ -98,7 +98,7 @@ class Diff
 	public function render(Diff_Renderer_Abstract $renderer)
 	{
 		$renderer->diff = $this;
-		return $renderer->Render();
+		return $renderer->render();
 	}
 
 	/**
@@ -169,7 +169,7 @@ class Diff
 		}
 
 		require_once dirname(__FILE__).'/Diff/SequenceMatcher.php';
-		$sequenceMatcher = new Diff_SequenceMatcher($this->a, $this->b);
+		$sequenceMatcher = new Diff_SequenceMatcher($this->a, $this->b, null, $this->options);
 		$this->groupedCodes = $sequenceMatcher->getGroupedOpcodes();
 		return $this->groupedCodes;
 	}

@@ -24,7 +24,7 @@ More complete documentation will be available shortly.
 
 Todo
 ----
- * Ability to ignore blank line changes, case changes and spacing changes
+ * Ability to ignore blank line changes
  * 3 way diff support
  * Performance optimizations
 

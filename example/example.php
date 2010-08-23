@@ -20,6 +20,8 @@
 
 		// Options for generating the diff
 		$options = array(
+			//'ignoreWhitespace' => true,
+			//'ignoreCase' => true,
 		);
 
 		// Initialize the diff class

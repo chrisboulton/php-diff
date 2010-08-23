@@ -36,7 +36,7 @@
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.0
+ * @version 1.1
  * @link http://github.com/chrisboulton/phpdiff
  */
 
@@ -59,7 +59,7 @@ class Diff_Renderer_Text_Context extends Diff_Renderer_Abstract
 	 *
 	 * @return string The generated context diff.
 	 */
-	public function Render()
+	public function render()
 	{
 		$diff = '';
 		$opCodes = $this->diff->getGroupedOpcodes();

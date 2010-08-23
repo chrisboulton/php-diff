@@ -36,7 +36,7 @@
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.0
+ * @version 1.1
  * @link http://github.com/chrisboulton/phpdiff
  */
 
@@ -63,9 +63,9 @@ abstract class Diff_Renderer_Abstract
 	 *
 	 * @param array $options Optionally, an array of the options for the renderer.
 	 */
-	public function __construct($options=array())
+	public function __construct(array $options = array())
 	{
-		$this->SetOptions($options);
+		$this->setOptions($options);
 	}
 
 	/**
@@ -75,7 +75,7 @@ abstract class Diff_Renderer_Abstract
 	 *
 	 * @param array $options Array of options to set.
 	 */
-	public function SetOptions($options)
+	public function setOptions(array $options)
 	{
 		$this->options = array_merge($this->defaultOptions, $options);
 	}

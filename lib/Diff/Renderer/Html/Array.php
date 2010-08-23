@@ -36,7 +36,7 @@
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.0
+ * @version 1.1
  * @link http://github.com/chrisboulton/phpdiff
  */
 
@@ -58,13 +58,13 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 *
 	 * @return array An array of the generated chances, suitable for presentation in HTML.
 	 */
-	public function Render()
+	public function render()
 	{
 		// As we'll be modifying a & b to include our change markers,
 		// we need to get the contents and store them here. That way
 		// we're not going to destroy the original data
-		$a = $this->diff->GetA();
-		$b = $this->diff->GetB();
+		$a = $this->diff->getA();
+		$b = $this->diff->getB();
 
 		$changes = array();
 		$opCodes = $this->diff->getGroupedOpcodes();
@@ -80,7 +80,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 						$fromLine = $a[$i1 + $i];
 						$toLine = $b[$j1 + $i];
 
-						list($start, $end) = $this->GetChangeExtent($fromLine, $toLine);
+						list($start, $end) = $this->getChangeExtent($fromLine, $toLine);
 						if($start != 0 || $end != 0) {
 							$last = $end + strlen($fromLine);
 							$fromLine = substr_replace($fromLine, "\0", $start, 0);
@@ -88,12 +88,11 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 							$last = $end + strlen($toLine);
 							$toLine = substr_replace($toLine, "\0", $start, 0);
 							$toLine = substr_replace($toLine, "\1", $last + 1, 0);
-							$a[$i1] = $fromLine;
-							$b[$j1] = $toLine;
+							$a[$i1 + $i] = $fromLine;
+							$b[$j1 + $i] = $toLine;
 						}
 					}
 				}
-
 
 				if($tag != $lastTag) {
 					$blocks[] = array(
@@ -114,21 +113,21 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 
 				if($tag == 'equal') {
 					$lines = array_slice($a, $i1, ($i2 - $i1));
-					$blocks[$lastBlock]['base']['lines'] += $this->FormatLines($lines);
+					$blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines);
 					$lines = array_slice($b, $j1, ($j2 - $j1));
-					$blocks[$lastBlock]['changed']['lines'] +=  $this->FormatLines($lines);
+					$blocks[$lastBlock]['changed']['lines'] +=  $this->formatLines($lines);
 				}
 				else {
 					if($tag == 'replace' || $tag == 'delete') {
 						$lines = array_slice($a, $i1, ($i2 - $i1));
-						$lines = $this->FormatLines($lines);
+						$lines = $this->formatLines($lines);
 						$lines = str_replace(array("\0", "\1"), array('<del>', '</del>'), $lines);
 						$blocks[$lastBlock]['base']['lines'] += $lines;
 					}
 
 					if($tag == 'replace' || $tag == 'insert') {
 						$lines = array_slice($b, $j1, ($j2 - $j1));
-						$lines =  $this->FormatLines($lines);
+						$lines =  $this->formatLines($lines);
 						$lines = str_replace(array("\0", "\1"), array('<ins>', '</ins>'), $lines);
 						$blocks[$lastBlock]['changed']['lines'] += $lines;
 					}
@@ -173,12 +172,12 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @param array $lines Array of lines to format.
 	 * @return array Array of the formatted lines.
 	 */
-	private function FormatLines($lines)
+	private function formatLines($lines)
 	{
 		$lines = array_map(array($this, 'ExpandTabs'), $lines);
 		$lines = array_map(array($this, 'HtmlSafe'), $lines);
 		foreach($lines as &$line) {
-			$line = preg_replace('# ( +)|^ #e', "\$this->FixSpaces('\\1')", $line);
+			$line = preg_replace('# ( +)|^ #e', "\$this->fixSpaces('\\1')", $line);
 		}
 		return $lines;
 	}
@@ -189,7 +188,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @param string $spaces The string of spaces.
 	 * @return string The HTML representation of the string.
 	 */
-	function FixSpaces($spaces='')
+	function fixSpaces($spaces='')
 	{
 		$count = strlen($spaces);
 		if($count == 0) {
@@ -207,7 +206,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @param string $line The containing tabs to convert.
 	 * @return string The line with the tabs converted to spaces.
 	 */
-	private function ExpandTabs($line)
+	private function expandTabs($line)
 	{
 		return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $line);
 	}
@@ -218,7 +217,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @param string $string The string.
 	 * @return string The string with the HTML characters replaced by entities.
 	 */
-	private function HtmlSafe($string)
+	private function htmlSafe($string)
 	{
 		return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
 	}
