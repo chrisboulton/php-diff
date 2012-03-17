@@ -40,8 +40,6 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-require_once dirname(__FILE__).'/Array.php';
-
 class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 {
 	/**
