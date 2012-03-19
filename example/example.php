@@ -11,9 +11,13 @@
 		<hr />
 		<?php
 
-		// Include the diff class
-		require_once dirname(__FILE__).'/../lib/Diff.php';
-
+		// Simple autoloader
+		function __autoload($class)
+		{
+			$libPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR;
+			require_once $libPath . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+		}
+		
 		// Include two sample files for comparison
 		$a = explode("\n", file_get_contents(dirname(__FILE__).'/a.txt'));
 		$b = explode("\n", file_get_contents(dirname(__FILE__).'/b.txt'));
@@ -27,34 +31,28 @@
 		);
 
 		// Initialize the diff class
-		$diff = new Diff($a, $b, $options);
+		$diff = new Diff_Diff($a, $b, $options);
 
 		?>
 		<h2>Side by Side Diff</h2>
 		<?php
 
 		// Generate a side by side diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Html/SideBySide.php';
-		$renderer = new Diff_Renderer_Html_SideBySide;
-		echo $diff->Render($renderer);
+		echo $diff->render('Html_SideBySide');
 
 		?>
 		<h2>Inline Diff</h2>
 		<?php
 
 		// Generate an inline diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Html/Inline.php';
-		$renderer = new Diff_Renderer_Html_Inline;
-		echo $diff->render($renderer);
+		echo $diff->render('Html_Inline');
 
 		?>
 		<h2>Unified Diff</h2>
 		<pre><?php
 
 		// Generate a unified diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Text/Unified.php';
-		$renderer = new Diff_Renderer_Text_Unified;
-		echo htmlspecialchars($diff->render($renderer));
+		echo htmlspecialchars($diff->render('Text_Unified'));
 
 		?>
 		</pre>
@@ -62,9 +60,7 @@
 		<pre><?php
 
 		// Generate a context diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Text/Context.php';
-		$renderer = new Diff_Renderer_Text_Context;
-		echo htmlspecialchars($diff->render($renderer));
+		echo htmlspecialchars($diff->render('Text_Context'));
 		?>
 		</pre>
 	</body>
