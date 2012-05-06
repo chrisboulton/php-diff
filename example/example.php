@@ -21,8 +21,8 @@
     }
     ?></h3>
     <hr />
-    <?php
 
+    <?php
     // Simple autoloader
     function __autoload($class)
     {
@@ -36,6 +36,7 @@
 
     // Options for generating the diff
     $options = array(
+      'context' => 1,
       //'ignoreWhitespace' => true,
       //'ignoreCase' => true,
       //'title_a' => 'some other title than "Old Version"',
