@@ -69,10 +69,10 @@ hr {
   border-top: 1px solid #A0B9E3;
   }
 .Differences tbody.ChangeInsert {
-  background: url("shadow.png") repeat-x scroll 0 0 #EFEFEF;
+  background: url("shadow.png") repeat-x scroll 0 0 transparent;
   }
 .Differences tbody.ChangeDelete {
-  background: url("shadow.png") repeat-x scroll 0 0 #EFEFEF;
+  background: url("shadow.png") repeat-x scroll 0 0 transparent;
   }
 .DifferencesSideBySide .ChangeInsert td.Left {
   }
@@ -118,10 +118,10 @@ hr {
   }
 pre {
   overflow: auto;
-  width: 100%;
+  width: 98%;
   background:#fff;
   color:#000;
-  padding:10px;
+  padding:1%;
   border-radius: 4px 4px 4px 4px;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
   }
@@ -130,4 +130,5 @@ h2 {
   }
 a,a:visited {
   color:#d11803;
+  text-decoration:none;
   }
