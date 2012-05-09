@@ -116,7 +116,7 @@ class Diff_Renderer_Text_Context extends Diff_Renderer_Abstract
 			if($hasVisible) {
 				foreach($group as $code) {
 					list($tag, $i1, $i2, $j1, $j2) = $code;
-					if($tag == 'insert') {
+					if($tag == 'delete') {
 						continue;
 					}
 					$diff .= $this->tagMap[$tag].' '.implode("\n".$this->tagMap[$tag].' ', $this->diff->GetB($j1, $j2))."\n";
