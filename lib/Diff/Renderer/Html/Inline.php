@@ -40,8 +40,6 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-require_once dirname(__FILE__).'/Array.php';
-
 class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 {
 	/**
@@ -53,6 +51,9 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 	public function render()
 	{
 		$changes = parent::render();
+		$title_a = $this->diff->options['title_a'];
+		$title_b = $this->diff->options['title_b'];
+
 		$html = '';
 		if(empty($changes)) {
 			return $html;
@@ -61,8 +62,8 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 		$html .= '<table class="Differences DifferencesInline">';
 		$html .= '<thead>';
 		$html .= '<tr>';
-		$html .= '<th>Old</th>';
-		$html .= '<th>New</th>';
+		$html .= '<th>'.$title_a.'</th>';
+		$html .= '<th>'.$title_b.'</th>';
 		$html .= '<th>Differences</th>';
 		$html .= '</tr>';
 		$html .= '</thead>';
@@ -128,8 +129,8 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 					foreach($change['changed']['lines'] as $no => $line) {
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
-						$html .= '<th>'.$toLine.'</th>';
 						$html .= '<th>&nbsp;</th>';
+						$html .= '<th>'.$toLine.'</th>';
 						$html .= '<td class="Right"><span>'.$line.'</span></td>';
 						$html .= '</tr>';
 					}

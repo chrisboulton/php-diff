@@ -40,8 +40,6 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-require_once dirname(__FILE__).'/Array.php';
-
 class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 {
 	/**
@@ -53,6 +51,8 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 	public function render()
 	{
 		$changes = parent::render();
+		$title_a = $this->diff->options['title_a'];
+		$title_b = $this->diff->options['title_b'];
 
 		$html = '';
 		if(empty($changes)) {
@@ -62,8 +62,8 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 		$html .= '<table class="Differences DifferencesSideBySide">';
 		$html .= '<thead>';
 		$html .= '<tr>';
-		$html .= '<th colspan="2">Old Version</th>';
-		$html .= '<th colspan="2">New Version</th>';
+		$html .= '<th colspan="2">'.$title_a.'</th>';
+		$html .= '<th colspan="2">'.$title_b.'</th>';
 		$html .= '</tr>';
 		$html .= '</thead>';
 		foreach($changes as $i => $blocks) {

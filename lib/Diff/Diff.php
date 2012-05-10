@@ -43,7 +43,7 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-class Diff
+class Diff_Diff
 {
 	/**
 	 * @var array The "old" sequence to use as the basis for the comparison.
@@ -67,13 +67,15 @@ class Diff
 		'context' => 3,
 		'ignoreNewLines' => false,
 		'ignoreWhitespace' => false,
-		'ignoreCase' => false
+		'ignoreCase' => false,
+		'title_a'=>'Old Version',
+		'title_b'=>'New Version'
 	);
 
 	/**
 	 * @var array Array of the options that have been applied for generating the diff.
 	 */
-	private $options = array();
+	public $options = array();
 
 	/**
 	 * The constructor.
@@ -92,15 +94,36 @@ class Diff
 	/**
 	 * Render a diff using the supplied rendering class and return it.
 	 *
-	 * @param object $renderer An instance of the rendering object to use for generating the diff.
+	 * @param string|object $renderer An instance of the rendering object to use for generating the diff.
 	 * @return mixed The generated diff. Exact return value depends on the rendered.
 	 */
-	public function render(Diff_Renderer_Abstract $renderer)
+	public function render($renderer)
 	{
+		if (!is_object($renderer))
+		{
+			$renderer = 'Diff_Renderer_' . $renderer;
+			$renderer = new $renderer();
+		}
+		
 		$renderer->diff = $this;
 		return $renderer->render();
 	}
 
+	/**
+	 * Render a diff using the named rendering class and return it.
+	 *
+	 * @param string $renderer An instance of the rendering object to use for generating the diff.
+	 * @return mixed The generated diff. Exact return value depends on the rendered.
+	 */
+	public function renderText($renderer)
+	{
+		$renderer = 'Diff_Renderer_Text_' . $renderer;
+		$renderer = new $renderer();
+		
+		$renderer->diff = $this;
+		return $renderer->render();
+	}
+	
 	/**
 	 * Get a range of lines from $start to $end from the first comparison string
 	 * and return them as an array. If no values are supplied, the entire string
@@ -168,9 +191,8 @@ class Diff
 			return $this->groupedCodes;
 		}
 
-		require_once dirname(__FILE__).'/Diff/SequenceMatcher.php';
 		$sequenceMatcher = new Diff_SequenceMatcher($this->a, $this->b, null, $this->options);
-		$this->groupedCodes = $sequenceMatcher->getGroupedOpcodes();
+		$this->groupedCodes = $sequenceMatcher->getGroupedOpcodes($this->options['context']);
 		return $this->groupedCodes;
 	}
 }
