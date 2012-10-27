@@ -69,7 +69,8 @@ class Diff
 		'ignoreWhitespace' => false,
 		'ignoreCase' => false,
 		'title_a'=>'Old Version',
-		'title_b'=>'New Version'
+		'title_b'=>'New Version',
+        'labelDifferences'=>'Differences'
 	);
 
 	/**

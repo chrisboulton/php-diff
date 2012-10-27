@@ -55,6 +55,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 		$changes = parent::render();
 		$title_a = $this->diff->options['title_a'];
 		$title_b = $this->diff->options['title_b'];
+        $label_differences = $this->diff->options['labelDifferences'];
 
 		$html = '';
 		if(empty($changes)) {
@@ -66,7 +67,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 		$html .= '<tr>';
 		$html .= '<th>'.$title_a.'</th>';
 		$html .= '<th>'.$title_b.'</th>';
-		$html .= '<th>Differences</th>';
+		$html .= '<th>'.$label_differences.'</th>';
 		$html .= '</tr>';
 		$html .= '</thead>';
 		foreach($changes as $i => $blocks) {
