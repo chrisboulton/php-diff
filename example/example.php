@@ -22,6 +22,8 @@
 		$options = array(
 			//'ignoreWhitespace' => true,
 			//'ignoreCase' => true,
+			//'title_a' => 'some other title than "Old Version"',
+			//'title_b' => 'some other title than "New Version"',
 		);
 
 		// Initialize the diff class
