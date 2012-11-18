@@ -22,6 +22,11 @@ example.php.
 
 More complete documentation will be available shortly.
 
+Merge files using jQuery
+------------------------
+Xiphe has build a jQuery plugin with that you can merge the compared
+files. Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge-for-php-diff).
+
 Todo
 ----
  * Ability to ignore blank line changes
