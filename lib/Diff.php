@@ -86,7 +86,10 @@ class Diff
 		$this->a = $a;
 		$this->b = $b;
 
-		$this->options = array_merge($this->defaultOptions, $options);
+		if (is_array($options))
+			$this->options = array_merge($this->defaultOptions, $options);
+		else
+			$this->options = $this->defaultOptions;
 	}
 
 	/**
