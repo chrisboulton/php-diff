@@ -185,11 +185,12 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	/**
 	 * Replace a string containing spaces with a HTML representation using &nbsp;.
 	 *
-	 * @param string $spaces The string of spaces.
+	 * @param string $matches Regex matches array.
 	 * @return string The HTML representation of the string.
 	 */
-	public static function fixSpaces($spaces='')
+	public static function fixSpaces($matches)
 	{
+		$spaces = isset($matches[1]) ? $matches[1] : '';
 		$count = strlen($spaces);
 		if($count == 0) {
 			return '';
