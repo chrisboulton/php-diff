@@ -83,6 +83,7 @@ class Diff_SequenceMatcher
 	 * @param string|array $a A string or array containing the lines to compare against.
 	 * @param string|array $b A string or array containing the lines to compare.
 	 * @param string|array $junkCallback Either an array or string that references a callback function (if there is one) to determine 'junk' characters.
+	 * @param array $options
 	 */
 	public function __construct($a, $b, $junkCallback=null, $options)
 	{
@@ -93,6 +94,11 @@ class Diff_SequenceMatcher
 		$this->setSequences($a, $b);
 	}
 
+	/**
+	 * Set new options
+	 *
+	 * @param array $options
+	 */
 	public function setOptions($options)
 	{
 		$this->options = array_merge($this->defaultOptions, $options);
@@ -206,8 +212,8 @@ class Diff_SequenceMatcher
 	/**
 	 * Checks if a particular character is in the junk dictionary
 	 * for the list of junk characters.
-	 *
-	 * @return boolean $b True if the character is considered junk. False if not.
+	 * @param $b
+	 * @return boolean True if the character is considered junk. False if not.
 	 */
 	private function isBJunk($b)
 	{
@@ -631,7 +637,7 @@ class Diff_SequenceMatcher
 	{
 		if($this->fullBCount === null) {
 			$this->fullBCount = array();
-			$bLength = count ($b);
+			$bLength = count ($this->b);
 			for($i = 0; $i < $bLength; ++$i) {
 				$char = $this->b[$i];
 				$this->fullBCount[$char] = $this->arrayGetDefault($this->fullBCount, $char, 0) + 1;
@@ -729,7 +735,7 @@ class Diff_SequenceMatcher
 			}
 		}
 
-		if(count($a) == $count($b)) {
+		if(count($a) == count($b)) {
 			return 0;
 		}
 		else if(count($a) < count($b)) {
