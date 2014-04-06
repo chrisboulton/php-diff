@@ -67,7 +67,9 @@ class Diff
 		'context' => 3,
 		'ignoreNewLines' => false,
 		'ignoreWhitespace' => false,
-		'ignoreCase' => false
+		'ignoreCase' => false,
+		'old' => false,
+		'new' => false,
 	);
 
 	/**
@@ -98,10 +100,14 @@ class Diff
 	 * @param object $renderer An instance of the rendering object to use for generating the diff.
 	 * @return mixed The generated diff. Exact return value depends on the rendered.
 	 */
-	public function render(Diff_Renderer_Abstract $renderer)
+	public function render(Diff_Renderer_Abstract $renderer,$renderer_options=false)
 	{
 		$renderer->diff = $this;
-		return $renderer->render();
+		if($renderer_options) {
+			return $renderer->render($renderer_options);
+		} else {
+			return $renderer->render();
+		}
 	}
 
 	/**
