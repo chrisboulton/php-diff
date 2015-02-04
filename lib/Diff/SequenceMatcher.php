@@ -544,7 +544,7 @@ class Diff_SequenceMatcher
 		}
 
 		$lastItem = count($opCodes) - 1;
-		if($opCodes[$lastItem][0] == 'equal') {
+		if($opCodes[$lastItem]['0'] == 'equal') {
 			list($tag, $i1, $i2, $j1, $j2) = $opCodes[$lastItem];
 			$opCodes[$lastItem] = array(
 				$tag,
