@@ -533,18 +533,18 @@ class Diff_SequenceMatcher
 			);
 		}
 
-		if($opCodes[0][0] == 'equal') {
-			$opCodes[0] = array(
-				$opCodes[0][0],
-				max($opCodes[0][1], $opCodes[0][2] - $context),
-				$opCodes[0][2],
-				max($opCodes[0][3], $opCodes[0][4] - $context),
-				$opCodes[0][4]
+		if($opCodes['0']['0'] == 'equal') {
+			$opCodes['0'] = array(
+				$opCodes['0']['0'],
+				max($opCodes['0']['1'], $opCodes['0']['2'] - $context),
+				$opCodes['0']['2'],
+				max($opCodes['0']['3'], $opCodes['0']['4'] - $context),
+				$opCodes['0']['4']
 			);
 		}
 
 		$lastItem = count($opCodes) - 1;
-		if($opCodes[$lastItem][0] == 'equal') {
+		if($opCodes[$lastItem]['0'] == 'equal') {
 			list($tag, $i1, $i2, $j1, $j2) = $opCodes[$lastItem];
 			$opCodes[$lastItem] = array(
 				$tag,
@@ -582,7 +582,7 @@ class Diff_SequenceMatcher
 			);
 		}
 
-		if(!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal')) {
+		if(!empty($group) && !(count($group) == 1 && $group['0']['0'] == 'equal')) {
 			$groups[] = $group;
 		}
 
