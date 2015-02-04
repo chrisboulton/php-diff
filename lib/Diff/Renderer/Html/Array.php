@@ -172,7 +172,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @param array $lines Array of lines to format.
 	 * @return array Array of the formatted lines.
 	 */
-	private function formatLines($lines)
+	protected function formatLines($lines)
 	{
 		$lines = array_map(array($this, 'ExpandTabs'), $lines);
 		$lines = array_map(array($this, 'HtmlSafe'), $lines);
