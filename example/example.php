@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-		<title>PHP LibDiff - Examples</title>
+		<title>PHP LibDiff - Examples 构建具有中国特色的医学人才培养体系</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8"/>
 	</head>
 	<body>
