@@ -285,7 +285,7 @@ class Diff_SequenceMatcher
 		}
 
 		while($bestI > $alo && $bestJ > $blo && $this->isBJunk($b[$bestJ - 1]) &&
-			!$this->isLineDifferent($bestI - 1, $bestJ - 1)) {
+			!$this->linesAreDifferent($bestI - 1, $bestJ - 1)) {
 				--$bestI;
 				--$bestJ;
 				++$bestSize;
