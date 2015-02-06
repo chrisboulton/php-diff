@@ -74,7 +74,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 				$html .= '<tbody class="Skipped">';
 				$html .= '<th>&hellip;</th>';
 				$html .= '<th>&hellip;</th>';
-				$html .= '<td>&nbsp;</td>';
+				$html .= '<td>&#xA0;</td>';
 				$html .= '</tbody>';
 			}
 
@@ -97,9 +97,9 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 					foreach($change['changed']['lines'] as $no => $line) {
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
-						$html .= '<th>&nbsp;</th>';
+						$html .= '<th>&#xA0;</th>';
 						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Right"><ins>'.$line.'</ins>&nbsp;</td>';
+						$html .= '<td class="Right"><ins>'.$line.'</ins>&#xA0;</td>';
 						$html .= '</tr>';
 					}
 				}
@@ -109,8 +109,8 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<th>&nbsp;</th>';
-						$html .= '<td class="Left"><del>'.$line.'</del>&nbsp;</td>';
+						$html .= '<th>&#xA0;</th>';
+						$html .= '<td class="Left"><del>'.$line.'</del>&#xA0;</td>';
 						$html .= '</tr>';
 					}
 				}
@@ -120,7 +120,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<th>&nbsp;</th>';
+						$html .= '<th>&#xA0;</th>';
 						$html .= '<td class="Left"><span>'.$line.'</span></td>';
 						$html .= '</tr>';
 					}
@@ -128,7 +128,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 					foreach($change['changed']['lines'] as $no => $line) {
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
-						$html .= '<th>&nbsp;</th>';
+						$html .= '<th>&#xA0;</th>';
 						$html .= '<th>'.$toLine.'</th>';
 						$html .= '<td class="Right"><span>'.$line.'</span></td>';
 						$html .= '</tr>';

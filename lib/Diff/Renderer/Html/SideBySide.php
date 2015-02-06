@@ -5,10 +5,10 @@
  * PHP version 5
  *
  * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
- * 
+ *
  * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or without 
+ *
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -16,20 +16,20 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the Chris Boulton nor the names of its contributors 
- *    may be used to endorse or promote products derived from this software 
+ *  - Neither the name of the Chris Boulton nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package DiffLib
@@ -69,8 +69,8 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 		foreach($changes as $i => $blocks) {
 			if($i > 0) {
 				$html .= '<tbody class="Skipped">';
-				$html .= '<th>&hellip;</th><td>&nbsp;</td>';
-				$html .= '<th>&hellip;</th><td>&nbsp;</td>';
+				$html .= '<th>&hellip;</th><td>&#xA0;</td>';
+				$html .= '<th>&hellip;</th><td>&#xA0;</td>';
 				$html .= '</tbody>';
 			}
 
@@ -83,9 +83,9 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</span></td>';
+						$html .= '<td class="Left"><span>'.$line.'</span>&#xA0;</span></td>';
 						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Right"><span>'.$line.'</span>&nbsp;</span></td>';
+						$html .= '<td class="Right"><span>'.$line.'</span>&#xA0;</span></td>';
 						$html .= '</tr>';
 					}
 				}
@@ -94,10 +94,10 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 					foreach($change['changed']['lines'] as $no => $line) {
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
-						$html .= '<th>&nbsp;</th>';
-						$html .= '<td class="Left">&nbsp;</td>';
+						$html .= '<th>&#xA0;</th>';
+						$html .= '<td class="Left">&#xA0;</td>';
 						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Right"><ins>'.$line.'</ins>&nbsp;</td>';
+						$html .= '<td class="Right"><ins>'.$line.'</ins>&#xA0;</td>';
 						$html .= '</tr>';
 					}
 				}
@@ -107,9 +107,9 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$html .= '<tr>';
 						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<td class="Left"><del>'.$line.'</del>&nbsp;</td>';
-						$html .= '<th>&nbsp;</th>';
-						$html .= '<td class="Right">&nbsp;</td>';
+						$html .= '<td class="Left"><del>'.$line.'</del>&#xA0;</td>';
+						$html .= '<th>&#xA0;</th>';
+						$html .= '<td class="Right">&#xA0;</td>';
 						$html .= '</tr>';
 					}
 				}
@@ -120,10 +120,10 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 							$fromLine = $change['base']['offset'] + $no + 1;
 							$html .= '<tr>';
 							$html .= '<th>'.$fromLine.'</th>';
-							$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</td>';
+							$html .= '<td class="Left"><span>'.$line.'</span>&#xA0;</td>';
 							if(!isset($change['changed']['lines'][$no])) {
-								$toLine = '&nbsp;';
-								$changedLine = '&nbsp;';
+								$toLine = '&#xA0;';
+								$changedLine = '&#xA0;';
 							}
 							else {
 								$toLine = $change['base']['offset'] + $no + 1;
@@ -137,8 +137,8 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 					else {
 						foreach($change['changed']['lines'] as $no => $changedLine) {
 							if(!isset($change['base']['lines'][$no])) {
-								$fromLine = '&nbsp;';
-								$line = '&nbsp;';
+								$fromLine = '&#xA0;';
+								$line = '&#xA0;';
 							}
 							else {
 								$fromLine = $change['base']['offset'] + $no + 1;
@@ -146,7 +146,7 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 							}
 							$html .= '<tr>';
 							$html .= '<th>'.$fromLine.'</th>';
-							$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</td>';
+							$html .= '<td class="Left"><span>'.$line.'</span>&#xA0;</td>';
 							$toLine = $change['changed']['offset'] + $no + 1;
 							$html .= '<th>'.$toLine.'</th>';
 							$html .= '<td class="Right">'.$changedLine.'</td>';

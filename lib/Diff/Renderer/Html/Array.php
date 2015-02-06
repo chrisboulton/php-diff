@@ -241,7 +241,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 
 		$div = floor($count / 2);
 		$mod = $count % 2;
-		return str_repeat('&nbsp; ', $div).str_repeat('&nbsp;', $mod);
+		return str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 	}
 
 	/**
