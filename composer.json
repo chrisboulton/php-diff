@@ -1,6 +1,6 @@
 {
 	"name": "JBlond/php-diff",
-	"license": "BSD License",
+	"license": "BSD-3-Clause",
 	"repositories": [
 		{
 			"type": "vcs",
