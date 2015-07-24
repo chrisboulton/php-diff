@@ -177,7 +177,8 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 		$lines = array_map(array($this, 'ExpandTabs'), $lines);
 		$lines = array_map(array($this, 'HtmlSafe'), $lines);
 		foreach($lines as &$line) {
-			$line = preg_replace('# ( +)|^ #e', "\$this->fixSpaces('\\1')", $line);
+			$line = str_replace(' ', '&nbsp;', $line);
+//			$line = preg_replace_callback('# ( +)|^ #', array($this, 'fixSpaces'), $line);
 		}
 		return $lines;
 	}
@@ -188,16 +189,19 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @param string $spaces The string of spaces.
 	 * @return string The HTML representation of the string.
 	 */
-	function fixSpaces($spaces='')
+	function fixSpaces($matches)
 	{
-		$count = strlen($spaces);
-		if($count == 0) {
-			return '';
+		$buffer	= '';
+		foreach($matches as $spaces){
+			$count = strlen($spaces);
+			if($count == 0) {
+				continue;
+			}
+			$div = floor($count / 2);
+			$mod = $count % 2;
+			$buffer	.= str_repeat('&nbsp; ', $div).str_repeat('&nbsp;', $mod);
 		}
-
-		$div = floor($count / 2);
-		$mod = $count % 2;
-		return str_repeat('&nbsp; ', $div).str_repeat('&nbsp;', $mod);
+		return $buffer;
 	}
 
 	/**
@@ -208,7 +212,16 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 */
 	private function expandTabs($line)
 	{
-		return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $line);
+		$tabSize	= $this->options['tabSize'];
+		while(($pos = strpos($line, "\t")) !== FALSE){
+			$left	= substr($line, 0, $pos);
+			$right	= substr($line, $pos + 1);
+			$length	= $tabSize - ($pos % $tabSize);
+			$spaces	= str_repeat(' ', $length);
+			$line	= $left.$spaces.$right;
+		}
+		return $line;
+//		return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $line);
 	}
 
 	/**
