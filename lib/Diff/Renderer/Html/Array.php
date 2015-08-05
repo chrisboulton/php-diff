@@ -234,9 +234,15 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 */
 	function fixSpaces($matches)
 	{
-		$count = strlen($matches['0']);
-		if($count == 0) {
-			return '';
+		$buffer	= '';
+		foreach($matches as $spaces){
+			$count = strlen($spaces);
+			if($count == 0) {
+				continue;
+			}
+			$div = floor($count / 2);
+			$mod = $count % 2;
+			$buffer	.= str_repeat('&nbsp; ', $div).str_repeat('&#xA0;', $mod);
 		}
 
 		$div = floor($count / 2);
@@ -252,7 +258,15 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 */
 	private function expandTabs($line)
 	{
-		return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $line);
+		$tabSize	= $this->options['tabSize'];
+		while(($pos = strpos($line, "\t")) !== FALSE){
+			$left	= substr($line, 0, $pos);
+			$right	= substr($line, $pos + 1);
+			$length	= $tabSize - ($pos % $tabSize);
+			$spaces	= str_repeat(' ', $length);
+			$line	= $left.$spaces.$right;
+		}
+		return $line;
 	}
 
 	/**
