@@ -595,8 +595,7 @@ class Diff_SequenceMatcher
 	 *
 	 * Out of all of the ratio calculation functions, this is the most
 	 * expensive to call if getMatchingBlocks or getOpCodes is yet to be
-	 * called. The other calculation methods (quickRatio and realquickRatio)
-	 * can be used to perform quicker calculations but may be less accurate.
+	 * called.
 	 *
 	 * The ratio is calculated as (2 * number of matches) / total number of
 	 * elements in both sequences.
