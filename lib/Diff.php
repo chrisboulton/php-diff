@@ -83,6 +83,7 @@ class Diff
 	 *
 	 * @param array $a Array containing the lines of the first string to compare.
 	 * @param array $b Array containing the lines for the second string to compare.
+	 * @param array $options Array for the options
 	 */
 	public function __construct($a, $b, $options=array())
 	{

@@ -235,6 +235,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	function fixSpaces($matches)
 	{
 		$buffer	= '';
+		$count = 0;
 		foreach($matches as $spaces){
 			$count = strlen($spaces);
 			if($count == 0) {

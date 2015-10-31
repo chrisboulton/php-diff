@@ -8,7 +8,7 @@
 		}
 	],
 	"type": "library",
-	"description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
+	"description": "A comprehensive library for generating differences between two hash able objects (strings or arrays).",
 	"keywords": [
 		"php",
 		"diff"

@@ -67,6 +67,8 @@ class Diff_SequenceMatcher
 	 */
 	private $b2j = array();
 
+	private $juncDict = array();
+
 	private $options = array();
 
 	private $defaultOptions = array(
@@ -83,6 +85,7 @@ class Diff_SequenceMatcher
 	 * @param string|array $a A string or array containing the lines to compare against.
 	 * @param string|array $b A string or array containing the lines to compare.
 	 * @param string|array $junkCallback Either an array or string that references a callback function (if there is one) to determine 'junk' characters.
+	 * @param array $options
 	 */
 	public function __construct($a, $b, $junkCallback=null, $options)
 	{
@@ -207,6 +210,7 @@ class Diff_SequenceMatcher
 	 * Checks if a particular character is in the junk dictionary
 	 * for the list of junk characters.
 	 *
+	 * @param string $b
 	 * @return boolean $b True if the character is considered junk. False if not.
 	 */
 	private function isBJunk($b)
