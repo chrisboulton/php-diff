@@ -659,20 +659,6 @@ class Diff_SequenceMatcher
 	}
 
 	/**
-	 * Return an upper bound ratio really quickly for the similarity of the strings.
-	 * This is quicker to compute than Ratio() and quickRatio().
-	 *
-	 * @return float The calculated ratio.
-	 */
-	private function realquickRatio()
-	{
-		$aLength = count ($this->a);
-		$bLength = count ($this->b);
-
-		return $this->calculateRatio(min($aLength, $bLength), $aLength + $bLength);
-	}
-
-	/**
 	 * Helper function for calculating the ratio to measure similarity for the strings.
 	 * The ratio is defined as being 2 * (number of matches / total length)
 	 *
