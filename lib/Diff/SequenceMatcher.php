@@ -625,43 +625,6 @@ class Diff_SequenceMatcher
 	}
 
 	/**
-	 * Quickly return an upper bound ratio for the similarity of the strings.
-	 * This is quicker to compute than Ratio().
-	 *
-	 * @return float The calculated ratio.
-	 */
-	private function quickRatio()
-	{
-		if($this->fullBCount === null) {
-			$this->fullBCount = array();
-			$bLength = count ($this->b);
-			for($i = 0; $i < $bLength; ++$i) {
-				$char = $this->b[$i];
-				$this->fullBCount[$char] = $this->arrayGetDefault($this->fullBCount, $char, 0) + 1;
-			}
-		}
-
-		$avail = array();
-		$matches = 0;
-		$aLength = count ($this->a);
-		for($i = 0; $i < $aLength; ++$i) {
-			$char = $this->a[$i];
-			if(isset($avail[$char])) {
-				$numb = $avail[$char];
-			}
-			else {
-				$numb = $this->arrayGetDefault($this->fullBCount, $char, 0);
-			}
-			$avail[$char] = $numb - 1;
-			if($numb > 0) {
-				++$matches;
-			}
-		}
-
-		$this->calculateRatio($matches, count ($this->a) + count ($this->b));
-	}
-
-	/**
 	 * Helper function for calculating the ratio to measure similarity for the strings.
 	 * The ratio is defined as being 2 * (number of matches / total length)
 	 *
