@@ -91,8 +91,8 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 		preg_match_all('/./us', (string)$string, $smatches);
 		preg_match_all('/./us', (string)$replacement, $rmatches);
 		if ($length === NULL) $length = mb_strlen($string);
-		array_splice($smatches[0], $start, $length, $rmatches[0]);
-		return join($smatches[0]);
+		array_splice($smatches['0'], $start, $length, $rmatches[0]);
+		return join($smatches['0']);
 	}
 
 	/**
