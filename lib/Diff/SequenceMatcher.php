@@ -71,6 +71,8 @@ class Diff_SequenceMatcher
 
 	private $options = array();
 
+	private $opCodes;
+
 	private $defaultOptions = array(
 		'ignoreNewLines' => false,
 		'ignoreWhitespace' => false,
