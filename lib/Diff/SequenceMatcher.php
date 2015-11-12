@@ -75,6 +75,8 @@ class Diff_SequenceMatcher
 
 	private $matchingBlocks;
 
+	private $fullBCount;
+
 	private $defaultOptions = array(
 		'ignoreNewLines' => false,
 		'ignoreWhitespace' => false,
