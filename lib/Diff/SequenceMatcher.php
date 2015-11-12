@@ -73,6 +73,8 @@ class Diff_SequenceMatcher
 
 	private $opCodes;
 
+	private $matchingBlocks;
+
 	private $defaultOptions = array(
 		'ignoreNewLines' => false,
 		'ignoreWhitespace' => false,
