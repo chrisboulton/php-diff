@@ -1,16 +1,25 @@
 {
-    "name": "chrisboulton/php-diff",
-	"type": "library",
+    "name": "phpspec/php-diff",
+    "type": "library",
     "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
+    "license": "BSD-3-Clause",
+
     "authors": [
         {
             "name": "Chris Boulton",
-            "email": "@chrisboulton"
+            "homepage": "http://github.com/chrisboulton"
         }
     ],
-	"autoload": {
-		"psr-0": {
-		   "Diff": "lib/"
-		}
-	}
+
+    "autoload": {
+        "psr-0": {
+            "Diff": "lib/"
+        }
+    },
+    
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }

@@ -80,6 +80,7 @@ class Diff
 	 *
 	 * @param array $a Array containing the lines of the first string to compare.
 	 * @param array $b Array containing the lines for the second string to compare.
+	 * @param array $options
 	 */
 	public function __construct($a, $b, $options=array())
 	{
@@ -95,7 +96,7 @@ class Diff
 	/**
 	 * Render a diff using the supplied rendering class and return it.
 	 *
-	 * @param object $renderer An instance of the rendering object to use for generating the diff.
+	 * @param Diff_Renderer_Abstract $renderer An instance of the rendering object to use for generating the diff.
 	 * @return mixed The generated diff. Exact return value depends on the rendered.
 	 */
 	public function render(Diff_Renderer_Abstract $renderer)
