@@ -177,7 +177,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 		$lines = array_map(array($this, 'ExpandTabs'), $lines);
 		$lines = array_map(array($this, 'HtmlSafe'), $lines);
 		foreach($lines as &$line) {
-			$line = preg_replace('# ( +)|^ #e', "\$this->fixSpaces('\\1')", $line);
+			$line= preg_replace_callback('# ( +)|^ #', array($this,'fixSpaces'), $line);
 		}
 		return $lines;
 	}
@@ -188,8 +188,9 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @param string $spaces The string of spaces.
 	 * @return string The HTML representation of the string.
 	 */
-	function fixSpaces($spaces='')
+	function fixSpaces($matches)
 	{
+		$spaces=$matches[1];
 		$count = strlen($spaces);
 		if($count == 0) {
 			return '';
@@ -222,3 +223,4 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 		return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
 	}
 }
+
