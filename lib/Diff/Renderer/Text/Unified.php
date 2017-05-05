@@ -42,6 +42,9 @@
 
 require_once dirname(__FILE__).'/../Abstract.php';
 
+/**
+ * Class Diff_Renderer_Text_Unified
+ */
 class Diff_Renderer_Text_Unified extends Diff_Renderer_Abstract
 {
 	/**

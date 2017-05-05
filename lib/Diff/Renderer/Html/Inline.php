@@ -42,6 +42,9 @@
 
 require_once dirname(__FILE__).'/Array.php';
 
+/**
+ * Class Diff_Renderer_Html_Inline
+ */
 class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 {
 	/**

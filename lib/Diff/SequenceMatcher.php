@@ -67,14 +67,29 @@ class Diff_SequenceMatcher
 	 */
 	private $b2j = array();
 
+	/**
+	 * @var array
+	 */
 	private $options = array();
 
+	/**
+	 * @var
+	 */
 	private $opCodes;
 
+	/**
+	 * @var
+	 */
 	private $matchingBlocks;
 
+	/**
+	 * @var
+	 */
 	private $fullBCount;
 
+	/**
+	 * @var array
+	 */
 	private $defaultOptions = array(
 		'ignoreNewLines' => false,
 		'ignoreWhitespace' => false,
@@ -100,6 +115,9 @@ class Diff_SequenceMatcher
 		$this->setSequences($a, $b);
 	}
 
+	/**
+	 * @param array $options
+	 */
 	public function setOptions($options)
 	{
 		$this->options = array_merge($this->defaultOptions, $options);
