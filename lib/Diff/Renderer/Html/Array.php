@@ -242,7 +242,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @param array $matches The string of spaces.
 	 * @return string The HTML representation of the string.
 	 */
-	function fixSpaces($matches)
+	protected function fixSpaces($matches)
 	{
 		$buffer	= '';
 		$count = 0;
