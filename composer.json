@@ -8,6 +8,10 @@
             "email": "leet31337@web.de"
         }
     ],
+    "require": {
+        "php" : ">= 5.4",
+        "ext-mbstring": "*"
+    },
     "autoload": {
         "psr-0": {
            "Diff": "lib/"
