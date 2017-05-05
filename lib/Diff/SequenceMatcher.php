@@ -67,8 +67,6 @@ class Diff_SequenceMatcher
 	 */
 	private $b2j = array();
 
-	private $juncDict = array();
-
 	private $options = array();
 
 	private $opCodes;
@@ -221,7 +219,7 @@ class Diff_SequenceMatcher
 	 */
 	private function isBJunk($b)
 	{
-		if(isset($this->juncDict[$b])) {
+		if(isset($this->junkDict[$b])) {
 			return true;
 		}
 

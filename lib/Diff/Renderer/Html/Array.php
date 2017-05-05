@@ -126,12 +126,17 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 
 						list($start, $end) = $this->getChangeExtent($fromLine, $toLine);
 						if($start != 0 || $end != 0) {
-							$last = $end + strlen($fromLine);
-							$fromLine = $this->mb_substr_replace($fromLine, "\0", $start, 0);
-							$fromLine = $this->mb_substr_replace($fromLine, "\1", $last + 1, 0);
-							$last = $end + strlen($toLine);
-							$toLine = $this->mb_substr_replace($toLine, "\0", $start, 0);
-							$toLine = $this->mb_substr_replace($toLine, "\1", $last + 1, 0);
+							$realEnd = mb_strlen($fromLine) + $end;
+
+							$fromLine = mb_substr($fromLine, 0, $start) . "\0" .
+								mb_substr($fromLine, $start, $realEnd - $start) . "\1" . mb_substr($fromLine, $realEnd);
+
+							$realEnd = mb_strlen($toLine) + $end;
+
+							$toLine = mb_substr($toLine, 0, $start) .
+								"\0" . mb_substr($toLine, $start, $realEnd - $start) . "\1" .
+								mb_substr($toLine, $realEnd);
+
 							$a[$i1 + $i] = $fromLine;
 							$b[$j1 + $i] = $toLine;
 						}
@@ -193,13 +198,13 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	private function getChangeExtent($fromLine, $toLine)
 	{
 		$start = 0;
-		$limit = min(strlen($fromLine), strlen($toLine));
-		while($start < $limit && $fromLine{$start} == $toLine{$start}) {
+		$limit = min(mb_strlen($fromLine), mb_strlen($toLine));
+		while($start < $limit && mb_substr($fromLine, $start, 1) == mb_substr($toLine, $start, 1)) {
 			++$start;
 		}
 		$end = -1;
 		$limit = $limit - $start;
-		while(-$end <= $limit && substr($fromLine, $end, 1) == substr($toLine, $end, 1)) {
+		while(-$end <= $limit && mb_substr($fromLine, $end, 1) == mb_substr($toLine, $end, 1)) {
 			--$end;
 		}
 		return array(
