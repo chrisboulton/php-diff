@@ -22,7 +22,7 @@ Example Use
 A quick usage example can be found in the example/ directory and under
 example.php.
 
-More complete documentation will be available shortly.
+![Example Image](https://github.com/jblond/php-diff/raw/master/readme.png "Example")
 
 Merge files using jQuery
 ------------------------
