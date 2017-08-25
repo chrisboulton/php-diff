@@ -4,8 +4,7 @@
     "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
     "authors": [
         {
-            "name": "Chris Boulton",
-            "email": "@chrisboulton"
+            "name": "Chris Boulton"
         }
     ],
     "autoload": {
@@ -14,6 +13,6 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "~5.5"
+        "phpunit/phpunit": "6.*"
     }
 }
