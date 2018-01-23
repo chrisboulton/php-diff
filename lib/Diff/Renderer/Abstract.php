@@ -50,7 +50,10 @@ abstract class Diff_Renderer_Abstract
 	/**
 	 * @var array Array of the default options that apply to this renderer.
 	 */
-	protected $defaultOptions = array();
+    protected $defaultOptions = array(
+        'title_a' => 'Old Version',
+        'title_b' => 'New Version',
+    );
 
 	/**
 	 * @var array Array containing the user applied and merged default options for the renderer.
