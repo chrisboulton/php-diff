@@ -24,6 +24,10 @@ example.php.
 
 ![Example Image](https://github.com/jblond/php-diff/raw/master/readme.png "Example")
 
+Requirements
+-----------
+PHP Multibyte String 
+
 Merge files using jQuery
 ------------------------
 Xiphe has build a jQuery plugin with that you can merge the compared
