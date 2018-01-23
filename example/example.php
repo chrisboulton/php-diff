@@ -32,7 +32,10 @@
 
 		// Generate a side by side diff
 		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Html/SideBySide.php';
-		$renderer = new Diff_Renderer_Html_SideBySide;
+        $renderer = new Diff_Renderer_Html_SideBySide(array(
+            'title_a' => 'Custom title for OLD version',
+            'title_b' => 'Custom title for NEW version',
+        ));
 		echo $diff->Render($renderer);
 
 		?>

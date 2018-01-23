@@ -51,7 +51,9 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * @var array Array of the default options that apply to this renderer.
 	 */
 	protected $defaultOptions = array(
-		'tabSize' => 4
+		'tabSize' => 4,
+        'title_a' => 'Old Version',
+        'title_b' => 'New Version',
 	);
 
 	/**
