@@ -190,9 +190,14 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 */
 	private function fixSpaces(array $matches)
 	{
-		$spaces = $matches[1];
-		$count = strlen($spaces);
-		if($count == 0) {
+		$count = 0;
+
+		if (count($matches) > 1) {
+			$spaces = $matches[1];
+			$count = strlen($spaces);
+		}
+
+		if ($count == 0) {
 			return '';
 		}
 
