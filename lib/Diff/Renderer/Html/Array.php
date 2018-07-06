@@ -42,6 +42,13 @@
 
 require_once dirname(__FILE__).'/../Abstract.php';
 
+function substr_replace_utf8($string, $replacement, $position_needle, $length_needle)
+{
+	$str1 = mb_substr ($string, 0, $position_needle, 'UTF-8');
+	$str2 = mb_substr ($string, $position_needle + $length_needle, null, 'UTF-8');
+	return $str1 . $replacement . $str2;
+}
+
 class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 {
 	/**
@@ -83,11 +90,11 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 						list($start, $end) = $this->getChangeExtent($fromLine, $toLine);
 						if($start != 0 || $end != 0) {
 							$last = $end + strlen($fromLine);
-							$fromLine = substr_replace($fromLine, "\0", $start, 0);
-							$fromLine = substr_replace($fromLine, "\1", $last + 1, 0);
+							$fromLine = substr_replace_utf8($fromLine, "\0", $start, 0);
+							$fromLine = substr_replace_utf8($fromLine, "\1", $last + 1, 0);
 							$last = $end + strlen($toLine);
-							$toLine = substr_replace($toLine, "\0", $start, 0);
-							$toLine = substr_replace($toLine, "\1", $last + 1, 0);
+							$toLine = substr_replace_utf8($toLine, "\0", $start, 0);
+							$toLine = substr_replace_utf8($toLine, "\1", $last + 1, 0);
 							$a[$i1 + $i] = $fromLine;
 							$b[$j1 + $i] = $toLine;
 						}
@@ -149,13 +156,13 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	private function getChangeExtent($fromLine, $toLine)
 	{
 		$start = 0;
-		$limit = min(strlen($fromLine), strlen($toLine));
-		while($start < $limit && $fromLine{$start} == $toLine{$start}) {
+		$limit = min(mb_strlen($fromLine, 'UTF-8'), mb_strlen($toLine, 'UTF-8'));
+		while($start < $limit && mb_substr($fromLine, $start, 1, 'UTF-8') == mb_substr($toLine, $start, 1, 'UTF-8')) {
 			++$start;
 		}
 		$end = -1;
 		$limit = $limit - $start;
-		while(-$end <= $limit && substr($fromLine, $end, 1) == substr($toLine, $end, 1)) {
+		while(-$end <= $limit && mb_substr($fromLine, $end, 1, 'UTF-8') == mb_substr($toLine, $end, 1, 'UTF-8')) {
 			--$end;
 		}
 		return array(
