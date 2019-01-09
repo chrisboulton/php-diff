@@ -103,10 +103,10 @@ class Diff_SequenceMatcher
 	 *
 	 * @param string|array $a A string or array containing the lines to compare against.
 	 * @param string|array $b A string or array containing the lines to compare.
-	 * @param string|array $junkCallback Either an array or string that references a callback function (if there is one) to determine 'junk' characters.
 	 * @param array $options
+	 * @param string|array $junkCallback Either an array or string that references a callback function (if there is one) to determine 'junk' characters.
 	 */
-	public function __construct($a, $b, $junkCallback=null, $options)
+	public function __construct($a, $b, $options, $junkCallback=null)
 	{
 		$this->a = null;
 		$this->b = null;

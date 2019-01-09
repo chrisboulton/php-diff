@@ -175,7 +175,7 @@ class Diff
 		}
 
 		require_once dirname(__FILE__).'/Diff/SequenceMatcher.php';
-		$sequenceMatcher = new Diff_SequenceMatcher($this->a, $this->b, null, $this->options);
+		$sequenceMatcher = new Diff_SequenceMatcher($this->a, $this->b, $this->options, null);
 		$this->groupedCodes = $sequenceMatcher->getGroupedOpcodes($this->options['context']);
 		return $this->groupedCodes;
 	}
