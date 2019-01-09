@@ -36,8 +36,8 @@
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.1
- * @link http://github.com/chrisboulton/php-diff
+ * @version 1.2
+ * @link https://github.com/JBlond/php-diff
  */
 
 class Diff_SequenceMatcher
@@ -250,7 +250,7 @@ class Diff_SequenceMatcher
 	 * $alo - $ahi and for the second sequence, $blo - $bhi)
 	 *
 	 * Essentially, of all of the maximal matching blocks, return the one that
-	 * startest earliest in $a, and all of those maximal matching blocks that
+	 * starts earliest in $a, and all of those maximal matching blocks that
 	 * start earliest in $a, return the one that starts earliest in $b.
 	 *
 	 * If the junk callback is defined, do the above but with the restriction
@@ -459,12 +459,12 @@ class Diff_SequenceMatcher
 	}
 
 	/**
-	 * Return a list of all of the opcodes for the differences between the
+	 * Return a list of all of the op codes for the differences between the
 	 * two strings.
 	 *
-	 * The nested array returned contains an array describing the opcode
+	 * The nested array returned contains an array describing the op code
 	 * which includes:
-	 * 0 - The type of tag (as described below) for the opcode.
+	 * 0 - The type of tag (as described below) for the op code.
 	 * 1 - The beginning line in the first sequence.
 	 * 2 - The end line in the first sequence.
 	 * 3 - The beginning line in the second sequence.
@@ -532,7 +532,7 @@ class Diff_SequenceMatcher
 
 	/**
 	 * Return a series of nested arrays containing different groups of generated
-	 * opcodes for the differences between the strings with up to $context lines
+	 * op codes for the differences between the strings with up to $context lines
 	 * of surrounding content.
 	 *
 	 * Essentially what happens here is any big equal blocks of strings are stripped
@@ -542,7 +542,7 @@ class Diff_SequenceMatcher
 	 * changes are.
 	 *
 	 * @param int $context The number of lines of context to provide around the groups.
-	 * @return array Nested array of all of the grouped opcodes.
+	 * @return array Nested array of all of the grouped op codes.
 	 */
 	public function getGroupedOpcodes($context=3)
 	{

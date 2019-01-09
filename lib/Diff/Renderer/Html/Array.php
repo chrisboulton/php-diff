@@ -36,8 +36,8 @@
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.1
- * @link http://github.com/chrisboulton/php-diff
+ * @version 1.2
+ * @link https://github.com/JBlond/php-diff
  */
 
 require_once dirname(__FILE__).'/../Abstract.php';
@@ -60,8 +60,13 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	* From https://gist.github.com/stemar/8287074
 	* @param mixed $string The input string.
 	* @param mixed $replacement The replacement string.
-	* @param mixed $start If start is positive, the replacing will begin at the start'th offset into string.  If start is negative, the replacing will begin at the start'th character from the end of string.
-	* @param mixed $length If given and is positive, it represents the length of the portion of string which is to be replaced. If it is negative, it represents the number of characters from the end of string at which to stop replacing. If it is not given, then it will default to strlen( string ); i.e. end the replacing at the end of string. Of course, if length is zero then this function will have the effect of inserting replacement into string at the given start offset.
+	* @param mixed $start If start is positive, the replacing will begin at the start'th offset into string.
+	* If start is negative, the replacing will begin at the start'th character from the end of string.
+	* @param mixed $length If given and is positive, it represents the length of the portion of string which is to
+	 * be replaced. If it is negative, it represents the number of characters from the end of string at which to
+	 * stop replacing. If it is not given, then it will default to strlen( string ); i.e. end the replacing at the
+	 * end of string. Of course, if length is zero then this function will have the effect of inserting replacement
+	 * into string at the given start offset.
 	* @return string|array The result string is returned. If string is an array then array is returned.
 	*/
 	public function mb_substr_replace($string, $replacement, $start, $length=NULL) {

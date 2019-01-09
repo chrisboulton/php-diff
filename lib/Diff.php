@@ -39,8 +39,8 @@
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.1
- * @link http://github.com/chrisboulton/php-diff
+ * @version 1.2
+ * @link https://github.com/JBlond/php-diff
  */
 
 class Diff
@@ -56,7 +56,7 @@ class Diff
 	private $b = null;
 
 	/**
-	 * @var array Array containing the generated opcodes for the differences between the two items.
+	 * @var array Array containing the generated op codes for the differences between the two items.
 	 */
 	private $groupedCodes = null;
 
@@ -161,12 +161,12 @@ class Diff
 	}
 
 	/**
-	 * Generate a list of the compiled and grouped opcodes for the differences between the
+	 * Generate a list of the compiled and grouped op codes for the differences between the
 	 * two strings. Generally called by the renderer, this class instantiates the sequence
-	 * matcher and performs the actual diff generation and return an array of the opcodes
+	 * matcher and performs the actual diff generation and return an array of the op codes
 	 * for it. Once generated, the results are cached in the diff class instance.
 	 *
-	 * @return array Array of the grouped opcodes for the generated diff.
+	 * @return array Array of the grouped op codes for the generated diff.
 	 */
 	public function getGroupedOpcodes()
 	{
