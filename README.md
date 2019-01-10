@@ -26,6 +26,8 @@ example.php.
 
 ![Example Image](https://github.com/jblond/php-diff/raw/master/readme.png "Example")
 
+![Example 2 Image](https://github.com/jblond/php-diff/raw/master/readme2.png "Example2")
+
 Requirements
 -----------
 PHP Multibyte String 
