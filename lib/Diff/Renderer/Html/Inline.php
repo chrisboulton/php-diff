@@ -36,7 +36,7 @@
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.2
+ * @version 1.3
  * @link https://github.com/JBlond/php-diff
  */
 
@@ -98,11 +98,11 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 		return $html;
 	}
 
-	
+
 	/**
 	 * Generates a string representation of a predefined table and its head with
 	 * titles from options.
-	 * 
+	 *
 	 * @return string Html code representation of the table's header.
 	 */
 	private function generateTableHeader()
@@ -120,7 +120,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 
 	/**
 	 * Generates a string representation of empty table body.
-	 * 
+	 *
 	 * @return string Html code representing empty table body.
 	 */
 	private function generateSkippedTable()
@@ -132,10 +132,10 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 		$html .= '</tbody>';
 		return $html;
 	}
-	
+
 	/**
 	 * Generates a string representation of one or more rows of a table of lines of text with no difference.
-	 * 
+	 *
 	 * @param array &$change Array with data about changes.
 	 * @return string Html code representing one or more rows of text with no difference.
 	 */
@@ -156,7 +156,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 
 	/**
 	 * Generates a string representation of one or more rows of a table of lines, where new text was added.
-	 * 
+	 *
 	 * @param array &$change Array with data about changes.
 	 * @return string Html code representing one or more rows of added text.
 	 */
@@ -176,7 +176,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 
 	/**
 	 * Generates a string representation of one or more rows of a table of lines, where text was removed.
-	 * 
+	 *
 	 * @param array &$change Array with data about changes.
 	 * @return string Html code representing one or more rows of removed text.
 	 */
@@ -196,7 +196,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 
 	/**
 	 * Generates a string representation of one or more rows of a table of lines, where text was partially modified.
-	 * 
+	 *
 	 * @param array &$change Array with data about changes.
 	 * @return string Html code representing one or more rows of modified.
 	 */
