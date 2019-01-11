@@ -110,7 +110,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 * based differences. Generally called by subclasses that generate a
 	 * HTML based diff and return an array of the changes to show in the diff.
 	 *
-	 * @return array An array of the generated chances, suitable for presentation in HTML.
+	 * @return array An array of the generated changes, suitable for presentation in HTML.
 	 */
 	public function render()
 	{
@@ -154,17 +154,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 				}
 
 				if($tag != $lastTag) {
-					$blocks[] = array(
-						'tag' => $tag,
-						'base' => array(
-							'offset' => $i1,
-							'lines' => array()
-						),
-						'changed' => array(
-							'offset' => $j1,
-							'lines' => array()
-						)
-					);
+					$blocks[] = $this->getDefaultArray($tag, $i1, $j1);
 					$lastBlock = count($blocks)-1;
 				}
 
@@ -296,5 +286,19 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	private function htmlSafe($string)
 	{
 		return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
+	}
+
+	private function getDefaultArray($tag, $i1, $j1){
+		return array(
+			'tag' => $tag,
+			'base' => array(
+				'offset' => $i1,
+				'lines' => array()
+			),
+			'changed' => array(
+				'offset' => $j1,
+				'lines' => array()
+			)
+		);
 	}
 }
