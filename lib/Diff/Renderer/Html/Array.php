@@ -288,6 +288,12 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 		return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
 	}
 
+	/**
+	 * @param string $tag
+	 * @param integer $i1
+	 * @param integer $j1
+	 * @return array
+	 */
 	private function getDefaultArray($tag, $i1, $j1){
 		return array(
 			'tag' => $tag,
