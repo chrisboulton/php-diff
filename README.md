@@ -42,6 +42,14 @@ Todo
  * Ability to ignore blank line changes
  * 3 way diff support
  * Performance optimizations
+ * Add namespace / PSR4
+ 
+ Contributors
+---------------------
+Contributors since I forked the repo.
+
+- maxxer
+- Creris
 
 License (BSD License)
 ---------------------
