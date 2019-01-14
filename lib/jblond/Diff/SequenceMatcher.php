@@ -586,6 +586,7 @@ class SequenceMatcher
 		$maxRange = $context * 2;
 		$groups = array();
 		$group = array();
+
 		foreach($opCodes as $code) {
 			list($tag, $i1, $i2, $j1, $j2) = $code;
 			if($tag == 'equal' && $i2 - $i1 > $maxRange) {
@@ -661,9 +662,7 @@ class SequenceMatcher
 		if($length) {
 			return 2 * ($matches / $length);
 		}
-		else {
-			return 1;
-		}
+		return 1;
 	}
 
 	/**
@@ -681,9 +680,7 @@ class SequenceMatcher
 		if(isset($array[$key])) {
 			return $array[$key];
 		}
-		else {
-			return $default;
-		}
+		return $default;
 	}
 
 	/**
@@ -708,11 +705,9 @@ class SequenceMatcher
 		if(count($a) == count($b)) {
 			return 0;
 		}
-		else if(count($a) < count($b)) {
+		if(count($a) < count($b)) {
 			return -1;
 		}
-		else {
-			return 1;
-		}
+		return 1;
 	}
 }
