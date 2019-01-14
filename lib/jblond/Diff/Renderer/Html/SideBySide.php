@@ -1,5 +1,5 @@
 <?php
-namespace jblond;
+namespace jblond\Diff\Renderer\Html;
 
 /**
  * Side by Side HTML diff generator for PHP DiffLib.
@@ -47,7 +47,7 @@ require_once dirname(__FILE__).'/Array.php';
 /**
  * Class Diff_Renderer_Html_SideBySide
  */
-class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
+class SideBySide extends HtmlArray
 {
 	/**
 	 * Render a and return diff with changes between the two sequences

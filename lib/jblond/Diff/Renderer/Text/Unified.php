@@ -1,5 +1,7 @@
 <?php
-namespace jblond;
+namespace jblond\Diff\Renderer\Text;
+
+use jblond\Diff\Renderer\RendererAbstract;
 
 /**
  * Unified diff generator for PHP DiffLib.
@@ -47,7 +49,7 @@ require_once dirname(__FILE__).'/../Abstract.php';
 /**
  * Class Diff_Renderer_Text_Unified
  */
-class Diff_Renderer_Text_Unified extends Diff_Renderer_Abstract
+class Unified extends RendererAbstract
 {
 	/**
 	 * Render and return a unified diff.

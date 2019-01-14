@@ -1,5 +1,7 @@
 <?php
-namespace jblond;
+namespace jblond\Diff\Renderer\Html;
+
+use jblond\Diff\Renderer\RendererAbstract;
 
 /**
  * Base renderer for rendering HTML based diffs for PHP DiffLib.
@@ -47,7 +49,7 @@ require_once dirname(__FILE__).'/../Abstract.php';
 /**
  * Class Diff_Renderer_Html_Array
  */
-class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
+class HtmlArray extends RendererAbstract
 {
 	/**
 	 * @var array Array of the default options that apply to this renderer.

@@ -1,5 +1,5 @@
 <?php
-namespace jblond;
+namespace jblond\Diff\Renderer\Html;
 
 /**
  * Inline HTML diff generator for PHP DiffLib.
@@ -47,7 +47,7 @@ require_once dirname(__FILE__).'/Array.php';
 /**
  * Class Diff_Renderer_Html_Inline
  */
-class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
+class Inline extends HtmlArray
 {
 	/**
 	 * Render a and return diff with changes between the two sequences

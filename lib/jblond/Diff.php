@@ -1,6 +1,8 @@
 <?php
 namespace jblond;
 
+use jblond\Diff\SequenceMatcher;
+
 /**
  * Diff
  *
@@ -96,14 +98,14 @@ class Diff
 			$this->options = $this->defaultOptions;
 	}
 
+
 	/**
 	 * Render a diff using the supplied rendering class and return it.
 	 *
-	 * @param \jblond\Diff_Renderer_Abstract|object $renderer An instance of the rendering object to use for generating the diff.
-	 *
+	 * @param object $renderer object $renderer An instance of the rendering object to use for generating the diff.
 	 * @return mixed The generated diff. Exact return value depends on the rendered.
 	 */
-	public function render(Diff_Renderer_Abstract $renderer)
+	public function render($renderer)
 	{
 		$renderer->diff = $this;
 		return $renderer->render();
@@ -177,7 +179,7 @@ class Diff
 		}
 
 		require_once dirname(__FILE__).'/Diff/SequenceMatcher.php';
-		$sequenceMatcher = new Diff_SequenceMatcher($this->a, $this->b, $this->options, null);
+		$sequenceMatcher = new SequenceMatcher($this->a, $this->b, $this->options, null);
 		$this->groupedCodes = $sequenceMatcher->getGroupedOpcodes($this->options['context']);
 		return $this->groupedCodes;
 	}

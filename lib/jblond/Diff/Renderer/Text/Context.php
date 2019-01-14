@@ -1,5 +1,7 @@
 <?php
-namespace jblond;
+namespace jblond\Diff\Renderer\Text;
+
+use jblond\Diff\Renderer\RendererAbstract;
 
 /**
  * Context diff generator for PHP DiffLib.
@@ -47,7 +49,7 @@ require_once dirname(__FILE__).'/../Abstract.php';
 /**
  * Class Diff_Renderer_Text_Context
  */
-class Diff_Renderer_Text_Context extends Diff_Renderer_Abstract
+class Context extends RendererAbstract
 {
 	/**
 	 * @var array Array of the different op code tags and how they map to the context diff equivalent.
