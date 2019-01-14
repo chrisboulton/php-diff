@@ -1,4 +1,6 @@
 <?php
+namespace jblond\Diff;
+
 /**
  * Sequence matcher for Diff
  *
@@ -40,7 +42,7 @@
  * @link https://github.com/JBlond/php-diff
  */
 
-class Diff_SequenceMatcher
+class SequenceMatcher
 {
 	/**
 	 * @var string|array Either a string or an array containing a callback function to determine if a line is "junk" or not.
