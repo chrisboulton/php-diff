@@ -1,4 +1,6 @@
 <?php
+namespace jblond;
+
 /**
  * Diff
  *
@@ -97,7 +99,7 @@ class Diff
 	/**
 	 * Render a diff using the supplied rendering class and return it.
 	 *
-	 * @param \Diff_Renderer_Abstract|object $renderer An instance of the rendering object to use for generating the diff.
+	 * @param \jblond\Diff_Renderer_Abstract|object $renderer An instance of the rendering object to use for generating the diff.
 	 *
 	 * @return mixed The generated diff. Exact return value depends on the rendered.
 	 */

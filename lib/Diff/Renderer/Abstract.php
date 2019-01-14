@@ -1,4 +1,6 @@
 <?php
+namespace jblond;
+
 /**
  * Abstract class for diff renderers in PHP DiffLib.
  *

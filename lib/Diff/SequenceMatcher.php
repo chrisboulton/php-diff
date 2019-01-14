@@ -1,4 +1,6 @@
 <?php
+namespace jblond;
+
 /**
  * Sequence matcher for Diff
  *

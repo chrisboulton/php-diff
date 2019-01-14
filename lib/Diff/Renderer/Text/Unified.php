@@ -1,4 +1,6 @@
 <?php
+namespace jblond;
+
 /**
  * Unified diff generator for PHP DiffLib.
  *

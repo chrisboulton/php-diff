@@ -1,4 +1,6 @@
 <?php
+namespace jblond;
+
 /**
  * Inline HTML diff generator for PHP DiffLib.
  *

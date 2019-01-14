@@ -1,4 +1,6 @@
 <?php
+namespace jblond;
+
 /**
  * Context diff generator for PHP DiffLib.
  *
