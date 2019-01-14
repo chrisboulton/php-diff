@@ -25,9 +25,5 @@ class Autoloader
 			 /** @noinspection PhpIncludeInspection */
 			require $dir . '/' . $class . '.php';
 		}
-		else
-		{
-			echo '<b>' . $dir . '/' . $class . '.php' . '</b><br><br>';
-		}
 	}
 }
