@@ -9,9 +9,9 @@
 		<h1>PHP LibDiff - Examples</h1>
 		<hr />
 		<?php
-
-		// Include the diff class
-		require_once dirname(__FILE__).'/../lib/Diff.php';
+		// include autoloader
+		require dirname(__FILE__).'/../lib/Autoloader.php';
+		new \jblond\Autoloader();
 
 		// Include two sample files for comparison
 		$a = explode("\n", file_get_contents(dirname(__FILE__).'/a.txt'));
@@ -24,15 +24,14 @@
 		);
 
 		// Initialize the diff class
-		$diff = new Diff($a, $b, $options);
+		$diff = new \jblond\Diff($a, $b, $options);
 
 		?>
 		<h2>Side by Side Diff</h2>
 		<?php
 
 		// Generate a side by side diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Html/SideBySide.php';
-        $renderer = new Diff_Renderer_Html_SideBySide(array(
+        $renderer = new \jblond\Diff\Renderer\Html\SideBySide(array(
             'title_a' => 'Custom title for OLD version',
             'title_b' => 'Custom title for NEW version',
         ));
@@ -43,8 +42,7 @@
 		<?php
 
 		// Generate an inline diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Html/Inline.php';
-		$renderer = new Diff_Renderer_Html_Inline;
+		$renderer = new \jblond\Diff\Renderer\Html\Inline;
 		echo $diff->render($renderer);
 
 		?>
@@ -52,8 +50,7 @@
 		<pre><?php
 
 		// Generate a unified diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Text/Unified.php';
-		$renderer = new Diff_Renderer_Text_Unified;
+		$renderer = new \jblond\Diff\Renderer\Text\Unified();
 		echo htmlspecialchars($diff->render($renderer));
 
 		?>
@@ -62,8 +59,7 @@
 		<pre><?php
 
 		// Generate a context diff
-		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Text/Context.php';
-		$renderer = new Diff_Renderer_Text_Context;
+		$renderer = new \jblond\Diff\Renderer\Text\Context;
 		echo htmlspecialchars($diff->render($renderer));
 		?>
 		</pre>

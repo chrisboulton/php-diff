@@ -1,6 +1,10 @@
 <?php
+namespace jblond\Diff\Renderer\Text;
+
+use jblond\Diff\Renderer\RendererAbstract;
+
 /**
- * Abstract class for diff renderers in PHP DiffLib.
+ * Unified diff generator for PHP DiffLib.
  *
  * PHP version 5
  *
@@ -40,46 +44,52 @@
  * @link https://github.com/JBlond/php-diff
  */
 
-abstract class Diff_Renderer_Abstract
+require_once dirname(__FILE__).'/../Abstract.php';
+
+/**
+ * Class Diff_Renderer_Text_Unified
+ */
+class Unified extends RendererAbstract
 {
 	/**
-	 * @var object Instance of the diff class that this renderer is generating the rendered diff for.
-	 */
-	public $diff;
-
-	/**
-	 * @var array Array of the default options that apply to this renderer.
-	 */
-    protected $defaultOptions = array(
-        'title_a' => 'Old Version',
-        'title_b' => 'New Version',
-    );
-
-	/**
-	 * @var array Array containing the user applied and merged default options for the renderer.
-	 */
-	protected $options = array();
-
-	/**
-	 * The constructor. Instantiates the rendering engine and if options are passed,
-	 * sets the options for the renderer.
+	 * Render and return a unified diff.
 	 *
-	 * @param array $options Optionally, an array of the options for the renderer.
+	 * @return string The unified diff.
 	 */
-	public function __construct(array $options = array())
+	public function render()
 	{
-		$this->setOptions($options);
-	}
+		$diff = '';
+		$opCodes = $this->diff->getGroupedOpcodes();
+		foreach($opCodes as $group) {
+			$lastItem = count($group)-1;
+			$i1 = $group['0']['1'];
+			$i2 = $group[$lastItem]['2'];
+			$j1 = $group['0']['3'];
+			$j2 = $group[$lastItem]['4'];
 
-	/**
-	 * Set the options of the renderer to those supplied in the passed in array.
-	 * Options are merged with the default to ensure that there aren't any missing
-	 * options.
-	 *
-	 * @param array $options Array of options to set.
-	 */
-	public function setOptions(array $options)
-	{
-		$this->options = array_merge($this->defaultOptions, $options);
+			if($i1 == 0 && $i2 == 0) {
+				$i1 = -1;
+				$i2 = -1;
+			}
+
+			$diff .= '@@ -'.($i1 + 1).','.($i2 - $i1).' +'.($j1 + 1).','.($j2 - $j1)." @@\n";
+			foreach($group as $code) {
+				list($tag, $i1, $i2, $j1, $j2) = $code;
+				if($tag == 'equal') {
+					$diff .= ' '.implode("\n ", $this->diff->GetA($i1, $i2))."\n";
+				}
+				else
+				{
+					if($tag == 'replace' || $tag == 'delete') {
+						$diff .= '-'.implode("\n-", $this->diff->GetA($i1, $i2))."\n";
+					}
+
+					if($tag == 'replace' || $tag == 'insert') {
+						$diff .= '+'.implode("\n+", $this->diff->GetB($j1, $j2))."\n";
+					}
+				}
+			}
+		}
+		return $diff;
 	}
 }

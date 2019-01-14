@@ -1,6 +1,8 @@
 <?php
+namespace jblond\Diff\Renderer\Html;
+
 /**
- * Side by Side HTML diff generator for PHP DiffLib.
+ * Inline HTML diff generator for PHP DiffLib.
  *
  * PHP version 5
  *
@@ -43,20 +45,19 @@
 require_once dirname(__FILE__).'/Array.php';
 
 /**
- * Class Diff_Renderer_Html_SideBySide
+ * Class Diff_Renderer_Html_Inline
  */
-class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
+class Inline extends HtmlArray
 {
 	/**
 	 * Render a and return diff with changes between the two sequences
-	 * displayed side by side.
+	 * displayed inline (under each other)
 	 *
-	 * @return string The generated side by side diff.
+	 * @return string The generated inline diff.
 	 */
 	public function render()
 	{
 		$changes = parent::render();
-
 		$html = '';
 		if(empty($changes)) {
 			return $html;
@@ -65,6 +66,9 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 		$html .= $this->generateTableHeader();
 
 		foreach($changes as $i => $blocks) {
+			// If this is a separate block, we're condensing code so output ...,
+			// indicating a significant portion of the code has been collapsed as
+			// it is the same
 			if($i > 0) {
 				$html .= $this->generateSkippedTable();
 			}
@@ -96,6 +100,7 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 		return $html;
 	}
 
+
 	/**
 	 * Generates a string representation of a predefined table and its head with
 	 * titles from options.
@@ -104,11 +109,12 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 	 */
 	private function generateTableHeader()
 	{
-		$html = '<table class="Differences DifferencesSideBySide">';
+		$html = '<table class="Differences DifferencesInline">';
 		$html .= '<thead>';
 		$html .= '<tr>';
-		$html .= '<th colspan="2">'.$this->options['title_a'].'</th>';
-		$html .= '<th colspan="2">'.$this->options['title_b'].'</th>';
+		$html .= '<th>Old</th>';
+		$html .= '<th>New</th>';
+		$html .= '<th>Differences</th>';
 		$html .= '</tr>';
 		$html .= '</thead>';
 		return $html;
@@ -122,8 +128,9 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 	private function generateSkippedTable()
 	{
 		$html = '<tbody class="Skipped">';
-		$html .= '<th>&hellip;</th><td>&#xA0;</td>';
-		$html .= '<th>&hellip;</th><td>&#xA0;</td>';
+		$html .= '<th>&hellip;</th>';
+		$html .= '<th>&hellip;</th>';
+		$html .= '<td>&#xA0;</td>';
 		$html .= '</tbody>';
 		return $html;
 	}
@@ -142,9 +149,8 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 			$toLine = $change['changed']['offset'] + $no + 1;
 			$html .= '<tr>';
 			$html .= '<th>'.$fromLine.'</th>';
-			$html .= '<td class="Left"><span>'.$line.'</span>&#xA0;</td>';
 			$html .= '<th>'.$toLine.'</th>';
-			$html .= '<td class="Right"><span>'.$line.'</span>&#xA0;</td>';
+			$html .= '<td class="Left">'.$line.'</td>';
 			$html .= '</tr>';
 		}
 		return $html;
@@ -163,7 +169,6 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 			$toLine = $change['changed']['offset'] + $no + 1;
 			$html .= '<tr>';
 			$html .= '<th>&#xA0;</th>';
-			$html .= '<td class="Left">&#xA0;</td>';
 			$html .= '<th>'.$toLine.'</th>';
 			$html .= '<td class="Right"><ins>'.$line.'</ins>&#xA0;</td>';
 			$html .= '</tr>';
@@ -184,9 +189,8 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 			$fromLine = $change['base']['offset'] + $no + 1;
 			$html .= '<tr>';
 			$html .= '<th>'.$fromLine.'</th>';
-			$html .= '<td class="Left"><del>'.$line.'</del>&#xA0;</td>';
 			$html .= '<th>&#xA0;</th>';
-			$html .= '<td class="Right">&#xA0;</td>';
+			$html .= '<td class="Left"><del>'.$line.'</del>&#xA0;</td>';
 			$html .= '</tr>';
 		}
 		return $html;
@@ -202,43 +206,22 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 	{
 		$html = "";
 
-		if(count($change['base']['lines']) >= count($change['changed']['lines'])) {
-			foreach($change['base']['lines'] as $no => $line) {
-				$fromLine = $change['base']['offset'] + $no + 1;
-				$html .= '<tr>';
-				$html .= '<th>'.$fromLine.'</th>';
-				$html .= '<td class="Left"><span>'.$line.'</span>&#xA0;</td>';
-				if(!isset($change['changed']['lines'][$no])) {
-					$toLine = '&#xA0;';
-					$changedLine = '&#xA0;';
-				}
-				else {
-					$toLine = $change['changed']['offset'] + $no + 1;
-					$changedLine = '<span>'.$change['changed']['lines'][$no].'</span>';
-				}
-				$html .= '<th>'.$toLine.'</th>';
-				$html .= '<td class="Right">'.$changedLine.'</td>';
-				$html .= '</tr>';
-			}
+		foreach($change['base']['lines'] as $no => $line) {
+			$fromLine = $change['base']['offset'] + $no + 1;
+			$html .= '<tr>';
+			$html .= '<th>'.$fromLine.'</th>';
+			$html .= '<th>&#xA0;</th>';
+			$html .= '<td class="Left"><span>'.$line.'</span></td>';
+			$html .= '</tr>';
 		}
-		else {
-			foreach($change['changed']['lines'] as $no => $changedLine) {
-				if(!isset($change['base']['lines'][$no])) {
-					$fromLine = '&#xA0;';
-					$line = '&#xA0;';
-				}
-				else {
-					$fromLine = $change['base']['offset'] + $no + 1;
-					$line = '<span>'.$change['base']['lines'][$no].'</span>';
-				}
-				$html .= '<tr>';
-				$html .= '<th>'.$fromLine.'</th>';
-				$html .= '<td class="Left"><span>'.$line.'</span>&#xA0;</td>';
-				$toLine = $change['changed']['offset'] + $no + 1;
-				$html .= '<th>'.$toLine.'</th>';
-				$html .= '<td class="Right">'.$changedLine.'</td>';
-				$html .= '</tr>';
-			}
+
+		foreach($change['changed']['lines'] as $no => $line) {
+			$toLine = $change['changed']['offset'] + $no + 1;
+			$html .= '<tr>';
+			$html .= '<th>&#xA0;</th>';
+			$html .= '<th>'.$toLine.'</th>';
+			$html .= '<td class="Right"><span>'.$line.'</span></td>';
+			$html .= '</tr>';
 		}
 
 		return $html;
