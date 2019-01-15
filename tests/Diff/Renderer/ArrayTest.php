@@ -2,11 +2,12 @@
 namespace Tests\Diff\Renderer\Html;
 use jblond\Autoloader;
 use jblond\Diff\Renderer\Html\HtmlArray;
+use PHPUnit\Framework\TestCase;
 
 require "../../../lib/Autoloader.php";
 new Autoloader();
 
-class ArrayTest extends \PHPUnit_Framework_TestCase
+class ArrayTest extends TestCase
 {
 	public function testRenderSimpleDelete()
 	{
