@@ -44,8 +44,6 @@ use jblond\Diff\Renderer\RendererAbstract;
  * @link https://github.com/JBlond/php-diff
  */
 
-require_once dirname(__FILE__).'/../Abstract.php';
-
 /**
  * Class Diff_Renderer_Html_Array
  */

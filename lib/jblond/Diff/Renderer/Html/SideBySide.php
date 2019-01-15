@@ -42,8 +42,6 @@ namespace jblond\Diff\Renderer\Html;
  * @link https://github.com/JBlond/php-diff
  */
 
-require_once dirname(__FILE__).'/Array.php';
-
 /**
  * Class Diff_Renderer_Html_SideBySide
  */
