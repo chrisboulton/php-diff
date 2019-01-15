@@ -49,7 +49,7 @@ class ArrayTest extends \PHPUnit_Framework_TestCase
 					'base' => array(
 						'offset' => 0,
 						'lines' => array(
-							'<del>&nbsp; &nbsp;</del>a',
+							'<del>&#xA0; &#xA0;</del>a',
 						)
 					),
 					'changed' => array(

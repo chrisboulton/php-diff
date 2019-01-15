@@ -218,7 +218,7 @@ class HtmlArray extends RendererAbstract
 	/**
 	 * Format a series of lines suitable for output in a HTML rendered diff.
 	 * This involves replacing tab characters with spaces, making the HTML safe
-	 * for output, ensuring that double spaces are replaced with &nbsp; etc.
+	 * for output, ensuring that double spaces are replaced with &#xA0; etc.
 	 *
 	 * @param array $lines Array of lines to format.
 	 * @return array Array of the formatted lines.
@@ -236,7 +236,7 @@ class HtmlArray extends RendererAbstract
 	}
 
 	/**
-	 * Replace a string containing spaces with a HTML representation using &nbsp;.
+	 * Replace a string containing spaces with a HTML representation using &#xA0;.
 	 *
 	 * @param array $matches The string of spaces.
 	 * @return string The HTML representation of the string.
@@ -252,7 +252,7 @@ class HtmlArray extends RendererAbstract
 			}
 			$div = floor($count / 2);
 			$mod = $count % 2;
-			$buffer	.= str_repeat('&nbsp; ', $div).str_repeat('&#xA0;', $mod);
+			$buffer	.= str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 		}
 
 		$div = floor($count / 2);
