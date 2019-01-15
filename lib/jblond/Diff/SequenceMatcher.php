@@ -52,12 +52,12 @@ class SequenceMatcher
 	/**
 	 * @var array The first sequence to compare against.
 	 */
-	private $a = null;
+	private $a = array();
 
 	/**
 	 * @var array The second sequence.
 	 */
-	private $b = null;
+	private $b = array();
 
 	/**
 	 * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
@@ -110,8 +110,8 @@ class SequenceMatcher
 	 */
 	public function __construct($a, $b, $options, $junkCallback=null)
 	{
-		$this->a = null;
-		$this->b = null;
+		$this->a = array();
+		$this->b = array();
 		$this->junkCallback = $junkCallback;
 		$this->setOptions($options);
 		$this->setSequences($a, $b);
@@ -152,7 +152,7 @@ class SequenceMatcher
 			return;
 		}
 
-		$this->a= $a;
+		$this->a = $a;
 		$this->matchingBlocks = null;
 		$this->opCodes = null;
 	}
