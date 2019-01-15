@@ -21,9 +21,12 @@
         "php" : ">= 5.4",
         "ext-mbstring": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "~5.5"
+    },
     "autoload": {
-        "psr-0": {
-           "Diff": "lib/"
+        "psr-4": {
+           "jblond\\Diff\\": "lib/jblond"
         }
     }
 }
