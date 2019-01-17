@@ -6,7 +6,6 @@ build_settings:
 
 test:
   php_code_sniffer:
-    standard: "PSR2"
     allowed_errors: -1
     allowed_warnings: -1
     ignore:
