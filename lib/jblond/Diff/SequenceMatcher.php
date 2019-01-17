@@ -284,7 +284,7 @@ class SequenceMatcher
 				if($j < $blo) {
 					continue;
 				}
-				else if($j >= $bhi) {
+				elseif($j >= $bhi) {
 					break;
 				}
 
@@ -499,10 +499,10 @@ class SequenceMatcher
 			if($i < $ai && $j < $bj) {
 				$tag = 'replace';
 			}
-			else if($i < $ai) {
+			elseif($i < $ai) {
 				$tag = 'delete';
 			}
-			else if($j < $bj) {
+			elseif($j < $bj) {
 				$tag = 'insert';
 			}
 
@@ -697,7 +697,7 @@ class SequenceMatcher
 			if($a[$i] < $b[$i]) {
 				return -1;
 			}
-			else if($a[$i] > $b[$i]) {
+			elseif($a[$i] > $b[$i]) {
 				return 1;
 			}
 		}
