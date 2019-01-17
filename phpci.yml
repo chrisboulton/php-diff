@@ -1,0 +1,20 @@
+build_settings:
+  clone_depth: 1
+  verbose: false
+  ignore:
+    - "example"
+
+test:
+  php_code_sniffer:
+    standard: "PSR4"
+    allowed_errors: -1
+    allowed_warnings: -1
+    ignore:
+      - "example"
+    standard: "./phpcs.xml"
+
+  php_docblock_checker:
+    path: "./"
+
+  php_loc:
+    directory: "./"

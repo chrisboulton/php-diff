@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress XmlUnboundNsPrefix, XmlUnboundNsPrefix -->
+<ruleset name="php-diff">
+	<description>overview</description>
+	<rule ref="Generic.Classes.DuplicateClassName"/>
+	<rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+	<rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+	<rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
+	<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+	<rule ref="Generic.Functions.CallTimePassByReference"/>
+	<rule ref="Generic.Metrics.CyclomaticComplexity"/>
+	<rule ref="Generic.PHP.DeprecatedFunctions"/>
+	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
+	<rule ref="Generic.PHP.LowerCaseConstant"/>
+	<rule ref="Generic">
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent.NonIndentTabsUsed"/>
+	</rule>
+
+	<rule ref="Squiz.PHP.Eval"/>
+	<rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+	<rule ref="Squiz.PHP.NonExecutableCode"/>
+
+	<rule ref="PSR1">
+		<exclude name="PSR1.Files.SideEffects"/>
+	</rule>
+</ruleset>
