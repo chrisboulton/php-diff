@@ -41,7 +41,6 @@ namespace jblond\Diff\Renderer;
  * @version 1.5
  * @link https://github.com/JBlond/php-diff
  */
-
 abstract class RendererAbstract
 {
 	/**

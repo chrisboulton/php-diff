@@ -1,5 +1,6 @@
 <?php
 namespace Tests\Diff\Renderer\Html;
+
 use jblond\Autoloader;
 use jblond\Diff\Renderer\Html\HtmlArray;
 use PHPUnit\Framework\TestCase;

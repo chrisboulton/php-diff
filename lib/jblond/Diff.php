@@ -46,7 +46,6 @@ use jblond\Diff\SequenceMatcher;
  * @version 1.5
  * @link https://github.com/JBlond/php-diff
  */
-
 class Diff
 {
 	/**
