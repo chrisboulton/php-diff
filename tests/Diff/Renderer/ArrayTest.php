@@ -1,12 +1,11 @@
 <?php
 namespace Tests\Diff\Renderer\Html;
 
+require "../../../lib/Autoloader.php";
+
 use jblond\Autoloader;
 use jblond\Diff\Renderer\Html\HtmlArray;
 use PHPUnit\Framework\TestCase;
-
-require "../../../lib/Autoloader.php";
-new Autoloader();
 
 /**
  * Class ArrayTest
@@ -14,6 +13,18 @@ new Autoloader();
  */
 class ArrayTest extends TestCase
 {
+
+	/**
+	 * ArrayTest constructor.
+	 * @param null $name
+	 * @param array $data
+	 * @param string $dataName
+	 */
+	public function __construct($name = null, array $data = [], $dataName = '') {
+		parent::__construct($name, $data, $dataName);
+		new Autoloader();
+	}
+
 	/**
 	 *
 	 */
