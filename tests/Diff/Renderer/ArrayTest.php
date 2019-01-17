@@ -7,8 +7,15 @@ use PHPUnit\Framework\TestCase;
 require "../../../lib/Autoloader.php";
 new Autoloader();
 
+/**
+ * Class ArrayTest
+ * @package Tests\Diff\Renderer\Html
+ */
 class ArrayTest extends TestCase
 {
+	/**
+	 *
+	 */
 	public function testRenderSimpleDelete()
 	{
 		$htmlRenderer = new HtmlArray();
@@ -35,6 +42,10 @@ class ArrayTest extends TestCase
 			)
 		), $result);
 	}
+
+	/**
+	 *
+	 */
 	public function testRenderFixesSpaces()
 	{
 		$htmlRenderer = new HtmlArray();
