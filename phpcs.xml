@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--suppress XmlUnboundNsPrefix, XmlUnboundNsPrefix -->
 <ruleset name="php-diff">
-	<description>overview</description>
-	<rule ref="Generic.Classes.DuplicateClassName"/>
-	<rule ref="Generic.CodeAnalysis.EmptyStatement"/>
-	<rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
-	<rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
-	<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
-	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
-	<rule ref="Generic.Functions.CallTimePassByReference"/>
-	<rule ref="Generic.Metrics.CyclomaticComplexity"/>
-	<rule ref="Generic.PHP.DeprecatedFunctions"/>
-	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
-	<rule ref="Generic.PHP.LowerCaseConstant"/>
-	<rule ref="Generic">
-		<exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
-		<exclude name="Generic.WhiteSpace.DisallowTabIndent.NonIndentTabsUsed"/>
-	</rule>
-
-	<rule ref="Squiz.PHP.Eval"/>
-	<rule ref="Squiz.PHP.LowercasePHPFunctions"/>
-	<rule ref="Squiz.PHP.NonExecutableCode"/>
-
-	<rule ref="PSR1">
-		<exclude name="PSR1.Files.SideEffects"/>
-	</rule>
+<description>some rules</description>
+<rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+<rule ref="Generic.Commenting.Todo"/>
+<rule ref="Generic.Commenting.Fixme"/>
+<rule ref="Generic.ControlStructures.InlineControlStructure">
+	<properties>
+		<property name="error" value="false"/>
+	</properties>
+</rule>
+<rule ref="Generic.Files.ByteOrderMark"/>
+<rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+<rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+<rule ref="Generic.Metrics.CyclomaticComplexity"/>
+<rule ref="Generic.NamingConventions.ConstructorName"/>
+<rule ref="Generic.PHP.DeprecatedFunctions"/>
+<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+<rule ref="PSR2.ControlStructures.ControlStructureSpacing"/>
+<rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
+<rule ref="PSR2.Files.EndFileNewline"/>
+<rule ref="PSR2.Namespaces.NamespaceDeclaration"/>
+<rule ref="PSR2.Namespaces.UseDeclaration"/>
+<rule ref="Squiz.WhiteSpace.FunctionSpacing">
+	<properties>
+		<property name="spacing" value="1"/>
+	</properties>
+</rule>
+<rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
+<rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
+<rule ref="Squiz.WhiteSpace.MemberVarSpacing"/>
+<rule ref="Squiz.WhiteSpace.ObjectOperatorSpacing"/>
+<rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
+<rule ref="Squiz.WhiteSpace.ScopeClosingBrace"/>
+<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
+<rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
 </ruleset>
