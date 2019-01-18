@@ -20,7 +20,9 @@ class ArrayTest extends TestCase
 	 * @param array $data
 	 * @param string $dataName
 	 */
-	public function __construct($name = null, array $data = [], $dataName = '') {
+	public function __construct($name = null, array $data = [], $dataName = '')
+	{
+
 		parent::__construct($name, $data, $dataName);
 		new Autoloader();
 	}
