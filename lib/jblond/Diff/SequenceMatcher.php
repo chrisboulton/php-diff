@@ -74,17 +74,17 @@ class SequenceMatcher
 	private $options = array();
 
 	/**
-	 * @var
+	 * @var null|array
 	 */
 	private $opCodes;
 
 	/**
-	 * @var
+	 * @var null|array
 	 */
 	private $matchingBlocks;
 
 	/**
-	 * @var
+	 * @var null|array
 	 */
 	private $fullBCount;
 
@@ -105,7 +105,7 @@ class SequenceMatcher
 	 * @param string|array $a A string or array containing the lines to compare against.
 	 * @param string|array $b A string or array containing the lines to compare.
 	 * @param array $options
-	 * @param string|array $junkCallback Either an array or string that references a callback function (if there is one) to determine 'junk' characters.
+	 * @param string|array|null $junkCallback Either an array or string that references a callback function (if there is one) to determine 'junk' characters.
 	 */
 	public function __construct($a, $b, $options, $junkCallback=null)
 	{
@@ -670,7 +670,7 @@ class SequenceMatcher
 	 * Essentially cleaner than doing a series of if(isset()) {} else {} calls.
 	 *
 	 * @param array $array The array to search.
-	 * @param string $key The key to check that exists.
+	 * @param string|int $key The key to check that exists.
 	 * @param mixed $default The value to return as the default value if the key doesn't exist.
 	 * @return mixed The value from the array if the key exists or otherwise the default.
 	 */

@@ -98,7 +98,7 @@ class HtmlArray extends RendererAbstract
 				$length = array_pad(array($length), $num, $length);
 			}
 			// Recursive call
-			return array_map(__FUNCTION__, $string, $replacement, $start, $length);
+			return array_map(array($this, 'mb_substr_replace'), $string, $replacement, $start, $length);
 		}
 		preg_match_all('/./us', (string)$string, $smatches);
 		preg_match_all('/./us', (string)$replacement, $rmatches);
@@ -112,7 +112,7 @@ class HtmlArray extends RendererAbstract
 	 * based differences. Generally called by subclasses that generate a
 	 * HTML based diff and return an array of the changes to show in the diff.
 	 *
-	 * @return array An array of the generated changes, suitable for presentation in HTML.
+	 * @return array|string An array of the generated changes, suitable for presentation in HTML.
 	 */
 	public function render()
 	{
@@ -250,12 +250,12 @@ class HtmlArray extends RendererAbstract
 			if($count == 0) {
 				continue;
 			}
-			$div = floor($count / 2);
+			$div = (int) floor($count / 2);
 			$mod = $count % 2;
 			$buffer	.= str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 		}
 
-		$div = floor($count / 2);
+		$div = (int) floor($count / 2);
 		$mod = $count % 2;
 		return str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 	}
