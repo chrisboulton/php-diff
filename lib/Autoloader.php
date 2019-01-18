@@ -23,7 +23,7 @@ class Autoloader
 	{
 		$class = str_replace('\\', '/', $class); // revert path for old PHP on Linux
 		$dir = str_replace('\\', '/', __DIR__);
-		if(file_exists($dir . '/' . $class . '.php')) {
+		if (file_exists($dir . '/' . $class . '.php')) {
 			 /** @noinspection PhpIncludeInspection */
 			require $dir . '/' . $class . '.php';
 		}

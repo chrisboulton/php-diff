@@ -58,20 +58,20 @@ class SideBySide extends HtmlArray
 		$changes = parent::render();
 
 		$html = '';
-		if(empty($changes)) {
+		if (empty($changes)) {
 			return $html;
 		}
 
 		$html .= $this->generateTableHeader();
 
-		foreach($changes as $i => $blocks) {
-			if($i > 0) {
+		foreach ($changes as $i => $blocks) {
+			if ($i > 0) {
 				$html .= $this->generateSkippedTable();
 			}
 
-			foreach($blocks as $change) {
+			foreach ($blocks as $change) {
 				$html .= '<tbody class="Change'.ucfirst($change['tag']).'">';
-				switch ($change['tag']){
+				switch ($change['tag']) {
 					// Equal changes should be shown on both sides of the diff
 					case 'equal':
 						$html .= $this->generateTableRowsEqual($change);
@@ -137,7 +137,7 @@ class SideBySide extends HtmlArray
 	private function generateTableRowsEqual(&$change)
 	{
 		$html = "";
-		foreach($change['base']['lines'] as $no => $line) {
+		foreach ($change['base']['lines'] as $no => $line) {
 			$fromLine = $change['base']['offset'] + $no + 1;
 			$toLine = $change['changed']['offset'] + $no + 1;
 			$html .= '<tr>';
@@ -159,7 +159,7 @@ class SideBySide extends HtmlArray
 	private function generateTableRowsInsert(&$change)
 	{
 		$html = "";
-		foreach($change['changed']['lines'] as $no => $line) {
+		foreach ($change['changed']['lines'] as $no => $line) {
 			$toLine = $change['changed']['offset'] + $no + 1;
 			$html .= '<tr>';
 			$html .= '<th>&#xA0;</th>';
@@ -180,7 +180,7 @@ class SideBySide extends HtmlArray
 	private function generateTableRowsDelete(&$change)
 	{
 		$html = "";
-		foreach($change['base']['lines'] as $no => $line) {
+		foreach ($change['base']['lines'] as $no => $line) {
 			$fromLine = $change['base']['offset'] + $no + 1;
 			$html .= '<tr>';
 			$html .= '<th>'.$fromLine.'</th>';
@@ -202,17 +202,16 @@ class SideBySide extends HtmlArray
 	{
 		$html = "";
 
-		if(count($change['base']['lines']) >= count($change['changed']['lines'])) {
-			foreach($change['base']['lines'] as $no => $line) {
+		if (count($change['base']['lines']) >= count($change['changed']['lines'])) {
+			foreach ($change['base']['lines'] as $no => $line) {
 				$fromLine = $change['base']['offset'] + $no + 1;
 				$html .= '<tr>';
 				$html .= '<th>'.$fromLine.'</th>';
 				$html .= '<td class="Left"><span>'.$line.'</span>&#xA0;</td>';
-				if(!isset($change['changed']['lines'][$no])) {
+				if (!isset($change['changed']['lines'][$no])) {
 					$toLine = '&#xA0;';
 					$changedLine = '&#xA0;';
-				}
-				else {
+				} else {
 					$toLine = $change['changed']['offset'] + $no + 1;
 					$changedLine = '<span>'.$change['changed']['lines'][$no].'</span>';
 				}
@@ -220,14 +219,12 @@ class SideBySide extends HtmlArray
 				$html .= '<td class="Right">'.$changedLine.'</td>';
 				$html .= '</tr>';
 			}
-		}
-		else {
-			foreach($change['changed']['lines'] as $no => $changedLine) {
-				if(!isset($change['base']['lines'][$no])) {
+		} else {
+			foreach ($change['changed']['lines'] as $no => $changedLine) {
+				if (!isset($change['base']['lines'][$no])) {
 					$fromLine = '&#xA0;';
 					$line = '&#xA0;';
-				}
-				else {
+				} else {
 					$fromLine = $change['base']['offset'] + $no + 1;
 					$line = '<span>'.$change['base']['lines'][$no].'</span>';
 				}

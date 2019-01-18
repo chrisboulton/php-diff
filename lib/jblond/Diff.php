@@ -86,15 +86,16 @@ class Diff
 	 * @param array $b Array containing the lines for the second string to compare.
 	 * @param array $options Array for the options
 	 */
-	public function __construct($a, $b, $options=array())
+	public function __construct($a, $b, $options = array())
 	{
 		$this->a = $a;
 		$this->b = $b;
 
-		if (is_array($options))
+		if (is_array($options)) {
 			$this->options = array_merge($this->defaultOptions, $options);
-		else
+		} else {
 			$this->options = $this->defaultOptions;
+		}
 	}
 
 
@@ -120,21 +121,19 @@ class Diff
 	 * @param int $end The ending number. If not supplied, only the item in $start will be returned.
 	 * @return array Array of all of the lines between the specified range.
 	 */
-	public function getA($start=0, $end=null)
+	public function getA($start = 0, $end = null)
 	{
-		if($start == 0 && $end === null) {
+		if ($start == 0 && $end === null) {
 			return $this->a;
 		}
 
-		if($end === null) {
+		if ($end === null) {
 			$length = 1;
-		}
-		else {
+		} else {
 			$length = $end - $start;
 		}
 
 		return array_slice($this->a, $start, $length);
-
 	}
 
 	/**
@@ -147,16 +146,15 @@ class Diff
 	 * @param int $end The ending number. If not supplied, only the item in $start will be returned.
 	 * @return array Array of all of the lines between the specified range.
 	 */
-	public function getB($start=0, $end=null)
+	public function getB($start = 0, $end = null)
 	{
-		if($start == 0 && $end === null) {
+		if ($start == 0 && $end === null) {
 			return $this->b;
 		}
 
-		if($end === null) {
+		if ($end === null) {
 			$length = 1;
-		}
-		else {
+		} else {
 			$length = $end - $start;
 		}
 
@@ -173,7 +171,7 @@ class Diff
 	 */
 	public function getGroupedOpcodes()
 	{
-		if(!is_null($this->groupedCodes)) {
+		if (!is_null($this->groupedCodes)) {
 			return $this->groupedCodes;
 		}
 

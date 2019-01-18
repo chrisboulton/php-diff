@@ -71,38 +71,43 @@ class HtmlArray extends RendererAbstract
 	 * into string at the given start offset.
 	* @return string|array The result string is returned. If string is an array then array is returned.
 	*/
-	public function mb_substr_replace($string, $replacement, $start, $length=NULL) {
+	public function mbSubstrReplace($string, $replacement, $start, $length = null)
+	{
 		if (is_array($string)) {
 			$num = count($string);
 			// $replacement
-			$replacement = is_array($replacement) ? array_slice($replacement, 0, $num) : array_pad(array($replacement), $num, $replacement);
+			if (is_array($replacement)) {
+				$replacement = array_slice($replacement, 0, $num);
+			} else {
+				$replacement = array_pad(array($replacement), $num, $replacement);
+			}
+
 			// $start
 			if (is_array($start)) {
 				$start = array_slice($start, 0, $num);
 				foreach ($start as $key => $value)
 					$start[$key] = is_int($value) ? $value : 0;
-			}
-			else {
+			} else {
 				$start = array_pad(array($start), $num, $start);
 			}
 			// $length
 			if (!isset($length)) {
 				$length = array_fill(0, $num, 0);
-			}
-			elseif (is_array($length)) {
+			} elseif (is_array($length)) {
 				$length = array_slice($length, 0, $num);
 				foreach ($length as $key => $value)
 					$length[$key] = isset($value) ? (is_int($value) ? $value : $num) : 0;
-			}
-			else {
+			} else {
 				$length = array_pad(array($length), $num, $length);
 			}
 			// Recursive call
-			return array_map(array($this, 'mb_substr_replace'), $string, $replacement, $start, $length);
+			return array_map(array($this, 'mbSubstrReplace'), $string, $replacement, $start, $length);
 		}
 		preg_match_all('/./us', (string)$string, $smatches);
 		preg_match_all('/./us', (string)$replacement, $rmatches);
-		if ($length === NULL) $length = mb_strlen($string);
+		if ($length === null) {
+			$length = mb_strlen($string);
+		}
 		array_splice($smatches['0'], $start, $length, $rmatches[0]);
 		return join($smatches['0']);
 	}
@@ -124,20 +129,20 @@ class HtmlArray extends RendererAbstract
 
 		$changes = array();
 		$opCodes = $this->diff->getGroupedOpcodes();
-		foreach($opCodes as $group) {
+		foreach ($opCodes as $group) {
 			$blocks = array();
 			$lastTag = null;
 			$lastBlock = 0;
-			foreach($group as $code) {
+			foreach ($group as $code) {
 				list($tag, $i1, $i2, $j1, $j2) = $code;
 
-				if($tag == 'replace' && $i2 - $i1 == $j2 - $j1) {
-					for($i = 0; $i < ($i2 - $i1); ++$i) {
+				if ($tag == 'replace' && $i2 - $i1 == $j2 - $j1) {
+					for ($i = 0; $i < ($i2 - $i1); ++$i) {
 						$fromLine = $a[$i1 + $i];
 						$toLine = $b[$j1 + $i];
 
 						list($start, $end) = $this->getChangeExtent($fromLine, $toLine);
-						if($start != 0 || $end != 0) {
+						if ($start != 0 || $end != 0) {
 							$realEnd = mb_strlen($fromLine) + $end;
 
 							$fromLine = mb_substr($fromLine, 0, $start) . "\0" .
@@ -155,28 +160,27 @@ class HtmlArray extends RendererAbstract
 					}
 				}
 
-				if($tag != $lastTag) {
+				if ($tag != $lastTag) {
 					$blocks[] = $this->getDefaultArray($tag, $i1, $j1);
 					$lastBlock = count($blocks)-1;
 				}
 
 				$lastTag = $tag;
 
-				if($tag == 'equal') {
+				if ($tag == 'equal') {
 					$lines = array_slice($a, $i1, ($i2 - $i1));
 					$blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines);
 					$lines = array_slice($b, $j1, ($j2 - $j1));
 					$blocks[$lastBlock]['changed']['lines'] +=  $this->formatLines($lines);
-				}
-				else {
-					if($tag == 'replace' || $tag == 'delete') {
+				} else {
+					if ($tag == 'replace' || $tag == 'delete') {
 						$lines = array_slice($a, $i1, ($i2 - $i1));
 						$lines = $this->formatLines($lines);
 						$lines = str_replace(array("\0", "\1"), array('<del>', '</del>'), $lines);
 						$blocks[$lastBlock]['base']['lines'] += $lines;
 					}
 
-					if($tag == 'replace' || $tag == 'insert') {
+					if ($tag == 'replace' || $tag == 'insert') {
 						$lines = array_slice($b, $j1, ($j2 - $j1));
 						$lines =  $this->formatLines($lines);
 						$lines = str_replace(array("\0", "\1"), array('<ins>', '</ins>'), $lines);
@@ -201,12 +205,12 @@ class HtmlArray extends RendererAbstract
 	{
 		$start = 0;
 		$limit = min(mb_strlen($fromLine), mb_strlen($toLine));
-		while($start < $limit && mb_substr($fromLine, $start, 1) == mb_substr($toLine, $start, 1)) {
+		while ($start < $limit && mb_substr($fromLine, $start, 1) == mb_substr($toLine, $start, 1)) {
 			++$start;
 		}
 		$end = -1;
 		$limit = $limit - $start;
-		while(-$end <= $limit && mb_substr($fromLine, $end, 1) == mb_substr($toLine, $end, 1)) {
+		while (-$end <= $limit && mb_substr($fromLine, $end, 1) == mb_substr($toLine, $end, 1)) {
 			--$end;
 		}
 		return array(
@@ -229,7 +233,7 @@ class HtmlArray extends RendererAbstract
 			$lines = array_map(array($this, 'ExpandTabs'), $lines);
 		}
 		$lines = array_map(array($this, 'HtmlSafe'), $lines);
-		foreach($lines as &$line) {
+		foreach ($lines as &$line) {
 			$line = preg_replace_callback('# ( +)|^ #', array($this, 'fixSpaces'), $line);
 		}
 		return $lines;
@@ -245,9 +249,9 @@ class HtmlArray extends RendererAbstract
 	{
 		$buffer	= '';
 		$count = 0;
-		foreach($matches as $spaces){
+		foreach ($matches as $spaces) {
 			$count = strlen($spaces);
-			if($count == 0) {
+			if ($count == 0) {
 				continue;
 			}
 			$div = (int) floor($count / 2);
@@ -269,12 +273,12 @@ class HtmlArray extends RendererAbstract
 	private function expandTabs($line)
 	{
 		$tabSize	= $this->options['tabSize'];
-		while(($pos = strpos($line, "\t")) !== FALSE){
+		while (($pos = strpos($line, "\t")) !== false) {
 			$left	= substr($line, 0, $pos);
 			$right	= substr($line, $pos + 1);
 			$length	= $tabSize - ($pos % $tabSize);
 			$spaces	= str_repeat(' ', $length);
-			$line	= $left.$spaces.$right;
+			$line	= $left . $spaces . $right;
 		}
 		return $line;
 	}
@@ -296,8 +300,10 @@ class HtmlArray extends RendererAbstract
 	 * @param integer $j1
 	 * @return array
 	 */
-	private function getDefaultArray($tag, $i1, $j1){
-		return array(
+	private function getDefaultArray($tag, $i1, $j1)
+	{
+		return array
+		(
 			'tag' => $tag,
 			'base' => array(
 				'offset' => $i1,

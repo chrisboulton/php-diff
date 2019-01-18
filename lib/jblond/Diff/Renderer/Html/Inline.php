@@ -57,23 +57,23 @@ class Inline extends HtmlArray
 	{
 		$changes = parent::render();
 		$html = '';
-		if(empty($changes)) {
+		if (empty($changes)) {
 			return $html;
 		}
 
 		$html .= $this->generateTableHeader();
 
-		foreach($changes as $i => $blocks) {
+		foreach ($changes as $i => $blocks) {
 			// If this is a separate block, we're condensing code so output ...,
 			// indicating a significant portion of the code has been collapsed as
 			// it is the same
-			if($i > 0) {
+			if ($i > 0) {
 				$html .= $this->generateSkippedTable();
 			}
 
-			foreach($blocks as $change) {
+			foreach ($blocks as $change) {
 				$html .= '<tbody class="Change'.ucfirst($change['tag']).'">';
-				switch ($change['tag']){
+				switch ($change['tag']) {
 					// Equal changes should be shown on both sides of the diff
 					case 'equal':
 						$html .= $this->generateTableRowsEqual($change);
@@ -142,7 +142,7 @@ class Inline extends HtmlArray
 	private function generateTableRowsEqual(&$change)
 	{
 		$html = "";
-		foreach($change['base']['lines'] as $no => $line) {
+		foreach ($change['base']['lines'] as $no => $line) {
 			$fromLine = $change['base']['offset'] + $no + 1;
 			$toLine = $change['changed']['offset'] + $no + 1;
 			$html .= '<tr>';
@@ -163,7 +163,7 @@ class Inline extends HtmlArray
 	private function generateTableRowsInsert(&$change)
 	{
 		$html = "";
-		foreach($change['changed']['lines'] as $no => $line) {
+		foreach ($change['changed']['lines'] as $no => $line) {
 			$toLine = $change['changed']['offset'] + $no + 1;
 			$html .= '<tr>';
 			$html .= '<th>&#xA0;</th>';
@@ -183,7 +183,7 @@ class Inline extends HtmlArray
 	private function generateTableRowsDelete(&$change)
 	{
 		$html = "";
-		foreach($change['base']['lines'] as $no => $line) {
+		foreach ($change['base']['lines'] as $no => $line) {
 			$fromLine = $change['base']['offset'] + $no + 1;
 			$html .= '<tr>';
 			$html .= '<th>'.$fromLine.'</th>';
@@ -204,7 +204,7 @@ class Inline extends HtmlArray
 	{
 		$html = "";
 
-		foreach($change['base']['lines'] as $no => $line) {
+		foreach ($change['base']['lines'] as $no => $line) {
 			$fromLine = $change['base']['offset'] + $no + 1;
 			$html .= '<tr>';
 			$html .= '<th>'.$fromLine.'</th>';
@@ -213,7 +213,7 @@ class Inline extends HtmlArray
 			$html .= '</tr>';
 		}
 
-		foreach($change['changed']['lines'] as $no => $line) {
+		foreach ($change['changed']['lines'] as $no => $line) {
 			$toLine = $change['changed']['offset'] + $no + 1;
 			$html .= '<tr>';
 			$html .= '<th>&#xA0;</th>';
