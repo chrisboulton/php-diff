@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace jblond\Diff\Renderer\Html;
 
 use jblond\Diff\Renderer\RendererAbstract;
@@ -40,7 +41,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.5
+ * @version 1.6
  * @link https://github.com/JBlond/php-diff
  */
 
@@ -254,12 +255,12 @@ class HtmlArray extends RendererAbstract
 			if ($count == 0) {
 				continue;
 			}
-			$div = ($count / 2);
+			$div = (int) ($count / 2);
 			$mod = $count % 2;
 			$buffer	.= str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 		}
 
-		$div = ($count / 2);
+		$div = (int) ($count / 2);
 		$mod = $count % 2;
 		return str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 	}

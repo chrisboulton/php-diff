@@ -30,7 +30,8 @@ example.php.
 
 Requirements
 -----------
-PHP Multibyte String 
+- PHP 7.1 or greater
+- PHP Multibyte String 
 
 Merge files using jQuery
 ------------------------
@@ -50,6 +51,7 @@ Contributors since I forked the repo.
 
 - maxxer
 - Creris
+- jfcherng
 
 License (BSD License)
 ---------------------
