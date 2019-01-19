@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace jblond\Diff;
 
-use phpDocumentor\Reflection\Types\Boolean;
-
 /**
  * Sequence matcher for Diff
  *
