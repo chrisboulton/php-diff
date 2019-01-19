@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace jblond\Diff\Renderer\Text;
 
 use jblond\Diff\Renderer\RendererAbstract;
@@ -64,7 +65,7 @@ class Context extends RendererAbstract
 	 *
 	 * @return string The generated context diff.
 	 */
-	public function render()
+	public function render() : string
 	{
 		$diff = '';
 		$opCodes = $this->diff->getGroupedOpcodes();

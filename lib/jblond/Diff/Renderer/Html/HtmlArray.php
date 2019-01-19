@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace jblond\Diff\Renderer\Html;
 
 use jblond\Diff\Renderer\RendererAbstract;
@@ -254,12 +255,12 @@ class HtmlArray extends RendererAbstract
 			if ($count == 0) {
 				continue;
 			}
-			$div = ($count / 2);
+			$div = (int) ($count / 2);
 			$mod = $count % 2;
 			$buffer	.= str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 		}
 
-		$div = ($count / 2);
+		$div = (int) ($count / 2);
 		$mod = $count % 2;
 		return str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 	}

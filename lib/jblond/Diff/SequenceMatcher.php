@@ -1,5 +1,8 @@
 <?php
+declare(strict_types=1);
 namespace jblond\Diff;
+
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * Sequence matcher for Diff
@@ -236,7 +239,7 @@ class SequenceMatcher
 	 * @param string $b
 	 * @return boolean $b True if the character is considered junk. False if not.
 	 */
-	private function isBJunk($b)
+	private function isBJunk($b) : bool
 	{
 		if (isset($this->junkDict[$b])) {
 			return true;
@@ -265,7 +268,7 @@ class SequenceMatcher
 	 * @return array Array containing the longest match that includes the starting position in $a,
 	 * start in $b and the length/size.
 	 */
-	public function findLongestMatch($alo, $ahi, $blo, $bhi)
+	public function findLongestMatch($alo, $ahi, $blo, $bhi) : array
 	{
 		$a = $this->a;
 		$b = $this->b;
@@ -348,7 +351,7 @@ class SequenceMatcher
 	 * @param int $bIndex Line number to check against in b.
 	 * @return boolean True if the lines are different and false if not.
 	 */
-	public function linesAreDifferent($aIndex, $bIndex)
+	public function linesAreDifferent($aIndex, $bIndex) : bool
 	{
 		$lineA = $this->a[$aIndex];
 		$lineB = $this->b[$bIndex];
@@ -381,7 +384,7 @@ class SequenceMatcher
 	 *
 	 * @return array Nested array of the matching blocks, as described by the function.
 	 */
-	public function getMatchingBlocks()
+	public function getMatchingBlocks() : array
 	{
 		if (!empty($this->matchingBlocks)) {
 			return $this->matchingBlocks;
@@ -491,7 +494,7 @@ class SequenceMatcher
 	 *
 	 * @return array Array of the opcodes describing the differences between the strings.
 	 */
-	public function getOpCodes()
+	public function getOpCodes() : array
 	{
 		if (!empty($this->opCodes)) {
 			return $this->opCodes;
@@ -553,7 +556,7 @@ class SequenceMatcher
 	 * @param int $context The number of lines of context to provide around the groups.
 	 * @return array Nested array of all of the grouped op codes.
 	 */
-	public function getGroupedOpcodes($context = 3)
+	public function getGroupedOpcodes($context = 3) : array
 	{
 		$opCodes = $this->getOpCodes();
 		if (empty($opCodes)) {
@@ -638,7 +641,7 @@ class SequenceMatcher
 	 *
 	 * @return float The calculated ratio.
 	 */
-	public function ratio()
+	public function ratio() : float
 	{
 		$matches = array_reduce($this->getMatchingBlocks(), array($this, 'ratioReduce'), 0);
 		return $this->calculateRatio($matches, count($this->a) + count($this->b));
@@ -651,7 +654,7 @@ class SequenceMatcher
 	 * @param array $triple Array containing the matching block triple to add to the running total.
 	 * @return int The new running total for the number of matches.
 	 */
-	private function ratioReduce($sum, $triple)
+	private function ratioReduce($sum, $triple) : int
 	{
 		return $sum + ($triple[count($triple) - 1]);
 	}
@@ -664,7 +667,7 @@ class SequenceMatcher
 	 * @param int $length The length of the two strings.
 	 * @return float The calculated ratio.
 	 */
-	private function calculateRatio($matches, $length = 0)
+	private function calculateRatio($matches, $length = 0) : float
 	{
 		if ($length) {
 			return 2 * ($matches / $length);
@@ -697,7 +700,7 @@ class SequenceMatcher
 	 * @param array $b Second array to compare.
 	 * @return int -1, 0 or 1, as expected by the usort function.
 	 */
-	private function tupleSort($a, $b)
+	private function tupleSort($a, $b) : int
 	{
 		$max = max(count($a), count($b));
 		for ($i = 0; $i < $max; ++$i) {
