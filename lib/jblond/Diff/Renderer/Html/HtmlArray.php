@@ -86,8 +86,9 @@ class HtmlArray extends RendererAbstract
 			// $start
 			if (is_array($start)) {
 				$start = array_slice($start, 0, $num);
-				foreach ($start as $key => $value)
+				foreach ($start as $key => $value) {
 					$start[$key] = is_int($value) ? $value : 0;
+                }
 			} else {
 				$start = array_pad(array($start), $num, $start);
 			}
@@ -96,8 +97,9 @@ class HtmlArray extends RendererAbstract
 				$length = array_fill(0, $num, 0);
 			} elseif (is_array($length)) {
 				$length = array_slice($length, 0, $num);
-				foreach ($length as $key => $value)
+				foreach ($length as $key => $value) {
 					$length[$key] = isset($value) ? (is_int($value) ? $value : $num) : 0;
+                }
 			} else {
 				$length = array_pad(array($length), $num, $length);
 			}
