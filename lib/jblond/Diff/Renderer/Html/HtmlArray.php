@@ -7,7 +7,7 @@ use jblond\Diff\Renderer\RendererAbstract;
 /**
  * Base renderer for rendering HTML based diffs for PHP DiffLib.
  *
- * PHP version 5
+ * PHP version 7.1 or greater
  *
  * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
  *

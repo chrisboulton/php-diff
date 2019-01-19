@@ -7,7 +7,7 @@ use jblond\Diff\Renderer\RendererAbstract;
 /**
  * Context diff generator for PHP DiffLib.
  *
- * PHP version 5
+ * PHP version 7.1 or greater
  *
  * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
  *

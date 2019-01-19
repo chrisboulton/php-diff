@@ -5,7 +5,7 @@ namespace jblond\Diff\Renderer\Html;
 /**
  * Side by Side HTML diff generator for PHP DiffLib.
  *
- * PHP version 5
+ * PHP version 7.1 or greater
  *
  * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
  *
