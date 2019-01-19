@@ -237,7 +237,7 @@ class SequenceMatcher
 	 * for the list of junk characters.
 	 *
 	 * @param string $b
-	 * @return boolean $b True if the character is considered junk. False if not.
+	 * @return bool $b True if the character is considered junk. False if not.
 	 */
 	private function isBJunk($b) : bool
 	{
@@ -349,7 +349,7 @@ class SequenceMatcher
 	 *
 	 * @param int $aIndex Line number to check against in a.
 	 * @param int $bIndex Line number to check against in b.
-	 * @return boolean True if the lines are different and false if not.
+	 * @return bool True if the lines are different and false if not.
 	 */
 	public function linesAreDifferent($aIndex, $bIndex) : bool
 	{
