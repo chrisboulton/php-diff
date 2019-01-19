@@ -254,12 +254,12 @@ class HtmlArray extends RendererAbstract
 			if ($count == 0) {
 				continue;
 			}
-			$div = (int) floor($count / 2);
+			$div = ($count / 2);
 			$mod = $count % 2;
 			$buffer	.= str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 		}
 
-		$div = (int) floor($count / 2);
+		$div = ($count / 2);
 		$mod = $count % 2;
 		return str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
 	}
