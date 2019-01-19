@@ -25,7 +25,7 @@ class Autoloader
 		$dir = str_replace('\\', '/', __DIR__);
 		if (file_exists($dir . '/' . $class . '.php')) {
 			 /** @noinspection PhpIncludeInspection */
-			require $dir . '/' . $class . '.php';
+			require_once $dir . '/' . $class . '.php';
 		}
 	}
 }

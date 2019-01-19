@@ -2,9 +2,6 @@
 declare(strict_types=1);
 namespace Tests\Diff\Renderer\Html;
 
-require "../../../lib/Autoloader.php";
-
-use jblond\Autoloader;
 use jblond\Diff\Renderer\Html\HtmlArray;
 use PHPUnit\Framework\TestCase;
 
@@ -23,9 +20,9 @@ class ArrayTest extends TestCase
 	 */
 	public function __construct($name = null, array $data = [], $dataName = '')
 	{
-
+		require "../../../lib/Autoloader.php";
+		new \jblond\Autoloader();
 		parent::__construct($name, $data, $dataName);
-		new Autoloader();
 	}
 
 	/**
