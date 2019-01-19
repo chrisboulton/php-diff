@@ -24,9 +24,9 @@ Example Use
 A quick usage example can be found in the example/ directory and under
 example.php.
 
-![Example Image](https://github.com/jblond/php-diff/raw/master/readme.png "Example")
+![Example Image](readme.png "Example")
 
-![Example 2 Image](https://github.com/jblond/php-diff/raw/master/readme2.png "Example2")
+![Example 2 Image](readme2.png "Example2")
 
 Requirements
 -----------
