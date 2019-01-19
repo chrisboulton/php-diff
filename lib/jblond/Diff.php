@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace jblond;
 
 use jblond\Diff\SequenceMatcher;
@@ -43,7 +44,7 @@ use jblond\Diff\SequenceMatcher;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.5
+ * @version 1.6
  * @link https://github.com/JBlond/php-diff
  */
 class Diff
@@ -121,7 +122,7 @@ class Diff
 	 * @param int $end The ending number. If not supplied, only the item in $start will be returned.
 	 * @return array Array of all of the lines between the specified range.
 	 */
-	public function getA($start = 0, $end = null)
+	public function getA($start = 0, $end = null) : array
 	{
 		if ($start == 0 && $end === null) {
 			return $this->a;
@@ -146,7 +147,7 @@ class Diff
 	 * @param int $end The ending number. If not supplied, only the item in $start will be returned.
 	 * @return array Array of all of the lines between the specified range.
 	 */
-	public function getB($start = 0, $end = null)
+	public function getB($start = 0, $end = null) : array
 	{
 		if ($start == 0 && $end === null) {
 			return $this->b;
@@ -169,7 +170,7 @@ class Diff
 	 *
 	 * @return array Array of the grouped op codes for the generated diff.
 	 */
-	public function getGroupedOpcodes()
+	public function getGroupedOpcodes() : array
 	{
 		if (!is_null($this->groupedCodes)) {
 			return $this->groupedCodes;
