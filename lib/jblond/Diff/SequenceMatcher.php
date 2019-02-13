@@ -130,13 +130,13 @@ class SequenceMatcher
     /**
      * Set the first and second sequences to use with the sequence matcher.
      *
-     * @param string|array $a A string or array containing the lines to compare against.
-     * @param string|array $b A string or array containing the lines to compare.
+     * @param string|array $partA A string or array containing the lines to compare against.
+     * @param string|array $partB A string or array containing the lines to compare.
      */
-    public function setSequences($a, $b)
+    public function setSequences($partA, $partB)
     {
-        $this->setSeq1($a);
-        $this->setSeq2($b);
+        $this->setSeq1($partA);
+        $this->setSeq2($partB);
     }
 
     /**
