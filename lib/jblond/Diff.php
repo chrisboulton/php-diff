@@ -10,7 +10,7 @@ use jblond\Diff\SequenceMatcher;
  * A comprehensive library for generating differences between two strings
  * in multiple formats (unified, side by side HTML etc)
  *
- * PHP version 5
+ * PHP version 7.1 or greater
  *
  * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
  *
@@ -44,7 +44,7 @@ use jblond\Diff\SequenceMatcher;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.6
+ * @version 1.8
  * @link https://github.com/JBlond/php-diff
  */
 class Diff

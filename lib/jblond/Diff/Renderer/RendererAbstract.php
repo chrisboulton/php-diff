@@ -5,7 +5,7 @@ namespace jblond\Diff\Renderer;
 /**
  * Abstract class for diff renderers in PHP DiffLib.
  *
- * PHP version 5
+ * PHP version 7.1 or greater
  *
  * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
  *
@@ -39,7 +39,7 @@ namespace jblond\Diff\Renderer;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.6
+ * @version 1.8
  * @link https://github.com/JBlond/php-diff
  */
 abstract class RendererAbstract
