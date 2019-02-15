@@ -116,6 +116,54 @@ class HtmlArray extends RendererAbstract
     }
 
     /**
+     * @param string|array $changes
+     * @param SideBySide|Inline $object
+     * @return string
+     */
+    public function renderHtml($changes, $object)
+    {
+        $html = '';
+        if (empty($changes)) {
+            return $html;
+        }
+
+        $html .= $object->generateTableHeader();
+
+        foreach ($changes as $i => $blocks) {
+            // If this is a separate block, we're condensing code so output ...,
+            // indicating a significant portion of the code has been collapsed as
+            // it is the same
+            if ($i > 0) {
+                $html .= $object->generateSkippedTable();
+            }
+
+            foreach ($blocks as $change) {
+                $html .= '<tbody class="Change'.ucfirst($change['tag']).'">';
+                switch ($change['tag']) {
+                    // Equal changes should be shown on both sides of the diff
+                    case 'equal':
+                        $html .= $object->generateTableRowsEqual($change);
+                        break;
+                    // Added lines only on the right side
+                    case 'insert':
+                        $html .= $object->generateTableRowsInsert($change);
+                        break;
+                    // Show deleted lines only on the left side
+                    case 'delete':
+                        $html .= $object->generateTableRowsDelete($change);
+                        break;
+                    // Show modified lines on both sides
+                    case 'replace':
+                        $html .= $object->generateTableRowsReplace($change);
+                        break;
+                }
+                $html .= '</tbody>';
+            }
+        }
+        $html .= '</table>';
+        return $html;
+    }
+    /**
      * Render and return an array structure suitable for generating HTML
      * based differences. Generally called by subclasses that generate a
      * HTML based diff and return an array of the changes to show in the diff.
