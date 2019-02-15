@@ -403,10 +403,10 @@ class SequenceMatcher
         $matchingBlocks = array();
         while (!empty($queue)) {
             list($alo, $ahi, $blo, $bhi) = array_pop($queue);
-            $x = $this->findLongestMatch($alo, $ahi, $blo, $bhi);
-            list($i, $j, $k) = $x;
+            $longestMatch = $this->findLongestMatch($alo, $ahi, $blo, $bhi);
+            list($i, $j, $k) = $longestMatch;
             if ($k) {
-                $matchingBlocks[] = $x;
+                $matchingBlocks[] = $longestMatch;
                 if ($alo < $i && $blo < $j) {
                     $queue[] = array(
                         $alo,
@@ -701,10 +701,10 @@ class SequenceMatcher
     private function tupleSort(array $a, array $b) : int
     {
         $max = max(count($a), count($b));
-        for ($i = 0; $i < $max; ++$i) {
-            if ($a[$i] < $b[$i]) {
+        for ($counter = 0; $counter < $max; ++$counter) {
+            if ($a[$counter] < $b[$counter]) {
                 return -1;
-            } elseif ($a[$i] > $b[$i]) {
+            } elseif ($a[$counter] > $b[$counter]) {
                 return 1;
             }
         }
