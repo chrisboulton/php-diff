@@ -140,7 +140,7 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of text with no difference.
      */
-    private function generateTableRowsEqual(&$change) : string
+    private function generateTableRowsEqual(array &$change) : string
     {
         $html = "";
         foreach ($change['base']['lines'] as $no => $line) {
@@ -161,7 +161,7 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of added text.
      */
-    private function generateTableRowsInsert(&$change) : string
+    private function generateTableRowsInsert(array &$change) : string
     {
         $html = "";
         foreach ($change['changed']['lines'] as $no => $line) {
@@ -181,7 +181,7 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of removed text.
      */
-    private function generateTableRowsDelete(&$change) : string
+    private function generateTableRowsDelete(array &$change) : string
     {
         $html = "";
         foreach ($change['base']['lines'] as $no => $line) {
@@ -201,7 +201,7 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of modified.
      */
-    private function generateTableRowsReplace(&$change) : string
+    private function generateTableRowsReplace(array &$change) : string
     {
         $html = "";
 

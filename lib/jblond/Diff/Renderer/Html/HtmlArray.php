@@ -65,14 +65,14 @@ class HtmlArray extends RendererAbstract
     * @param string $replacement The replacement string.
     * @param int $start If start is positive, the replacing will begin at the start'th offset into string.
     * If start is negative, the replacing will begin at the start'th character from the end of string.
-    * @param int $length If given and is positive, it represents the length of the portion of string which is to
+    * @param int|null $length If given and is positive, it represents the length of the portion of string which is to
      * be replaced. If it is negative, it represents the number of characters from the end of string at which to
      * stop replacing. If it is not given, then it will default to strlen( string ); i.e. end the replacing at the
      * end of string. Of course, if length is zero then this function will have the effect of inserting replacement
      * into string at the given start offset.
     * @return string|array The result string is returned. If string is an array then array is returned.
     */
-    public function mbSubstrReplace(string $string, string $replacement, int $start, int $length = null)
+    public function mbSubstrReplace(string $string, string $replacement, int $start, $length = null)
     {
         if (is_array($string)) {
             $num = count($string);
@@ -204,7 +204,7 @@ class HtmlArray extends RendererAbstract
      * @param string $toLine The second string.
      * @return array Array containing the starting position (0 by default) and the ending position (-1 by default)
      */
-    private function getChangeExtent($fromLine, $toLine)
+    private function getChangeExtent(string $fromLine, string $toLine)
     {
         $start = 0;
         $limit = min(mb_strlen($fromLine), mb_strlen($toLine));
@@ -230,7 +230,7 @@ class HtmlArray extends RendererAbstract
      * @param array $lines Array of lines to format.
      * @return array Array of the formatted lines.
      */
-    protected function formatLines($lines)
+    protected function formatLines(array $lines) : array
     {
         if ($this->options['tabSize'] !== false) {
             $lines = array_map(array($this, 'ExpandTabs'), $lines);
@@ -248,7 +248,7 @@ class HtmlArray extends RendererAbstract
      * @param array $matches The string of spaces.
      * @return string The HTML representation of the string.
      */
-    protected function fixSpaces($matches)
+    protected function fixSpaces(array $matches) : string
     {
         $buffer = '';
         $count = 0;
@@ -273,7 +273,7 @@ class HtmlArray extends RendererAbstract
      * @param string $line The containing tabs to convert.
      * @return string The line with the tabs converted to spaces.
      */
-    private function expandTabs($line)
+    private function expandTabs(string $line) : string
     {
         $tabSize    = $this->options['tabSize'];
         while (($pos = strpos($line, "\t")) !== false) {
@@ -292,7 +292,7 @@ class HtmlArray extends RendererAbstract
      * @param string $string The string.
      * @return string The string with the HTML characters replaced by entities.
      */
-    private function htmlSafe($string)
+    private function htmlSafe(string $string) : string
     {
         return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
     }
@@ -303,7 +303,7 @@ class HtmlArray extends RendererAbstract
      * @param integer $j1
      * @return array
      */
-    private function getDefaultArray($tag, $i1, $j1)
+    private function getDefaultArray(string $tag, int $i1, int $j1) : array
     {
         return array
         (
