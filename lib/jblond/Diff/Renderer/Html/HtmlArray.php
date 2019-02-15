@@ -61,18 +61,18 @@ class HtmlArray extends RendererAbstract
 
     /**
     * From https://gist.github.com/stemar/8287074
-    * @param mixed $string The input string.
-    * @param mixed $replacement The replacement string.
-    * @param mixed $start If start is positive, the replacing will begin at the start'th offset into string.
+    * @param string $string The input string.
+    * @param string $replacement The replacement string.
+    * @param int $start If start is positive, the replacing will begin at the start'th offset into string.
     * If start is negative, the replacing will begin at the start'th character from the end of string.
-    * @param mixed $length If given and is positive, it represents the length of the portion of string which is to
+    * @param int $length If given and is positive, it represents the length of the portion of string which is to
      * be replaced. If it is negative, it represents the number of characters from the end of string at which to
      * stop replacing. If it is not given, then it will default to strlen( string ); i.e. end the replacing at the
      * end of string. Of course, if length is zero then this function will have the effect of inserting replacement
      * into string at the given start offset.
     * @return string|array The result string is returned. If string is an array then array is returned.
     */
-    public function mbSubstrReplace($string, $replacement, $start, $length = null)
+    public function mbSubstrReplace(string $string, string $replacement, int $start, int $length = null)
     {
         if (is_array($string)) {
             $num = count($string);
