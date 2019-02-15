@@ -66,6 +66,9 @@ class SideBySide extends HtmlArray
         $html .= $this->generateTableHeader();
 
         foreach ($changes as $i => $blocks) {
+            // If this is a separate block, we're condensing code so output ...,
+            // indicating a significant portion of the code has been collapsed as
+            // it is the same
             if ($i > 0) {
                 $html .= $this->generateSkippedTable();
             }
