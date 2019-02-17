@@ -39,7 +39,7 @@ namespace jblond\Diff\Renderer\Html;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.7
+ * @version 1.9
  * @link https://github.com/JBlond/php-diff
  */
 
@@ -140,7 +140,7 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of text with no difference.
      */
-    private function generateTableRowsEqual(&$change) : string
+    private function generateTableRowsEqual(array &$change) : string
     {
         $html = "";
         foreach ($change['base']['lines'] as $no => $line) {
@@ -161,7 +161,7 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of added text.
      */
-    private function generateTableRowsInsert(&$change) : string
+    private function generateTableRowsInsert(array &$change) : string
     {
         $html = "";
         foreach ($change['changed']['lines'] as $no => $line) {
@@ -181,7 +181,7 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of removed text.
      */
-    private function generateTableRowsDelete(&$change) : string
+    private function generateTableRowsDelete(array &$change) : string
     {
         $html = "";
         foreach ($change['base']['lines'] as $no => $line) {
@@ -201,7 +201,7 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of modified.
      */
-    private function generateTableRowsReplace(&$change) : string
+    private function generateTableRowsReplace(array &$change) : string
     {
         $html = "";
 
