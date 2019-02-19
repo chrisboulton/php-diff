@@ -52,12 +52,12 @@ class Diff
     /**
      * @var array The "old" sequence to use as the basis for the comparison.
      */
-    private $a = null;
+    private $old = null;
 
     /**
      * @var array The "new" sequence to generate the changes for.
      */
-    private $b = null;
+    private $new = null;
 
     /**
      * @var array Array containing the generated op codes for the differences between the two items.
@@ -89,8 +89,8 @@ class Diff
      */
     public function __construct(array $a, array $b, array $options = array())
     {
-        $this->a = $a;
-        $this->b = $b;
+        $this->old = $a;
+        $this->new = $b;
 
         if (is_array($options)) {
             $this->options = array_merge($this->defaultOptions, $options);
@@ -122,10 +122,10 @@ class Diff
      * @param int|null $end The ending number. If not supplied, only the item in $start will be returned.
      * @return array Array of all of the lines between the specified range.
      */
-    public function getA(int $start = 0, $end = null) : array
+    public function getOld(int $start = 0, $end = null) : array
     {
         if ($start == 0 && $end === null) {
-            return $this->a;
+            return $this->old;
         }
 
         if ($end === null) {
@@ -134,7 +134,7 @@ class Diff
             $length = $end - $start;
         }
 
-        return array_slice($this->a, $start, $length);
+        return array_slice($this->old, $start, $length);
     }
 
     /**
@@ -147,10 +147,10 @@ class Diff
      * @param int|null $end The ending number. If not supplied, only the item in $start will be returned.
      * @return array Array of all of the lines between the specified range.
      */
-    public function getB(int $start = 0, $end = null) : array
+    public function getNew(int $start = 0, $end = null) : array
     {
         if ($start == 0 && $end === null) {
-            return $this->b;
+            return $this->new;
         }
 
         if ($end === null) {
@@ -159,7 +159,7 @@ class Diff
             $length = $end - $start;
         }
 
-        return array_slice($this->b, $start, $length);
+        return array_slice($this->new, $start, $length);
     }
 
     /**
@@ -176,7 +176,7 @@ class Diff
             return $this->groupedCodes;
         }
 
-        $sequenceMatcher = new SequenceMatcher($this->a, $this->b, $this->options, null);
+        $sequenceMatcher = new SequenceMatcher($this->old, $this->new, $this->options, null);
         $this->groupedCodes = $sequenceMatcher->getGroupedOpcodes($this->options['context']);
         return $this->groupedCodes;
     }
