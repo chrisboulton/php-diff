@@ -104,19 +104,19 @@ class SequenceMatcher
      * sequence matcher and it will perform a basic cleanup & calculate junk
      * elements.
      *
-     * @param string|array $a A string or array containing the lines to compare against.
-     * @param string|array $b A string or array containing the lines to compare.
+     * @param string|array $old A string or array containing the lines to compare against.
+     * @param string|array $new A string or array containing the lines to compare.
      * @param array $options
      * @param string|array|null $junkCallback Either an array or string that references a callback function
      * (if there is one) to determine 'junk' characters.
      */
-    public function __construct($a, $b, array $options, $junkCallback = null)
+    public function __construct($old, $new, array $options, $junkCallback = null)
     {
         $this->old = array();
         $this->new = array();
         $this->junkCallback = $junkCallback;
         $this->setOptions($options);
-        $this->setSequences($a, $b);
+        $this->setSequences($old, $new);
     }
 
     /**
@@ -234,12 +234,12 @@ class SequenceMatcher
      * Checks if a particular character is in the junk dictionary
      * for the list of junk characters.
      *
-     * @param string $b
+     * @param string $bString
      * @return bool $b True if the character is considered junk. False if not.
      */
-    private function isBJunk(string $b) : bool
+    private function isBJunk(string $bString) : bool
     {
-        if (isset($this->junkDict[$b])) {
+        if (isset($this->junkDict[$bString])) {
             return true;
         }
 
@@ -427,7 +427,7 @@ class SequenceMatcher
             }
         }
 
-        usort($matchingBlocks, array($this, 'tupleSort'));
+        usort($matchingBlocks, function($aArray, $bArray) { return $this->tupleSort($aArray, $bArray); });
 
         $i1 = 0;
         $j1 = 0;
@@ -694,25 +694,25 @@ class SequenceMatcher
     /**
      * Sort an array by the nested arrays it contains. Helper function for getMatchingBlocks
      *
-     * @param array $a First array to compare.
-     * @param array $b Second array to compare.
+     * @param array $aArray First array to compare.
+     * @param array $bArray Second array to compare.
      * @return int -1, 0 or 1, as expected by the usort function.
      */
-    private function tupleSort(array $a, array $b) : int
+    private function tupleSort(array $aArray, array $bArray) : int
     {
-        $max = max(count($a), count($b));
+        $max = max(count($aArray), count($bArray));
         for ($counter = 0; $counter < $max; ++$counter) {
-            if ($a[$counter] < $b[$counter]) {
+            if ($aArray[$counter] < $bArray[$counter]) {
                 return -1;
-            } elseif ($a[$counter] > $b[$counter]) {
+            } elseif ($aArray[$counter] > $bArray[$counter]) {
                 return 1;
             }
         }
 
-        if (count($a) == count($b)) {
+        if (count($aArray) == count($bArray)) {
             return 0;
         }
-        if (count($a) < count($b)) {
+        if (count($aArray) < count($bArray)) {
             return -1;
         }
         return 1;
