@@ -641,7 +641,7 @@ class SequenceMatcher
      */
     public function ratio() : float
     {
-        $matches = array_reduce($this->getMatchingBlocks(), array($this, 'ratioReduce'), 0);
+        $matches = array_reduce($this->getMatchingBlocks(), function($sum, $triple){ return $this->ratioReduce($sum, $triple); }, 0);
         return $this->calculateRatio($matches, count($this->a) + count($this->b));
     }
 
