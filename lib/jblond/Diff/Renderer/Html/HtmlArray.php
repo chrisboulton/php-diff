@@ -41,7 +41,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.9
+ * @version 1.10
  * @link https://github.com/JBlond/php-diff
  */
 
@@ -115,6 +115,54 @@ class HtmlArray extends RendererAbstract
         return join($smatches['0']);
     }
 
+    /**
+     * @param string|array $changes
+     * @param SideBySide|Inline $object
+     * @return string
+     */
+    public function renderHtml($changes, $object)
+    {
+        $html = '';
+        if (empty($changes)) {
+            return $html;
+        }
+
+        $html .= $object->generateTableHeader();
+
+        foreach ($changes as $i => $blocks) {
+            // If this is a separate block, we're condensing code so output ...,
+            // indicating a significant portion of the code has been collapsed as
+            // it is the same
+            if ($i > 0) {
+                $html .= $object->generateSkippedTable();
+            }
+
+            foreach ($blocks as $change) {
+                $html .= '<tbody class="Change'.ucfirst($change['tag']).'">';
+                switch ($change['tag']) {
+                    // Equal changes should be shown on both sides of the diff
+                    case 'equal':
+                        $html .= $object->generateTableRowsEqual($change);
+                        break;
+                    // Added lines only on the right side
+                    case 'insert':
+                        $html .= $object->generateTableRowsInsert($change);
+                        break;
+                    // Show deleted lines only on the left side
+                    case 'delete':
+                        $html .= $object->generateTableRowsDelete($change);
+                        break;
+                    // Show modified lines on both sides
+                    case 'replace':
+                        $html .= $object->generateTableRowsReplace($change);
+                        break;
+                }
+                $html .= '</tbody>';
+            }
+        }
+        $html .= '</table>';
+        return $html;
+    }
     /**
      * Render and return an array structure suitable for generating HTML
      * based differences. Generally called by subclasses that generate a

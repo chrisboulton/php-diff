@@ -39,7 +39,7 @@ namespace jblond\Diff;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.9
+ * @version 1.10
  * @link https://github.com/JBlond/php-diff
  */
 class SequenceMatcher
@@ -619,7 +619,7 @@ class SequenceMatcher
             );
         }
 
-        if (!empty($group) && !(count($group) == 1 && $group['0']['0'] == 'equal')) {
+        if (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal')) {
             $groups[] = $group;
         }
 
