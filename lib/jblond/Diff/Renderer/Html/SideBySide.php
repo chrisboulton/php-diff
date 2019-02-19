@@ -39,7 +39,7 @@ namespace jblond\Diff\Renderer\Html;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.8
+ * @version 1.9
  * @link https://github.com/JBlond/php-diff
  */
 
@@ -57,44 +57,7 @@ class SideBySide extends HtmlArray
     public function render() : string
     {
         $changes = parent::render();
-
-        $html = '';
-        if (empty($changes)) {
-            return $html;
-        }
-
-        $html .= $this->generateTableHeader();
-
-        foreach ($changes as $i => $blocks) {
-            if ($i > 0) {
-                $html .= $this->generateSkippedTable();
-            }
-
-            foreach ($blocks as $change) {
-                $html .= '<tbody class="Change'.ucfirst($change['tag']).'">';
-                switch ($change['tag']) {
-                    // Equal changes should be shown on both sides of the diff
-                    case 'equal':
-                        $html .= $this->generateTableRowsEqual($change);
-                        break;
-                    // Added lines only on the right side
-                    case 'insert':
-                        $html .= $this->generateTableRowsInsert($change);
-                        break;
-                    // Show deleted lines only on the left side
-                    case 'delete':
-                        $html .= $this->generateTableRowsDelete($change);
-                        break;
-                    // Show modified lines on both sides
-                    case 'replace':
-                        $html .= $this->generateTableRowsReplace($change);
-                        break;
-                }
-                $html .= '</tbody>';
-            }
-        }
-        $html .= '</table>';
-        return $html;
+        return parent::renderHtml($changes, $this);
     }
 
     /**
@@ -103,7 +66,7 @@ class SideBySide extends HtmlArray
      *
      * @return string Html code representation of the table's header.
      */
-    private function generateTableHeader() : string
+    public function generateTableHeader() : string
     {
         $html = '<table class="Differences DifferencesSideBySide">';
         $html .= '<thead>';
@@ -120,7 +83,7 @@ class SideBySide extends HtmlArray
      *
      * @return string Html code representing empty table body.
      */
-    private function generateSkippedTable() : string
+    public function generateSkippedTable() : string
     {
         $html = '<tbody class="Skipped">';
         $html .= '<th>&hellip;</th><td>&#xA0;</td>';
@@ -135,7 +98,7 @@ class SideBySide extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of text with no difference.
      */
-    private function generateTableRowsEqual(&$change) : string
+    public function generateTableRowsEqual(array &$change) : string
     {
         $html = "";
         foreach ($change['base']['lines'] as $no => $line) {
@@ -157,7 +120,7 @@ class SideBySide extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of added text.
      */
-    private function generateTableRowsInsert(&$change) : string
+    public function generateTableRowsInsert(array &$change) : string
     {
         $html = "";
         foreach ($change['changed']['lines'] as $no => $line) {
@@ -178,7 +141,7 @@ class SideBySide extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of removed text.
      */
-    private function generateTableRowsDelete(&$change) : string
+    public function generateTableRowsDelete(array &$change) : string
     {
         $html = "";
         foreach ($change['base']['lines'] as $no => $line) {
@@ -199,7 +162,7 @@ class SideBySide extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of modified.
      */
-    private function generateTableRowsReplace(&$change) : string
+    public function generateTableRowsReplace(array &$change) : string
     {
         $html = "";
 
