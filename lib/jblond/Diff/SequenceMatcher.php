@@ -53,12 +53,12 @@ class SequenceMatcher
     /**
      * @var array The first sequence to compare against.
      */
-    private $a = array();
+    private $old = array();
 
     /**
      * @var array The second sequence.
      */
-    private $b = array();
+    private $new = array();
 
     /**
      * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
@@ -112,8 +112,8 @@ class SequenceMatcher
      */
     public function __construct($a, $b, array $options, $junkCallback = null)
     {
-        $this->a = array();
-        $this->b = array();
+        $this->old = array();
+        $this->new = array();
         $this->junkCallback = $junkCallback;
         $this->setOptions($options);
         $this->setSequences($a, $b);
@@ -150,11 +150,11 @@ class SequenceMatcher
         if (!is_array($partA)) {
             $partA = str_split($partA);
         }
-        if ($partA == $this->a) {
+        if ($partA == $this->old) {
             return;
         }
 
-        $this->a = $partA;
+        $this->old = $partA;
         $this->matchingBlocks = null;
         $this->opCodes = null;
     }
@@ -170,11 +170,11 @@ class SequenceMatcher
         if (!is_array($partB)) {
             $partB = str_split($partB);
         }
-        if ($partB == $this->b) {
+        if ($partB == $this->new) {
             return;
         }
 
-        $this->b = $partB;
+        $this->new = $partB;
         $this->matchingBlocks = null;
         $this->opCodes = null;
         $this->fullBCount = null;
@@ -187,12 +187,12 @@ class SequenceMatcher
      */
     private function chainB()
     {
-        $length = count($this->b);
+        $length = count($this->new);
         $this->b2j = array();
         $popularDict = array();
 
         for ($i = 0; $i < $length; ++$i) {
-            $char = $this->b[$i];
+            $char = $this->new[$i];
             if (isset($this->b2j[$char])) {
                 if ($length >= 200 && count($this->b2j[$char]) * 100 > $length) {
                     $popularDict[$char] = 1;
@@ -268,8 +268,8 @@ class SequenceMatcher
      */
     public function findLongestMatch(int $alo, int $ahi, int $blo, int $bhi) : array
     {
-        $a = $this->a;
-        $b = $this->b;
+        $a = $this->old;
+        $b = $this->new;
 
         $bestI = $alo;
         $bestJ = $blo;
@@ -351,8 +351,8 @@ class SequenceMatcher
      */
     public function linesAreDifferent(int $aIndex, int $bIndex) : bool
     {
-        $lineA = $this->a[$aIndex];
-        $lineB = $this->b[$bIndex];
+        $lineA = $this->old[$aIndex];
+        $lineB = $this->new[$bIndex];
 
         if ($this->options['ignoreWhitespace']) {
             $replace = array("\t", ' ');
@@ -388,8 +388,8 @@ class SequenceMatcher
             return $this->matchingBlocks;
         }
 
-        $aLength = count($this->a);
-        $bLength = count($this->b);
+        $aLength = count($this->old);
+        $bLength = count($this->new);
 
         $queue = array(
             array(
@@ -642,7 +642,7 @@ class SequenceMatcher
     public function ratio() : float
     {
         $matches = array_reduce($this->getMatchingBlocks(), function($sum, $triple){ return $this->ratioReduce($sum, $triple); }, 0);
-        return $this->calculateRatio($matches, count($this->a) + count($this->b));
+        return $this->calculateRatio($matches, count($this->old) + count($this->new));
     }
 
     /**
