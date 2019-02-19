@@ -83,14 +83,14 @@ class Diff
     /**
      * The constructor.
      *
-     * @param array $a Array containing the lines of the first string to compare.
-     * @param array $b Array containing the lines for the second string to compare.
+     * @param array $oldArray Array containing the lines of the first string to compare.
+     * @param array $newArray Array containing the lines for the second string to compare.
      * @param array $options Array for the options
      */
-    public function __construct(array $a, array $b, array $options = array())
+    public function __construct(array $oldArray, array $newArray, array $options = array())
     {
-        $this->old = $a;
-        $this->new = $b;
+        $this->old = $oldArray;
+        $this->new = $newArray;
 
         if (is_array($options)) {
             $this->options = array_merge($this->defaultOptions, $options);
