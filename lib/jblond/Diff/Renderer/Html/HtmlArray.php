@@ -221,9 +221,19 @@ class HtmlArray extends RendererAbstract
     protected function formatLines(array $lines) : array
     {
         if ($this->options['tabSize'] !== false) {
-            $lines = array_map(function ($item){ return $this->expandTabs($item); }, $lines);
+            $lines = array_map(
+                function ($item) {
+                    return $this->expandTabs($item);
+                },
+                $lines
+            );
         }
-        $lines = array_map(function($item){ return $this->htmlSafe($item); }, $lines);
+        $lines = array_map(
+            function ($item) {
+                return $this->htmlSafe($item);
+            },
+            $lines
+        );
         foreach ($lines as &$line) {
             $line = preg_replace_callback('# ( +)|^ #', array($this, 'fixSpaces'), $line);
         }

@@ -427,7 +427,12 @@ class SequenceMatcher
             }
         }
 
-        usort($matchingBlocks, function($aArray, $bArray) { return $this->tupleSort($aArray, $bArray); });
+        usort(
+            $matchingBlocks,
+            function ($aArray, $bArray) {
+                return $this->tupleSort($aArray, $bArray);
+            }
+        );
 
         $i1 = 0;
         $j1 = 0;
@@ -641,7 +646,13 @@ class SequenceMatcher
      */
     public function ratio() : float
     {
-        $matches = array_reduce($this->getMatchingBlocks(), function($sum, $triple){ return $this->ratioReduce($sum, $triple); }, 0);
+        $matches = array_reduce(
+            $this->getMatchingBlocks(),
+            function ($sum, $triple) {
+                return $this->ratioReduce($sum, $triple);
+            },
+            0
+        );
         return $this->calculateRatio($matches, count($this->old) + count($this->new));
     }
 
