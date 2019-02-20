@@ -604,59 +604,6 @@ class SequenceMatcher
     }
 
     /**
-     * Return a measure of the similarity between the two sequences.
-     * This will be a float value between 0 and 1.
-     *
-     * Out of all of the ratio calculation functions, this is the most
-     * expensive to call if getMatchingBlocks or getOpCodes is yet to be
-     * called.
-     *
-     * The ratio is calculated as (2 * number of matches) / total number of
-     * elements in both sequences.
-     *
-     * @return float The calculated ratio.
-     */
-    public function ratio() : float
-    {
-        $matches = array_reduce(
-            $this->getMatchingBlocks(),
-            function ($sum, $triple) {
-                return $this->ratioReduce($sum, $triple);
-            },
-            0
-        );
-        return $this->calculateRatio($matches, count($this->old) + count($this->new));
-    }
-
-    /**
-     * Helper function to calculate the number of matches for Ratio().
-     *
-     * @param int $sum The running total for the number of matches.
-     * @param array $triple Array containing the matching block triple to add to the running total.
-     * @return int The new running total for the number of matches.
-     */
-    private function ratioReduce(int $sum, array $triple) : int
-    {
-        return $sum + ($triple[count($triple) - 1]);
-    }
-
-    /**
-     * Helper function for calculating the ratio to measure similarity for the strings.
-     * The ratio is defined as being 2 * (number of matches / total length)
-     *
-     * @param int $matches The number of matches in the two strings.
-     * @param int $length The length of the two strings.
-     * @return float The calculated ratio.
-     */
-    private function calculateRatio(int $matches, int $length = 0) : float
-    {
-        if ($length) {
-            return 2 * ($matches / $length);
-        }
-        return 1;
-    }
-
-    /**
      * Helper function that provides the ability to return the value for a key
      * in an array of it exists, or if it doesn't then return a default value.
      * Essentially cleaner than doing a series of if (isset()) {} else {} calls.
