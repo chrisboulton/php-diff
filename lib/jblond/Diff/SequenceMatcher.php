@@ -404,23 +404,23 @@ class SequenceMatcher
         while (!empty($queue)) {
             list($alo, $ahi, $blo, $bhi) = array_pop($queue);
             $longestMatch = $this->findLongestMatch($alo, $ahi, $blo, $bhi);
-            list($i, $j, $k) = $longestMatch;
-            if ($k) {
+            list($list1, $list2, $list3) = $longestMatch;
+            if ($list3) {
                 $matchingBlocks[] = $longestMatch;
-                if ($alo < $i && $blo < $j) {
+                if ($alo < $list1 && $blo < $list2) {
                     $queue[] = array(
                         $alo,
-                        $i,
+                        $list1,
                         $blo,
-                        $j
+                        $list2
                     );
                 }
 
-                if ($i + $k < $ahi && $j + $k < $bhi) {
+                if ($list1 + $list3 < $ahi && $list2 + $list3 < $bhi) {
                     $queue[] = array(
-                        $i + $k,
+                        $list1 + $list3,
                         $ahi,
-                        $j + $k,
+                        $list2 + $list3,
                         $bhi
                     );
                 }
@@ -439,9 +439,9 @@ class SequenceMatcher
         $k1 = 0;
         $nonAdjacent = array();
         foreach ($matchingBlocks as $block) {
-            list($i2, $j2, $k2) = $block;
-            if ($i1 + $k1 == $i2 && $j1 + $k1 == $j2) {
-                $k1 += $k2;
+            list($list4, $list5, $list6) = $block;
+            if ($i1 + $k1 == $list4 && $j1 + $k1 == $list5) {
+                $k1 += $list6;
             } else {
                 if ($k1) {
                     $nonAdjacent[] = array(
@@ -451,9 +451,9 @@ class SequenceMatcher
                     );
                 }
 
-                $i1 = $i2;
-                $j1 = $j2;
-                $k1 = $k2;
+                $i1 = $list4;
+                $j1 = $list5;
+                $k1 = $list6;
             }
         }
 
