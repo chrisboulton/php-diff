@@ -48,7 +48,6 @@ files. Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuer
 
  * Ability to ignore blank line changes
  * 3 way diff support
- * Performance optimizations
  
 ##  Contributors
 
