@@ -129,11 +129,10 @@ class Diff
         }
 
         if ($end === null) {
-            $length = 1;
-        } else {
-            $length = $end - $start;
+            return array_slice($this->old, $start, 1);
         }
 
+        $length = $end - $start;
         return array_slice($this->old, $start, $length);
     }
 
@@ -154,11 +153,10 @@ class Diff
         }
 
         if ($end === null) {
-            $length = 1;
-        } else {
-            $length = $end - $start;
+            return array_slice($this->new, $start, 1);
         }
 
+        $length = $end - $start;
         return array_slice($this->new, $start, $length);
     }
 
