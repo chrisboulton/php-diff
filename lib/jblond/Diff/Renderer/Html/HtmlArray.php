@@ -115,8 +115,8 @@ class HtmlArray extends RendererAbstract
         // As we'll be modifying a & b to include our change markers,
         // we need to get the contents and store them here. That way
         // we're not going to destroy the original data
-        $a = $this->diff->getA();
-        $b = $this->diff->getB();
+        $a = $this->diff->getOld();
+        $b = $this->diff->getNew();
 
         $changes = array();
         $opCodes = $this->diff->getGroupedOpcodes();
