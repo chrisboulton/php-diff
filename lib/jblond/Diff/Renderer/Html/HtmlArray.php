@@ -37,16 +37,12 @@ use jblond\Diff\Renderer\RendererAbstract;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package DiffLib
+ * @package jblond\Diff\Renderer\Html
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.9
+ * @version 1.10
  * @link https://github.com/JBlond/php-diff
- */
-
-/**
- * Class Diff_Renderer_Html_Array
  */
 class HtmlArray extends RendererAbstract
 {
@@ -58,62 +54,6 @@ class HtmlArray extends RendererAbstract
         'title_a' => 'Old Version',
         'title_b' => 'New Version',
     );
-
-    /**
-    * From https://gist.github.com/stemar/8287074
-    * @param string $string The input string.
-    * @param string $replacement The replacement string.
-    * @param int $start If start is positive, the replacing will begin at the start'th offset into string.
-    * If start is negative, the replacing will begin at the start'th character from the end of string.
-    * @param int|null $length If given and is positive, it represents the length of the portion of string which is to
-     * be replaced. If it is negative, it represents the number of characters from the end of string at which to
-     * stop replacing. If it is not given, then it will default to strlen( string ); i.e. end the replacing at the
-     * end of string. Of course, if length is zero then this function will have the effect of inserting replacement
-     * into string at the given start offset.
-    * @return string|array The result string is returned. If string is an array then array is returned.
-    */
-    public function mbSubstrReplace(string $string, string $replacement, int $start, $length = null)
-    {
-        if (is_array($string)) {
-            $num = count($string);
-            // $replacement
-            if (is_array($replacement)) {
-                $replacement = array_slice($replacement, 0, $num);
-            } else {
-                $replacement = array_pad(array($replacement), $num, $replacement);
-            }
-
-            // $start
-            if (is_array($start)) {
-                $start = array_slice($start, 0, $num);
-                foreach ($start as $key => $value) {
-                    $start[$key] = is_int($value) ? $value : 0;
-                }
-            } else {
-                $start = array_pad(array($start), $num, $start);
-            }
-            // $length
-            if (!isset($length)) {
-                $length = array_fill(0, $num, 0);
-            } elseif (is_array($length)) {
-                $length = array_slice($length, 0, $num);
-                foreach ($length as $key => $value) {
-                    $length[$key] = isset($value) ? (is_int($value) ? $value : $num) : 0;
-                }
-            } else {
-                $length = array_pad(array($length), $num, $length);
-            }
-            // Recursive call
-            return array_map(array($this, 'mbSubstrReplace'), $string, $replacement, $start, $length);
-        }
-        preg_match_all('/./us', (string)$string, $smatches);
-        preg_match_all('/./us', (string)$replacement, $rmatches);
-        if ($length === null) {
-            $length = mb_strlen($string);
-        }
-        array_splice($smatches['0'], $start, $length, $rmatches[0]);
-        return join($smatches['0']);
-    }
 
     /**
      * @param string|array $changes
@@ -175,8 +115,8 @@ class HtmlArray extends RendererAbstract
         // As we'll be modifying a & b to include our change markers,
         // we need to get the contents and store them here. That way
         // we're not going to destroy the original data
-        $a = $this->diff->getA();
-        $b = $this->diff->getB();
+        $a = $this->diff->getOld();
+        $b = $this->diff->getNew();
 
         $changes = array();
         $opCodes = $this->diff->getGroupedOpcodes();
@@ -281,9 +221,19 @@ class HtmlArray extends RendererAbstract
     protected function formatLines(array $lines) : array
     {
         if ($this->options['tabSize'] !== false) {
-            $lines = array_map(array($this, 'ExpandTabs'), $lines);
+            $lines = array_map(
+                function ($item) {
+                    return $this->expandTabs($item);
+                },
+                $lines
+            );
         }
-        $lines = array_map(array($this, 'HtmlSafe'), $lines);
+        $lines = array_map(
+            function ($item) {
+                return $this->htmlSafe($item);
+            },
+            $lines
+        );
         foreach ($lines as &$line) {
             $line = preg_replace_callback('# ( +)|^ #', array($this, 'fixSpaces'), $line);
         }
