@@ -112,11 +112,11 @@ class HtmlArray extends RendererAbstract
      */
     public function render()
     {
-        // As we'll be modifying a & b to include our change markers,
+        // As we'll be modifying old & new to include our change markers,
         // we need to get the contents and store them here. That way
         // we're not going to destroy the original data
-        $a = $this->diff->getOld();
-        $b = $this->diff->getNew();
+        $old = $this->diff->getOld();
+        $new = $this->diff->getNew();
 
         $changes = array();
         $opCodes = $this->diff->getGroupedOpcodes();
@@ -129,8 +129,8 @@ class HtmlArray extends RendererAbstract
 
                 if ($tag == 'replace' && $i2 - $i1 == $j2 - $j1) {
                     for ($i = 0; $i < ($i2 - $i1); ++$i) {
-                        $fromLine = $a[$i1 + $i];
-                        $toLine = $b[$j1 + $i];
+                        $fromLine = $old[$i1 + $i];
+                        $toLine = $new[$j1 + $i];
 
                         list($start, $end) = $this->getChangeExtent($fromLine, $toLine);
                         if ($start != 0 || $end != 0) {
@@ -145,8 +145,8 @@ class HtmlArray extends RendererAbstract
                                 "\0" . mb_substr($toLine, $start, $realEnd - $start) . "\1" .
                                 mb_substr($toLine, $realEnd);
 
-                            $a[$i1 + $i] = $fromLine;
-                            $b[$j1 + $i] = $toLine;
+                            $old[$i1 + $i] = $fromLine;
+                            $new[$j1 + $i] = $toLine;
                         }
                     }
                 }
@@ -159,20 +159,20 @@ class HtmlArray extends RendererAbstract
                 $lastTag = $tag;
 
                 if ($tag == 'equal') {
-                    $lines = array_slice($a, $i1, ($i2 - $i1));
+                    $lines = array_slice($old, $i1, ($i2 - $i1));
                     $blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines);
-                    $lines = array_slice($b, $j1, ($j2 - $j1));
+                    $lines = array_slice($new, $j1, ($j2 - $j1));
                     $blocks[$lastBlock]['changed']['lines'] +=  $this->formatLines($lines);
                 } else {
                     if ($tag == 'replace' || $tag == 'delete') {
-                        $lines = array_slice($a, $i1, ($i2 - $i1));
+                        $lines = array_slice($old, $i1, ($i2 - $i1));
                         $lines = $this->formatLines($lines);
                         $lines = str_replace(array("\0", "\1"), array('<del>', '</del>'), $lines);
                         $blocks[$lastBlock]['base']['lines'] += $lines;
                     }
 
                     if ($tag == 'replace' || $tag == 'insert') {
-                        $lines = array_slice($b, $j1, ($j2 - $j1));
+                        $lines = array_slice($new, $j1, ($j2 - $j1));
                         $lines =  $this->formatLines($lines);
                         $lines = str_replace(array("\0", "\1"), array('<ins>', '</ins>'), $lines);
                         $blocks[$lastBlock]['changed']['lines'] += $lines;
