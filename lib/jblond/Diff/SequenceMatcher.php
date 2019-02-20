@@ -268,8 +268,8 @@ class SequenceMatcher
      */
     public function findLongestMatch(int $alo, int $ahi, int $blo, int $bhi) : array
     {
-        $a = $this->old;
-        $b = $this->new;
+        $old = $this->old;
+        $new = $this->new;
 
         $bestI = $alo;
         $bestJ = $blo;
@@ -280,7 +280,7 @@ class SequenceMatcher
 
         for ($i = $alo; $i < $ahi; ++$i) {
             $newJ2Len = array();
-            $jDict = $this->arrayGetDefault($this->b2j, $a[$i], $nothing);
+            $jDict = $this->arrayGetDefault($this->b2j, $old[$i], $nothing);
             foreach ($jDict as $jKey => $j) {
                 if ($j < $blo) {
                     continue;
@@ -302,7 +302,7 @@ class SequenceMatcher
 
         while ($bestI > $alo &&
             $bestJ > $blo &&
-            !$this->isBJunk($b[$bestJ - 1]) &&
+            !$this->isBJunk($new[$bestJ - 1]) &&
             !$this->linesAreDifferent($bestI - 1, $bestJ - 1)
         ) {
                 --$bestI;
@@ -312,14 +312,14 @@ class SequenceMatcher
 
         while ($bestI + $bestSize < $ahi &&
             ($bestJ + $bestSize) < $bhi &&
-            !$this->isBJunk($b[$bestJ + $bestSize]) &&
+            !$this->isBJunk($new[$bestJ + $bestSize]) &&
             !$this->linesAreDifferent($bestI + $bestSize, $bestJ + $bestSize)) {
                 ++$bestSize;
         }
 
         while ($bestI > $alo &&
             $bestJ > $blo &&
-            $this->isBJunk($b[$bestJ - 1]) &&
+            $this->isBJunk($new[$bestJ - 1]) &&
             !$this->linesAreDifferent($bestI - 1, $bestJ - 1)
         ) {
                 --$bestI;
@@ -329,7 +329,7 @@ class SequenceMatcher
 
         while ($bestI + $bestSize < $ahi &&
             $bestJ + $bestSize < $bhi &&
-            $this->isBJunk($b[$bestJ + $bestSize]) &&
+            $this->isBJunk($new[$bestJ + $bestSize]) &&
             !$this->linesAreDifferent($bestI + $bestSize, $bestJ + $bestSize)
         ) {
                     ++$bestSize;
