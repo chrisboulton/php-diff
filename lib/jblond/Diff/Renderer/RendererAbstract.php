@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace jblond\Diff\Renderer;
 
+use jblond\Diff;
+
 /**
  * Abstract class for diff renderers in PHP DiffLib.
  *
@@ -16,8 +18,9 @@ namespace jblond\Diff\Renderer;
  */
 abstract class RendererAbstract
 {
+
     /**
-     * @var object Instance of the diff class that this renderer is generating the rendered diff for.
+     * @var Diff $diff Instance of the diff class that this renderer is generating the rendered diff for.
      */
     public $diff;
 
