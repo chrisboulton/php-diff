@@ -5,7 +5,7 @@ namespace jblond\Diff;
 /**
  * Sequence matcher for Diff
  *
- * PHP version 5
+ * PHP version 7.1 or greater
  *
  * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
  *
@@ -39,7 +39,7 @@ namespace jblond\Diff;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.6
+ * @version 1.10
  * @link https://github.com/JBlond/php-diff
  */
 class SequenceMatcher
@@ -53,12 +53,12 @@ class SequenceMatcher
     /**
      * @var array The first sequence to compare against.
      */
-    private $a = array();
+    private $old = array();
 
     /**
      * @var array The second sequence.
      */
-    private $b = array();
+    private $new = array();
 
     /**
      * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
@@ -104,25 +104,25 @@ class SequenceMatcher
      * sequence matcher and it will perform a basic cleanup & calculate junk
      * elements.
      *
-     * @param string|array $a A string or array containing the lines to compare against.
-     * @param string|array $b A string or array containing the lines to compare.
+     * @param string|array $old A string or array containing the lines to compare against.
+     * @param string|array $new A string or array containing the lines to compare.
      * @param array $options
      * @param string|array|null $junkCallback Either an array or string that references a callback function
      * (if there is one) to determine 'junk' characters.
      */
-    public function __construct($a, $b, $options, $junkCallback = null)
+    public function __construct($old, $new, array $options, $junkCallback = null)
     {
-        $this->a = array();
-        $this->b = array();
+        $this->old = array();
+        $this->new = array();
         $this->junkCallback = $junkCallback;
         $this->setOptions($options);
-        $this->setSequences($a, $b);
+        $this->setSequences($old, $new);
     }
 
     /**
      * @param array $options
      */
-    public function setOptions($options)
+    public function setOptions(array $options)
     {
         $this->options = array_merge($this->defaultOptions, $options);
     }
@@ -130,51 +130,51 @@ class SequenceMatcher
     /**
      * Set the first and second sequences to use with the sequence matcher.
      *
-     * @param string|array $a A string or array containing the lines to compare against.
-     * @param string|array $b A string or array containing the lines to compare.
+     * @param string|array $partA A string or array containing the lines to compare against.
+     * @param string|array $partB A string or array containing the lines to compare.
      */
-    public function setSequences($a, $b)
+    public function setSequences($partA, $partB)
     {
-        $this->setSeq1($a);
-        $this->setSeq2($b);
+        $this->setSeq1($partA);
+        $this->setSeq2($partB);
     }
 
     /**
-     * Set the first sequence ($a) and reset any internal caches to indicate that
+     * Set the first sequence ($partA) and reset any internal caches to indicate that
      * when calling the calculation methods, we need to recalculate them.
      *
-     * @param string|array $a The sequence to set as the first sequence.
+     * @param string|array $partA The sequence to set as the first sequence.
      */
-    public function setSeq1($a)
+    public function setSeq1($partA)
     {
-        if (!is_array($a)) {
-            $a = str_split($a);
+        if (!is_array($partA)) {
+            $partA = str_split($partA);
         }
-        if ($a == $this->a) {
+        if ($partA == $this->old) {
             return;
         }
 
-        $this->a = $a;
+        $this->old = $partA;
         $this->matchingBlocks = null;
         $this->opCodes = null;
     }
 
     /**
-     * Set the second sequence ($b) and reset any internal caches to indicate that
+     * Set the second sequence ($partB) and reset any internal caches to indicate that
      * when calling the calculation methods, we need to recalculate them.
      *
-     * @param string|array $b The sequence to set as the second sequence.
+     * @param string|array $partB The sequence to set as the second sequence.
      */
-    public function setSeq2($b)
+    public function setSeq2($partB)
     {
-        if (!is_array($b)) {
-            $b = str_split($b);
+        if (!is_array($partB)) {
+            $partB = str_split($partB);
         }
-        if ($b == $this->b) {
+        if ($partB == $this->new) {
             return;
         }
 
-        $this->b = $b;
+        $this->new = $partB;
         $this->matchingBlocks = null;
         $this->opCodes = null;
         $this->fullBCount = null;
@@ -187,12 +187,12 @@ class SequenceMatcher
      */
     private function chainB()
     {
-        $length = count($this->b);
+        $length = count($this->new);
         $this->b2j = array();
         $popularDict = array();
 
         for ($i = 0; $i < $length; ++$i) {
-            $char = $this->b[$i];
+            $char = $this->new[$i];
             if (isset($this->b2j[$char])) {
                 if ($length >= 200 && count($this->b2j[$char]) * 100 > $length) {
                     $popularDict[$char] = 1;
@@ -234,12 +234,12 @@ class SequenceMatcher
      * Checks if a particular character is in the junk dictionary
      * for the list of junk characters.
      *
-     * @param string $b
+     * @param string $bString
      * @return bool $b True if the character is considered junk. False if not.
      */
-    private function isBJunk($b) : bool
+    private function isBJunk(string $bString) : bool
     {
-        if (isset($this->junkDict[$b])) {
+        if (isset($this->junkDict[$bString])) {
             return true;
         }
 
@@ -266,10 +266,10 @@ class SequenceMatcher
      * @return array Array containing the longest match that includes the starting position in $a,
      * start in $b and the length/size.
      */
-    public function findLongestMatch($alo, $ahi, $blo, $bhi) : array
+    public function findLongestMatch(int $alo, int $ahi, int $blo, int $bhi) : array
     {
-        $a = $this->a;
-        $b = $this->b;
+        $old = $this->old;
+        $new = $this->new;
 
         $bestI = $alo;
         $bestJ = $blo;
@@ -280,7 +280,7 @@ class SequenceMatcher
 
         for ($i = $alo; $i < $ahi; ++$i) {
             $newJ2Len = array();
-            $jDict = $this->arrayGetDefault($this->b2j, $a[$i], $nothing);
+            $jDict = $this->arrayGetDefault($this->b2j, $old[$i], $nothing);
             foreach ($jDict as $jKey => $j) {
                 if ($j < $blo) {
                     continue;
@@ -302,7 +302,7 @@ class SequenceMatcher
 
         while ($bestI > $alo &&
             $bestJ > $blo &&
-            !$this->isBJunk($b[$bestJ - 1]) &&
+            !$this->isBJunk($new[$bestJ - 1]) &&
             !$this->linesAreDifferent($bestI - 1, $bestJ - 1)
         ) {
                 --$bestI;
@@ -312,14 +312,14 @@ class SequenceMatcher
 
         while ($bestI + $bestSize < $ahi &&
             ($bestJ + $bestSize) < $bhi &&
-            !$this->isBJunk($b[$bestJ + $bestSize]) &&
+            !$this->isBJunk($new[$bestJ + $bestSize]) &&
             !$this->linesAreDifferent($bestI + $bestSize, $bestJ + $bestSize)) {
                 ++$bestSize;
         }
 
         while ($bestI > $alo &&
             $bestJ > $blo &&
-            $this->isBJunk($b[$bestJ - 1]) &&
+            $this->isBJunk($new[$bestJ - 1]) &&
             !$this->linesAreDifferent($bestI - 1, $bestJ - 1)
         ) {
                 --$bestI;
@@ -329,7 +329,7 @@ class SequenceMatcher
 
         while ($bestI + $bestSize < $ahi &&
             $bestJ + $bestSize < $bhi &&
-            $this->isBJunk($b[$bestJ + $bestSize]) &&
+            $this->isBJunk($new[$bestJ + $bestSize]) &&
             !$this->linesAreDifferent($bestI + $bestSize, $bestJ + $bestSize)
         ) {
                     ++$bestSize;
@@ -349,10 +349,10 @@ class SequenceMatcher
      * @param int $bIndex Line number to check against in b.
      * @return bool True if the lines are different and false if not.
      */
-    public function linesAreDifferent($aIndex, $bIndex) : bool
+    public function linesAreDifferent(int $aIndex, int $bIndex) : bool
     {
-        $lineA = $this->a[$aIndex];
-        $lineB = $this->b[$bIndex];
+        $lineA = $this->old[$aIndex];
+        $lineB = $this->new[$bIndex];
 
         if ($this->options['ignoreWhitespace']) {
             $replace = array("\t", ' ');
@@ -388,8 +388,8 @@ class SequenceMatcher
             return $this->matchingBlocks;
         }
 
-        $aLength = count($this->a);
-        $bLength = count($this->b);
+        $aLength = count($this->old);
+        $bLength = count($this->new);
 
         $queue = array(
             array(
@@ -403,40 +403,45 @@ class SequenceMatcher
         $matchingBlocks = array();
         while (!empty($queue)) {
             list($alo, $ahi, $blo, $bhi) = array_pop($queue);
-            $x = $this->findLongestMatch($alo, $ahi, $blo, $bhi);
-            list($i, $j, $k) = $x;
-            if ($k) {
-                $matchingBlocks[] = $x;
-                if ($alo < $i && $blo < $j) {
+            $longestMatch = $this->findLongestMatch($alo, $ahi, $blo, $bhi);
+            list($list1, $list2, $list3) = $longestMatch;
+            if ($list3) {
+                $matchingBlocks[] = $longestMatch;
+                if ($alo < $list1 && $blo < $list2) {
                     $queue[] = array(
                         $alo,
-                        $i,
+                        $list1,
                         $blo,
-                        $j
+                        $list2
                     );
                 }
 
-                if ($i + $k < $ahi && $j + $k < $bhi) {
+                if ($list1 + $list3 < $ahi && $list2 + $list3 < $bhi) {
                     $queue[] = array(
-                        $i + $k,
+                        $list1 + $list3,
                         $ahi,
-                        $j + $k,
+                        $list2 + $list3,
                         $bhi
                     );
                 }
             }
         }
 
-        usort($matchingBlocks, array($this, 'tupleSort'));
+        usort(
+            $matchingBlocks,
+            function ($aArray, $bArray) {
+                return $this->tupleSort($aArray, $bArray);
+            }
+        );
 
         $i1 = 0;
         $j1 = 0;
         $k1 = 0;
         $nonAdjacent = array();
         foreach ($matchingBlocks as $block) {
-            list($i2, $j2, $k2) = $block;
-            if ($i1 + $k1 == $i2 && $j1 + $k1 == $j2) {
-                $k1 += $k2;
+            list($list4, $list5, $list6) = $block;
+            if ($i1 + $k1 == $list4 && $j1 + $k1 == $list5) {
+                $k1 += $list6;
             } else {
                 if ($k1) {
                     $nonAdjacent[] = array(
@@ -446,9 +451,9 @@ class SequenceMatcher
                     );
                 }
 
-                $i1 = $i2;
-                $j1 = $j2;
-                $k1 = $k2;
+                $i1 = $list4;
+                $j1 = $list5;
+                $k1 = $list6;
             }
         }
 
@@ -554,7 +559,7 @@ class SequenceMatcher
      * @param int $context The number of lines of context to provide around the groups.
      * @return array Nested array of all of the grouped op codes.
      */
-    public function getGroupedOpcodes($context = 3) : array
+    public function getGroupedOpcodes(int $context = 3) : array
     {
         $opCodes = $this->getOpCodes();
         if (empty($opCodes)) {
@@ -619,7 +624,7 @@ class SequenceMatcher
             );
         }
 
-        if (!empty($group) && !(count($group) == 1 && $group['0']['0'] == 'equal')) {
+        if (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal')) {
             $groups[] = $group;
         }
 
@@ -641,8 +646,14 @@ class SequenceMatcher
      */
     public function ratio() : float
     {
-        $matches = array_reduce($this->getMatchingBlocks(), array($this, 'ratioReduce'), 0);
-        return $this->calculateRatio($matches, count($this->a) + count($this->b));
+        $matches = array_reduce(
+            $this->getMatchingBlocks(),
+            function ($sum, $triple) {
+                return $this->ratioReduce($sum, $triple);
+            },
+            0
+        );
+        return $this->calculateRatio($matches, count($this->old) + count($this->new));
     }
 
     /**
@@ -652,7 +663,7 @@ class SequenceMatcher
      * @param array $triple Array containing the matching block triple to add to the running total.
      * @return int The new running total for the number of matches.
      */
-    private function ratioReduce($sum, $triple) : int
+    private function ratioReduce(int $sum, array $triple) : int
     {
         return $sum + ($triple[count($triple) - 1]);
     }
@@ -665,7 +676,7 @@ class SequenceMatcher
      * @param int $length The length of the two strings.
      * @return float The calculated ratio.
      */
-    private function calculateRatio($matches, $length = 0) : float
+    private function calculateRatio(int $matches, int $length = 0) : float
     {
         if ($length) {
             return 2 * ($matches / $length);
@@ -683,7 +694,7 @@ class SequenceMatcher
      * @param mixed $default The value to return as the default value if the key doesn't exist.
      * @return mixed The value from the array if the key exists or otherwise the default.
      */
-    private function arrayGetDefault($array, $key, $default)
+    private function arrayGetDefault(array $array, $key, $default)
     {
         if (isset($array[$key])) {
             return $array[$key];
@@ -694,25 +705,25 @@ class SequenceMatcher
     /**
      * Sort an array by the nested arrays it contains. Helper function for getMatchingBlocks
      *
-     * @param array $a First array to compare.
-     * @param array $b Second array to compare.
+     * @param array $aArray First array to compare.
+     * @param array $bArray Second array to compare.
      * @return int -1, 0 or 1, as expected by the usort function.
      */
-    private function tupleSort($a, $b) : int
+    private function tupleSort(array $aArray, array $bArray) : int
     {
-        $max = max(count($a), count($b));
-        for ($i = 0; $i < $max; ++$i) {
-            if ($a[$i] < $b[$i]) {
+        $max = max(count($aArray), count($bArray));
+        for ($counter = 0; $counter < $max; ++$counter) {
+            if ($aArray[$counter] < $bArray[$counter]) {
                 return -1;
-            } elseif ($a[$i] > $b[$i]) {
+            } elseif ($aArray[$counter] > $bArray[$counter]) {
                 return 1;
             }
         }
 
-        if (count($a) == count($b)) {
+        if (count($aArray) == count($bArray)) {
             return 0;
         }
-        if (count($a) < count($b)) {
+        if (count($aArray) < count($bArray)) {
             return -1;
         }
         return 1;

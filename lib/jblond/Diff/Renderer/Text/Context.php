@@ -7,7 +7,7 @@ use jblond\Diff\Renderer\RendererAbstract;
 /**
  * Context diff generator for PHP DiffLib.
  *
- * PHP version 5
+ * PHP version 7.1 or greater
  *
  * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
  *
@@ -37,16 +37,12 @@ use jblond\Diff\Renderer\RendererAbstract;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package DiffLib
+ * @package jblond\Diff\Renderer\Text
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.6
+ * @version 1.10
  * @link https://github.com/JBlond/php-diff
- */
-
-/**
- * Class Diff_Renderer_Text_Context
  */
 class Context extends RendererAbstract
 {
@@ -104,7 +100,7 @@ class Context extends RendererAbstract
                         continue;
                     }
                     $diff .= $this->tagMap[$tag] . ' ' .
-                        implode("\n" . $this->tagMap[$tag] .' ', $this->diff->GetA($i1, $i2)) . "\n";
+                        implode("\n" . $this->tagMap[$tag] .' ', $this->diff->getOld($i1, $i2)) . "\n";
                 }
             }
 
@@ -125,7 +121,7 @@ class Context extends RendererAbstract
                         continue;
                     }
                     $diff .= $this->tagMap[$tag] . ' ' .
-                        implode("\n".$this->tagMap[$tag] . ' ', $this->diff->GetB($j1, $j2)) . "\n";
+                        implode("\n".$this->tagMap[$tag] . ' ', $this->diff->getNew($j1, $j2)) . "\n";
                 }
             }
         }

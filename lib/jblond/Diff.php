@@ -10,7 +10,7 @@ use jblond\Diff\SequenceMatcher;
  * A comprehensive library for generating differences between two strings
  * in multiple formats (unified, side by side HTML etc)
  *
- * PHP version 5
+ * PHP version 7.1 or greater
  *
  * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
  *
@@ -40,11 +40,11 @@ use jblond\Diff\SequenceMatcher;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package Diff
+ * @package jblond
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.6
+ * @version 1.10
  * @link https://github.com/JBlond/php-diff
  */
 class Diff
@@ -52,12 +52,12 @@ class Diff
     /**
      * @var array The "old" sequence to use as the basis for the comparison.
      */
-    private $a = null;
+    private $old = null;
 
     /**
      * @var array The "new" sequence to generate the changes for.
      */
-    private $b = null;
+    private $new = null;
 
     /**
      * @var array Array containing the generated op codes for the differences between the two items.
@@ -83,14 +83,14 @@ class Diff
     /**
      * The constructor.
      *
-     * @param array $a Array containing the lines of the first string to compare.
-     * @param array $b Array containing the lines for the second string to compare.
+     * @param array $oldArray Array containing the lines of the first string to compare.
+     * @param array $newArray Array containing the lines for the second string to compare.
      * @param array $options Array for the options
      */
-    public function __construct($a, $b, $options = array())
+    public function __construct(array $oldArray, array $newArray, array $options = array())
     {
-        $this->a = $a;
-        $this->b = $b;
+        $this->old = $oldArray;
+        $this->new = $newArray;
 
         if (is_array($options)) {
             $this->options = array_merge($this->defaultOptions, $options);
@@ -119,22 +119,21 @@ class Diff
      * that line.
      *
      * @param int $start The starting number.
-     * @param int $end The ending number. If not supplied, only the item in $start will be returned.
+     * @param int|null $end The ending number. If not supplied, only the item in $start will be returned.
      * @return array Array of all of the lines between the specified range.
      */
-    public function getA($start = 0, $end = null) : array
+    public function getOld(int $start = 0, $end = null) : array
     {
         if ($start == 0 && $end === null) {
-            return $this->a;
+            return $this->old;
         }
 
         if ($end === null) {
-            $length = 1;
-        } else {
-            $length = $end - $start;
+            return array_slice($this->old, $start, 1);
         }
 
-        return array_slice($this->a, $start, $length);
+        $length = $end - $start;
+        return array_slice($this->old, $start, $length);
     }
 
     /**
@@ -144,22 +143,21 @@ class Diff
      * that line.
      *
      * @param int $start The starting number.
-     * @param int $end The ending number. If not supplied, only the item in $start will be returned.
+     * @param int|null $end The ending number. If not supplied, only the item in $start will be returned.
      * @return array Array of all of the lines between the specified range.
      */
-    public function getB($start = 0, $end = null) : array
+    public function getNew(int $start = 0, $end = null) : array
     {
         if ($start == 0 && $end === null) {
-            return $this->b;
+            return $this->new;
         }
 
         if ($end === null) {
-            $length = 1;
-        } else {
-            $length = $end - $start;
+            return array_slice($this->new, $start, 1);
         }
 
-        return array_slice($this->b, $start, $length);
+        $length = $end - $start;
+        return array_slice($this->new, $start, $length);
     }
 
     /**
@@ -176,7 +174,7 @@ class Diff
             return $this->groupedCodes;
         }
 
-        $sequenceMatcher = new SequenceMatcher($this->a, $this->b, $this->options, null);
+        $sequenceMatcher = new SequenceMatcher($this->old, $this->new, $this->options, null);
         $this->groupedCodes = $sequenceMatcher->getGroupedOpcodes($this->options['context']);
         return $this->groupedCodes;
     }
