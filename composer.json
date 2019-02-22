@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-           "jblond\\Diff\\": "lib/jblond"
+           "jblond\\": "lib/jblond"
         }
     }
 }
