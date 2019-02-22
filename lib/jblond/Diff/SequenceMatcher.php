@@ -7,39 +7,11 @@ namespace jblond\Diff;
  *
  * PHP version 7.1 or greater
  *
- * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
- *
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  - Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *  - Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *  - Neither the name of the Chris Boulton nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
  * @package jblond\Diff
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.10
+ * @version 1.11
  * @link https://github.com/JBlond/php-diff
  */
 class SequenceMatcher
@@ -629,59 +601,6 @@ class SequenceMatcher
         }
 
         return $groups;
-    }
-
-    /**
-     * Return a measure of the similarity between the two sequences.
-     * This will be a float value between 0 and 1.
-     *
-     * Out of all of the ratio calculation functions, this is the most
-     * expensive to call if getMatchingBlocks or getOpCodes is yet to be
-     * called.
-     *
-     * The ratio is calculated as (2 * number of matches) / total number of
-     * elements in both sequences.
-     *
-     * @return float The calculated ratio.
-     */
-    public function ratio() : float
-    {
-        $matches = array_reduce(
-            $this->getMatchingBlocks(),
-            function ($sum, $triple) {
-                return $this->ratioReduce($sum, $triple);
-            },
-            0
-        );
-        return $this->calculateRatio($matches, count($this->old) + count($this->new));
-    }
-
-    /**
-     * Helper function to calculate the number of matches for Ratio().
-     *
-     * @param int $sum The running total for the number of matches.
-     * @param array $triple Array containing the matching block triple to add to the running total.
-     * @return int The new running total for the number of matches.
-     */
-    private function ratioReduce(int $sum, array $triple) : int
-    {
-        return $sum + ($triple[count($triple) - 1]);
-    }
-
-    /**
-     * Helper function for calculating the ratio to measure similarity for the strings.
-     * The ratio is defined as being 2 * (number of matches / total length)
-     *
-     * @param int $matches The number of matches in the two strings.
-     * @param int $length The length of the two strings.
-     * @return float The calculated ratio.
-     */
-    private function calculateRatio(int $matches, int $length = 0) : float
-    {
-        if ($length) {
-            return 2 * ($matches / $length);
-        }
-        return 1;
     }
 
     /**

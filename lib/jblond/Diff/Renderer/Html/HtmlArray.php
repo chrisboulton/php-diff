@@ -9,39 +9,11 @@ use jblond\Diff\Renderer\RendererAbstract;
  *
  * PHP version 7.1 or greater
  *
- * Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
- *
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  - Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *  - Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *  - Neither the name of the Chris Boulton nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
  * @package jblond\Diff\Renderer\Html
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.10
+ * @version 1.11
  * @link https://github.com/JBlond/php-diff
  */
 class HtmlArray extends RendererAbstract
@@ -112,11 +84,11 @@ class HtmlArray extends RendererAbstract
      */
     public function render()
     {
-        // As we'll be modifying a & b to include our change markers,
+        // As we'll be modifying old & new to include our change markers,
         // we need to get the contents and store them here. That way
         // we're not going to destroy the original data
-        $a = $this->diff->getOld();
-        $b = $this->diff->getNew();
+        $old = $this->diff->getOld();
+        $new = $this->diff->getNew();
 
         $changes = array();
         $opCodes = $this->diff->getGroupedOpcodes();
@@ -129,8 +101,8 @@ class HtmlArray extends RendererAbstract
 
                 if ($tag == 'replace' && $i2 - $i1 == $j2 - $j1) {
                     for ($i = 0; $i < ($i2 - $i1); ++$i) {
-                        $fromLine = $a[$i1 + $i];
-                        $toLine = $b[$j1 + $i];
+                        $fromLine = $old[$i1 + $i];
+                        $toLine = $new[$j1 + $i];
 
                         list($start, $end) = $this->getChangeExtent($fromLine, $toLine);
                         if ($start != 0 || $end != 0) {
@@ -145,8 +117,8 @@ class HtmlArray extends RendererAbstract
                                 "\0" . mb_substr($toLine, $start, $realEnd - $start) . "\1" .
                                 mb_substr($toLine, $realEnd);
 
-                            $a[$i1 + $i] = $fromLine;
-                            $b[$j1 + $i] = $toLine;
+                            $old[$i1 + $i] = $fromLine;
+                            $new[$j1 + $i] = $toLine;
                         }
                     }
                 }
@@ -159,20 +131,20 @@ class HtmlArray extends RendererAbstract
                 $lastTag = $tag;
 
                 if ($tag == 'equal') {
-                    $lines = array_slice($a, $i1, ($i2 - $i1));
+                    $lines = array_slice($old, $i1, ($i2 - $i1));
                     $blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines);
-                    $lines = array_slice($b, $j1, ($j2 - $j1));
+                    $lines = array_slice($new, $j1, ($j2 - $j1));
                     $blocks[$lastBlock]['changed']['lines'] +=  $this->formatLines($lines);
                 } else {
                     if ($tag == 'replace' || $tag == 'delete') {
-                        $lines = array_slice($a, $i1, ($i2 - $i1));
+                        $lines = array_slice($old, $i1, ($i2 - $i1));
                         $lines = $this->formatLines($lines);
                         $lines = str_replace(array("\0", "\1"), array('<del>', '</del>'), $lines);
                         $blocks[$lastBlock]['base']['lines'] += $lines;
                     }
 
                     if ($tag == 'replace' || $tag == 'insert') {
-                        $lines = array_slice($b, $j1, ($j2 - $j1));
+                        $lines = array_slice($new, $j1, ($j2 - $j1));
                         $lines =  $this->formatLines($lines);
                         $lines = str_replace(array("\0", "\1"), array('<ins>', '</ins>'), $lines);
                         $blocks[$lastBlock]['changed']['lines'] += $lines;
