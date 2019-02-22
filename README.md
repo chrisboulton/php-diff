@@ -27,6 +27,36 @@ composer require jblond/php-diff
 
 ## Example Use
 
+```PHP
+<?php
+// installed via composer
+require 'vendor/autoload.php';
+
+// or installed manual
+require dirname(__FILE__).'/../lib/Autoloader.php';
+new \jblond\Autoloader(); 
+
+$a = explode("\n", file_get_contents(dirname(__FILE__).'/a.txt'));
+$b = explode("\n", file_get_contents(dirname(__FILE__).'/b.txt'));
+// Options for generating the diff
+$options = array(
+    //'ignoreWhitespace' => true,
+    //'ignoreCase' => true,
+);
+// Initialize the diff class
+$diff = new \jblond\Diff($a, $b, $options);
+
+//choose renderer
+$renderer = new \jblond\Diff\Renderer\Html\SideBySide(array(
+    'title_a' => 'Custom title for OLD version',
+    'title_b' => 'Custom title for NEW version',
+));
+
+//show it
+echo $diff->Render($renderer);
+```
+
+### Example Output
 A quick usage example can be found in the example/ directory and under
 example.php.
 
