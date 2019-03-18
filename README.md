@@ -90,3 +90,10 @@ Contributors since I forked the repo.
 ### License (BSD License)
 
 see [License](LICENSE)
+
+## tests
+
+```BASH
+composer run-script php_src
+composer run-script php_test
+```

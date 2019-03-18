@@ -22,11 +22,16 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "7.*"
+        "phpunit/phpunit": "7.*",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "psr-4": {
            "jblond\\": "lib/jblond"
         }
+    },
+    "scripts": {
+        "php_src": "phpcs --standard=phpcs.xml -s -p --colors ./lib/",
+        "php_test": "phpcs --standard=phpcs.xml -s -p --colors ./tests/"
     }
 }
