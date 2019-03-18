@@ -94,6 +94,7 @@ see [License](LICENSE)
 ## tests
 
 ```BASH
+composer run-script phpunit
 composer run-script php_src
 composer run-script php_test
 ```
