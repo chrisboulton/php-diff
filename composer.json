@@ -22,13 +22,16 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "7.*",
+        "phpunit/phpunit": "8.*",
         "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "psr-4": {
            "jblond\\": "lib/jblond"
         }
+    },
+    "config": {
+        "classmap-authoritative": true
     },
     "scripts": {
         "phpunit": "phpunit ./tests/",
