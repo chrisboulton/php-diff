@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace jblond\Diff\Renderer;
 
 use jblond\Diff;

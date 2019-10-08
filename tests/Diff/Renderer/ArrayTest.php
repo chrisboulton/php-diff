@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Tests\Diff\Renderer\Html;
 
 use jblond\Diff\Renderer\Html\HtmlArray;

@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace jblond\Diff\Renderer\Text;
 
 use jblond\Diff\Renderer\RendererAbstract;
@@ -33,28 +35,28 @@ class Context extends RendererAbstract
      *
      * @return string The generated context diff.
      */
-    public function render() : string
+    public function render(): string
     {
         $diff = '';
         $opCodes = $this->diff->getGroupedOpcodes();
         foreach ($opCodes as $group) {
             $diff .= "***************\n";
-            $lastItem = count($group)-1;
+            $lastItem = count($group) - 1;
             $i1 = $group['0']['1'];
             $i2 = $group[$lastItem]['2'];
             $j1 = $group['0']['3'];
             $j2 = $group[$lastItem]['4'];
 
             if ($i2 - $i1 >= 2) {
-                $diff .= '*** '.($group['0']['1'] + 1).','.$i2." ****\n";
+                $diff .= '*** ' . ($group['0']['1'] + 1) . ',' . $i2 . " ****\n";
             } else {
-                $diff .= '*** '.$i2." ****\n";
+                $diff .= '*** ' . $i2 . " ****\n";
             }
 
             if ($j2 - $j1 >= 2) {
-                $separator = '--- '.($j1 + 1).','.$j2." ----\n";
+                $separator = '--- ' . ($j1 + 1) . ',' . $j2 . " ----\n";
             } else {
-                $separator = '--- '.$j2." ----\n";
+                $separator = '--- ' . $j2 . " ----\n";
             }
 
             $hasVisible = false;
@@ -72,7 +74,7 @@ class Context extends RendererAbstract
                         continue;
                     }
                     $diff .= $this->tagMap[$tag] . ' ' .
-                        implode("\n" . $this->tagMap[$tag] .' ', $this->diff->getOld($i1, $i2)) . "\n";
+                        implode("\n" . $this->tagMap[$tag] . ' ', $this->diff->getOld($i1, $i2)) . "\n";
                 }
             }
 
@@ -93,7 +95,7 @@ class Context extends RendererAbstract
                         continue;
                     }
                     $diff .= $this->tagMap[$tag] . ' ' .
-                        implode("\n".$this->tagMap[$tag] . ' ', $this->diff->getNew($j1, $j2)) . "\n";
+                        implode("\n" . $this->tagMap[$tag] . ' ', $this->diff->getNew($j1, $j2)) . "\n";
                 }
             }
         }
