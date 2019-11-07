@@ -177,7 +177,7 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 		$lines = array_map(array($this, 'ExpandTabs'), $lines);
 		$lines = array_map(array($this, 'HtmlSafe'), $lines);
 		foreach($lines as &$line) {
-			$line = preg_replace_callback('# ( +)|^ #', array($this, 'fixSpaces'), $line);
+			$line = preg_replace_callback('#(  +)|^ #', array($this, 'fixSpaces'), $line);
 		}
 		return $lines;
 	}
