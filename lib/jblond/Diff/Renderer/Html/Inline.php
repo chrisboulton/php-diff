@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace jblond\Diff\Renderer\Html;
 
 /**
@@ -11,7 +13,7 @@ namespace jblond\Diff\Renderer\Html;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.13
+ * @version 1.14
  * @link https://github.com/JBlond/php-diff
  */
 class Inline extends HtmlArray
@@ -22,7 +24,7 @@ class Inline extends HtmlArray
      *
      * @return string The generated inline diff.
      */
-    public function render() : string
+    public function render(): string
     {
         $changes = parent::render();
         return parent::renderHtml($changes, $this);
@@ -35,7 +37,7 @@ class Inline extends HtmlArray
      *
      * @return string Html code representation of the table's header.
      */
-    public function generateTableHeader() : string
+    public function generateTableHeader(): string
     {
         $html = '<table class="Differences DifferencesInline">';
         $html .= '<thead>';
@@ -53,7 +55,7 @@ class Inline extends HtmlArray
      *
      * @return string Html code representing empty table body.
      */
-    public function generateSkippedTable() : string
+    public function generateSkippedTable(): string
     {
         $html = '<tbody class="Skipped">';
         $html .= '<th>&hellip;</th>';
@@ -69,16 +71,16 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of text with no difference.
      */
-    public function generateTableRowsEqual(array &$change) : string
+    public function generateTableRowsEqual(array &$change): string
     {
         $html = "";
         foreach ($change['base']['lines'] as $no => $line) {
             $fromLine = $change['base']['offset'] + $no + 1;
             $toLine = $change['changed']['offset'] + $no + 1;
             $html .= '<tr>';
-            $html .= '<th>'.$fromLine.'</th>';
-            $html .= '<th>'.$toLine.'</th>';
-            $html .= '<td class="Left">'.$line.'</td>';
+            $html .= '<th>' . $fromLine . '</th>';
+            $html .= '<th>' . $toLine . '</th>';
+            $html .= '<td class="Left">' . $line . '</td>';
             $html .= '</tr>';
         }
         return $html;
@@ -90,15 +92,15 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of added text.
      */
-    public function generateTableRowsInsert(array &$change) : string
+    public function generateTableRowsInsert(array &$change): string
     {
         $html = "";
         foreach ($change['changed']['lines'] as $no => $line) {
             $toLine = $change['changed']['offset'] + $no + 1;
             $html .= '<tr>';
             $html .= '<th>&#xA0;</th>';
-            $html .= '<th>'.$toLine.'</th>';
-            $html .= '<td class="Right"><ins>'.$line.'</ins>&#xA0;</td>';
+            $html .= '<th>' . $toLine . '</th>';
+            $html .= '<td class="Right"><ins>' . $line . '</ins>&#xA0;</td>';
             $html .= '</tr>';
         }
         return $html;
@@ -110,15 +112,15 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of removed text.
      */
-    public function generateTableRowsDelete(array &$change) : string
+    public function generateTableRowsDelete(array &$change): string
     {
         $html = "";
         foreach ($change['base']['lines'] as $no => $line) {
             $fromLine = $change['base']['offset'] + $no + 1;
             $html .= '<tr>';
-            $html .= '<th>'.$fromLine.'</th>';
+            $html .= '<th>' . $fromLine . '</th>';
             $html .= '<th>&#xA0;</th>';
-            $html .= '<td class="Left"><del>'.$line.'</del>&#xA0;</td>';
+            $html .= '<td class="Left"><del>' . $line . '</del>&#xA0;</td>';
             $html .= '</tr>';
         }
         return $html;
@@ -130,16 +132,16 @@ class Inline extends HtmlArray
      * @param array &$change Array with data about changes.
      * @return string Html code representing one or more rows of modified.
      */
-    public function generateTableRowsReplace(array &$change) : string
+    public function generateTableRowsReplace(array &$change): string
     {
         $html = "";
 
         foreach ($change['base']['lines'] as $no => $line) {
             $fromLine = $change['base']['offset'] + $no + 1;
             $html .= '<tr>';
-            $html .= '<th>'.$fromLine.'</th>';
+            $html .= '<th>' . $fromLine . '</th>';
             $html .= '<th>&#xA0;</th>';
-            $html .= '<td class="Left"><span>'.$line.'</span></td>';
+            $html .= '<td class="Left"><span>' . $line . '</span></td>';
             $html .= '</tr>';
         }
 
@@ -147,8 +149,8 @@ class Inline extends HtmlArray
             $toLine = $change['changed']['offset'] + $no + 1;
             $html .= '<tr>';
             $html .= '<th>&#xA0;</th>';
-            $html .= '<th>'.$toLine.'</th>';
-            $html .= '<td class="Right"><span>'.$line.'</span></td>';
+            $html .= '<th>' . $toLine . '</th>';
+            $html .= '<td class="Right"><span>' . $line . '</span></td>';
             $html .= '</tr>';
         }
 

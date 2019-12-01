@@ -30,6 +30,9 @@
            "jblond\\": "lib/jblond"
         }
     },
+    "config": {
+        "classmap-authoritative": true
+    },
     "scripts": {
         "phpunit": "phpunit ./tests/",
         "php_src": "phpcs --standard=phpcs.xml -s -p --colors ./lib/",

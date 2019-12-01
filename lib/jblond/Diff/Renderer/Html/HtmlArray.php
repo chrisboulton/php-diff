@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace jblond\Diff\Renderer\Html;
 
 use jblond\Diff\Renderer\RendererAbstract;
@@ -13,7 +15,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.13
+ * @version 1.14
  * @link https://github.com/JBlond/php-diff
  */
 class HtmlArray extends RendererAbstract
@@ -50,7 +52,7 @@ class HtmlArray extends RendererAbstract
             }
 
             foreach ($blocks as $change) {
-                $html .= '<tbody class="Change'.ucfirst($change['tag']).'">';
+                $html .= '<tbody class="Change' . ucfirst($change['tag']) . '">';
                 switch ($change['tag']) {
                     // Equal changes should be shown on both sides of the diff
                     case 'equal':
@@ -125,7 +127,7 @@ class HtmlArray extends RendererAbstract
 
                 if ($tag != $lastTag) {
                     $blocks[] = $this->getDefaultArray($tag, $i1, $j1);
-                    $lastBlock = count($blocks)-1;
+                    $lastBlock = count($blocks) - 1;
                 }
 
                 $lastTag = $tag;
@@ -190,7 +192,7 @@ class HtmlArray extends RendererAbstract
      * @param array $lines Array of lines to format.
      * @return array Array of the formatted lines.
      */
-    protected function formatLines(array $lines) : array
+    protected function formatLines(array $lines): array
     {
         if ($this->options['tabSize'] !== false) {
             $lines = array_map(
@@ -218,7 +220,7 @@ class HtmlArray extends RendererAbstract
      * @param array $matches The string of spaces.
      * @return string The HTML representation of the string.
      */
-    protected function fixSpaces(array $matches) : string
+    protected function fixSpaces(array $matches): string
     {
         $buffer = '';
         $count = 0;
@@ -229,12 +231,12 @@ class HtmlArray extends RendererAbstract
             }
             $div = (int) ($count / 2);
             $mod = $count % 2;
-            $buffer .= str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
+            $buffer .= str_repeat('&#xA0; ', $div) . str_repeat('&#xA0;', $mod);
         }
 
         $div = (int) ($count / 2);
         $mod = $count % 2;
-        return str_repeat('&#xA0; ', $div).str_repeat('&#xA0;', $mod);
+        return str_repeat('&#xA0; ', $div) . str_repeat('&#xA0;', $mod);
     }
 
     /**
@@ -243,7 +245,7 @@ class HtmlArray extends RendererAbstract
      * @param string $line The containing tabs to convert.
      * @return string The line with the tabs converted to spaces.
      */
-    private function expandTabs(string $line) : string
+    private function expandTabs(string $line): string
     {
         $tabSize    = $this->options['tabSize'];
         while (($pos = strpos($line, "\t")) !== false) {
@@ -262,7 +264,7 @@ class HtmlArray extends RendererAbstract
      * @param string $string The string.
      * @return string The string with the HTML characters replaced by entities.
      */
-    private function htmlSafe(string $string) : string
+    private function htmlSafe(string $string): string
     {
         return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
     }
@@ -273,7 +275,7 @@ class HtmlArray extends RendererAbstract
      * @param integer $j1
      * @return array
      */
-    private function getDefaultArray(string $tag, int $i1, int $j1) : array
+    private function getDefaultArray(string $tag, int $i1, int $j1): array
     {
         return array
         (
