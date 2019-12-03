@@ -15,7 +15,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.14
+ * @version 1.15
  * @link https://github.com/JBlond/php-diff
  */
 class HtmlArray extends RendererAbstract
