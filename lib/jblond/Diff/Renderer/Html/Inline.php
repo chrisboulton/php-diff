@@ -13,7 +13,7 @@ namespace jblond\Diff\Renderer\Html;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.13
+ * @version 1.14
  * @link https://github.com/JBlond/php-diff
  */
 class Inline extends HtmlArray
@@ -47,21 +47,6 @@ class Inline extends HtmlArray
         $html .= '<th>Differences</th>';
         $html .= '</tr>';
         $html .= '</thead>';
-        return $html;
-    }
-
-    /**
-     * Generates a string representation of empty table body.
-     *
-     * @return string Html code representing empty table body.
-     */
-    public function generateSkippedTable(): string
-    {
-        $html = '<tbody class="Skipped">';
-        $html .= '<th>&hellip;</th>';
-        $html .= '<th>&hellip;</th>';
-        $html .= '<td>&#xA0;</td>';
-        $html .= '</tbody>';
         return $html;
     }
 

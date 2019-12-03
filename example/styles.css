@@ -65,10 +65,6 @@ body {
 	background: #fc0;
 }
 
-.Differences .Skipped {
-	background: #f7f7f7;
-}
-
 .DifferencesInline .ChangeReplace .Left,
 .DifferencesInline .ChangeDelete .Left {
 	background: #fdd;

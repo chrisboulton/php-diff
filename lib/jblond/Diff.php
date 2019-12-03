@@ -18,7 +18,7 @@ use jblond\Diff\SequenceMatcher;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.13
+ * @version 1.14
  * @link https://github.com/JBlond/php-diff
  */
 class Diff

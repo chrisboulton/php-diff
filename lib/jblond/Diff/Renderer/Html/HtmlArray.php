@@ -15,7 +15,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  * @author Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.13
+ * @version 1.14
  * @link https://github.com/JBlond/php-diff
  */
 class HtmlArray extends RendererAbstract
@@ -47,9 +47,6 @@ class HtmlArray extends RendererAbstract
             // If this is a separate block, we're condensing code so output ...,
             // indicating a significant portion of the code has been collapsed as
             // it is the same
-            if ($i > 0) {
-                $html .= $object->generateSkippedTable();
-            }
 
             foreach ($blocks as $change) {
                 $html .= '<tbody class="Change' . ucfirst($change['tag']) . '">';
