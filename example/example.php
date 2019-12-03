@@ -3,19 +3,26 @@
     <head>
         <meta charset="utf-8"/>
         <title>PHP LibDiff - Examples</title>
-        <link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8"/>
+        <link rel="stylesheet" href="styles.css" type="text/css" />
     </head>
     <body>
         <h1>PHP LibDiff - Examples</h1>
         <hr />
         <?php
         // include autoloader
-        require dirname(__FILE__).'/../lib/Autoloader.php';
-        new \jblond\Autoloader();
+        use jblond\Autoloader;
+        use jblond\Diff;
+        use jblond\Diff\Renderer\Html\Inline;
+        use jblond\Diff\Renderer\Html\SideBySide;
+        use jblond\Diff\Renderer\Text\Context;
+        use jblond\Diff\Renderer\Text\Unified;
+
+        require dirname(__FILE__) . '/../lib/Autoloader.php';
+        new Autoloader();
 
         // Include two sample files for comparison
-        $a = explode("\n", file_get_contents(dirname(__FILE__).'/a.txt'));
-        $b = explode("\n", file_get_contents(dirname(__FILE__).'/b.txt'));
+        $a = explode("\n", file_get_contents(dirname(__FILE__) . '/a.txt'));
+        $b = explode("\n", file_get_contents(dirname(__FILE__) . '/b.txt'));
 
         // Options for generating the diff
         $options = array(
@@ -24,14 +31,16 @@
         );
 
         // Initialize the diff class
-        $diff = new \jblond\Diff($a, $b, $options);
+        // \jblond\diff
+        $diff = new Diff($a, $b, $options);
 
         ?>
         <h2>Side by Side Diff</h2>
         <?php
 
         // Generate a side by side diff
-        $renderer = new \jblond\Diff\Renderer\Html\SideBySide(array(
+        // \jblond\Diff\Renderer\Html
+        $renderer = new SideBySide(array(
             'title_a' => 'Custom title for OLD version',
             'title_b' => 'Custom title for NEW version',
         ));
@@ -42,7 +51,8 @@
         <?php
 
         // Generate an inline diff
-        $renderer = new \jblond\Diff\Renderer\Html\Inline;
+        // \jblond\Diff\Renderer\Html
+        $renderer = new Inline();
         echo $diff->render($renderer);
 
         ?>
@@ -50,7 +60,8 @@
         <pre><?php
 
         // Generate a unified diff
-        $renderer = new \jblond\Diff\Renderer\Text\Unified();
+        // \jblond\Diff\Renderer\Text
+        $renderer = new Unified();
         echo htmlspecialchars($diff->render($renderer));
 
         ?>
@@ -59,7 +70,8 @@
         <pre><?php
 
         // Generate a context diff
-        $renderer = new \jblond\Diff\Renderer\Text\Context;
+        // jblond\Diff\Renderer\Text\Context
+        $renderer = new Context();
         echo htmlspecialchars($diff->render($renderer));
         ?>
         </pre>
