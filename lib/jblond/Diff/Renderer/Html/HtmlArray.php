@@ -47,9 +47,6 @@ class HtmlArray extends RendererAbstract
             // If this is a separate block, we're condensing code so output ...,
             // indicating a significant portion of the code has been collapsed as
             // it is the same
-            if ($i > 0) {
-                $html .= $object->generateSkippedTable();
-            }
 
             foreach ($blocks as $change) {
                 $html .= '<tbody class="Change' . ucfirst($change['tag']) . '">';

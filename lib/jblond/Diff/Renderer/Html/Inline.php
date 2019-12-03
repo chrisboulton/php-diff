@@ -51,21 +51,6 @@ class Inline extends HtmlArray
     }
 
     /**
-     * Generates a string representation of empty table body.
-     *
-     * @return string Html code representing empty table body.
-     */
-    public function generateSkippedTable(): string
-    {
-        $html = '<tbody class="Skipped">';
-        $html .= '<th>&hellip;</th>';
-        $html .= '<th>&hellip;</th>';
-        $html .= '<td>&#xA0;</td>';
-        $html .= '</tbody>';
-        return $html;
-    }
-
-    /**
      * Generates a string representation of one or more rows of a table of lines of text with no difference.
      *
      * @param array &$change Array with data about changes.
