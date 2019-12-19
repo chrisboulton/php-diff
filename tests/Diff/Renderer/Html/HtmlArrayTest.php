@@ -8,14 +8,14 @@ use jblond\Diff\Renderer\Html\HtmlArray;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ArrayTest
+ * Class HtmlArrayTest
  * @package Tests\Diff\Renderer\Html
  */
-class ArrayTest extends TestCase
+class HtmlArrayTest extends TestCase
 {
 
     /**
-     * ArrayTest constructor.
+     * HtmlArrayTest constructor.
      * @param null $name
      * @param array $data
      * @param string $dataName
