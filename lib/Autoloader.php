@@ -7,7 +7,7 @@ namespace jblond;
  *
  * Library to automatically include required files when a script calls a class.
  *
- * PHP version 7.1 or greater
+ * PHP version 7.2 or greater
  *
  * @package jblond
  * @author Chris Boulton <chris.boulton@interspire.com>

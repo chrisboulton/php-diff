@@ -13,6 +13,7 @@ rendered in all of the standard formats including:
  * Context
  * Inline HTML
  * Side by Side HTML
+ * Unified HTML
 
 The logic behind the core of the diff engine (ie, the sequence matcher)
 is primarily based on the Python difflib package. The reason for doing
@@ -36,21 +37,21 @@ require 'vendor/autoload.php';
 require dirname(__FILE__).'/../lib/Autoloader.php';
 new \jblond\Autoloader(); 
 
-$a = explode("\n", file_get_contents(dirname(__FILE__).'/a.txt'));
-$b = explode("\n", file_get_contents(dirname(__FILE__).'/b.txt'));
+$a = file_get_contents(dirname(__FILE__).'/a.txt');
+$b = file_get_contents(dirname(__FILE__).'/b.txt');
 // Options for generating the diff
-$options = array(
+$options = [
     //'ignoreWhitespace' => true,
     //'ignoreCase' => true,
-);
+];
 // Initialize the diff class
 $diff = new \jblond\Diff($a, $b, $options);
 
 //choose renderer
-$renderer = new \jblond\Diff\Renderer\Html\SideBySide(array(
+$renderer = new \jblond\Diff\Renderer\Html\SideBySide([
     'title_a' => 'Custom title for OLD version',
     'title_b' => 'Custom title for NEW version',
-));
+]);
 
 //show it
 echo $diff->Render($renderer);
@@ -66,7 +67,7 @@ example.php.
 
 ## Requirements
 
-- PHP 7.1 or greater
+- PHP 7.2 or greater
 - PHP Multibyte String 
 
 ## Merge files using jQuery
@@ -86,6 +87,7 @@ Contributors since I forked the repo.
 - maxxer
 - Creris
 - jfcherng
+- DigiLive
 
 ### License (BSD License)
 

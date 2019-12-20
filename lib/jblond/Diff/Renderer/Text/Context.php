@@ -9,7 +9,7 @@ use jblond\Diff\Renderer\RendererAbstract;
 /**
  * Context diff generator for PHP DiffLib.
  *
- * PHP version 7.1 or greater
+ * PHP version 7.2 or greater
  *
  * @package jblond\Diff\Renderer\Text
  * @author Chris Boulton <chris.boulton@interspire.com>

@@ -7,7 +7,7 @@ namespace jblond\Diff\Renderer\Html;
 /**
  * Inline HTML diff generator for PHP DiffLib.
  *
- * PHP version 7.1 or greater
+ * PHP version 7.2 or greater
  *
  * @package jblond\Diff\Renderer\Html
  * @author Chris Boulton <chris.boulton@interspire.com>

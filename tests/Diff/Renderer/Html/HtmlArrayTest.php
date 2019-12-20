@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Diff\Renderer\Html;
 
-use jblond\Diff\Renderer\Html\HtmlArray;
 use PHPUnit\Framework\TestCase;
+use jblond\Diff\Renderer\Html\HtmlArray;
 
 /**
  * Class HtmlArrayTest

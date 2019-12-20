@@ -7,7 +7,7 @@ namespace jblond\Diff;
 /**
  * Sequence matcher for Diff
  *
- * PHP version 7.1 or greater
+ * PHP version 7.2 or greater
  *
  * @package jblond\Diff
  * @author Chris Boulton <chris.boulton@interspire.com>

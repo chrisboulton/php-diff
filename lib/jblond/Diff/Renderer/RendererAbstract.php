@@ -9,7 +9,7 @@ use jblond\Diff;
 /**
  * Abstract class for diff renderers in PHP DiffLib.
  *
- * PHP version 7.1 or greater
+ * PHP version 7.2 or greater
  *
  * @package jblond\Diff\Renderer
  * @author Chris Boulton <chris.boulton@interspire.com>

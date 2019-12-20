@@ -12,7 +12,7 @@ use jblond\Diff\SequenceMatcher;
  * A comprehensive library for comparing two strings and generating the differences between them in multiple formats.
  * (unified, side by side, inline, HTML, etc.)
  *
- * PHP version 7.1 or greater
+ * PHP version 7.2 or greater
  *
  * @package jblond
  * @author Chris Boulton <chris.boulton@interspire.com>
@@ -201,9 +201,6 @@ class Diff
             default:
                 throw new \InvalidArgumentException('Invalid argument type! Argument must be of type array or string.');
         }
-
-        $length = $end - $start;
-        return array_slice($this->new, $start, $length);
     }
 
     /**
