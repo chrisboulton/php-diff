@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Diff\Renderer\Html;
 
@@ -8,11 +8,12 @@ use PHPUnit\Framework\TestCase;
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\Inline;
 use jblond\Diff\Renderer\Html\SideBySide;
+use jblond\Diff\Renderer\Html\Unified;
 
 /**
  * Class HtmlRendererTest
  *
- * PHPunit tests to verify the output of the HTML renderers hasn't change by code changes.
+ * PHPUnit tests to verify the output of the HTML renderers hasn't change by code changes.
  *
  * @package Tests\Diff\Renderer\Html
  */
@@ -57,5 +58,19 @@ class HtmlRendererTest extends TestCase
         //file_put_contents('out.txt', $result);
 
         $this->assertStringEqualsFile('./resources/htmlInline.txt', $result);
+    }
+
+    public function testUnified()
+    {
+        $diff = new Diff(
+            file_get_contents('./resources/a.txt'),
+            file_get_contents('./resources/b.txt')
+        );
+
+        $renderer   = new Unified();
+        $result     = $diff->render($renderer);
+        //file_put_contents('out.txt', $result);
+
+        $this->assertStringEqualsFile('./resources/htmlUnified.txt', $result);
     }
 }
