@@ -9,11 +9,11 @@
 A comprehensive library for generating differences between
 two hashable objects (strings or arrays). Generated differences can be
 rendered in all of the standard formats including:
- * Unified
- * Context
- * Inline HTML
- * Side by Side HTML
- * Unified HTML
+* Unified
+* Context
+* Inline HTML
+* Side by Side HTML
+* Unified HTML
 
 The logic behind the core of the diff engine (ie, the sequence matcher)
 is primarily based on the Python difflib package. The reason for doing
@@ -22,7 +22,7 @@ so is primarily because of its high degree of accuracy.
 
 ## Install
 
-```
+```shell
 composer require jblond/php-diff
 ```
 
@@ -30,30 +30,32 @@ composer require jblond/php-diff
 
 ```PHP
 <?php
-// installed via composer
+// Installed via composer...
 require 'vendor/autoload.php';
-
-// or installed manual
+// ...or installed manually.
 require dirname(__FILE__).'/../lib/Autoloader.php';
+
 new \jblond\Autoloader(); 
 
 $a = file_get_contents(dirname(__FILE__).'/a.txt');
 $b = file_get_contents(dirname(__FILE__).'/b.txt');
-// Options for generating the diff
+
+// Options for generating the diff.
 $options = [
     //'ignoreWhitespace' => true,
     //'ignoreCase' => true,
 ];
-// Initialize the diff class
+
+// Initialize the diff class.
 $diff = new \jblond\Diff($a, $b, $options);
 
-//choose renderer
+// Choose Renderer.
 $renderer = new \jblond\Diff\Renderer\Html\SideBySide([
     'title_a' => 'Custom title for OLD version',
     'title_b' => 'Custom title for NEW version',
 ]);
 
-//show it
+// Show it.
 echo $diff->Render($renderer);
 ```
 
@@ -67,8 +69,8 @@ example.php.
 
 ## Requirements
 
-- PHP 7.2 or greater
-- PHP Multibyte String 
+* PHP 7.2 or greater
+* PHP Multibyte String 
 
 ## Merge files using jQuery
 
@@ -77,25 +79,25 @@ files. Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuer
 
 ## Todo
 
- * Ability to ignore blank line changes
- * 3 way diff support
+* Ability to ignore blank line changes
+* 3 way diff support
  
-##  Contributors
+## Contributors
 
 Contributors since I forked the repo.
 
-- maxxer
-- Creris
-- jfcherng
-- DigiLive
+* maxxer
+* Creris
+* jfcherng
+* DigiLive
 
 ### License (BSD License)
 
 see [License](LICENSE)
 
-## tests
+## Tests
 
-```BASH
+```shell
 composer run-script phpunit
 composer run-script php_src
 composer run-script php_test
