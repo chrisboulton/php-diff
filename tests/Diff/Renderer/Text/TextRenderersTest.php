@@ -34,28 +34,28 @@ class TextRendererTest extends TestCase
     public function testContext()
     {
         $diff = new Diff(
-            file_get_contents('./resources/a.txt'),
-            file_get_contents('./resources/b.txt')
+            file_get_contents('tests/resources/a.txt'),
+            file_get_contents('tests/resources/b.txt')
         );
 
         $renderer   = new Context();
         $result     = $diff->render($renderer);
         //file_put_contents('out.txt', $result);
 
-        $this->assertStringEqualsFile('./resources/textContext.txt', $result);
+        $this->assertStringEqualsFile('tests/resources/textContext.txt', $result);
     }
 
     public function testUnified()
     {
         $diff = new Diff(
-            file_get_contents('./resources/a.txt'),
-            file_get_contents('./resources/b.txt')
+            file_get_contents('tests/resources/a.txt'),
+            file_get_contents('tests/resources/b.txt')
         );
 
         $renderer   = new Unified();
         $result     = $diff->render($renderer);
         //file_put_contents('out.txt', $result);
 
-        $this->assertStringEqualsFile('./resources/textUnified.txt', $result);
+        $this->assertStringEqualsFile('tests/resources/textUnified.txt', $result);
     }
 }

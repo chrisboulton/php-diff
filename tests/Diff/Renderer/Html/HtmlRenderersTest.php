@@ -35,42 +35,42 @@ class HtmlRendererTest extends TestCase
     public function testSideBySide()
     {
         $diff = new Diff(
-            file_get_contents('./resources/a.txt'),
-            file_get_contents('./resources/b.txt')
+            file_get_contents('tests/resources/a.txt'),
+            file_get_contents('tests/resources/b.txt')
         );
 
         $renderer   = new SideBySide();
         $result     = $diff->render($renderer);
         //file_put_contents('out.txt', $result);
 
-        $this->assertStringEqualsFile('./resources/htmlSideBySide.txt', $result);
+        $this->assertStringEqualsFile('tests/resources/htmlSideBySide.txt', $result);
     }
 
     public function testInline()
     {
         $diff = new Diff(
-            file_get_contents('./resources/a.txt'),
-            file_get_contents('./resources/b.txt')
+            file_get_contents('tests/resources/a.txt'),
+            file_get_contents('tests/resources/b.txt')
         );
 
         $renderer   = new Inline();
         $result     = $diff->render($renderer);
         //file_put_contents('out.txt', $result);
 
-        $this->assertStringEqualsFile('./resources/htmlInline.txt', $result);
+        $this->assertStringEqualsFile('tests/resources/htmlInline.txt', $result);
     }
 
     public function testUnified()
     {
         $diff = new Diff(
-            file_get_contents('./resources/a.txt'),
-            file_get_contents('./resources/b.txt')
+            file_get_contents('tests/resources/a.txt'),
+            file_get_contents('tests/resources/b.txt')
         );
 
         $renderer   = new Unified();
         $result     = $diff->render($renderer);
         //file_put_contents('out.txt', $result);
 
-        $this->assertStringEqualsFile('./resources/htmlUnified.txt', $result);
+        $this->assertStringEqualsFile('tests/resources/htmlUnified.txt', $result);
     }
 }
