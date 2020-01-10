@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace jblond\Diff\Renderer\Html;
 
@@ -42,7 +42,7 @@ class Unified extends HtmlArray
      *
      * @return string           HTML code containing the unified differences.
      */
-    public function renderHtml($changes, $object = null) : string
+    public function renderHtml($changes, $object = null): string
     {
         if (empty($changes)) {
             //No changes between "old" and "new"

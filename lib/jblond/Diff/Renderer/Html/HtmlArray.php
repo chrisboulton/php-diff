@@ -244,7 +244,7 @@ class HtmlArray extends RendererAbstract
         foreach ($strings as &$line) {
             $line = preg_replace_callback(
                 '/(^[ \0\1]*)/',
-                function($matches) {
+                function ($matches) {
                     return str_replace(' ', "&nbsp;", $matches[0]);
                 },
                 $line
