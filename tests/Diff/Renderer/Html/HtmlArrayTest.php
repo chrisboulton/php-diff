@@ -74,7 +74,7 @@ class HtmlArrayTest extends TestCase
                     'base' => array(
                         'offset' => 0,
                         'lines' => array(
-                            '<del>&#xA0; &#xA0;</del>a',
+                            "<del>&nbsp;&nbsp;&nbsp;&nbsp;</del>a",
                         )
                     ),
                     'changed' => array(
