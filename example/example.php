@@ -24,9 +24,7 @@ $options = [
 // Initialize the diff class.
 // \jblond\diff
 $diff = new Diff($a, $b, $options);
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8"/>
