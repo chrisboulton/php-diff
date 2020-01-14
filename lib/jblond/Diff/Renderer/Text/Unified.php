@@ -52,11 +52,19 @@ class Unified extends RendererAbstract
                     $diff .= ' ' . implode("\n ", $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)) . "\n";
                 } else {
                     if ($tag == 'replace' || $tag == 'delete') {
-                        $diff .= '-' . implode("\n-", $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)) . "\n";
+                        $diff .= '-' .
+                            implode(
+                                "\n-",
+                                $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)
+                            ) . "\n";
                     }
 
                     if ($tag == 'replace' || $tag == 'insert') {
-                        $diff .= '+' . implode("\n+", $this->diff->getArrayRange($this->diff->getNew(), $j1, $j2)) . "\n";
+                        $diff .= '+' .
+                            implode(
+                                "\n+",
+                                $this->diff->getArrayRange($this->diff->getNew(), $j1, $j2)
+                            ) . "\n";
                     }
                 }
             }

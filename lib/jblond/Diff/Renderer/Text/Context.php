@@ -74,7 +74,10 @@ class Context extends RendererAbstract
                         continue;
                     }
                     $diff .= $this->tagMap[$tag] . ' ' .
-                        implode("\n" . $this->tagMap[$tag] . ' ', $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)) . "\n";
+                        implode(
+                            "\n" . $this->tagMap[$tag] . ' ',
+                            $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)
+                        ) . "\n";
                 }
             }
 
@@ -95,7 +98,10 @@ class Context extends RendererAbstract
                         continue;
                     }
                     $diff .= $this->tagMap[$tag] . ' ' .
-                        implode("\n" . $this->tagMap[$tag] . ' ', $this->diff->getArrayRange($this->diff->getNew(), $j1, $j2)) . "\n";
+                        implode(
+                            "\n" . $this->tagMap[$tag] . ' ',
+                            $this->diff->getArrayRange($this->diff->getNew(), $j1, $j2)
+                        ) . "\n";
                 }
             }
         }
