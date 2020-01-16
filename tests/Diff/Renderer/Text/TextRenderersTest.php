@@ -12,7 +12,7 @@ use jblond\Diff\Renderer\Text\Unified;
 /**
  * Class TextRendererTest
  *
- * PHPunit tests to verify the output of the text renderers hasn't change by code changes.
+ * PHPUnit tests to verify the output of the text renderers hasn't change by code changes.
  *
  * @package Tests\Diff\Renderer\Text
  */

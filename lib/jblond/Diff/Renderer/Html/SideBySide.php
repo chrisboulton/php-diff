@@ -136,7 +136,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows showing partialy modified text.
+     * Generates a string representation of table rows showing partially modified text.
      *
      * @param array $change Contains the op-codes about the changes between two blocks of text.
      *

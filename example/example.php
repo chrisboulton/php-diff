@@ -1,4 +1,5 @@
 <?php
+
 use jblond\Autoloader;
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\Inline;

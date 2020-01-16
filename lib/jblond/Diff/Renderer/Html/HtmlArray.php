@@ -216,7 +216,7 @@ class HtmlArray extends RendererAbstract
      * This involves replacing tab characters with spaces, making the HTML safe for output by ensuring that double
      * spaces are replaced with &nbsp; etc.
      *
-     * @param array $lines Array of strings to format.
+     * @param array $strings Array of strings to format.
      *
      * @return array Array of formatted strings.
      */
