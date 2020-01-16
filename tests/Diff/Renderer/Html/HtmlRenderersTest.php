@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Diff\Renderer\Html;
 
-use PHPUnit\Framework\TestCase;
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\Inline;
 use jblond\Diff\Renderer\Html\SideBySide;
 use jblond\Diff\Renderer\Html\Unified;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HtmlRendererTest

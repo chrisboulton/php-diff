@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Diff\Renderer\Html;
 
-use PHPUnit\Framework\TestCase;
+use jblond\Diff;
 use jblond\Diff\Renderer\Html\HtmlArray;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HtmlArrayTest
@@ -32,7 +33,7 @@ class HtmlArrayTest extends TestCase
     public function testRenderSimpleDelete()
     {
         $htmlRenderer = new HtmlArray();
-        $htmlRenderer->diff = new \jblond\Diff(
+        $htmlRenderer->diff = new Diff(
             array('a'),
             array()
         );
@@ -62,7 +63,7 @@ class HtmlArrayTest extends TestCase
     public function testRenderFixesSpaces()
     {
         $htmlRenderer = new HtmlArray();
-        $htmlRenderer->diff = new \jblond\Diff(
+        $htmlRenderer->diff = new Diff(
             array('    a'),
             array('a')
         );

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Diff\Renderer\Text;
 
-use PHPUnit\Framework\TestCase;
 use jblond\Diff;
 use jblond\Diff\Renderer\Text\Context;
 use jblond\Diff\Renderer\Text\Unified;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class TextRendererTest
  *
- * PHPunit tests to verify the output of the text renderers hasn't change by code changes.
+ * PHPUnit tests to verify the output of the text renderers hasn't change by code changes.
  *
  * @package Tests\Diff\Renderer\Text
  */

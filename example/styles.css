@@ -1,11 +1,11 @@
 body {
-    background:     #FFFFFF;
-    font-family:    Arial;
-    font-size:      12px;
+    background:  #FFFFFF;
+    font-family: Arial, serif;
+    font-size:   12px;
 }
 
 pre {
-    width: 100%;
+    width:    100%;
     overflow: auto;
 }
 
@@ -14,18 +14,18 @@ pre {
  */
 
 .Differences {
-    width:              100%;
-    border-collapse:    collapse;
-    border-spacing:     0;
-    empty-cells:        show;
+    width:           100%;
+    border-collapse: collapse;
+    border-spacing:  0;
+    empty-cells:     show;
 }
 
 .Differences thead th {
-    text-align:     left;
-    border-bottom:  1px solid #000000;
-    background:     #AAAAAA;
-    color:          #000000;
-    padding:        4px;
+    text-align:    left;
+    border-bottom: 1px solid #000000;
+    background:    #AAAAAA;
+    color:         #000000;
+    padding:       4px;
 }
 
 .Differences tbody th {
@@ -39,9 +39,9 @@ pre {
 }
 
 .Differences td {
-    padding:        1px 2px;
-    font-family:    Consolas, monospace;
-    font-size:      13px;
+    padding:     1px 2px;
+    font-family: Consolas, monospace;
+    font-size:   13px;
 }
 
 .Differences .Skipped {
@@ -129,11 +129,13 @@ pre {
 .DifferencesUnified .ChangeReplace .Left:first-child:before {
     content: "\250C \00a0";
 }
+
 .DifferencesUnified .ChangeReplace .Left:before {
     content: "\251C \00a0";
 }
+
 .DifferencesUnified .ChangeReplace .Left {
-    background: #fe9;
+    background: #FFEE99;
 }
 
 /* Line in new replaced line in old */
@@ -159,7 +161,7 @@ pre {
     background: #99EE99;
 }
 
-/* Chararcter removed from line in old */
+/* Character removed from line in old */
 .DifferencesUnified .ChangeReplace del {
-    background:         #EE9999;
+    background: #EE9999;
 }

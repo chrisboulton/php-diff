@@ -49,7 +49,11 @@ class Unified extends RendererAbstract
             foreach ($group as $code) {
                 list($tag, $i1, $i2, $j1, $j2) = $code;
                 if ($tag == 'equal') {
-                    $diff .= ' ' . implode("\n ", $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)) . "\n";
+                    $diff .= ' ' .
+                        implode(
+                            "\n ",
+                            $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)
+                        ) . "\n";
                 } else {
                     if ($tag == 'replace' || $tag == 'delete') {
                         $diff .= '-' .

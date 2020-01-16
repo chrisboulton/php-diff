@@ -22,7 +22,7 @@ class Autoloader
     /**
      * Constructor.
      *
-     * A function is registered as an __autoload() implementation to include and evaluate the class file whan this class
+     * A function is registered as an __autoload() implementation to include and evaluate the class file when this class
      * is called.
      */
     public function __construct()
