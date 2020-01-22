@@ -11,12 +11,12 @@ use jblond\Diff\Renderer\RendererAbstract;
  *
  * PHP version 7.2 or greater
  *
- * @package jblond\Diff\Renderer\Html
- * @author Chris Boulton <chris.boulton@interspire.com>
+ * @package       jblond\Diff\Renderer\Html
+ * @author        Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.15
- * @link https://github.com/JBlond/php-diff
+ * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version       1.15
+ * @link          https://github.com/JBlond/php-diff
  */
 class HtmlArray extends RendererAbstract
 {
@@ -34,12 +34,18 @@ class HtmlArray extends RendererAbstract
     ];
 
     /**
+     * @var string The last operation which was recorded in the array which contains the changes, used by the renderer.
+     * @see HtmlArray::appendChangesArray()
+     */
+    private $lastTag;
+
+    /**
      * Generate a string representation of changes between the "old and "new" sequences.
      *
      * This method is called by the renderers which extends this class.
      *
-     * @param array             $changes        Contains the op-codes about the differences between "old and "new".
-     * @param SideBySide|Inline $htmlRenderer   Renderer which extends this class.
+     * @param array  $changes      Contains the op-codes about the differences between "old and "new".
+     * @param object $htmlRenderer Renderer which extends this class.
      *
      * @return string HTML representation of the differences.
      */
@@ -101,70 +107,68 @@ class HtmlArray extends RendererAbstract
      */
     public function render()
     {
-        // "old" & "new" are copied so change markers can be added without modifying the original sequences.
-        $old = $this->diff->getOld();
-        $new = $this->diff->getNew();
+        // The old and New texts are copied so change markers can be added without modifying the original sequences.
+        $oldText = $this->diff->getOld();
+        $newText = $this->diff->getNew();
 
         $changes = [];
-        $opCodes = $this->diff->getGroupedOpcodes();
 
-        foreach ($opCodes as $group) {
-            $blocks     = [];
-            $lastTag    = null;
-            $lastBlock  = 0;
+        foreach ($this->diff->getGroupedOpcodes() as $group) {
+            $blocks        = [];
+            $this->lastTag = null;
+
             foreach ($group as $code) {
-                list($tag, $i1, $i2, $j1, $j2) = $code;
+                list($tag, $startOld, $endOld, $startNew, $endNew) = $code;
+                /**
+                 * $code is an array describing a op-code which includes:
+                 * 0 - The type of tag (as described below) for the op code.
+                 * 1 - The beginning line in the first sequence.
+                 * 2 - The end line in the first sequence.
+                 * 3 - The beginning line in the second sequence.
+                 * 4 - The end line in the second sequence.
+                 *
+                 * The different types of tags include:
+                 * replace - The string from $startOld to $endOld in $oldText should be replaced by
+                 *           the string in $newText from $startNew to $endNew.
+                 * delete  - The string in $oldText from $startOld to $endNew should be deleted.
+                 * insert  - The string in $newText from $startNew to $endNew should be inserted at $startOld in
+                 *           $oldText.
+                 * equal   - The two strings with the specified ranges are equal.
+                 */
 
-                if ($tag == 'replace' && $i2 - $i1 == $j2 - $j1) {
-                    for ($i = 0; $i < ($i2 - $i1); ++$i) {
-                        $fromLine   = $old[$i1 + $i];
-                        $toLine     = $new[$j1 + $i];
+                $blockSizeOld = $endOld - $startOld;
+                $blockSizeNew = $endNew - $startNew;
 
-                        list($start, $end) = $this->getChangeExtent($fromLine, $toLine);
-                        if ($start != 0 || $end != 0) {
-                            $realEnd        = mb_strlen($fromLine) + $end;
-                            $fromLine       = mb_substr($fromLine, 0, $start) . "\0" .
-                                              mb_substr($fromLine, $start, $realEnd - $start) . "\1" .
-                                              mb_substr($fromLine, $realEnd);
-
-                            $realEnd        = mb_strlen($toLine) + $end;
-                            $toLine         = mb_substr($toLine, 0, $start) . "\0" .
-                                              mb_substr($toLine, $start, $realEnd - $start) . "\1" .
-                                              mb_substr($toLine, $realEnd);
-
-                            $old[$i1 + $i]  = $fromLine;
-                            $new[$j1 + $i]  = $toLine;
-                        }
-                    }
+                if (($tag == 'replace') && ($blockSizeOld == $blockSizeNew)) {
+                    // Inline differences between old and new block.
+                    $this->markInlineChange($oldText, $newText, $startOld, $endOld, $startNew);
                 }
 
-                if ($tag != $lastTag) {
-                    $blocks[]   = $this->getDefaultArray($tag, $i1, $j1);
-                    $lastBlock  = count($blocks) - 1;
-                }
+                $lastBlock = $this->appendChangesArray($blocks, $tag, $startOld, $startNew);
 
-                $lastTag = $tag;
+                // Extract the block from both the old and new text and format each line.
+                $oldBlock = $this->formatLines(array_slice($oldText, $startOld, $blockSizeOld));
+                $newBlock = $this->formatLines(array_slice($newText, $startNew, $blockSizeNew));
 
                 if ($tag == 'equal') {
-                    $lines = array_slice($old, $i1, ($i2 - $i1));
-                    $blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines);
+                    // Old block equals New block
+                    $blocks[$lastBlock]['base']['lines']    += $oldBlock;
+                    $blocks[$lastBlock]['changed']['lines'] += $newBlock;
+                    continue;
+                }
 
-                    $lines = array_slice($new, $j1, ($j2 - $j1));
-                    $blocks[$lastBlock]['changed']['lines'] +=  $this->formatLines($lines);
-                } else {
-                    if ($tag == 'replace' || $tag == 'delete') {
-                        $lines = array_slice($old, $i1, ($i2 - $i1));
-                        $lines = $this->formatLines($lines);
-                        $lines = str_replace(array("\0", "\1"), array('<del>', '</del>'), $lines);
-                        $blocks[$lastBlock]['base']['lines'] += $lines;
-                    }
+                if ($tag == 'replace' || $tag == 'delete') {
+                    // Inline differences or old block doesn't exist in the new text.
+                    // Replace the markers, which where added above, by HTML delete tags.
+                    $oldBlock                            = str_replace(["\0", "\1"], ['<del>', '</del>'], $oldBlock);
+                    $blocks[$lastBlock]['base']['lines'] += $oldBlock;
+                }
 
-                    if ($tag == 'replace' || $tag == 'insert') {
-                        $lines = array_slice($new, $j1, ($j2 - $j1));
-                        $lines =  $this->formatLines($lines);
-                        $lines = str_replace(array("\0", "\1"), array('<ins>', '</ins>'), $lines);
-                        $blocks[$lastBlock]['changed']['lines'] += $lines;
-                    }
+                if ($tag == 'replace' || $tag == 'insert') {
+                    // Inline differences or the new block doesn't exist in the old text.
+                    // Replace the markers, which where added above, by HTML insert tags.
+                    $newBlock                               = str_replace(["\0", "\1"], ['<ins>', '</ins>'], $newBlock);
+                    $blocks[$lastBlock]['changed']['lines'] += $newBlock;
                 }
             }
             $changes[] = $blocks;
@@ -174,11 +178,64 @@ class HtmlArray extends RendererAbstract
     }
 
     /**
-     * Determine where changes in two strings begin and where they end.
+     * Add markers around inline changes between old and new text.
      *
-     * This returns an array.
-     * The first value defines the first (starting at 0) character from start of the old string which is different.
-     * The second value defines the last character from end of the old string which is different.
+     * Each line of the old and new text is evaluated.
+     * When a line of old differs from the same line of new, a marker is inserted into both lines, just before the first
+     * different character. A second marker is added just behind the last character which differs from each other.
+     *
+     * E.g.
+     * <pre>
+     *         1234567
+     * OLd => "abcdefg" Start marker inserted at position 3
+     * New => "ab123fg"   End marker inserted at position 6
+     * </pre>
+     *
+     * @param array $oldText  Collection of lines of old text.
+     * @param array $newText  Collection of lines of new text.
+     * @param int   $startOld First line of the block in old to replace.
+     * @param int   $endOld   last line of the block in old to replace.
+     * @param int   $startNew First line of the block in new to replace.
+     */
+    private function markInlineChange(array &$oldText, array &$newText, $startOld, $endOld, $startNew)
+    {
+        for ($i = 0; $i < ($endOld - $startOld); ++$i) {
+            // Check each line in the block for differences.
+            $oldString = $oldText[$startOld + $i];
+            $newString = $newText[$startNew + $i];
+
+            // Determine the start and end position of the line difference.
+            list($start, $end) = $this->getInlineChange($oldString, $newString);
+            if ($start != 0 || $end != 0) {
+                // Changes between the lines exist.
+                // Add markers around the changed character sequence in the old string.
+                $sequenceEnd = mb_strlen($oldString) + $end;
+                $oldString   =
+                    mb_substr($oldString, 0, $start) . "\0" .
+                    mb_substr($oldString, $start, $sequenceEnd - $start) . "\1" .
+                    mb_substr($oldString, $sequenceEnd);
+
+                // Add markers around the changed character sequence in the new string.
+                $sequenceEnd = mb_strlen($newString) + $end;
+                $newString   =
+                    mb_substr($newString, 0, $start) . "\0" .
+                    mb_substr($newString, $start, $sequenceEnd - $start) . "\1" .
+                    mb_substr($newString, $sequenceEnd);
+
+                // Overwrite the strings in the old and new text so the changed lines include the markers.
+                $oldText[$startOld + $i] = $oldString;
+                $newText[$startNew + $i] = $newString;
+            }
+        }
+    }
+
+    /**
+     * Determine where changes between two strings begin and where they end.
+     *
+     * This returns a two elements array.
+     * The first element defines the first (starting at 0) character from the start of the old string which is
+     * different.
+     * The second element defines the last (starting at -0) character from the end of the old string which is different.
      *
      *
      * @param string $oldString The first string to compare.
@@ -186,20 +243,24 @@ class HtmlArray extends RendererAbstract
      *
      * @return array Array containing the starting position (0 by default) and the ending position (-1 by default)
      */
-    private function getChangeExtent(string $oldString, string $newString): array
+    private function getInlineChange(string $oldString, string $newString): array
     {
         $start = 0;
         $limit = min(mb_strlen($oldString), mb_strlen($newString));
 
-        // Find first difference.
+        // Find the position of the first character which is different between old and new.
+        // Starts at the begin of the strings.
+        // Stops at the end of the shortest string.
         while ($start < $limit && mb_substr($oldString, $start, 1) == mb_substr($newString, $start, 1)) {
             ++$start;
         }
 
-        $end    = -1;
-        $limit  = $limit - $start;
+        $end   = -1;
+        $limit = $limit - $start;
 
-        // Find last difference.
+        // Find the position of the last character which is different between old and new.
+        // Starts at the end of the shortest string.
+        // Stops just before the last different character.
         while (-$end <= $limit && mb_substr($oldString, $end, 1) == mb_substr($newString, $end, 1)) {
             --$end;
         }
@@ -208,6 +269,41 @@ class HtmlArray extends RendererAbstract
             $start,
             $end + 1
         ];
+    }
+
+    /**
+     * Helper function that will fill the changes-array for the renderer with default values.
+     * Every time a operation changes (specified by $tag) , a new element will be appended to this array.
+     *
+     * The index of the last element of the array is always returned.
+     *
+     * @param array   $blocks    The array which keeps the changes for the HTML renderer.
+     * @param string  $tag       Kind of difference.
+     * @param integer $lineInOld Start of block in "old".
+     * @param integer $lineInNew Start of block in "new".
+     *
+     * @return int The index of the last element.
+     */
+    private function appendChangesArray(array &$blocks, string $tag, int $lineInOld, int $lineInNew): int
+    {
+        if ($tag == $this->lastTag) {
+            return count($blocks) - 1;
+        }
+
+        $blocks[] = [
+            'tag'     => $tag,
+            'base'    => [
+                'offset' => $lineInOld,
+                'lines'  => []
+            ],
+            'changed' => [
+                'offset' => $lineInNew,
+                'lines'  => []
+            ]
+        ];
+
+        $this->lastTag = $tag;
+        return count($blocks) - 1;
     }
 
     /**
@@ -226,7 +322,7 @@ class HtmlArray extends RendererAbstract
             // Replace tabs with spaces.
             $strings = array_map(
                 function ($item) {
-                    return $this->expandTabs($item);
+                    return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $item);
                 },
                 $strings
             );
@@ -235,12 +331,12 @@ class HtmlArray extends RendererAbstract
         // Convert special characters to HTML entities
         $strings = array_map(
             function ($item) {
-                return $this->htmlSafe($item);
+                return htmlspecialchars($item, ENT_NOQUOTES, 'UTF-8');
             },
             $strings
         );
 
-        // Replace leading spaces of a line with HTML enities.
+        // Replace leading spaces of a line with HTML entities.
         foreach ($strings as &$line) {
             $line = preg_replace_callback(
                 '/(^[ \0\1]*)/',
@@ -253,53 +349,5 @@ class HtmlArray extends RendererAbstract
         unset($line);
 
         return $strings;
-    }
-
-    /**
-     * Replace tabs in a string with an amount of spaces as defined by the tabSize option of this class.
-     *
-     * @param string $line The string which contains tabs to convert.
-     *
-     * @return string The line with the tabs converted to spaces.
-     */
-    private function expandTabs(string $line): string
-    {
-        return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $line);
-    }
-
-    /**
-     * Make a string HTML safe for output on a page.
-     *
-     * @param string $string The string to make safe.
-     *
-     * @return string The string with the HTML characters replaced by entities.
-     */
-    private function htmlSafe(string $string): string
-    {
-        return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
-    }
-
-    /**
-     * Helper function that provides an array for the renderer with default values for the changes to render.
-     *
-     * @param string    $tag        Kind of difference.
-     * @param integer   $lineInOld  Start of block in "old".
-     * @param integer   $lineInNew  Start of block in "new".
-     *
-     * @return array
-     */
-    private function getDefaultArray(string $tag, int $lineInOld, int $lineInNew): array
-    {
-        return [
-            'tag'       => $tag,
-            'base'      => [
-                'offset'    => $lineInOld,
-                'lines'     => []
-            ],
-            'changed'   => [
-                'offset'    => $lineInNew,
-                'lines'     => []
-            ]
-        ];
     }
 }
