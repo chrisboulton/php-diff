@@ -46,8 +46,7 @@ class Unified extends RendererAbstract
             }
 
             $diff .= '@@ -' . ($i1 + 1) . ',' . ($i2 - $i1) . ' +' . ($j1 + 1) . ',' . ($j2 - $j1) . " @@\n";
-            foreach ($group as $code) {
-                list($tag, $i1, $i2, $j1, $j2) = $code;
+            foreach ($group as [$tag, $i1, $i2, $j1, $j2]) {
                 if ($tag == 'equal') {
                     $diff .= ' ' . implode("\n ", $this->diff->getOld($i1, $i2)) . "\n";
                 } else {

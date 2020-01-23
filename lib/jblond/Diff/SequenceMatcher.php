@@ -417,8 +417,7 @@ class SequenceMatcher
         $j1 = 0;
         $k1 = 0;
         $nonAdjacent = array();
-        foreach ($matchingBlocks as $block) {
-            list($list4, $list5, $list6) = $block;
+        foreach ($matchingBlocks as [$list4, $list5, $list6]) {
             if ($i1 + $k1 == $list4 && $j1 + $k1 == $list5) {
                 $k1 += $list6;
             } else {
