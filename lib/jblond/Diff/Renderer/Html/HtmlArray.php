@@ -96,7 +96,6 @@ class HtmlArray extends RendererAbstract
             $lastTag = null;
             $lastBlock = 0;
             foreach ($group as [$tag, $i1, $i2, $j1, $j2]) {
-
                 if ($tag == 'replace' && $i2 - $i1 == $j2 - $j1) {
                     for ($i = 0; $i < ($i2 - $i1); ++$i) {
                         $fromLine = $old[$i1 + $i];
