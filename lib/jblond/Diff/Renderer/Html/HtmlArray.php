@@ -60,11 +60,9 @@ class HtmlArray extends RendererAbstract
 
         foreach ($changes as $i => $blocks) {
             if ($i > 0) {
-                // If this is a separate block, we're condensing code so output ...,
-                // indicating a significant portion of the code has been collapsed as
-                // it is the same.
-                //TODO: When is $i > 0 ?
-                $html .= '<span class="Skipped"><br>&hellip;<br></span>';
+                // If this is a separate block, we're condensing code to output …,
+                // indicating a significant portion of the code has been collapsed as it did not change.
+                $html .= $htmlRenderer->generateTableRowsSkipped();
             }
 
             foreach ($blocks as $change) {

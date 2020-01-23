@@ -9,12 +9,12 @@ namespace jblond\Diff\Renderer\Html;
  *
  * PHP version 7.2 or greater
  *
- * @package jblond\Diff\Renderer\Html
- * @author Chris Boulton <chris.boulton@interspire.com>
+ * @package       jblond\Diff\Renderer\Html
+ * @author        Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.13
- * @link https://github.com/JBlond/php-diff
+ * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version       1.15
+ * @link          https://github.com/JBlond/php-diff
  */
 class Unified extends HtmlArray
 {
@@ -37,8 +37,8 @@ class Unified extends HtmlArray
      * to match the signature of RendererAbstract::renderHTML. However the second parameter isn't used and can be
      * omitted.
      *
-     * @param array $changes    Contains the op-codes about the differences between "old and "new".
-     * @param null  $object     Unused.
+     * @param array $changes Contains the op-codes about the differences between "old and "new".
+     * @param null  $object  Unused.
      *
      * @return string           HTML code containing the unified differences.
      */
@@ -53,11 +53,13 @@ class Unified extends HtmlArray
 
         foreach ($changes as $i => $blocks) {
             if ($i > 0) {
-                // If this is a separate block, we're condensing code so output ...,
-                // indicating a significant portion of the code has been collapsed as
-                // it is the same.
-                //TODO: When is $i > 0 ?
-                $html .= '<span class="Skipped"><br>&hellip;<br></span>';
+                // If this is a separate block, we're condensing code to output …,
+                // indicating a significant portion of the code has been collapsed as it did not change.
+                $html .= <<<HTML
+<span class="Skipped" title="Equal lines collapsed!">
+    <strong>&hellip;</strong>
+</span>
+HTML;
             }
 
             foreach ($blocks as $change) {

@@ -55,7 +55,7 @@ class Diff
 
     /**
      * @var array   Associative array containing the options that will be applied for generating the diff.
-     *              The key-value pairs are set at the contructor of this class.
+     *              The key-value pairs are set at the constructor of this class.
      *              @see Diff::setOptions()
      */
     private $options = [];
@@ -65,7 +65,7 @@ class Diff
      *
      * The first two parameters define the data to compare to eachother.
      * The values can be of type string or array.
-     * If the type is string, it's splitted into array elements by line-end characters.
+     * If the type is string, it's split into array elements by line-end characters.
      *
      * Options for comparison can be set by using the third parameter. The format of this value is expected to be a
      * associative array where each key-value pair represents an option and its value (E.g. ['context' => 3], ...).
@@ -214,14 +214,14 @@ class Diff
      */
     public function getGroupedOpcodes(): array
     {
-        if (!is_null($this->groupedCodes)) {
+        if ($this->groupedCodes !== null) {
             //Return the cached results.
             return $this->groupedCodes;
         }
 
-        //Get and cahche the grouped op-codes.
+        //Get and cache the grouped op-codes.
         $sequenceMatcher    = new SequenceMatcher($this->old, $this->new, $this->options, null);
-        $this->groupedCodes = $sequenceMatcher->getGroupedOpcodes($this->options['context']);
+        $this->groupedCodes = $sequenceMatcher->getGroupedOpCodes($this->options['context']);
 
         return $this->groupedCodes;
     }

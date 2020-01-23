@@ -6,11 +6,11 @@
             <th>Differences</th>
         </tr>
     </thead><tbody class="ChangeInsert"><tr>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <th>1</th>
     <td class="Right">
         <ins></ins>
-        &#xA0;
+        &nbsp;
     </td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th>1</th>
@@ -26,12 +26,12 @@
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"/&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
     <th>4</th>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;<del>Hello</del> World!&lt;/title&gt;</span>
     </td>
 </tr><tr>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <th>5</th>
     <td class="Right">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;<ins>Goodbye Cruel</ins> World!&lt;/title&gt;</span>
@@ -45,11 +45,11 @@
     <th>7</th>
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;</td>
 </tr></tbody><tbody class="ChangeInsert"><tr>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <th>8</th>
     <td class="Right">
         <ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just a small amount of new text...&lt;/p&gt;</ins>
-        &#xA0;
+        &nbsp;
     </td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th>7</th>
@@ -61,10 +61,10 @@
     <td class="Left"></td>
 </tr></tbody><tbody class="ChangeDelete"><tr>
     <th>9</th>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <td class="Left">
         <del>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;A heading we'll be removing&lt;/h2&gt;</del>
-        &#xA0;
+        &nbsp;
     </td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th>10</th>
@@ -72,12 +72,12 @@
     <td class="Left">&lt;pre&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
     <th>11</th>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <td class="Left">
         <span>构建具有中国<del>特色</del>的医学人才培养体系</span>
     </td>
 </tr><tr>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <th>12</th>
     <td class="Right">
         <span>构建具有中国<ins>國</ins>的医学人才培养体系</span>
@@ -96,12 +96,12 @@
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;pre&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
     <th>15</th>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外我覺得那個評<del>價</del>的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革” 😅😅</span>
     </td>
 </tr><tr>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <th>16</th>
     <td class="Right">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外我覺得那個評<ins>鑑</ins>的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革” 😅😅</span>
@@ -112,12 +112,12 @@
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/pre&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
     <th>17</th>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Do you know in <del>Chinese, "金槍魚罐頭" means tuna</del> can.&lt;/p&gt;</span>
     </td>
 </tr><tr>
-    <th>&#xA0;</th>
+    <th>&nbsp;</th>
     <th>18</th>
     <td class="Right">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Do you know in <ins>Japanese, "魚の缶詰" means fish</ins> can.&lt;/p&gt;</span>

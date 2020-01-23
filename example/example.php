@@ -19,7 +19,8 @@ $b = file_get_contents(dirname(__FILE__) . '/b.txt');
 // Options for generating the diff.
 $options = [
     //'ignoreWhitespace' => true,
-    //'ignoreCase' => true,
+    //'ignoreCase'       => true,
+    //'context'          => 2,    /* Remove // to see text collapse in action */
 ];
 
 // Initialize the diff class.
@@ -60,33 +61,27 @@ $diff = new Diff($a, $b, $options);
         ?>
 
         <h2>HTML Unified Diff</h2>
-        <pre>
-            <?php
-            // Generate a unified diff.
-            // \jblond\Diff\Renderer\Html
-            $renderer = new HtmlUnified();
-            echo $diff->render($renderer);
-            ?>
-        </pre>
+        <?php
+        // Generate a unified diff.
+        // \jblond\Diff\Renderer\Html
+        $renderer = new HtmlUnified();
+        echo "<pre>{$diff->render($renderer)}</pre>";
+        ?>
 
         <h2>Text Unified Diff</h2>
-        <pre>
-            <?php
-            // Generate a unified diff.
-            // \jblond\Diff\Renderer\Text
-            $renderer = new Unified();
-            echo htmlspecialchars($diff->render($renderer));
-            ?>
-        </pre>
+        <?php
+        // Generate a unified diff.
+        // \jblond\Diff\Renderer\Text
+        $renderer = new Unified();
+        echo '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>';
+        ?>
 
         <h2>Text Context Diff</h2>
-        <pre>
-            <?php
-            // Generate a context diff.
-            // jblond\Diff\Renderer\Text\Context
-            $renderer = new Context();
-            echo htmlspecialchars($diff->render($renderer));
-            ?>
-        </pre>
+        <?php
+        // Generate a context diff.
+        // jblond\Diff\Renderer\Text\Context
+        $renderer = new Context();
+        echo '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>';
+        ?>
     </body>
 </html>
