@@ -7,7 +7,7 @@ namespace jblond\Diff;
 /**
  * Sequence matcher for Diff
  *
- * PHP version 7.1 or greater
+ * PHP version 7.2 or greater
  *
  * @package jblond\Diff
  * @author Chris Boulton <chris.boulton@interspire.com>
@@ -536,7 +536,7 @@ class SequenceMatcher
      * @param int $context The number of lines of context to provide around the groups.
      * @return array Nested array of all of the grouped op codes.
      */
-    public function getGroupedOpcodes(int $context = 3): array
+    public function getGroupedOpCodes(int $context = 3): array
     {
         $opCodes = $this->getOpCodes();
         if (empty($opCodes)) {
@@ -591,6 +591,7 @@ class SequenceMatcher
                 $i1 = max($i1, $i2 - $context);
                 $j1 = max($j1, $j2 - $context);
             }
+            echo '';
             $group[] = array(
                 $tag,
                 $i1,

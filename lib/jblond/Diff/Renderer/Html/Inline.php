@@ -7,136 +7,187 @@ namespace jblond\Diff\Renderer\Html;
 /**
  * Inline HTML diff generator for PHP DiffLib.
  *
- * PHP version 7.1 or greater
+ * PHP version 7.2 or greater
  *
- * @package jblond\Diff\Renderer\Html
- * @author Chris Boulton <chris.boulton@interspire.com>
+ * @package       jblond\Diff\Renderer\Html
+ * @author        Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.15
- * @link https://github.com/JBlond/php-diff
+ * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version       1.15
+ * @link          https://github.com/JBlond/php-diff
  */
 class Inline extends HtmlArray
 {
     /**
-     * Render a and return diff with changes between the two sequences
-     * displayed inline (under each other)
+     * Render a and return diff-view with changes between the two sequences displayed side by side. (under each other)
      *
-     * @return string The generated inline diff.
+     * @return string The generated inline diff-view.
      */
     public function render(): string
     {
         $changes = parent::render();
+
         return parent::renderHtml($changes, $this);
     }
 
 
     /**
-     * Generates a string representation of a predefined table and its head with
-     * titles from options.
+     * Generates a string representation of the opening of a predefined table and its header with titles from options.
      *
-     * @return string Html code representation of the table's header.
+     * @return string HTML code representation of a table's header.
      */
     public function generateTableHeader(): string
     {
-        $html = '<table class="Differences DifferencesInline">';
-        $html .= '<thead>';
-        $html .= '<tr>';
-        $html .= '<th>Old</th>';
-        $html .= '<th>New</th>';
-        $html .= '<th>Differences</th>';
-        $html .= '</tr>';
-        $html .= '</thead>';
+        return <<<HTML
+<table class="Differences DifferencesInline">
+    <thead>
+        <tr>
+            <th>{$this->options['title_a']}</th>
+            <th>{$this->options['title_b']}</th>
+            <th>Differences</th>
+        </tr>
+    </thead>
+HTML;
+    }
+
+    /**
+     * Generates a string representation of table rows showing lines are skipped.
+     *
+     * @return string HTML code representation of a table's header.
+     */
+    public function generateTableRowsSkipped(): string
+    {
+        return <<<HTML
+<tr>
+    <th>&hellip;</th>
+    <th>&hellip;</th>
+    <td class="Left Skipped">&hellip;</td>
+</tr>
+HTML;
+    }
+
+    /**
+     * Generates a string representation of table rows showing text with no difference.
+     *
+     * @param array $changes Contains the op-codes about the changes between two blocks.
+     *
+     * @return string HTML code representing table rows showing text with no difference.
+     */
+    public function generateTableRowsEqual(array $changes): string
+    {
+        $html = '';
+
+        foreach ($changes['base']['lines'] as $lineNo => $line) {
+            $fromLine = $changes['base']['offset'] + $lineNo + 1;
+            $toLine   = $changes['changed']['offset'] + $lineNo + 1;
+
+            $html .= <<<HTML
+<tr>
+    <th>$fromLine</th>
+    <th>$toLine</th>
+    <td class="Left">$line</td>
+</tr>
+HTML;
+        }
+
         return $html;
     }
 
     /**
-     * Generates a string representation of one or more rows of a table of lines of text with no difference.
+     * Generates a string representation of table rows showing added text.
      *
-     * @param array &$change Array with data about changes.
-     * @return string Html code representing one or more rows of text with no difference.
+     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     *
+     * @return string HTML code representing table rows showing with added text.
      */
-    public function generateTableRowsEqual(array &$change): string
+    public function generateTableRowsInsert(array $changes): string
     {
-        $html = "";
-        foreach ($change['base']['lines'] as $no => $line) {
-            $fromLine = $change['base']['offset'] + $no + 1;
-            $toLine = $change['changed']['offset'] + $no + 1;
-            $html .= '<tr>';
-            $html .= '<th>' . $fromLine . '</th>';
-            $html .= '<th>' . $toLine . '</th>';
-            $html .= '<td class="Left">' . $line . '</td>';
-            $html .= '</tr>';
+        $html = '';
+
+        foreach ($changes['changed']['lines'] as $lineNo => $line) {
+            $toLine = $changes['changed']['offset'] + $lineNo + 1;
+
+            $html .= <<<HTML
+<tr>
+    <th>&nbsp;</th>
+    <th>$toLine</th>
+    <td class="Right">
+        <ins>$line</ins>
+        &nbsp;
+    </td>
+</tr>
+HTML;
         }
+
         return $html;
     }
 
     /**
-     * Generates a string representation of one or more rows of a table of lines, where new text was added.
+     * Generates a string representation of table rows showing removed text.
      *
-     * @param array &$change Array with data about changes.
-     * @return string Html code representing one or more rows of added text.
+     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     *
+     * @return string HTML code representing table rows showing removed text.
      */
-    public function generateTableRowsInsert(array &$change): string
+    public function generateTableRowsDelete(array $changes): string
     {
-        $html = "";
-        foreach ($change['changed']['lines'] as $no => $line) {
-            $toLine = $change['changed']['offset'] + $no + 1;
-            $html .= '<tr>';
-            $html .= '<th>&#xA0;</th>';
-            $html .= '<th>' . $toLine . '</th>';
-            $html .= '<td class="Right"><ins>' . $line . '</ins>&#xA0;</td>';
-            $html .= '</tr>';
+        $html = '';
+
+        foreach ($changes['base']['lines'] as $lineNo => $line) {
+            $fromLine = $changes['base']['offset'] + $lineNo + 1;
+
+            $html .= <<<HTML
+<tr>
+    <th>$fromLine</th>
+    <th>&nbsp;</th>
+    <td class="Left">
+        <del>$line</del>
+        &nbsp;
+    </td>
+</tr>
+HTML;
         }
+
         return $html;
     }
 
     /**
-     * Generates a string representation of one or more rows of a table of lines, where text was removed.
+     * Generates a string representation of table rows showing partially modified text.
      *
-     * @param array &$change Array with data about changes.
-     * @return string Html code representing one or more rows of removed text.
-     */
-    public function generateTableRowsDelete(array &$change): string
-    {
-        $html = "";
-        foreach ($change['base']['lines'] as $no => $line) {
-            $fromLine = $change['base']['offset'] + $no + 1;
-            $html .= '<tr>';
-            $html .= '<th>' . $fromLine . '</th>';
-            $html .= '<th>&#xA0;</th>';
-            $html .= '<td class="Left"><del>' . $line . '</del>&#xA0;</td>';
-            $html .= '</tr>';
-        }
-        return $html;
-    }
-
-    /**
-     * Generates a string representation of one or more rows of a table of lines, where text was partially modified.
+     * @param array $changes Contains the op-codes about the changes between two blocks of text.
      *
-     * @param array &$change Array with data about changes.
-     * @return string Html code representing one or more rows of modified.
+     * @return string Html code representing table rows showing modified text.
      */
-    public function generateTableRowsReplace(array &$change): string
+    public function generateTableRowsReplace(array $changes): string
     {
-        $html = "";
+        $html = '';
 
-        foreach ($change['base']['lines'] as $no => $line) {
-            $fromLine = $change['base']['offset'] + $no + 1;
-            $html .= '<tr>';
-            $html .= '<th>' . $fromLine . '</th>';
-            $html .= '<th>&#xA0;</th>';
-            $html .= '<td class="Left"><span>' . $line . '</span></td>';
-            $html .= '</tr>';
+        foreach ($changes['base']['lines'] as $lineNo => $line) {
+            $fromLine = $changes['base']['offset'] + $lineNo + 1;
+
+            $html .= <<<HTML
+<tr>
+    <th>$fromLine</th>
+    <th>&nbsp;</th>
+    <td class="Left">
+        <span>$line</span>
+    </td>
+</tr>
+HTML;
         }
 
-        foreach ($change['changed']['lines'] as $no => $line) {
-            $toLine = $change['changed']['offset'] + $no + 1;
-            $html .= '<tr>';
-            $html .= '<th>&#xA0;</th>';
-            $html .= '<th>' . $toLine . '</th>';
-            $html .= '<td class="Right"><span>' . $line . '</span></td>';
-            $html .= '</tr>';
+        foreach ($changes['changed']['lines'] as $lineNo => $line) {
+            $toLine = $changes['changed']['offset'] + $lineNo + 1;
+
+            $html .= <<<HTML
+<tr>
+    <th>&nbsp;</th>
+    <th>$toLine</th>
+    <td class="Right">
+        <span>$line</span>
+    </td>
+</tr>
+HTML;
         }
 
         return $html;
