@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Tests\Diff\Renderer\Html;
 
+use jblond\Diff;
 use jblond\Diff\Renderer\Html\HtmlArray;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ArrayTest
+ * Class HtmlArrayTest
  * @package Tests\Diff\Renderer\Html
  */
-class ArrayTest extends TestCase
+class HtmlArrayTest extends TestCase
 {
 
     /**
-     * ArrayTest constructor.
+     * HtmlArrayTest constructor.
      * @param null $name
      * @param array $data
      * @param string $dataName
@@ -32,7 +33,7 @@ class ArrayTest extends TestCase
     public function testRenderSimpleDelete()
     {
         $htmlRenderer = new HtmlArray();
-        $htmlRenderer->diff = new \jblond\Diff(
+        $htmlRenderer->diff = new Diff(
             array('a'),
             array()
         );
@@ -62,7 +63,7 @@ class ArrayTest extends TestCase
     public function testRenderFixesSpaces()
     {
         $htmlRenderer = new HtmlArray();
-        $htmlRenderer->diff = new \jblond\Diff(
+        $htmlRenderer->diff = new Diff(
             array('    a'),
             array('a')
         );
@@ -74,7 +75,7 @@ class ArrayTest extends TestCase
                     'base' => array(
                         'offset' => 0,
                         'lines' => array(
-                            '<del>&#xA0; &#xA0;</del>a',
+                            "<del>&nbsp;&nbsp;&nbsp;&nbsp;</del>a",
                         )
                     ),
                     'changed' => array(

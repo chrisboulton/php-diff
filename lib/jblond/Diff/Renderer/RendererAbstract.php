@@ -9,14 +9,14 @@ use jblond\Diff;
 /**
  * Abstract class for diff renderers in PHP DiffLib.
  *
- * PHP version 7.1 or greater
+ * PHP version 7.2 or greater
  *
- * @package jblond\Diff\Renderer
- * @author Chris Boulton <chris.boulton@interspire.com>
+ * @package       jblond\Diff\Renderer
+ * @author        Chris Boulton <chris.boulton@interspire.com>
  * @copyright (c) 2009 Chris Boulton
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.14
- * @link https://github.com/JBlond/php-diff
+ * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version       1.15
+ * @link          https://github.com/JBlond/php-diff
  */
 abstract class RendererAbstract
 {
