@@ -70,8 +70,7 @@ class Context extends RendererAbstract
             }
 
             if ($hasVisible) {
-                foreach ($group as $code) {
-                    list($tag, $i1, $i2, $j1, $j2) = $code;
+                foreach ($group as [$tag, $i1, $i2, $j1, $j2]) {
                     if ($tag == 'insert') {
                         continue;
                     }
@@ -95,8 +94,7 @@ class Context extends RendererAbstract
             $diff .= $separator;
 
             if ($hasVisible) {
-                foreach ($group as $code) {
-                    list($tag, $i1, $i2, $j1, $j2) = $code;
+                foreach ($group as [$tag, $i1, $i2, $j1, $j2]) {
                     if ($tag == 'delete') {
                         continue;
                     }

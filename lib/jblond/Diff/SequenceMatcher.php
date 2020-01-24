@@ -417,8 +417,7 @@ class SequenceMatcher
         $j1 = 0;
         $k1 = 0;
         $nonAdjacent = array();
-        foreach ($matchingBlocks as $block) {
-            list($list4, $list5, $list6) = $block;
+        foreach ($matchingBlocks as [$list4, $list5, $list6]) {
             if ($i1 + $k1 == $list4 && $j1 + $k1 == $list5) {
                 $k1 += $list6;
             } else {
@@ -487,8 +486,7 @@ class SequenceMatcher
         $this->opCodes = array();
 
         $blocks = $this->getMatchingBlocks();
-        foreach ($blocks as $block) {
-            list($ai, $bj, $size) = $block;
+        foreach ($blocks as [$ai, $bj, $size]) {
             $tag = '';
             if ($i < $ai && $j < $bj) {
                 $tag = 'replace';
@@ -579,8 +577,7 @@ class SequenceMatcher
         $groups = array();
         $group = array();
 
-        foreach ($opCodes as $code) {
-            list($tag, $i1, $i2, $j1, $j2) = $code;
+        foreach ($opCodes as [$tag, $i1, $i2, $j1, $j2]) {
             if ($tag == 'equal' && $i2 - $i1 > $maxRange) {
                 $group[] = array(
                     $tag,
