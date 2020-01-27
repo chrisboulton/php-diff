@@ -21,7 +21,8 @@
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "8.*",
-		"squizlabs/php_codesniffer" : "*"
+		"squizlabs/php_codesniffer" : "*",
+		"phpmd/phpmd": "2.*"
 	},
 	"autoload" : {
 		"psr-4" : {
@@ -34,6 +35,7 @@
 	"scripts" : {
 		"phpunit" : "phpunit ./tests/",
 		"php_src" : "phpcs --standard=phpcs.xml -s -p --colors ./lib/",
-		"php_test" : "phpcs --standard=phpcs.xml -s -p --colors ./tests/"
+		"php_test" : "phpcs --standard=phpcs.xml -s -p --colors ./tests/",
+		"phpmd" : "phpmd ./ ansi  cleancode, codesize, controversial, design, naming, unusedcode --exclude vendor"
 	}
 }
