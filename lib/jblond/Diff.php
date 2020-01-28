@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace jblond;
 
 use InvalidArgumentException;
+use jblond\Diff\Renderer\Html\Inline;
+use jblond\Diff\Renderer\Html\SideBySide;
+use jblond\Diff\Renderer\Html\Unified as UnifiedHtml;
+use jblond\Diff\Renderer\Text\Context;
+use jblond\Diff\Renderer\Text\Unified;
 use jblond\Diff\SequenceMatcher;
 use OutOfRangeException;
 
@@ -128,7 +133,8 @@ class Diff
     /**
      * Render a diff-view using a rendering class and get its results.
      *
-     * @param object $renderer An instance of the rendering object, used for generating the diff-view.
+     * @param object|Context|Unified|UnifiedHtml|Inline|SideBySide $renderer An instance of the rendering object,
+     * used for generating the diff-view.
      *
      * @return mixed The generated diff-view. The type of the return value depends on the applied rendereder.
      */
