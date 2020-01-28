@@ -111,7 +111,7 @@ class HtmlArray extends RendererAbstract
 
         $changes = [];
 
-        foreach ($this->diff->getGroupedOpcodes() as $group) {
+        foreach ($this->diff->getGroupedOpCodes() as $group) {
             $blocks        = [];
             $this->lastTag = null;
 

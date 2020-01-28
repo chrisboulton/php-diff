@@ -38,7 +38,7 @@ class Context extends RendererAbstract
     public function render(): string
     {
         $diff       = '';
-        $opCodes    = $this->diff->getGroupedOpcodes();
+        $opCodes    = $this->diff->getGroupedOpCodes();
 
         foreach ($opCodes as $group) {
             $diff       .= "***************\n";

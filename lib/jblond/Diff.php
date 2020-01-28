@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace jblond;
 
+use InvalidArgumentException;
 use jblond\Diff\SequenceMatcher;
+use OutOfRangeException;
 
 /**
  * Diff
@@ -63,7 +65,7 @@ class Diff
     /**
      * The constructor.
      *
-     * The first two parameters define the data to compare to eachother.
+     * The first two parameters define the data to compare to each other.
      * The values can be of type string or array.
      * If the type is string, it's split into array elements by line-end characters.
      *
@@ -89,13 +91,15 @@ class Diff
 
     /**
      * Set the options to be used by the sequence matcher, called by this class.
-     * @see Diff::getGroupedOpcodes()
+     *
+     * @param array $options User defined option names and values.
+     *
+     *@see Diff::$defaultOptions
+     *
+     * @see Diff::getGroupedOpCodes()
      *
      * When a keyName matches the name of a default option, that option's value will be overridden by the key's value.
      * Any other keyName (and it's value) will be added as an option, but will not be used if not implemented.
-     * @see Diff::$defaultOptions
-     *
-     * @param array $options User defined option names and values.
      */
     public function setOptions(array $options)
     {
@@ -152,14 +156,14 @@ class Diff
      * @param int|null  $end    The last element of the range to get.
      *                          If not supplied, only the element at start will be returned.
      *
-     * @throws \OutOfRangeException When the value of start or end are invalid to define a range.
+     * @throws OutOfRangeException When the value of start or end are invalid to define a range.
      *
      * @return array Array containing all of the elements of the specified range.
      */
     public function getArrayRange(array $array, int $start = 0, $end = null): array
     {
         if ($start < 0 || $end < 0 || $end < $start) {
-            throw new \OutOfRangeException('Start parameter must be lower than End parameter while both are positive!');
+            throw new OutOfRangeException('Start parameter must be lower than End parameter while both are positive!');
         }
 
         if ($start == 0 && $end === null) {
@@ -187,7 +191,7 @@ class Diff
      *
      * @param mixed $var    Variable to get type from.
      *
-     * @throws \InvalidArgumentException    When the type isn't 'array' or 'string'.
+     * @throws InvalidArgumentException    When the type isn't 'array' or 'string'.
      *
      * @return int  Number indicating the type of the variable. 0 for array type and 1 for string type.
      */
@@ -199,7 +203,7 @@ class Diff
             case (is_string($var)):
                 return 1;
             default:
-                throw new \InvalidArgumentException('Invalid argument type! Argument must be of type array or string.');
+                throw new InvalidArgumentException('Invalid argument type! Argument must be of type array or string.');
         }
     }
 
@@ -212,7 +216,7 @@ class Diff
      *
      * @return array Array of the grouped op-codes for the generated diff.
      */
-    public function getGroupedOpcodes(): array
+    public function getGroupedOpCodes(): array
     {
         if ($this->groupedCodes !== null) {
             //Return the cached results.
@@ -220,7 +224,7 @@ class Diff
         }
 
         //Get and cache the grouped op-codes.
-        $sequenceMatcher    = new SequenceMatcher($this->old, $this->new, $this->options, null);
+        $sequenceMatcher    = new SequenceMatcher($this->old, $this->new, $this->options);
         $this->groupedCodes = $sequenceMatcher->getGroupedOpCodes($this->options['context']);
 
         return $this->groupedCodes;

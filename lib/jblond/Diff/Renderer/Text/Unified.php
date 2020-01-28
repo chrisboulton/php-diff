@@ -32,7 +32,7 @@ class Unified extends RendererAbstract
     public function render(): string
     {
         $diff = '';
-        $opCodes = $this->diff->getGroupedOpcodes();
+        $opCodes = $this->diff->getGroupedOpCodes();
         foreach ($opCodes as $group) {
             $lastItem = count($group) - 1;
             $i1 = $group['0']['1'];

@@ -47,7 +47,6 @@ $diff = new Diff($a, $b, $options);
             'title_b' => 'Custom title for NEW version',
         ]);
         echo $diff->Render($renderer);
-
         ?>
 
         <h2>HTML Inline Diff</h2>
