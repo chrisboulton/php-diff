@@ -4,7 +4,14 @@ declare(strict_types=1);
 
 namespace jblond;
 
+use InvalidArgumentException;
+use jblond\Diff\Renderer\Html\Inline;
+use jblond\Diff\Renderer\Html\SideBySide;
+use jblond\Diff\Renderer\Html\Unified as UnifiedHtml;
+use jblond\Diff\Renderer\Text\Context;
+use jblond\Diff\Renderer\Text\Unified;
 use jblond\Diff\SequenceMatcher;
+use OutOfRangeException;
 
 /**
  * Diff
@@ -126,7 +133,8 @@ class Diff
     /**
      * Render a diff-view using a rendering class and get its results.
      *
-     * @param object $renderer An instance of the rendering object, used for generating the diff-view.
+     * @param object|Context|Unified|UnifiedHtml|Inline|SideBySide $renderer An instance of the rendering object,
+     * used for generating the diff-view.
      *
      * @return mixed The generated diff-view. The type of the return value depends on the applied rendereder.
      */
@@ -152,14 +160,14 @@ class Diff
      * @param int|null  $end    The last element of the range to get.
      *                          If not supplied, only the element at start will be returned.
      *
-     * @throws \OutOfRangeException When the value of start or end are invalid to define a range.
+     * @throws OutOfRangeException When the value of start or end are invalid to define a range.
      *
      * @return array Array containing all of the elements of the specified range.
      */
     public function getArrayRange(array $array, int $start = 0, $end = null): array
     {
         if ($start < 0 || $end < 0 || $end < $start) {
-            throw new \OutOfRangeException('Start parameter must be lower than End parameter while both are positive!');
+            throw new OutOfRangeException('Start parameter must be lower than End parameter while both are positive!');
         }
 
         if ($start == 0 && $end === null) {
@@ -187,7 +195,7 @@ class Diff
      *
      * @param mixed $var    Variable to get type from.
      *
-     * @throws \InvalidArgumentException    When the type isn't 'array' or 'string'.
+     * @throws InvalidArgumentException    When the type isn't 'array' or 'string'.
      *
      * @return int  Number indicating the type of the variable. 0 for array type and 1 for string type.
      */
@@ -199,7 +207,7 @@ class Diff
             case (is_string($var)):
                 return 1;
             default:
-                throw new \InvalidArgumentException('Invalid argument type! Argument must be of type array or string.');
+                throw new InvalidArgumentException('Invalid argument type! Argument must be of type array or string.');
         }
     }
 
