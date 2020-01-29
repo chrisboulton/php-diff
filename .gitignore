@@ -11,12 +11,10 @@ composer.phar
 # composer.lock
 
 ### Eclipse ###
-.metadata
 bin/
 tmp/
 *.tmp
 *.bak
-*.swp
 *~.nib
 local.properties
 .settings/
@@ -29,14 +27,6 @@ local.properties
 # Locally stored "Eclipse launch configurations"
 *.launch
 
-# PyDev specific (Python IDE for Eclipse)
-*.pydevproject
-
-# CDT-specific (C/C++ Development Tooling)
-.cproject
-
-# CDT- autotools
-.autotools
 
 # Java annotation processor (APT)
 .factorypath
@@ -79,31 +69,7 @@ local.properties
 
 .sts4-cache/
 
-### Windows ###
-# Windows thumbnail cache files
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
 
-# Dump file
-*.stackdump
-
-# Folder config file
-[Dd]esktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
 
 # End of https://www.gitignore.io/api/windows,eclipse,composer
 /composer.lock
