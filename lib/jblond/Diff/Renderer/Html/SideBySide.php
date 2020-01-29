@@ -166,7 +166,7 @@ HTML;
     {
         $html = '';
 
-        //TODO: Is below comparison result ever false?
+        // Is below comparison result ever false?
         if (count($changes['base']['lines']) >= count($changes['changed']['lines'])) {
             foreach ($changes['base']['lines'] as $lineNo => $line) {
                 $fromLine = $changes['base']['offset'] + $lineNo + 1;
