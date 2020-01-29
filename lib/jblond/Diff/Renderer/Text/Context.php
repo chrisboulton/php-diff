@@ -77,7 +77,7 @@ class Context extends RendererAbstract
                     $diff .= $this->tagMap[$tag] . ' ' .
                         implode(
                             "\n" . $this->tagMap[$tag] . ' ',
-                            $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)
+                            $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
                         ) . "\n";
                 }
             }
@@ -101,7 +101,7 @@ class Context extends RendererAbstract
                     $diff .= $this->tagMap[$tag] . ' ' .
                         implode(
                             "\n" . $this->tagMap[$tag] . ' ',
-                            $this->diff->getArrayRange($this->diff->getNew(), $j1, $j2)
+                            $this->diff->getArrayRange($this->diff->getVersion2(), $j1, $j2)
                         ) . "\n";
                 }
             }

@@ -1,8 +1,8 @@
 <table class="Differences DifferencesSideBySide">
     <thead>
         <tr>
-            <th colspan="2">Old Version</th>
-            <th colspan="2">New Version</th>
+            <th colspan="2">Version1</th>
+            <th colspan="2">Version2</th>
         </tr>
     </thead><tbody class="ChangeInsert"><tr>
     <th>&nbsp;</th>

@@ -51,14 +51,14 @@ class Unified extends RendererAbstract
                     $diff .= ' ' .
                         implode(
                             "\n ",
-                            $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)
+                            $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
                         ) . "\n";
                 } else {
                     if ($tag == 'replace' || $tag == 'delete') {
                         $diff .= '-' .
                             implode(
                                 "\n-",
-                                $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)
+                                $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
                             ) . "\n";
                     }
 
@@ -66,7 +66,7 @@ class Unified extends RendererAbstract
                         $diff .= '+' .
                             implode(
                                 "\n+",
-                                $this->diff->getArrayRange($this->diff->getNew(), $j1, $j2)
+                                $this->diff->getArrayRange($this->diff->getVersion2(), $j1, $j2)
                             ) . "\n";
                     }
                 }

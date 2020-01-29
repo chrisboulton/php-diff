@@ -40,7 +40,7 @@ class TextRendererTest extends TestCase
 
         $renderer   = new Context();
         $result     = $diff->render($renderer);
-        //file_put_contents('out.txt', $result);
+        //file_put_contents('textContext.txt', $result);
 
         $this->assertStringEqualsFile('tests/resources/textContext.txt', $result);
     }
@@ -54,7 +54,7 @@ class TextRendererTest extends TestCase
 
         $renderer   = new Unified();
         $result     = $diff->render($renderer);
-        //file_put_contents('out.txt', $result);
+        //file_put_contents('textUnified.txt', $result);
 
         $this->assertStringEqualsFile('tests/resources/textUnified.txt', $result);
     }

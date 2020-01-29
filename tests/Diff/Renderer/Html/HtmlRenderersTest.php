@@ -41,7 +41,7 @@ class HtmlRendererTest extends TestCase
 
         $renderer   = new SideBySide();
         $result     = $diff->render($renderer);
-        //file_put_contents('out.txt', $result);
+        //file_put_contents('htmlSideBySide.txt', $result);
 
         $this->assertStringEqualsFile('tests/resources/htmlSideBySide.txt', $result);
     }
@@ -55,7 +55,7 @@ class HtmlRendererTest extends TestCase
 
         $renderer   = new Inline();
         $result     = $diff->render($renderer);
-        //file_put_contents('out.txt', $result);
+        //file_put_contents('htmlInline.txt', $result);
 
         $this->assertStringEqualsFile('tests/resources/htmlInline.txt', $result);
     }
@@ -69,7 +69,7 @@ class HtmlRendererTest extends TestCase
 
         $renderer   = new Unified();
         $result     = $diff->render($renderer);
-        //file_put_contents('out.txt', $result);
+        //file_put_contents('htmlUnified.txt', $result);
 
         $this->assertStringEqualsFile('tests/resources/htmlUnified.txt', $result);
     }

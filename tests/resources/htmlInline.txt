@@ -1,8 +1,8 @@
 <table class="Differences DifferencesInline">
     <thead>
         <tr>
-            <th>Old Version</th>
-            <th>New Version</th>
+            <th>Version1</th>
+            <th>Version2</th>
             <th>Differences</th>
         </tr>
     </thead><tbody class="ChangeInsert"><tr>

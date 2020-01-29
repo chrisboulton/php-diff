@@ -42,8 +42,8 @@ class Inline extends HtmlArray
 <table class="Differences DifferencesInline">
     <thead>
         <tr>
-            <th>{$this->options['title_a']}</th>
-            <th>{$this->options['title_b']}</th>
+            <th>{$this->options['title1']}</th>
+            <th>{$this->options['title2']}</th>
             <th>Differences</th>
         </tr>
     </thead>

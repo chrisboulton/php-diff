@@ -41,8 +41,8 @@ class SideBySide extends HtmlArray
 <table class="Differences DifferencesSideBySide">
     <thead>
         <tr>
-            <th colspan="2">{$this->options['title_a']}</th>
-            <th colspan="2">{$this->options['title_b']}</th>
+            <th colspan="2">{$this->options['title1']}</th>
+            <th colspan="2">{$this->options['title2']}</th>
         </tr>
     </thead>
 HTML;

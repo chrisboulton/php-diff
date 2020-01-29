@@ -30,8 +30,8 @@ abstract class RendererAbstract
      * @var array Array of the default options that apply to this renderer.
      */
     protected $defaultOptions = array(
-        'title_a' => 'Old Version',
-        'title_b' => 'New Version',
+        'title1' => 'Version1',
+        'title2' => 'Version2',
     );
 
     /**
