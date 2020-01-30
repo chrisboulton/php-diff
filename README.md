@@ -6,19 +6,16 @@
 
 ## Introduction
 
-A comprehensive library for generating differences between
-two hashable objects (strings or arrays). Generated differences can be
-rendered in all of the standard formats including:
+A comprehensive library for generating differences between two hashable objects (strings or arrays).
+Generated differences can be rendered in all of the standard formats including:
 * Unified
 * Context
 * Inline HTML
 * Side by Side HTML
 * Unified HTML
 
-The logic behind the core of the diff engine (ie, the sequence matcher)
-is primarily based on the Python difflib package. The reason for doing
-so is primarily because of its high degree of accuracy.
-
+The logic behind the core of the diff engine (ie, the sequence matcher) is primarily based on the Python difflib 
+package. The reason for doing so is primarily because of its high degree of accuracy.
 
 ## Install
 
@@ -42,17 +39,18 @@ $b = file_get_contents(dirname(__FILE__).'/b.txt');
 
 // Options for generating the diff.
 $options = [
-    //'ignoreWhitespace' => true,
-    //'ignoreCase' => true,
+    'ignoreWhitespace' => true,
+    'ignoreCase'       => true,
+    'context'          => 2,
 ];
 
 // Initialize the diff class.
-$diff = new \jblond\Diff($a, $b, $options);
+$diff = new \jblond\Diff($a, $b /*, $options */);
 
 // Choose Renderer.
 $renderer = new \jblond\Diff\Renderer\Html\SideBySide([
-    'title_a' => 'Custom title for OLD version',
-    'title_b' => 'Custom title for NEW version',
+    'title1' => 'Custom title for OLD version',
+    'title2' => 'Custom title for NEW version',
 ]);
 
 // Show it.
@@ -60,22 +58,23 @@ echo $diff->Render($renderer);
 ```
 
 ### Example Output
-A quick usage example can be found in the example/ directory and under
-example.php.
+A quick usage example can be found in the `example/` directory and under example.php.
 
-![Example Image](readme.png "Example")
-
-![Example 2 Image](readme2.png "Example2")
+![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example")
+![HTML Inline Example](htmlInline.png "HTML Inline Example")
+![HTML Unified Example](htmlUnified.png "HTML Unified Example")
+![Text Unified Example](textUnified.png "Text Unified Example")
+![Text Context Example](textContext.png "Text Context Example")
 
 ## Requirements
 
 * PHP 7.2 or greater
-* PHP Multibyte String 
+* PHP Multibyte String
 
 ## Merge files using jQuery
 
-Xiphe has build a jQuery plugin with that you can merge the compared
-files. Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge-for-php-diff).
+Xiphe has build a jQuery plugin with that you can merge the compared files.
+Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge-for-php-diff).
 
 ## Todo
 

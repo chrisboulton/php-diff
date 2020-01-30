@@ -19,6 +19,10 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlRendererTest extends TestCase
 {
+    /**
+     * @var bool Store the renderer's output in a file, when set to true.
+     */
+    private $genOutputFiles = false;
 
     /**
      * Constructor.
@@ -29,6 +33,7 @@ class HtmlRendererTest extends TestCase
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
+        //$this->genOutputFiles = true;
         parent::__construct($name, $data, $dataName);
     }
 
@@ -41,7 +46,9 @@ class HtmlRendererTest extends TestCase
 
         $renderer   = new SideBySide();
         $result     = $diff->render($renderer);
-        //file_put_contents('htmlSideBySide.txt', $result);
+        if ($this->genOutputFiles) {
+            file_put_contents('htmlSideBySide.txt', $result);
+        }
 
         $this->assertStringEqualsFile('tests/resources/htmlSideBySide.txt', $result);
     }
@@ -55,7 +62,9 @@ class HtmlRendererTest extends TestCase
 
         $renderer   = new Inline();
         $result     = $diff->render($renderer);
-        //file_put_contents('htmlInline.txt', $result);
+        if ($this->genOutputFiles) {
+            file_put_contents('htmlInline.txt', $result);
+        }
 
         $this->assertStringEqualsFile('tests/resources/htmlInline.txt', $result);
     }
@@ -69,7 +78,9 @@ class HtmlRendererTest extends TestCase
 
         $renderer   = new Unified();
         $result     = $diff->render($renderer);
-        //file_put_contents('htmlUnified.txt', $result);
+        if ($this->genOutputFiles) {
+            file_put_contents('htmlUnified.txt', $result);
+        }
 
         $this->assertStringEqualsFile('tests/resources/htmlUnified.txt', $result);
     }
