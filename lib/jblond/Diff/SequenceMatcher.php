@@ -255,7 +255,7 @@ class SequenceMatcher
         for ($i = $alo; $i < $ahi; ++$i) {
             $newJ2Len = array();
             $jDict = $this->arrayGetDefault($this->b2j, $old[$i], $nothing);
-            foreach ($jDict as $jKey => $j) {
+            foreach ($jDict as $j) {
                 if ($j < $blo) {
                     continue;
                 } elseif ($j >= $bhi) {
