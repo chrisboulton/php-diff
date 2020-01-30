@@ -45,7 +45,7 @@ class HtmlArray extends RendererAbstract
      * This method is called by the renderers which extends this class.
      *
      * @param array  $changes      Contains the op-codes about the differences between "old and "new".
-     * @param object $htmlRenderer Renderer which extends this class.
+     * @param object|Inline|SideBySide|Unified $htmlRenderer Renderer which extends this class.
      *
      * @return string HTML representation of the differences.
      */
