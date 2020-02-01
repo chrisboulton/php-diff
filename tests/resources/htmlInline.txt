@@ -102,15 +102,21 @@
 </tr><tr>
     <th>16</th>
     <th>16</th>
-    <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's also compatible with multibyte characters (such as emoji) as shown below:</td>
+    <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's also compatible with multibyte characters (like Chinese and emoji) as shown below:</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
     <th>17</th>
+    <th>&nbsp;</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外我覺得那個評<del>價</del>的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革”</span>
+    </td>
+</tr><tr>
+    <th>18</th>
     <th>&nbsp;</th>
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do you know what "<del>金槍魚罐頭</del>" means in Chinese?</span>
     </td>
 </tr><tr>
-    <th>18</th>
+    <th>19</th>
     <th>&nbsp;</th>
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<del>🍏🍎</del>🙂</span>
@@ -119,80 +125,86 @@
     <th>&nbsp;</th>
     <th>17</th>
     <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do you know what "<ins>魚の缶詰</ins>" means in Chinese?</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外我覺得那個評<ins>鑑</ins>的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革”</span>
     </td>
 </tr><tr>
     <th>&nbsp;</th>
     <th>18</th>
     <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do you know what "<ins>魚の缶詰</ins>" means in Chinese?</span>
+    </td>
+</tr><tr>
+    <th>&nbsp;</th>
+    <th>19</th>
+    <td class="Right">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ins>🍎🍏</ins>🙂</span>
     </td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
-    <th>19</th>
-    <th>19</th>
+    <th>20</th>
+    <th>20</th>
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p&gt;</td>
 </tr><tr>
-    <th>20</th>
-    <th>20</th>
-    <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
+    <th>21</th>
+    <th>21</th>
+    <td class="Left"></td>
 </tr><tr>
-    <th>21</th>
-    <th>21</th>
+    <th>22</th>
+    <th>22</th>
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
 </tr></tbody><tr>
     <th>&hellip;</th>
     <th>&hellip;</th>
     <td class="Left Skipped">&hellip;</td>
 </tr><tbody class="ChangeEqual"><tr>
-    <th>23</th>
-    <th>23</th>
-    <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
-</tr><tr>
-    <th>24</th>
-    <th>24</th>
-    <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
-</tr><tr>
     <th>25</th>
     <th>25</th>
+    <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
+</tr><tr>
+    <th>26</th>
+    <th>26</th>
+    <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
+</tr><tr>
+    <th>27</th>
+    <th>27</th>
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
-    <th>26</th>
+    <th>28</th>
     <th>&nbsp;</th>
     <td class="Left">
         <span><del>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</del>&lt;h2&gt;This line also has inline differences between both versions. It's the whitespace in front.&lt;/h2&gt;</span>
     </td>
 </tr><tr>
     <th>&nbsp;</th>
-    <th>26</th>
+    <th>28</th>
     <td class="Right">
         <span><ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ins>&lt;h2&gt;This line also has inline differences between both versions. It's the whitespace in front.&lt;/h2&gt;</span>
     </td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
-    <th>27</th>
-    <th>27</th>
+    <th>29</th>
+    <th>29</th>
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
-    <th>28</th>
+    <th>30</th>
     <th>&nbsp;</th>
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line also has inline differences between both versions<del>.</del>&lt;/h2&gt;</span>
     </td>
 </tr><tr>
     <th>&nbsp;</th>
-    <th>28</th>
+    <th>30</th>
     <td class="Right">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line also has inline differences between both versions<ins>!</ins>&lt;/h2&gt;</span>
     </td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
-    <th>29</th>
-    <th>29</th>
+    <th>31</th>
+    <th>31</th>
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;</td>
 </tr><tr>
-    <th>30</th>
-    <th>30</th>
+    <th>32</th>
+    <th>32</th>
     <td class="Left">&lt;/html&gt;</td>
 </tr><tr>
-    <th>31</th>
-    <th>31</th>
+    <th>33</th>
+    <th>33</th>
     <td class="Left"></td>
 </tr></tbody></table>

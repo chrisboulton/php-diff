@@ -17,14 +17,16 @@ $a = file_get_contents(dirname(__FILE__) . '/a.txt');
 $b = file_get_contents(dirname(__FILE__) . '/b.txt');
 
 // Options for generating the diff.
-$options = [
+$customOptions = [
+    'context'          => 2,
+    'trimEqual'        => false,
     'ignoreWhitespace' => true,
     'ignoreCase'       => true,
-    'context'          => 2,
 ];
 
-// Initialize the diff class.
-$diff = new Diff($a, $b /*, $options */);
+// Choose one of the initializations.
+$diff = new Diff($a, $b);                   // Initialize the diff class with default options.
+//$diff = new Diff($a, $b, $customOptions); // Initialize the diff class with custom options.
 ?><!DOCTYPE html>
 <html lang="en">
     <head>

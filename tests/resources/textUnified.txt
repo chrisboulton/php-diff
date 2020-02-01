@@ -1,4 +1,4 @@
-@@ -1,21 +1,21 @@
+@@ -1,22 +1,22 @@
  <html>
      <head>
          <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
@@ -18,15 +18,17 @@
 +        <h2>This line is added to version2.</h2>
  
          <p>
-             It's also compatible with multibyte characters (such as emoji) as shown below:
+             It's also compatible with multibyte characters (like Chinese and emoji) as shown below:
+-            另外我覺得那個評價的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革”
 -            Do you know what "金槍魚罐頭" means in Chinese?
 -            🍏🍎🙂
++            另外我覺得那個評鑑的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革”
 +            Do you know what "魚の缶詰" means in Chinese?
 +            🍎🍏🙂
          </p>
+ 
          <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
-         <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
-@@ -23,9 +23,9 @@
+@@ -25,9 +25,9 @@
          <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
          <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
          <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>

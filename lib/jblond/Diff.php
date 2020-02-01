@@ -51,6 +51,7 @@ class Diff
      * @var array   Associative array containing the default options available for the diff class and their default
      *              value.
      *              - context           The amount of lines to include around blocks that differ.
+     *              - trimEqual         Strip blocks of equal lines from the start and end of the text.
      *              - ignoreWhitespace  When true, tabs and spaces are ignored while comparing.
      *                                  The spacing of version1 is leading.
      *              - ignoreCase        When true, character casing is ignored while comparing.
@@ -58,6 +59,7 @@ class Diff
      */
     private $defaultOptions = [
         'context'          => 3,
+        'trimEqual'        => true,
         'ignoreWhitespace' => false,
         'ignoreCase'       => false,
     ];
