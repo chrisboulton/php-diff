@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace jblond\Diff;
 
+use http\Exception\InvalidArgumentException;
+
 /**
  * Sequence matcher for Diff
  *
@@ -100,6 +102,9 @@ class SequenceMatcher
      */
     public function setOptions(array $options)
     {
+        if (isset($options['context']) && $options['context'] < 0) {
+            throw new InvalidArgumentException('The context option cannot be a negative value!');
+        }
         $this->options = array_merge($this->defaultOptions, $options);
     }
 
@@ -535,7 +540,6 @@ class SequenceMatcher
      * content of the different files but can still provide context as to where the
      * changes are.
      *
-     * @param int $this->options['context'] The number of lines of context to provide around the groups.
      * @return array Nested array of all of the grouped op codes.
      */
     public function getGroupedOpCodes(): array
@@ -583,7 +587,7 @@ class SequenceMatcher
         $groups = array();
         $group = array();
 
-        foreach ($opCodes as $key => [$tag, $i1, $i2, $j1, $j2]) {
+        foreach ($opCodes as [$tag, $i1, $i2, $j1, $j2]) {
             if ($tag == 'equal' && $i2 - $i1 > $maxRange) {
                 $group[] = array(
                     $tag,
