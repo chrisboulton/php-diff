@@ -39,7 +39,11 @@ class SequenceMatcherTest extends TestCase
         // Test with ignoreWhitespace enabled.
         // Note: The sequenceMatcher evaluates the string character by character. Option ignoreWhitespace will ignore
         //       if the difference if the character is a tab in one sequence and a space in the other.
-        $sequenceMatcher = new SequenceMatcher("\t54321ABXDE12345 ", " 54321ABXDE12345\t", ['ignoreWhitespace' => true]);
+        $sequenceMatcher = new SequenceMatcher(
+            "\t54321ABXDE12345 ",
+            " 54321ABXDE12345\t",
+            ['ignoreWhitespace' => true]
+        );
         $this->assertEquals(
             [[['equal', 14, 17, 14, 17]]],
             $sequenceMatcher->getGroupedOpCodes()
