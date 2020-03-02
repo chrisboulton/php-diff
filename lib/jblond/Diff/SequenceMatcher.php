@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace jblond\Diff;
 
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * Sequence matcher for Diff
