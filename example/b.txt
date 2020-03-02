@@ -1,22 +1,32 @@
-
 <html>
-	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-		<title>Goodbye Cruel World!</title>
-	</head>
-	<body>
-		<p>Just a small amount of new text...</p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>Hello You!</title>
+    </head>
+    <body>
+        <h1>This is demo content to show features of the php-diff package.</h1>
+        <h2>This line is the same for both versions.</h2>
+        <h2>This line has differences between both versions.</h2>
+        <h2>This line is the same for both versions.</h2>
+        <h2>This line also has InLine differences between both versions.</h2>
+        <h2>This line is the same for both versions.</h2>
+        <h2>This line is added to version2.</h2>
 
-<pre>
-构建具有中国國的医学人才培养体系
-</pre>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		<pre>
-		另外我覺得那個評鑑的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革” 😅😅
-		</pre>
-		<p>Do you know in Japanese, "魚の缶詰" means fish can.</p>
-	</body>
+        <p>
+            It's also compatible with multibyte characters (like Chinese and emoji) as shown below:
+            另外我覺得那個評鑑的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革”
+            Do you know what "魚の缶詰" means in Chinese?
+            🍎🍏🙂
+        </p>
+
+        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+        <h2>This line also has inline differences between both versions. It's the whitespace in front.</h2>
+        <h2>This line is the same for both versions.</h2>
+        <h2>This line also has inline differences between both versions!</h2>
+    </body>
 </html>

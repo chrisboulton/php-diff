@@ -18,6 +18,10 @@ use PHPUnit\Framework\TestCase;
  */
 class TextRendererTest extends TestCase
 {
+    /**
+     * @var bool Store the renderer's output in a file, when set to true.
+     */
+    private $genOutputFiles = false;
 
     /**
      * Constructor.
@@ -28,6 +32,7 @@ class TextRendererTest extends TestCase
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
+        //$this->genOutputFiles = true;
         parent::__construct($name, $data, $dataName);
     }
 
@@ -40,7 +45,9 @@ class TextRendererTest extends TestCase
 
         $renderer   = new Context();
         $result     = $diff->render($renderer);
-        //file_put_contents('out.txt', $result);
+        if ($this->genOutputFiles) {
+            file_put_contents('textContext.txt', $result);
+        }
 
         $this->assertStringEqualsFile('tests/resources/textContext.txt', $result);
     }
@@ -54,7 +61,9 @@ class TextRendererTest extends TestCase
 
         $renderer   = new Unified();
         $result     = $diff->render($renderer);
-        //file_put_contents('out.txt', $result);
+        if ($this->genOutputFiles) {
+            file_put_contents('textUnified.txt', $result);
+        }
 
         $this->assertStringEqualsFile('tests/resources/textUnified.txt', $result);
     }

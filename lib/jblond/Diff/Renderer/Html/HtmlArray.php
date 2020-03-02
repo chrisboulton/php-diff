@@ -13,6 +13,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  *
  * @package       jblond\Diff\Renderer\Html
  * @author        Chris Boulton <chris.boulton@interspire.com>
+ * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version       1.15
@@ -29,8 +30,8 @@ class HtmlArray extends RendererAbstract
      */
     protected $defaultOptions = [
         'tabSize' => 4,
-        'title_a' => 'Old Version',
-        'title_b' => 'New Version',
+        'title1'  => 'Version1',
+        'title2'  => 'Version2',
     ];
 
     /**
@@ -106,17 +107,17 @@ class HtmlArray extends RendererAbstract
     public function render()
     {
         // The old and New texts are copied so change markers can be added without modifying the original sequences.
-        $oldText = $this->diff->getOld();
-        $newText = $this->diff->getNew();
+        $oldText = $this->diff->getVersion1();
+        $newText = $this->diff->getVersion2();
 
         $changes = [];
 
-        foreach ($this->diff->getGroupedOpcodes() as $group) {
+        foreach ($this->diff->getGroupedOpCodes() as $group) {
             $blocks        = [];
             $this->lastTag = null;
 
             foreach ($group as $code) {
-                list($tag, $startOld, $endOld, $startNew, $endNew) = $code;
+                [$tag, $startOld, $endOld, $startNew, $endNew] = $code;
                 /**
                  * $code is an array describing a op-code which includes:
                  * 0 - The type of tag (as described below) for the op code.
@@ -203,7 +204,7 @@ class HtmlArray extends RendererAbstract
             $newString = $newText[$startNew + $i];
 
             // Determine the start and end position of the line difference.
-            list($start, $end) = $this->getInlineChange($oldString, $newString);
+            [$start, $end] = $this->getInlineChange($oldString, $newString);
             if ($start != 0 || $end != 0) {
                 // Changes between the lines exist.
                 // Add markers around the changed character sequence in the old string.
@@ -265,7 +266,7 @@ class HtmlArray extends RendererAbstract
 
         return [
             $start,
-            $end + 1
+            $end + 1,
         ];
     }
 
@@ -292,12 +293,12 @@ class HtmlArray extends RendererAbstract
             'tag'     => $tag,
             'base'    => [
                 'offset' => $lineInOld,
-                'lines'  => []
+                'lines'  => [],
             ],
             'changed' => [
                 'offset' => $lineInNew,
-                'lines'  => []
-            ]
+                'lines'  => [],
+            ],
         ];
 
         $this->lastTag = $tag;

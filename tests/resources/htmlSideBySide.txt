@@ -1,22 +1,15 @@
 <table class="Differences DifferencesSideBySide">
     <thead>
         <tr>
-            <th colspan="2">Old Version</th>
-            <th colspan="2">New Version</th>
+            <th colspan="2">Version1</th>
+            <th colspan="2">Version2</th>
         </tr>
-    </thead><tbody class="ChangeInsert"><tr>
-    <th>&nbsp;</th>
-    <td class="Left">&nbsp;</td>
-    <th>1</th>
-    <td class="Right">
-        <ins></ins>
-    </td>
-</tr></tbody><tbody class="ChangeEqual"><tr>
+    </thead><tbody class="ChangeEqual"><tr>
     <th>1</th>
     <td class="Left">
         <span>&lt;html&gt;</span>
     </td>
-    <th>2</th>
+    <th>1</th>
     <td class="Right">
         <span>&lt;html&gt;</span>
     </td>
@@ -25,7 +18,7 @@
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;</span>
     </td>
-    <th>3</th>
+    <th>2</th>
     <td class="Right">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;</span>
     </td>
@@ -34,25 +27,25 @@
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"/&gt;</span>
     </td>
-    <th>4</th>
+    <th>3</th>
     <td class="Right">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"/&gt;</span>
     </td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
     <th>4</th>
     <td class="Left">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;<del>Hello</del> World!&lt;/title&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Hello <del>World</del>!&lt;/title&gt;</span>
     </td>
-    <th>5</th>
+    <th>4</th>
     <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;<ins>Goodbye Cruel</ins> World!&lt;/title&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Hello <ins>You</ins>!&lt;/title&gt;</span>
     </td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th>5</th>
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;</span>
     </td>
-    <th>6</th>
+    <th>5</th>
     <td class="Right">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;</span>
     </td>
@@ -61,138 +54,242 @@
     <td class="Left">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;</span>
     </td>
-    <th>7</th>
+    <th>6</th>
     <td class="Right">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;</span>
     </td>
-</tr></tbody><tbody class="ChangeInsert"><tr>
-    <th>&nbsp;</th>
-    <td class="Left">&nbsp;</td>
-    <th>8</th>
-    <td class="Right">
-        <ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just a small amount of new text...&lt;/p&gt;</ins>
-    </td>
-</tr></tbody><tbody class="ChangeEqual"><tr>
+</tr><tr>
     <th>7</th>
     <td class="Left">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;This is demo content to show features of the php-diff package.&lt;/h1&gt;</span>
     </td>
-    <th>9</th>
+    <th>7</th>
     <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;</span>
-    </td>
-</tr><tr>
-    <th>8</th>
-    <td class="Left">
-        <span></span>
-    </td>
-    <th>10</th>
-    <td class="Right">
-        <span></span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;This is demo content to show features of the php-diff package.&lt;/h1&gt;</span>
     </td>
 </tr></tbody><tbody class="ChangeDelete"><tr>
-    <th>9</th>
+    <th>8</th>
     <td class="Left">
-        <del>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;A heading we'll be removing&lt;/h2&gt;</del>
+        <del>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is removed from version2.&lt;/h2&gt;</del>
     </td>
     <th>&nbsp;</th>
     <td class="Right">&nbsp;</td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
+    <th>9</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</span>
+    </td>
+    <th>8</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</span>
+    </td>
+</tr></tbody><tbody class="ChangeReplace"><tr>
     <th>10</th>
     <td class="Left">
-        <span>&lt;pre&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line has <del>inline </del>differences between both versions.&lt;/h2&gt;</span>
+    </td>
+    <th>9</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line has <ins></ins>differences between both versions.&lt;/h2&gt;</span>
+    </td>
+</tr></tbody><tbody class="ChangeEqual"><tr>
+    <th>11</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</span>
+    </td>
+    <th>10</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</span>
+    </td>
+</tr></tbody><tbody class="ChangeReplace"><tr>
+    <th>12</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line also has <del>inl</del>ine differences between both versions.&lt;/h2&gt;</span>
     </td>
     <th>11</th>
     <td class="Right">
-        <span>&lt;pre&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line also has <ins>InL</ins>ine differences between both versions.&lt;/h2&gt;</span>
     </td>
-</tr></tbody><tbody class="ChangeReplace"><tr>
-    <th>11</th>
+</tr></tbody><tbody class="ChangeEqual"><tr>
+    <th>13</th>
     <td class="Left">
-        <span>构建具有中国<del>特色</del>的医学人才培养体系</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</span>
     </td>
     <th>12</th>
     <td class="Right">
-        <span>构建具有中国<ins>國</ins>的医学人才培养体系</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</span>
     </td>
-</tr></tbody><tbody class="ChangeEqual"><tr>
-    <th>12</th>
-    <td class="Left">
-        <span>&lt;/pre&gt;</span>
-    </td>
+</tr></tbody><tbody class="ChangeInsert"><tr>
+    <th>&nbsp;</th>
+    <td class="Left">&nbsp;</td>
     <th>13</th>
     <td class="Right">
-        <span>&lt;/pre&gt;</span>
+        <ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is added to version2.&lt;/h2&gt;</ins>
     </td>
-</tr><tr>
-    <th>13</th>
+</tr></tbody><tbody class="ChangeEqual"><tr>
+    <th>14</th>
     <td class="Left">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;</span>
+        <span></span>
     </td>
     <th>14</th>
     <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;</span>
+        <span></span>
     </td>
 </tr><tr>
-    <th>14</th>
+    <th>15</th>
     <td class="Left">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;pre&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;</span>
     </td>
     <th>15</th>
     <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;pre&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;</span>
     </td>
-</tr></tbody><tbody class="ChangeReplace"><tr>
-    <th>15</th>
+</tr><tr>
+    <th>16</th>
     <td class="Left">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外我覺得那個評<del>價</del>的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革” 😅😅</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's also compatible with multibyte characters (like Chinese and emoji) as shown below:</span>
     </td>
     <th>16</th>
     <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外我覺得那個評<ins>鑑</ins>的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革” 😅😅</span>
-    </td>
-</tr></tbody><tbody class="ChangeEqual"><tr>
-    <th>16</th>
-    <td class="Left">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/pre&gt;</span>
-    </td>
-    <th>17</th>
-    <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/pre&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's also compatible with multibyte characters (like Chinese and emoji) as shown below:</span>
     </td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
     <th>17</th>
     <td class="Left">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Do you know in <del>Chinese, "金槍魚罐頭" means tuna</del> can.&lt;/p&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外我覺得那個評<del>價</del>的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革”</span>
+    </td>
+    <th>17</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外我覺得那個評<ins>鑑</ins>的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革”</span>
+    </td>
+</tr><tr>
+    <th>18</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do you know what "<del>金槍魚罐頭</del>" means in Chinese?</span>
     </td>
     <th>18</th>
     <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Do you know in <ins>Japanese, "魚の缶詰" means fish</ins> can.&lt;/p&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do you know what "<ins>魚の缶詰</ins>" means in Chinese?</span>
+    </td>
+</tr><tr>
+    <th>19</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<del>🍏🍎</del>🙂</span>
+    </td>
+    <th>19</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ins>🍎🍏</ins>🙂</span>
     </td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
-    <th>18</th>
+    <th>20</th>
     <td class="Left">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;</span>
-    </td>
-    <th>19</th>
-    <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;</span>
-    </td>
-</tr><tr>
-    <th>19</th>
-    <td class="Left">
-        <span>&lt;/html&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p&gt;</span>
     </td>
     <th>20</th>
     <td class="Right">
-        <span>&lt;/html&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p&gt;</span>
     </td>
 </tr><tr>
-    <th>20</th>
+    <th>21</th>
     <td class="Left">
         <span></span>
     </td>
     <th>21</th>
+    <td class="Right">
+        <span></span>
+    </td>
+</tr><tr>
+    <th>22</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</span>
+    </td>
+    <th>22</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</span>
+    </td>
+</tr></tbody><tr>
+    <th>&hellip;</th>
+    <td class="Left Skipped">&hellip;</td>
+    <th>&hellip;</th>
+    <td class="Right Skipped">&hellip;</td>
+</tr><tbody class="ChangeEqual"><tr>
+    <th>25</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</span>
+    </td>
+    <th>25</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</span>
+    </td>
+</tr><tr>
+    <th>26</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</span>
+    </td>
+    <th>26</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</span>
+    </td>
+</tr><tr>
+    <th>27</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</span>
+    </td>
+    <th>27</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</span>
+    </td>
+</tr></tbody><tbody class="ChangeReplace"><tr>
+    <th>28</th>
+    <td class="Left">
+        <span><del>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</del>&lt;h2&gt;This line also has inline differences between both versions. It's the whitespace in front.&lt;/h2&gt;</span>
+    </td>
+    <th>28</th>
+    <td class="Right">
+        <span><ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ins>&lt;h2&gt;This line also has inline differences between both versions. It's the whitespace in front.&lt;/h2&gt;</span>
+    </td>
+</tr></tbody><tbody class="ChangeEqual"><tr>
+    <th>29</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</span>
+    </td>
+    <th>29</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</span>
+    </td>
+</tr></tbody><tbody class="ChangeReplace"><tr>
+    <th>30</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line also has inline differences between both versions<del>.</del>&lt;/h2&gt;</span>
+    </td>
+    <th>30</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line also has inline differences between both versions<ins>!</ins>&lt;/h2&gt;</span>
+    </td>
+</tr></tbody><tbody class="ChangeEqual"><tr>
+    <th>31</th>
+    <td class="Left">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;</span>
+    </td>
+    <th>31</th>
+    <td class="Right">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;</span>
+    </td>
+</tr><tr>
+    <th>32</th>
+    <td class="Left">
+        <span>&lt;/html&gt;</span>
+    </td>
+    <th>32</th>
+    <td class="Right">
+        <span>&lt;/html&gt;</span>
+    </td>
+</tr><tr>
+    <th>33</th>
+    <td class="Left">
+        <span></span>
+    </td>
+    <th>33</th>
     <td class="Right">
         <span></span>
     </td>

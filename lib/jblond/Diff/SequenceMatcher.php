@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace jblond\Diff;
 
+use http\Exception\InvalidArgumentException;
+
 /**
  * Sequence matcher for Diff
  *
@@ -11,6 +13,7 @@ namespace jblond\Diff;
  *
  * @package jblond\Diff
  * @author Chris Boulton <chris.boulton@interspire.com>
+ * @author Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version 1.15
@@ -68,9 +71,11 @@ class SequenceMatcher
      * @var array
      */
     private $defaultOptions = array(
-        'ignoreNewLines' => false,
+        'context' => 3,
+        'trimEqual' => true,
         'ignoreWhitespace' => false,
-        'ignoreCase' => false
+        'ignoreCase' => false,
+        'ignoreNewLines' => false,
     );
 
     /**
@@ -84,7 +89,7 @@ class SequenceMatcher
      * @param string|array|null $junkCallback Either an array or string that references a callback function
      * (if there is one) to determine 'junk' characters.
      */
-    public function __construct($old, $new, array $options, $junkCallback = null)
+    public function __construct($old, $new, array $options = [], $junkCallback = null)
     {
         $this->old = array();
         $this->new = array();
@@ -98,6 +103,9 @@ class SequenceMatcher
      */
     public function setOptions(array $options)
     {
+        if (isset($options['context']) && $options['context'] < 0) {
+            throw new InvalidArgumentException('The context option cannot be a negative value!');
+        }
         $this->options = array_merge($this->defaultOptions, $options);
     }
 
@@ -255,7 +263,7 @@ class SequenceMatcher
         for ($i = $alo; $i < $ahi; ++$i) {
             $newJ2Len = array();
             $jDict = $this->arrayGetDefault($this->b2j, $old[$i], $nothing);
-            foreach ($jDict as $jKey => $j) {
+            foreach ($jDict as $j) {
                 if ($j < $blo) {
                     continue;
                 } elseif ($j >= $bhi) {
@@ -381,9 +389,9 @@ class SequenceMatcher
 
         $matchingBlocks = array();
         while (!empty($queue)) {
-            list($alo, $ahi, $blo, $bhi) = array_pop($queue);
+            [$alo, $ahi, $blo, $bhi] = array_pop($queue);
             $longestMatch = $this->findLongestMatch($alo, $ahi, $blo, $bhi);
-            list($list1, $list2, $list3) = $longestMatch;
+            [$list1, $list2, $list3] = $longestMatch;
             if ($list3) {
                 $matchingBlocks[] = $longestMatch;
                 if ($alo < $list1 && $blo < $list2) {
@@ -524,7 +532,7 @@ class SequenceMatcher
 
     /**
      * Return a series of nested arrays containing different groups of generated
-     * op codes for the differences between the strings with up to $context lines
+     * op codes for the differences between the strings with up to $this->options['context'] lines
      * of surrounding content.
      *
      * Essentially what happens here is any big equal blocks of strings are stripped
@@ -533,10 +541,9 @@ class SequenceMatcher
      * content of the different files but can still provide context as to where the
      * changes are.
      *
-     * @param int $context The number of lines of context to provide around the groups.
      * @return array Nested array of all of the grouped op codes.
      */
-    public function getGroupedOpCodes(int $context = 3): array
+    public function getGroupedOpCodes(): array
     {
         $opCodes = $this->getOpCodes();
         if (empty($opCodes)) {
@@ -551,29 +558,33 @@ class SequenceMatcher
             );
         }
 
-        if ($opCodes['0']['0'] == 'equal') {
-            $opCodes['0'] = array(
-                $opCodes['0']['0'],
-                max($opCodes['0']['1'], $opCodes['0']['2'] - $context),
-                $opCodes['0']['2'],
-                max($opCodes['0']['3'], $opCodes['0']['4'] - $context),
-                $opCodes['0']['4']
-            );
+        if ($this->options['trimEqual']) {
+            if ($opCodes['0']['0'] == 'equal') {
+                // Remove sequences at the start which are out of context.
+                $opCodes['0'] = array(
+                    $opCodes['0']['0'],
+                    max($opCodes['0']['1'], $opCodes['0']['2'] - $this->options['context']),
+                    $opCodes['0']['2'],
+                    max($opCodes['0']['3'], $opCodes['0']['4'] - $this->options['context']),
+                    $opCodes['0']['4']
+                );
+            }
+
+            $lastItem = count($opCodes) - 1;
+            if ($opCodes[$lastItem]['0'] == 'equal') {
+                [$tag, $i1, $i2, $j1, $j2] = $opCodes[$lastItem];
+                // Remove sequences at the end which are out of context.
+                $opCodes[$lastItem] = array(
+                    $tag,
+                    $i1,
+                    min($i2, $i1 + $this->options['context']),
+                    $j1,
+                    min($j2, $j1 + $this->options['context'])
+                );
+            }
         }
 
-        $lastItem = count($opCodes) - 1;
-        if ($opCodes[$lastItem]['0'] == 'equal') {
-            list($tag, $i1, $i2, $j1, $j2) = $opCodes[$lastItem];
-            $opCodes[$lastItem] = array(
-                $tag,
-                $i1,
-                min($i2, $i1 + $context),
-                $j1,
-                min($j2, $j1 + $context)
-            );
-        }
-
-        $maxRange = $context * 2;
+        $maxRange = $this->options['context'] * 2;
         $groups = array();
         $group = array();
 
@@ -582,16 +593,16 @@ class SequenceMatcher
                 $group[] = array(
                     $tag,
                     $i1,
-                    min($i2, $i1 + $context),
+                    min($i2, $i1 + $this->options['context']),
                     $j1,
-                    min($j2, $j1 + $context)
+                    min($j2, $j1 + $this->options['context'])
                 );
                 $groups[] = $group;
                 $group = array();
-                $i1 = max($i1, $i2 - $context);
-                $j1 = max($j1, $j2 - $context);
+                $i1 = max($i1, $i2 - $this->options['context']);
+                $j1 = max($j1, $j2 - $this->options['context']);
             }
-            echo '';
+
             $group[] = array(
                 $tag,
                 $i1,
@@ -601,7 +612,8 @@ class SequenceMatcher
             );
         }
 
-        if (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal')) {
+        if ($this->options['trimEqual'] || (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal'))) {
+            //Do not add the last sequences. They're out of context.
             $groups[] = $group;
         }
 

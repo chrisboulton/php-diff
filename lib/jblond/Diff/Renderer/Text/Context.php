@@ -11,12 +11,13 @@ use jblond\Diff\Renderer\RendererAbstract;
  *
  * PHP version 7.2 or greater
  *
- * @package jblond\Diff\Renderer\Text
- * @author Chris Boulton <chris.boulton@interspire.com>
+ * @package       jblond\Diff\Renderer\Text
+ * @author        Chris Boulton <chris.boulton@interspire.com>
+ * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 1.15
- * @link https://github.com/JBlond/php-diff
+ * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version       1.15
+ * @link          https://github.com/JBlond/php-diff
  */
 class Context extends RendererAbstract
 {
@@ -24,89 +25,91 @@ class Context extends RendererAbstract
      * @var array Array of the different op-code tags and how they map to the context diff-view equivalent.
      */
     private $tagMap = [
-        'insert'    => '+',
-        'delete'    => '-',
-        'replace'   => '!',
-        'equal'     => ' '
+        'insert'  => '+',
+        'delete'  => '-',
+        'replace' => '!',
+        'equal'   => ' ',
     ];
 
     /**
      * Render and return a context formatted (old school!) diff-view.
      *
+     * @link https://www.gnu.org/software/diffutils/manual/html_node/Detailed-Context.html#Detailed-Context
+     *
      * @return string The generated context diff-view.
      */
     public function render(): string
     {
-        $diff       = '';
-        $opCodes    = $this->diff->getGroupedOpcodes();
+        $diff    = '';
+        $opCodes = $this->diff->getGroupedOpCodes();
 
         foreach ($opCodes as $group) {
-            $diff       .= "***************\n";
-            $lastItem    = count($group) - 1;
-            $i1          = $group['0']['1'];
-            $i2          = $group[$lastItem]['2'];
-            $j1          = $group['0']['3'];
-            $j2          = $group[$lastItem]['4'];
+            $diff     .= "***************\n";
+            $lastItem = count($group) - 1;
+            $start1   = $group['0']['1'];
+            $end1     = $group[$lastItem]['2'];
+            $start2   = $group['0']['3'];
+            $end2     = $group[$lastItem]['4'];
 
-            if ($i2 - $i1 >= 2) {
-                $diff .= '*** ' . ($group['0']['1'] + 1) . ',' . $i2 . " ****\n";
-            } else {
-                $diff .= '*** ' . $i2 . " ****\n";
-            }
+            // Line to line header for version 1.
+            $diffStart = $end1 - $start1 >= 2 ? $start1 + 1 . ',' : '';
+            $diff      .= '*** ' . $diffStart . $end1 . " ****\n";
 
-            if ($j2 - $j1 >= 2) {
-                $separator = '--- ' . ($j1 + 1) . ',' . $j2 . " ----\n";
-            } else {
-                $separator = '--- ' . $j2 . " ----\n";
-            }
+            // Line to line header for version 2.
+            $diffStart = $end2 - $start2 >= 2 ? ($start2 + 1) . ',' : '';
+            $separator = '--- ' . $diffStart . $end2 . " ----\n";
 
-            $hasVisible = false;
-
-            foreach ($group as $code) {
-                if ($code['0'] == 'replace' || $code['0'] == 'delete') {
-                    $hasVisible = true;
-                    break;
-                }
-            }
-
-            if ($hasVisible) {
-                foreach ($group as [$tag, $i1, $i2, $j1, $j2]) {
-                    if ($tag == 'insert') {
-                        continue;
-                    }
+            // Check for visible changes by replace or delete operations.
+            if (!empty(array_intersect(['replace', 'delete'], array_column($group, 0)))) {
+                // Line differences between versions or lines of version 1 are removed from version 2.
+                // Add all operations to diff-view of version 1, except for insert.
+                $filteredGroups = $this->filterGroups($group, 'insert');
+                foreach ($filteredGroups as [$tag, $start1, $end1, $start2, $end2]) {
                     $diff .= $this->tagMap[$tag] . ' ' .
                         implode(
                             "\n" . $this->tagMap[$tag] . ' ',
-                            $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)
+                            $this->diff->getArrayRange($this->diff->getVersion1(), $start1, $end1)
                         ) . "\n";
-                }
-            }
-
-            $hasVisible = false;
-
-            foreach ($group as $code) {
-                if ($code['0'] == 'replace' || $code['0'] == 'insert') {
-                    $hasVisible = true;
-                    break;
                 }
             }
 
             $diff .= $separator;
 
-            if ($hasVisible) {
-                foreach ($group as [$tag, $i1, $i2, $j1, $j2]) {
-                    if ($tag == 'delete') {
-                        continue;
-                    }
+            // Check for visible changes by replace or insert operations.
+            if (!empty(array_intersect(['replace', 'insert'], array_column($group, 0)))) {
+                // Line differences between versions or lines are inserted into version 2.
+                // Add all operations to diff-view of version 2, except for delete.
+                $filteredGroups = $this->filterGroups($group, 'delete');
+                foreach ($filteredGroups as [$tag, $start1, $end1, $start2, $end2]) {
                     $diff .= $this->tagMap[$tag] . ' ' .
                         implode(
                             "\n" . $this->tagMap[$tag] . ' ',
-                            $this->diff->getArrayRange($this->diff->getNew(), $j1, $j2)
+                            $this->diff->getArrayRange($this->diff->getVersion2(), $start2, $end2)
                         ) . "\n";
                 }
             }
         }
 
         return $diff;
+    }
+
+    /**
+     * Filter out groups by tag.
+     *
+     * Given an array of groups, all groups which don't have the specified tag are returned.
+     *
+     * @param array  $groups      A series of opCode groups.
+     * @param string $excludedTag Name of the opCode Tag to filter out.
+     *
+     * @return array Filtered opCode Groups.
+     */
+    private function filterGroups(array $groups, string $excludedTag): array
+    {
+        return array_filter(
+            $groups,
+            function ($operation) use ($excludedTag) {
+                return $operation[0] != $excludedTag;
+            }
+        );
     }
 }

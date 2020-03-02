@@ -11,6 +11,7 @@ namespace jblond\Diff\Renderer\Html;
  *
  * @package       jblond\Diff\Renderer\Html
  * @author        Chris Boulton <chris.boulton@interspire.com>
+ * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version       1.15
@@ -41,8 +42,8 @@ class SideBySide extends HtmlArray
 <table class="Differences DifferencesSideBySide">
     <thead>
         <tr>
-            <th colspan="2">{$this->options['title_a']}</th>
-            <th colspan="2">{$this->options['title_b']}</th>
+            <th colspan="2">{$this->options['title1']}</th>
+            <th colspan="2">{$this->options['title2']}</th>
         </tr>
     </thead>
 HTML;
@@ -169,11 +170,10 @@ HTML;
         // Is below comparison result ever false?
         if (count($changes['base']['lines']) >= count($changes['changed']['lines'])) {
             foreach ($changes['base']['lines'] as $lineNo => $line) {
-                $fromLine = $changes['base']['offset'] + $lineNo + 1;
-                if (!isset($changes['changed']['lines'][$lineNo])) {
-                    $toLine      = "&nbsp;";
-                    $changedLine = "&nbsp;";
-                } else {
+                $fromLine    = $changes['base']['offset'] + $lineNo + 1;
+                $toLine      = "&nbsp;";
+                $changedLine = "&nbsp;";
+                if (isset($changes['changed']['lines'][$lineNo])) {
                     $toLine      = $changes['changed']['offset'] + $lineNo + 1;
                     $changedLine = $changes['changed']['lines'][$lineNo];
                 }
@@ -196,11 +196,10 @@ HTML;
         }
 
         foreach ($changes['changed']['lines'] as $lineNo => $changedLine) {
-            $toLine = $changes['changed']['offset'] + $lineNo + 1;
-            if (!isset($changes['base']['lines'][$lineNo])) {
-                $fromLine = "&nbsp;";
-                $line     = "&nbsp;";
-            } else {
+            $toLine   = $changes['changed']['offset'] + $lineNo + 1;
+            $fromLine = "&nbsp;";
+            $line     = "&nbsp;";
+            if (isset($changes['base']['lines'][$lineNo])) {
                 $fromLine = $changes['base']['offset'] + $lineNo + 1;
                 $line     = $changes['base']['lines'][$lineNo];
             }

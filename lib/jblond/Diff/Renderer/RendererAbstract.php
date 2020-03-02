@@ -13,6 +13,7 @@ use jblond\Diff;
  *
  * @package       jblond\Diff\Renderer
  * @author        Chris Boulton <chris.boulton@interspire.com>
+ * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version       1.15
@@ -30,8 +31,8 @@ abstract class RendererAbstract
      * @var array Array of the default options that apply to this renderer.
      */
     protected $defaultOptions = array(
-        'title_a' => 'Old Version',
-        'title_b' => 'New Version',
+        'title1' => 'Version1',
+        'title2' => 'Version2',
     );
 
     /**

@@ -32,7 +32,7 @@ class Unified extends RendererAbstract
     public function render(): string
     {
         $diff = '';
-        $opCodes = $this->diff->getGroupedOpcodes();
+        $opCodes = $this->diff->getGroupedOpCodes();
         foreach ($opCodes as $group) {
             $lastItem = count($group) - 1;
             $i1 = $group['0']['1'];
@@ -51,7 +51,7 @@ class Unified extends RendererAbstract
                     $diff .= ' ' .
                         implode(
                             "\n ",
-                            $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)
+                            $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
                         ) . "\n";
                     continue;
                 }
@@ -59,14 +59,14 @@ class Unified extends RendererAbstract
                     $diff .= '-' .
                         implode(
                             "\n-",
-                            $this->diff->getArrayRange($this->diff->getOld(), $i1, $i2)
+                            $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
                         ) . "\n";
                 }
                 if ($tag == 'replace' || $tag == 'insert') {
                     $diff .= '+' .
                         implode(
                             "\n+",
-                            $this->diff->getArrayRange($this->diff->getNew(), $j1, $j2)
+                            $this->diff->getArrayRange($this->diff->getVersion2(), $j1, $j2)
                         ) . "\n";
                 }
             }

@@ -10,7 +10,7 @@ namespace jblond\Diff\Renderer\Html;
  * PHP version 7.2 or greater
  *
  * @package       jblond\Diff\Renderer\Html
- * @author        Chris Boulton <chris.boulton@interspire.com>
+ * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version       1.15
@@ -34,13 +34,13 @@ class Unified extends HtmlArray
      * Render the unified diff-view as html.
      *
      * Since this class extends the "HtmlArray" class which in turn extends "RendererAbstract" class, this method needs
-     * to match the signature of RendererAbstract::renderHTML. However the second parameter isn't used and can be
+     * to match the signature of RendererAbstract::renderHTML(). However the second parameter isn't used and can be
      * omitted.
      *
      * @param array $changes Contains the op-codes about the differences between "old and "new".
      * @param null  $object  Unused.
      *
-     * @return string           HTML code containing the unified differences.
+     * @return string HTML code containing the unified differences.
      */
     public function renderHtml($changes, $object = null): string
     {
@@ -56,9 +56,7 @@ class Unified extends HtmlArray
                 // If this is a separate block, we're condensing code to output …,
                 // indicating a significant portion of the code has been collapsed as it did not change.
                 $html .= <<<HTML
-<span class="Skipped" title="Equal lines collapsed!">
-    <strong>&hellip;</strong>
-</span>
+<span class="Skipped" title="Equal lines collapsed!">&hellip;</span>
 HTML;
             }
 
