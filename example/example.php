@@ -17,15 +17,16 @@ $a = file_get_contents(dirname(__FILE__) . '/a.txt');
 $b = file_get_contents(dirname(__FILE__) . '/b.txt');
 
 // Options for generating the diff.
-$options = [
-    //'ignoreWhitespace' => true,
-    //'ignoreCase'       => true,
-    //'context'          => 2,    /* Remove // to see text collapse in action */
+$customOptions = [
+    'context'          => 2,
+    'trimEqual'        => false,
+    'ignoreWhitespace' => true,
+    'ignoreCase'       => true,
 ];
 
-// Initialize the diff class.
-// \jblond\diff
-$diff = new Diff($a, $b, $options);
+// Choose one of the initializations.
+$diff = new Diff($a, $b);                   // Initialize the diff class with default options.
+//$diff = new Diff($a, $b, $customOptions); // Initialize the diff class with custom options.
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,11 +44,10 @@ $diff = new Diff($a, $b, $options);
         // Generate a side by side diff.
         // \jblond\Diff\Renderer\Html
         $renderer = new SideBySide([
-            'title_a' => 'Custom title for OLD version',
-            'title_b' => 'Custom title for NEW version',
+            'title1' => 'Custom title for version1',
+            'title2' => 'Custom title for version2',
         ]);
         echo $diff->Render($renderer);
-
         ?>
 
         <h2>HTML Inline Diff</h2>
