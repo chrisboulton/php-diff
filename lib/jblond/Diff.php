@@ -237,7 +237,7 @@ class Diff
 
         //Get and cache the grouped op-codes.
         $sequenceMatcher    = new SequenceMatcher($this->version1, $this->version2, $this->options);
-        $this->groupedCodes = $sequenceMatcher->getGroupedOpCodes($this->options['context']);
+        $this->groupedCodes = $sequenceMatcher->getGroupedOpCodes();
 
         return $this->groupedCodes;
     }
