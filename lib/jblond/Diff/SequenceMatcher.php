@@ -25,32 +25,32 @@ class SequenceMatcher
      * @var string|array Either a string or an array containing a callback function to determine
      * if a line is "junk" or not.
      */
-    private $junkCallback = null;
+    private $junkCallback;
 
     /**
      * @var array The first sequence to compare against.
      */
-    private $old = array();
+    private $old;
 
     /**
      * @var array The second sequence.
      */
-    private $new = array();
+    private $new;
 
     /**
      * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
      */
-    private $junkDict = array();
+    private $junkDict = [];
 
     /**
      * @var array Array of indices that do not contain junk elements.
      */
-    private $b2j = array();
+    private $b2j = [];
 
     /**
      * @var array
      */
-    private $options = array();
+    private $options = [];
 
     /**
      * @var null|array
@@ -63,20 +63,15 @@ class SequenceMatcher
     private $matchingBlocks;
 
     /**
-     * @var null|array
-     */
-    private $fullBCount;
-
-    /**
      * @var array
      */
-    private $defaultOptions = array(
+    private $defaultOptions = [
         'context' => 3,
         'trimEqual' => true,
         'ignoreWhitespace' => false,
         'ignoreCase' => false,
         'ignoreNewLines' => false,
-    );
+    ];
 
     /**
      * The constructor. With the sequences being passed, they'll be set for the
@@ -91,8 +86,8 @@ class SequenceMatcher
      */
     public function __construct($old, $new, array $options = [], $junkCallback = null)
     {
-        $this->old = array();
-        $this->new = array();
+        $this->old = [];
+        $this->new = [];
         $this->junkCallback = $junkCallback;
         $this->setOptions($options);
         $this->setSequences($old, $new);
@@ -159,7 +154,6 @@ class SequenceMatcher
         $this->new = $partB;
         $this->matchingBlocks = null;
         $this->opCodes = null;
-        $this->fullBCount = null;
         $this->chainB();
     }
 
@@ -170,8 +164,8 @@ class SequenceMatcher
     private function chainB()
     {
         $length = count($this->new);
-        $this->b2j = array();
-        $popularDict = array();
+        $this->b2j = [];
+        $popularDict = [];
 
         for ($i = 0; $i < $length; ++$i) {
             $char = $this->new[$i];
@@ -183,9 +177,9 @@ class SequenceMatcher
                     $this->b2j[$char][] = $i;
                 }
             } else {
-                $this->b2j[$char] = array(
+                $this->b2j[$char] = [
                     $i
-                );
+                ];
             }
         }
 
@@ -194,7 +188,7 @@ class SequenceMatcher
             unset($this->b2j[$char]);
         }
 
-        $this->junkDict = array();
+        $this->junkDict = [];
         if (is_callable($this->junkCallback)) {
             foreach (array_keys($popularDict) as $char) {
                 if (call_user_func($this->junkCallback, $char)) {
@@ -257,11 +251,11 @@ class SequenceMatcher
         $bestJ = $blo;
         $bestSize = 0;
 
-        $j2Len = array();
-        $nothing = array();
+        $j2Len = [];
+        $nothing = [];
 
         for ($i = $alo; $i < $ahi; ++$i) {
-            $newJ2Len = array();
+            $newJ2Len = [];
             $jDict = $this->arrayGetDefault($this->b2j, $old[$i], $nothing);
             foreach ($jDict as $j) {
                 if ($j < $blo) {
@@ -322,11 +316,11 @@ class SequenceMatcher
                     ++$bestSize;
         }
 
-        return array(
+        return [
             $bestI,
             $bestJ,
             $bestSize
-        );
+        ];
     }
 
     /**
@@ -342,7 +336,7 @@ class SequenceMatcher
         $lineB = $this->new[$bIndex];
 
         if ($this->options['ignoreWhitespace']) {
-            $replace = array("\t", ' ');
+            $replace = ["\t", ' '];
             $lineA = str_replace($replace, '', $lineA);
             $lineB = str_replace($replace, '', $lineB);
         }
@@ -378,16 +372,16 @@ class SequenceMatcher
         $aLength = count($this->old);
         $bLength = count($this->new);
 
-        $queue = array(
-            array(
+        $queue = [
+            [
                 0,
                 $aLength,
                 0,
                 $bLength
-            )
-        );
+            ]
+        ];
 
-        $matchingBlocks = array();
+        $matchingBlocks = [];
         while (!empty($queue)) {
             [$alo, $ahi, $blo, $bhi] = array_pop($queue);
             $longestMatch = $this->findLongestMatch($alo, $ahi, $blo, $bhi);
@@ -395,21 +389,21 @@ class SequenceMatcher
             if ($list3) {
                 $matchingBlocks[] = $longestMatch;
                 if ($alo < $list1 && $blo < $list2) {
-                    $queue[] = array(
+                    $queue[] = [
                         $alo,
                         $list1,
                         $blo,
                         $list2
-                    );
+                    ];
                 }
 
                 if ($list1 + $list3 < $ahi && $list2 + $list3 < $bhi) {
-                    $queue[] = array(
+                    $queue[] = [
                         $list1 + $list3,
                         $ahi,
                         $list2 + $list3,
                         $bhi
-                    );
+                    ];
                 }
             }
         }
@@ -424,17 +418,17 @@ class SequenceMatcher
         $i1 = 0;
         $j1 = 0;
         $k1 = 0;
-        $nonAdjacent = array();
+        $nonAdjacent = [];
         foreach ($matchingBlocks as [$list4, $list5, $list6]) {
             if ($i1 + $k1 == $list4 && $j1 + $k1 == $list5) {
                 $k1 += $list6;
             } else {
                 if ($k1) {
-                    $nonAdjacent[] = array(
+                    $nonAdjacent[] = [
                         $i1,
                         $j1,
                         $k1
-                    );
+                    ];
                 }
 
                 $i1 = $list4;
@@ -444,18 +438,18 @@ class SequenceMatcher
         }
 
         if ($k1) {
-            $nonAdjacent[] = array(
+            $nonAdjacent[] = [
                 $i1,
                 $j1,
                 $k1
-            );
+            ];
         }
 
-        $nonAdjacent[] = array(
+        $nonAdjacent[] = [
             $aLength,
             $bLength,
             0
-        );
+        ];
 
         $this->matchingBlocks = $nonAdjacent;
         return $this->matchingBlocks;
@@ -491,7 +485,7 @@ class SequenceMatcher
 
         $i = 0;
         $j = 0;
-        $this->opCodes = array();
+        $this->opCodes = [];
 
         $blocks = $this->getMatchingBlocks();
         foreach ($blocks as [$ai, $bj, $size]) {
@@ -505,26 +499,26 @@ class SequenceMatcher
             }
 
             if ($tag) {
-                $this->opCodes[] = array(
+                $this->opCodes[] = [
                     $tag,
                     $i,
                     $ai,
                     $j,
                     $bj
-                );
+                ];
             }
 
             $i = $ai + $size;
             $j = $bj + $size;
 
             if ($size) {
-                $this->opCodes[] = array(
+                $this->opCodes[] = [
                     'equal',
                     $ai,
                     $i,
                     $bj,
                     $j
-                );
+                ];
             }
         }
         return $this->opCodes;
@@ -547,69 +541,69 @@ class SequenceMatcher
     {
         $opCodes = $this->getOpCodes();
         if (empty($opCodes)) {
-            $opCodes = array(
-                array(
+            $opCodes = [
+                [
                     'equal',
                     0,
                     1,
                     0,
                     1
-                )
-            );
+                ]
+            ];
         }
 
         if ($this->options['trimEqual']) {
             if ($opCodes['0']['0'] == 'equal') {
                 // Remove sequences at the start which are out of context.
-                $opCodes['0'] = array(
+                $opCodes['0'] = [
                     $opCodes['0']['0'],
                     max($opCodes['0']['1'], $opCodes['0']['2'] - $this->options['context']),
                     $opCodes['0']['2'],
                     max($opCodes['0']['3'], $opCodes['0']['4'] - $this->options['context']),
                     $opCodes['0']['4']
-                );
+                ];
             }
 
             $lastItem = count($opCodes) - 1;
             if ($opCodes[$lastItem]['0'] == 'equal') {
                 [$tag, $i1, $i2, $j1, $j2] = $opCodes[$lastItem];
                 // Remove sequences at the end which are out of context.
-                $opCodes[$lastItem] = array(
+                $opCodes[$lastItem] = [
                     $tag,
                     $i1,
                     min($i2, $i1 + $this->options['context']),
                     $j1,
                     min($j2, $j1 + $this->options['context'])
-                );
+                ];
             }
         }
 
         $maxRange = $this->options['context'] * 2;
-        $groups = array();
-        $group = array();
+        $groups = [];
+        $group = [];
 
         foreach ($opCodes as [$tag, $i1, $i2, $j1, $j2]) {
             if ($tag == 'equal' && $i2 - $i1 > $maxRange) {
-                $group[] = array(
+                $group[] = [
                     $tag,
                     $i1,
                     min($i2, $i1 + $this->options['context']),
                     $j1,
                     min($j2, $j1 + $this->options['context'])
-                );
+                ];
                 $groups[] = $group;
-                $group = array();
+                $group = [];
                 $i1 = max($i1, $i2 - $this->options['context']);
                 $j1 = max($j1, $j2 - $this->options['context']);
             }
 
-            $group[] = array(
+            $group[] = [
                 $tag,
                 $i1,
                 $i2,
                 $j1,
                 $j2
-            );
+            ];
         }
 
         if ($this->options['trimEqual'] || (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal'))) {

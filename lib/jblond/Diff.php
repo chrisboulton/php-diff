@@ -186,7 +186,7 @@ class Diff
      * End of the range is defined by the second parameter.
      *
      * If the arguments for both parameters are omitted, the entire array will be returned.
-     * If the argument for the second parameter is ommitted, the element defined as start will be returned.
+     * If the argument for the second parameter is omitted, the element defined as start will be returned.
      *
      * @param array    $array   The source array.
      * @param int      $start   The first element of the range to get.

@@ -10,8 +10,8 @@ namespace jblond;
  * PHP version 7.2 or greater
  *
  * @package jblond
- * @author Chris Boulton <chris.boulton@interspire.com>
- * @copyright (c) 2009 Chris Boulton
+ * @author Mario Brandt <leet31337@web.de>
+ * @copyright (c) 2015 Mario Brandt
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version 1.16
  * @link https://github.com/JBlond/php-diff
