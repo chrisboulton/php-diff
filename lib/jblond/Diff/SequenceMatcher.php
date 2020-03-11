@@ -40,17 +40,17 @@ class SequenceMatcher
     /**
      * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
      */
-    private $junkDict = array();
+    private $junkDict = [];
 
     /**
      * @var array Array of indices that do not contain junk elements.
      */
-    private $b2j = array();
+    private $b2j = [];
 
     /**
      * @var array
      */
-    private $options = array();
+    private $options = [];
 
     /**
      * @var null|array
