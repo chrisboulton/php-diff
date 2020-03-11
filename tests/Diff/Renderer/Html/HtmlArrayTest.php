@@ -34,27 +34,27 @@ class HtmlArrayTest extends TestCase
     {
         $htmlRenderer = new HtmlArray();
         $htmlRenderer->diff = new Diff(
-            array('a'),
-            array()
+            ['a'],
+            []
         );
         $result = $htmlRenderer->render();
-        static::assertEquals(array(
-            array(
-                array(
+        static::assertEquals([
+            [
+                [
                     'tag' => 'delete',
-                    'base' => array(
+                    'base' => [
                         'offset' => 0,
-                        'lines' => array(
+                        'lines' => [
                             'a'
-                        )
-                    ),
-                    'changed' => array(
+                        ]
+                    ],
+                    'changed' => [
                         'offset' => 0,
-                        'lines' => array()
-                    )
-                )
-            )
-        ), $result);
+                        'lines' => []
+                    ]
+                ]
+            ]
+        ], $result);
     }
 
     /**
@@ -64,28 +64,28 @@ class HtmlArrayTest extends TestCase
     {
         $htmlRenderer = new HtmlArray();
         $htmlRenderer->diff = new Diff(
-            array('    a'),
-            array('a')
+            ['    a'],
+            ['a']
         );
         $result = $htmlRenderer->render();
-        static::assertEquals(array(
-            array(
-                array(
+        static::assertEquals([
+            [
+                [
                     'tag' => 'replace',
-                    'base' => array(
+                    'base' => [
                         'offset' => 0,
-                        'lines' => array(
+                        'lines' => [
                             "<del>&nbsp;&nbsp;&nbsp;&nbsp;</del>a",
-                        )
-                    ),
-                    'changed' => array(
+                        ]
+                    ],
+                    'changed' => [
                         'offset' => 0,
-                        'lines' => array(
+                        'lines' => [
                             '<ins></ins>a'
-                        )
-                    )
-                )
-            )
-        ), $result);
+                        ]
+                    ]
+                ]
+            ]
+        ], $result);
     }
 }
