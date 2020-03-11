@@ -25,17 +25,17 @@ class SequenceMatcher
      * @var string|array Either a string or an array containing a callback function to determine
      * if a line is "junk" or not.
      */
-    private $junkCallback = null;
+    private $junkCallback;
 
     /**
      * @var array The first sequence to compare against.
      */
-    private $old = array();
+    private $old;
 
     /**
      * @var array The second sequence.
      */
-    private $new = array();
+    private $new;
 
     /**
      * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
