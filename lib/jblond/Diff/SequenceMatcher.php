@@ -63,11 +63,6 @@ class SequenceMatcher
     private $matchingBlocks;
 
     /**
-     * @var null|array
-     */
-    private $fullBCount;
-
-    /**
      * @var array
      */
     private $defaultOptions = array(
@@ -159,7 +154,6 @@ class SequenceMatcher
         $this->new = $partB;
         $this->matchingBlocks = null;
         $this->opCodes = null;
-        $this->fullBCount = null;
         $this->chainB();
     }
 
