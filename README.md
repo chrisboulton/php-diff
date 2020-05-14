@@ -27,12 +27,16 @@ composer require jblond/php-diff
 
 ```PHP
 <?php
+use jblond\Autoloader;
+use jblond\Diff;
+use jblond\Diff\Renderer\Html\SideBySide;
+
 // Installed via composer...
 require 'vendor/autoload.php';
 // ...or installed manually.
 require dirname(__FILE__).'/../lib/Autoloader.php';
 
-new \jblond\Autoloader(); 
+new Autoloader(); 
 
 $a = file_get_contents(dirname(__FILE__).'/a.txt');
 $b = file_get_contents(dirname(__FILE__).'/b.txt');
@@ -45,10 +49,10 @@ $options = [
 ];
 
 // Initialize the diff class.
-$diff = new \jblond\Diff($a, $b /*, $options */);
+$diff = new Diff($a, $b /*, $options */);
 
 // Choose Renderer.
-$renderer = new \jblond\Diff\Renderer\Html\SideBySide([
+$renderer = new SideBySide([
     'title1' => 'Custom title for OLD version',
     'title2' => 'Custom title for NEW version',
 ]);
