@@ -141,7 +141,7 @@ HTML;
         foreach ($changes['base']['lines'] as $lineNo => $line) {
             $fromLine = $changes['base']['offset'] + $lineNo + 1;
 
-            $html = <<<HTML
+            $html .= <<<HTML
 <tr>
     <th>$fromLine</th>
     <td class="Left">
