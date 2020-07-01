@@ -73,5 +73,3 @@ local.properties
 
 # End of https://www.gitignore.io/api/windows,eclipse,composer
 /composer.lock
-
-/.idea
