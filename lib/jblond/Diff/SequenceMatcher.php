@@ -566,14 +566,14 @@ class SequenceMatcher
 
             $lastItem = count($opCodes) - 1;
             if ($opCodes[$lastItem]['0'] == 'equal') {
-                [$tag, $i1, $i2, $j1, $j2] = $opCodes[$lastItem];
+                [$tag, $item1, $item2, $item3, $item4] = $opCodes[$lastItem];
                 // Remove sequences at the end which are out of context.
                 $opCodes[$lastItem] = [
                     $tag,
-                    $i1,
-                    min($i2, $i1 + $this->options['context']),
-                    $j1,
-                    min($j2, $j1 + $this->options['context'])
+                    $item1,
+                    min($item2, $item1 + $this->options['context']),
+                    $item3,
+                    min($item4, $item3 + $this->options['context'])
                 ];
             }
         }
@@ -582,27 +582,27 @@ class SequenceMatcher
         $groups = [];
         $group = [];
 
-        foreach ($opCodes as [$tag, $i1, $i2, $j1, $j2]) {
-            if ($tag == 'equal' && $i2 - $i1 > $maxRange) {
+        foreach ($opCodes as [$tag, $item1, $item2, $item3, $item4]) {
+            if ($tag == 'equal' && $item2 - $item1 > $maxRange) {
                 $group[] = [
                     $tag,
-                    $i1,
-                    min($i2, $i1 + $this->options['context']),
-                    $j1,
-                    min($j2, $j1 + $this->options['context'])
+                    $item1,
+                    min($item2, $item1 + $this->options['context']),
+                    $item3,
+                    min($item4, $item3 + $this->options['context'])
                 ];
                 $groups[] = $group;
                 $group = [];
-                $i1 = max($i1, $i2 - $this->options['context']);
-                $j1 = max($j1, $j2 - $this->options['context']);
+                $item1 = max($item1, $item2 - $this->options['context']);
+                $item3 = max($item3, $item4 - $this->options['context']);
             }
 
             $group[] = [
                 $tag,
-                $i1,
-                $i2,
-                $j1,
-                $j2
+                $item1,
+                $item2,
+                $item3,
+                $item4
             ];
         }
 
