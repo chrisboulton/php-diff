@@ -13,6 +13,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  *
  * @package  jblond\Diff\Renderer\Text
  * @author Chris Boulton <chris.boulton@interspire.com>
+ * @author Mario Brandt <leet31337@web.de>
  * @copyright (c) 2009 Chris Boulton
  * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version 1.18

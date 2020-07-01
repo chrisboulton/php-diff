@@ -23,6 +23,7 @@ use OutOfRangeException;
  *
  * @package       jblond
  * @author        Chris Boulton <chris.boulton@interspire.com>
+ * @author Mario Brandt <leet31337@web.de>
  * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
