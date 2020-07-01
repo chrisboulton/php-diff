@@ -32,10 +32,28 @@ $diff = new Diff($a, $b);                   // Initialize the diff class with de
     <head>
         <meta charset="utf-8"/>
         <title>PHP LibDiff - Examples</title>
-        <link rel="stylesheet" href="styles.css" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+        <script>
+            function changeCSS(cssFile, cssLinkIndex) {
+
+                var oldLink = document.getElementsByTagName("link").item(cssLinkIndex);
+
+                var newLink = document.createElement("link");
+                newLink.setAttribute("rel", "stylesheet");
+                newLink.setAttribute("type", "text/css");
+                newLink.setAttribute("href", cssFile);
+
+                document.getElementsByTagName("head").item(0).replaceChild(newLink, oldLink);
+            }
+        </script>
     </head>
     <body>
         <h1>PHP LibDiff - Examples</h1>
+        <aside>
+            <h2>Change Theme</h2>
+            <a href="#" onclick="changeCSS('styles.css', 0);">Light Theme</a>
+            <a href="#" onclick="changeCSS('dark-theme.css', 0);">Dark Theme</a>
+        </aside>
         <hr />
 
         <h2>HTML Side by Side Diff</h2>
