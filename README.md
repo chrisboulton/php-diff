@@ -25,6 +25,8 @@ composer require jblond/php-diff
 
 ## Example Use
 
+<details><summery>&nbsp;</summery><br>
+
 ```PHP
 <?php
 use jblond\Autoloader;
@@ -60,6 +62,8 @@ $renderer = new SideBySide([
 // Show it.
 echo $diff->Render($renderer);
 ```
+
+</details>
 
 ### Example Output
 A quick usage example can be found in the `example/` directory and under example.php.
