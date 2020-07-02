@@ -68,6 +68,8 @@ echo $diff->Render($renderer);
 ### Example Output
 A quick usage example can be found in the `example/` directory and under example.php. Included is a light theme and a dark theme.
 
+<details><summery>Example Pictures</summery><br>
+
 #### HTML Side By Side Example
 ![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example")
 #### HTML Inline Example
@@ -78,6 +80,8 @@ A quick usage example can be found in the `example/` directory and under example
 ![Text Unified Example](textUnified.png "Text Unified Example")
 #### Text Context Example
 ![Text Context Example](textContext.png "Text Context Example")
+
+</details>
 
 ## Requirements
 
