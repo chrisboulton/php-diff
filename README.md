@@ -66,7 +66,7 @@ echo $diff->Render($renderer);
 </details>
 
 ### Example Output
-A quick usage example can be found in the `example/` directory and under example.php.
+A quick usage example can be found in the `example/` directory and under example.php. Included is a light theme and a dark theme.
 
 #### HTML Side By Side Example
 ![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example")
