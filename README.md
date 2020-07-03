@@ -67,7 +67,7 @@ A quick usage example can be found in the `example/` directory and under example
 
 #### HTML Side By Side Example
 
-![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example"
+![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example")
 
 <details><summary>More Example Pictures</summary><br>
 
