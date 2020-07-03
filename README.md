@@ -65,11 +65,11 @@ echo $diff->Render($renderer);
 ### Example Output
 A quick usage example can be found in the `example/` directory and under example.php. Included is a light theme and a dark theme.
 
-<details><summary>Example Pictures</summary><br>
-
 #### HTML Side By Side Example
 
-![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example")
+![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example"
+
+<details><summary>More Example Pictures</summary><br>
 
 #### HTML Inline Example
 
