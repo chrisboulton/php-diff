@@ -90,9 +90,6 @@ A quick usage example can be found in the `example/` directory and under example
 #### Text Unified Console Example
 
 ![Text Unified Console Example](textUnifiedCli.png "Text Unified Console Example")
-#### Text Unified Console Example
-
-![Text Unified Console Example](textUnifiedCli.png "Text Unified Console Example")
 
 </details>
 
