@@ -81,6 +81,7 @@ A quick usage example can be found in the `example/` directory and under example
 
 * PHP 7.2 or greater
 * PHP Multibyte String
+* [jblond/php-cli](https://github.com/jblond/php-cli)
 
 ## Merge files using jQuery
 
