@@ -8,6 +8,7 @@
 
 A comprehensive library for generating differences between two hashable objects (strings or arrays).
 Generated differences can be rendered in all of the standard formats including:
+
 * Unified
 * Context
 * Inline HTML
@@ -15,7 +16,7 @@ Generated differences can be rendered in all of the standard formats including:
 * Unified HTML
 * Unified Commandline colored output
 
-The logic behind the core of the diff engine (ie, the sequence matcher) is primarily based on the Python difflib 
+The logic behind the core of the diff engine (ie, the sequence matcher) is primarily based on the Python difflib
 package. The reason for doing so is primarily because of its high degree of accuracy.
 
 ## Install
@@ -58,23 +59,31 @@ echo $diff->Render($renderer);
 ```
 
 ### Example Output
+
 A quick usage example can be found in the `example/` directory and under example.php.
 
 #### HTML Side By Side Example
+
 ![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example")
 
 #### HTML Inline Example
+
 ![HTML Inline Example](htmlInline.png "HTML Inline Example")
+
 #### HTML Unified Example
+
 ![HTML Unified Example](htmlUnified.png "HTML Unified Example")
 
 #### Text Unified Example
+
 ![Text Unified Example](textUnified.png "Text Unified Example")
 
 #### Text Context Example
+
 ![Text Context Example](textContext.png "Text Context Example")
 
 #### Text Unified Console Example
+
 ![Text Unified Console Example](textUnifiedCli.png "Text Unified Console Example")
 
 ## Requirements
@@ -92,7 +101,7 @@ Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge
 
 * Ability to ignore blank line changes
 * 3 way diff support
- 
+
 ## Contributors
 
 Contributors since I forked the repo.
