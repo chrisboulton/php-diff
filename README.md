@@ -27,6 +27,8 @@ composer require jblond/php-diff
 
 ## Example Use
 
+<details><summary>Example Code</summary><br>
+
 ```PHP
 <?php
 use jblond\Diff;
@@ -58,9 +60,12 @@ $renderer = new SideBySide([
 echo $diff->Render($renderer);
 ```
 
-### Example Output
+</details>
 
-A quick usage example can be found in the `example/` directory and under example.php.
+### Example Output
+A quick usage example can be found in the `example/` directory and under example.php. Included is a light theme and a dark theme.
+
+<details><summary>Example Pictures</summary><br>
 
 #### HTML Side By Side Example
 
@@ -85,7 +90,9 @@ A quick usage example can be found in the `example/` directory and under example
 #### Text Unified Console Example
 
 ![Text Unified Console Example](textUnifiedCli.png "Text Unified Console Example")
+#### Text Unified Console Example
 
+![Text Unified Console Example](textUnifiedCli.png "Text Unified Console Example")
 ## Requirements
 
 * PHP 7.2 or greater
