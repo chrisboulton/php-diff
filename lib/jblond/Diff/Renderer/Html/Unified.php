@@ -102,7 +102,7 @@ HTML;
         $html = '';
 
         foreach ($change['base']['lines'] as $line) {
-            $html .= '<span>' . $line . '</span><br>';
+            $html .= '<span>' . $line . '</span><br>' . "\n";
         }
 
         return $html;
@@ -120,7 +120,7 @@ HTML;
         $html = '';
 
         foreach ($change['changed']['lines'] as $line) {
-            $html .= '<span class="Right"><ins>' . $line . '</ins></span><br>';
+            $html .= '<span class="Right"><ins>' . $line . '</ins></span><br>' . "\n";
         }
 
         return $html;
@@ -137,7 +137,7 @@ HTML;
     {
         $html = '';
         foreach ($change['base']['lines'] as $line) {
-            $html .= '<span class="Left"><del>' . $line . '</del></span><br>';
+            $html .= '<span class="Left"><del>' . $line . '</del></span><br>' . "\n";
         }
 
         return $html;
@@ -156,12 +156,12 @@ HTML;
 
         // Lines with characters removed.
         foreach ($change['base']['lines'] as $line) {
-            $html .= '<span class="Left">' . $line . '</span><br>';
+            $html .= '<span class="Left">' . $line . '</span><br>' . "\n";
         }
 
         // Lines with characters added.
         foreach ($change['changed']['lines'] as $line) {
-            $html .= '<span class="Right">' . $line . '</span><br>';
+            $html .= '<span class="Right">' . $line . '</span><br>' . "\n";
         }
 
         return $html;
