@@ -93,6 +93,13 @@ A quick usage example can be found in the `example/` directory and under example
 
 </details>
 
+<details><summary>HTML Side By Side Dark Theme Example</summary><br>
+
+
+![HTML Side By Side Dark Theme Example](htmlSidebySideDarkTheme.png "HTML Side By Side Dark Theme Example")
+
+</details>
+
 ## Requirements
 
 * PHP 7.2 or greater
