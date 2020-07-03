@@ -81,10 +81,10 @@ HTML;
                         $html .= $this->generateLinesReplace($change);
                         break;
                 }
-                $html .= '</span>';
+                $html .= '</span>' . "\n";
             }
         }
-        $html .= '</span>';
+        $html .= '</span>' . "\n";
 
         return $html;
     }
