@@ -1,6 +1,5 @@
 <?php
 
-use jblond\Autoloader;
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\Inline;
 use jblond\Diff\Renderer\Html\Unified as HtmlUnified;
@@ -9,8 +8,7 @@ use jblond\Diff\Renderer\Text\Context;
 use jblond\Diff\Renderer\Text\Unified;
 
 // Include and instantiate autoloader.
-require dirname(__FILE__) . '/../lib/Autoloader.php';
-new Autoloader();
+require '../vendor/autoload.php';
 
 // Include two sample files for comparison.
 $a = file_get_contents(dirname(__FILE__) . '/a.txt');
@@ -66,6 +64,7 @@ $diff = new Diff($a, $b);                   // Initialize the diff class with de
             'title2' => 'Custom title for version2',
         ]);
         echo $diff->Render($renderer);
+        $cli = new \jblond\cli\Cli();
         ?>
 
         <h2>HTML Inline Diff</h2>

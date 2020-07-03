@@ -33,10 +33,6 @@ use jblond\Diff\Renderer\Html\SideBySide;
 
 // Installed via composer...
 require 'vendor/autoload.php';
-// ...or installed manually.
-require dirname(__FILE__).'/../lib/Autoloader.php';
-
-new Autoloader(); 
 
 $a = file_get_contents(dirname(__FILE__).'/a.txt');
 $b = file_get_contents(dirname(__FILE__).'/b.txt');
