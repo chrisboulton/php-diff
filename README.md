@@ -13,6 +13,7 @@ Generated differences can be rendered in all of the standard formats including:
 * Inline HTML
 * Side by Side HTML
 * Unified HTML
+* Unified Commandline colored output
 
 The logic behind the core of the diff engine (ie, the sequence matcher) is primarily based on the Python difflib 
 package. The reason for doing so is primarily because of its high degree of accuracy.
@@ -27,7 +28,6 @@ composer require jblond/php-diff
 
 ```PHP
 <?php
-use jblond\Autoloader;
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\SideBySide;
 
