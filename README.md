@@ -62,14 +62,20 @@ A quick usage example can be found in the `example/` directory and under example
 
 #### HTML Side By Side Example
 ![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example")
+
 #### HTML Inline Example
 ![HTML Inline Example](htmlInline.png "HTML Inline Example")
 #### HTML Unified Example
 ![HTML Unified Example](htmlUnified.png "HTML Unified Example")
+
 #### Text Unified Example
 ![Text Unified Example](textUnified.png "Text Unified Example")
+
 #### Text Context Example
 ![Text Context Example](textContext.png "Text Context Example")
+
+#### Text Unified Console Example
+![Text Unified Console Example](textUnifiedCli.png "Text Unified Console Example")
 
 ## Requirements
 
