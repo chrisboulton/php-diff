@@ -25,5 +25,7 @@ $diff = new Diff($a, $b);
 // Generate a unified diff.
 // \jblond\Diff\Renderer\Text
 $renderer = new UnifiedCli();
+
+// jblond\cli\Cli
 $cli = new Cli();
 $cli->output($diff->render($renderer));
