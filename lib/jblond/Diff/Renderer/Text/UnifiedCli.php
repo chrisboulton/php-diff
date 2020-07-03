@@ -74,14 +74,14 @@ class UnifiedCli extends RendererAbstract
                         implode(
                             "\n- ",
                             $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
-                        ) . "\n", 'red');
+                        ) . "\n", 'light_red');
                 }
                 if ($tag == 'replace' || $tag == 'insert') {
                     $diff .= $this->colors->getColoredString('+' .
                         implode(
                             "\n+",
                             $this->diff->getArrayRange($this->diff->getVersion2(), $j1, $j2)
-                        ) . "\n", 'green');
+                        ) . "\n", 'light_green');
                 }
             }
         }
