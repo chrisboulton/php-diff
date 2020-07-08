@@ -62,26 +62,26 @@ class UnifiedCli extends RendererAbstract
             );
             foreach ($group as [$tag, $i1, $i2, $j1, $j2]) {
                 if ($tag == 'equal') {
-                    $diff .= $this->colors->getColoredString(' ' .
-                        implode(
-                            "\n ",
-                            $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
-                        ) . "\n", 'grey');
+                    $string = implode(
+                        "\n ",
+                        $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
+                    );
+                    $diff .= $this->colors->getColoredString(' ' . $string . "\n", 'grey');
                     continue;
                 }
                 if ($tag == 'replace' || $tag == 'delete') {
-                    $diff .= $this->colors->getColoredString('-' .
-                        implode(
-                            "\n- ",
-                            $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
-                        ) . "\n", 'light_red');
+                    $string = implode(
+                        "\n- ",
+                        $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
+                    );
+                    $diff .= $this->colors->getColoredString('-' . $string . "\n", 'light_red');
                 }
                 if ($tag == 'replace' || $tag == 'insert') {
-                    $diff .= $this->colors->getColoredString('+' .
-                        implode(
-                            "\n+",
-                            $this->diff->getArrayRange($this->diff->getVersion2(), $j1, $j2)
-                        ) . "\n", 'light_green');
+                    $string = implode(
+                        "\n+",
+                        $this->diff->getArrayRange($this->diff->getVersion2(), $j1, $j2)
+                    );
+                    $diff .= $this->colors->getColoredString('+' . $string . "\n", 'light_green');
                 }
             }
         }
