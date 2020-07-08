@@ -5,7 +5,9 @@
     "license": "BSD-3-Clause",
     "keywords": [
         "php",
-        "diff"
+        "diff",
+        "side-by-sidediff",
+        "unified"
     ],
     "authors": [
         {
@@ -43,5 +45,11 @@
         "php_src": "phpcs --standard=phpcs.xml -s -p --colors ./lib/",
         "php_test": "phpcs --standard=phpcs.xml -s -p --colors ./tests/",
         "phpmd": "phpmd ./ ansi cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor"
+    },
+    "scripts-descriptions": {
+        "phpunit": "Run PHPUnit tests",
+        "php_src": "Run code sniffer on lib directory",
+        "php_test": "Run code sniffer on tests directory",
+        "phpmd": "Run php mess detector"
     }
 }
