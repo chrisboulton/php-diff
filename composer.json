@@ -25,7 +25,8 @@
     ],
     "require": {
         "php": ">=7.2",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "jblond/php-cli": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "8.*",

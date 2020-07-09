@@ -8,13 +8,15 @@
 
 A comprehensive library for generating differences between two hashable objects (strings or arrays).
 Generated differences can be rendered in all of the standard formats including:
+
 * Unified
 * Context
 * Inline HTML
 * Side by Side HTML
 * Unified HTML
+* Unified Commandline colored output
 
-The logic behind the core of the diff engine (ie, the sequence matcher) is primarily based on the Python difflib 
+The logic behind the core of the diff engine (ie, the sequence matcher) is primarily based on the Python difflib
 package. The reason for doing so is primarily because of its high degree of accuracy.
 
 ## Install
@@ -29,16 +31,11 @@ composer require jblond/php-diff
 
 ```PHP
 <?php
-use jblond\Autoloader;
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\SideBySide;
 
 // Installed via composer...
 require 'vendor/autoload.php';
-// ...or installed manually.
-require dirname(__FILE__).'/../lib/Autoloader.php';
-
-new Autoloader(); 
 
 $a = file_get_contents(dirname(__FILE__).'/a.txt');
 $b = file_get_contents(dirname(__FILE__).'/b.txt');
@@ -68,18 +65,38 @@ echo $diff->Render($renderer);
 ### Example Output
 A quick usage example can be found in the `example/` directory and under example.php. Included is a light theme and a dark theme.
 
-<details><summary>Example Pictures</summary><br>
-
 #### HTML Side By Side Example
+
 ![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example")
+
+<details><summary>More Example Pictures</summary><br>
+
 #### HTML Inline Example
+
 ![HTML Inline Example](htmlInline.png "HTML Inline Example")
+
 #### HTML Unified Example
+
 ![HTML Unified Example](htmlUnified.png "HTML Unified Example")
+
 #### Text Unified Example
+
 ![Text Unified Example](textUnified.png "Text Unified Example")
+
 #### Text Context Example
+
 ![Text Context Example](textContext.png "Text Context Example")
+
+#### Text Unified Console Example
+
+![Text Unified Console Example](textUnifiedCli.png "Text Unified Console Example")
+
+</details>
+
+<details><summary>HTML Side By Side Dark Theme Example</summary><br>
+
+
+![HTML Side By Side Dark Theme Example](htmlSidebySideDarkTheme.png "HTML Side By Side Dark Theme Example")
 
 </details>
 
@@ -87,6 +104,7 @@ A quick usage example can be found in the `example/` directory and under example
 
 * PHP 7.2 or greater
 * PHP Multibyte String
+* [jblond/php-cli](https://github.com/jblond/php-cli)
 
 ## Merge files using jQuery
 
@@ -97,7 +115,7 @@ Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge
 
 * Ability to ignore blank line changes
 * 3 way diff support
- 
+
 ## Contributors
 
 Contributors since I forked the repo.
