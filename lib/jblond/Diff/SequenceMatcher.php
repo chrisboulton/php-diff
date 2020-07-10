@@ -237,32 +237,32 @@ class SequenceMatcher extends SequenceMatcherHelper
      * that the junk element appears in the block. Extend it as far as possible
      * by matching only junk elements in both $a and $b.
      *
-     * @param int $alo The lower constraint for the first sequence.
-     * @param int $ahi The upper constraint for the first sequence.
-     * @param int $blo The lower constraint for the second sequence.
-     * @param int $bhi The upper constraint for the second sequence.
+     * @param int $aLower The lower constraint for the first sequence.
+     * @param int $aUpper The upper constraint for the first sequence.
+     * @param int $bLower The lower constraint for the second sequence.
+     * @param int $bUpper The upper constraint for the second sequence.
      * @return array Array containing the longest match that includes the starting position in $a,
      * start in $b and the length/size.
      */
-    public function findLongestMatch(int $alo, int $ahi, int $blo, int $bhi): array
+    public function findLongestMatch(int $aLower, int $aUpper, int $bLower, int $bUpper): array
     {
         $old = $this->old;
         $new = $this->new;
 
-        $bestI = $alo;
-        $bestJ = $blo;
+        $bestI = $aLower;
+        $bestJ = $bLower;
         $bestSize = 0;
 
         $j2Len = [];
         $nothing = [];
 
-        for ($i = $alo; $i < $ahi; ++$i) {
+        for ($i = $aLower; $i < $aUpper; ++$i) {
             $newJ2Len = [];
             $jDict = $this->arrayGetDefault($this->b2j, $old[$i], $nothing);
             foreach ($jDict as $j) {
-                if ($j < $blo) {
+                if ($j < $bLower) {
                     continue;
-                } elseif ($j >= $bhi) {
+                } elseif ($j >= $bUpper) {
                     break;
                 }
 
@@ -279,8 +279,8 @@ class SequenceMatcher extends SequenceMatcherHelper
         }
 
         while (
-            $bestI > $alo &&
-            $bestJ > $blo &&
+            $bestI > $aLower &&
+            $bestJ > $bLower &&
             !$this->isBJunk($new[$bestJ - 1]) &&
             !$this->linesAreDifferent($bestI - 1, $bestJ - 1)
         ) {
@@ -290,8 +290,8 @@ class SequenceMatcher extends SequenceMatcherHelper
         }
 
         while (
-            $bestI + $bestSize < $ahi &&
-            ($bestJ + $bestSize) < $bhi &&
+            $bestI + $bestSize < $aUpper &&
+            ($bestJ + $bestSize) < $bUpper &&
             !$this->isBJunk($new[$bestJ + $bestSize]) &&
             !$this->linesAreDifferent($bestI + $bestSize, $bestJ + $bestSize)
         ) {
@@ -299,8 +299,8 @@ class SequenceMatcher extends SequenceMatcherHelper
         }
 
         while (
-            $bestI > $alo &&
-            $bestJ > $blo &&
+            $bestI > $aLower &&
+            $bestJ > $bLower &&
             $this->isBJunk($new[$bestJ - 1]) &&
             !$this->linesAreDifferent($bestI - 1, $bestJ - 1)
         ) {
@@ -310,8 +310,8 @@ class SequenceMatcher extends SequenceMatcherHelper
         }
 
         while (
-            $bestI + $bestSize < $ahi &&
-            $bestJ + $bestSize < $bhi &&
+            $bestI + $bestSize < $aUpper &&
+            $bestJ + $bestSize < $bUpper &&
             $this->isBJunk($new[$bestJ + $bestSize]) &&
             !$this->linesAreDifferent($bestI + $bestSize, $bestJ + $bestSize)
         ) {
@@ -385,26 +385,26 @@ class SequenceMatcher extends SequenceMatcherHelper
 
         $matchingBlocks = [];
         while (!empty($queue)) {
-            [$alo, $ahi, $blo, $bhi] = array_pop($queue);
-            $longestMatch = $this->findLongestMatch($alo, $ahi, $blo, $bhi);
+            [$aLower, $aUpper, $bLower, $bUpper] = array_pop($queue);
+            $longestMatch = $this->findLongestMatch($aLower, $aUpper, $bLower, $bUpper);
             [$list1, $list2, $list3] = $longestMatch;
             if ($list3) {
                 $matchingBlocks[] = $longestMatch;
-                if ($alo < $list1 && $blo < $list2) {
+                if ($aLower < $list1 && $bLower < $list2) {
                     $queue[] = [
-                        $alo,
+                        $aLower,
                         $list1,
-                        $blo,
+                        $bLower,
                         $list2
                     ];
                 }
 
-                if ($list1 + $list3 < $ahi && $list2 + $list3 < $bhi) {
+                if ($list1 + $list3 < $aUpper && $list2 + $list3 < $bUpper) {
                     $queue[] = [
                         $list1 + $list3,
-                        $ahi,
+                        $aUpper,
                         $list2 + $list3,
-                        $bhi
+                        $bUpper
                     ];
                 }
             }
