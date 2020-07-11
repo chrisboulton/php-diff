@@ -25,7 +25,7 @@ class SequenceMatcherHelper
      * @param mixed $default The value to return as the default value if the key doesn't exist.
      * @return mixed The value from the array if the key exists or otherwise the default.
      */
-    protected function arrayGetDefault(array $array, $key, $default)
+    public static function arrayGetDefault(array $array, $key, $default)
     {
         if (isset($array[$key])) {
             return $array[$key];
@@ -40,7 +40,7 @@ class SequenceMatcherHelper
      * @param array $bArray Second array to compare.
      * @return int -1, 0 or 1, as expected by the usort function.
      */
-    protected function tupleSort(array $aArray, array $bArray): int
+    public static function tupleSort(array $aArray, array $bArray): int
     {
         $max = max(count($aArray), count($bArray));
         for ($counter = 0; $counter < $max; ++$counter) {
