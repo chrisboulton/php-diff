@@ -7,6 +7,7 @@ namespace jblond\Diff;
 use InvalidArgumentException;
 use jblond\Diff\Renderer\SequenceMatcherHelper;
 
+
 /**
  * Sequence matcher for Diff
  *
@@ -21,7 +22,7 @@ use jblond\Diff\Renderer\SequenceMatcherHelper;
  * @version 2.0.0
  * @link https://github.com/JBlond/php-diff
  */
-class SequenceMatcher extends SequenceMatcherHelper
+class SequenceMatcher
 {
     /**
      * @var string|array Either a string or an array containing a callback function to determine
@@ -258,7 +259,7 @@ class SequenceMatcher extends SequenceMatcherHelper
 
         for ($i = $aLower; $i < $aUpper; ++$i) {
             $newJ2Len = [];
-            $jDict = $this->arrayGetDefault($this->b2j, $old[$i], $nothing);
+            $jDict = SequenceMatcherHelper::arrayGetDefault($this->b2j, $old[$i], $nothing);
             foreach ($jDict as $j) {
                 if ($j < $bLower) {
                     continue;
@@ -266,7 +267,7 @@ class SequenceMatcher extends SequenceMatcherHelper
                     break;
                 }
 
-                $k = $this->arrayGetDefault($j2Len, $j - 1, 0) + 1;
+                $k = SequenceMatcherHelper::arrayGetDefault($j2Len, $j - 1, 0) + 1;
                 $newJ2Len[$j] = $k;
                 if ($k > $bestSize) {
                     $bestI = $i - $k + 1;
@@ -413,7 +414,7 @@ class SequenceMatcher extends SequenceMatcherHelper
         usort(
             $matchingBlocks,
             function ($aArray, $bArray) {
-                return $this->tupleSort($aArray, $bArray);
+                return SequenceMatcherHelper::tupleSort($aArray, $bArray);
             }
         );
 
