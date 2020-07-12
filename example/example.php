@@ -64,7 +64,6 @@ $diff = new Diff($a, $b);                   // Initialize the diff class with de
             'title2' => 'Custom title for version2',
         ]);
         echo $diff->Render($renderer);
-        $cli = new \jblond\cli\Cli();
         ?>
 
         <h2>HTML Inline Diff</h2>
