@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace jblond\Diff;
 
 use InvalidArgumentException;
-use jblond\Diff\Renderer\SequenceMatcherHelper;
-
 
 /**
  * Sequence matcher for Diff
@@ -259,7 +257,7 @@ class SequenceMatcher
 
         for ($i = $aLower; $i < $aUpper; ++$i) {
             $newJ2Len = [];
-            $jDict = SequenceMatcherHelper::arrayGetDefault($this->b2j, $old[$i], $nothing);
+            $jDict = $this->b2j[$old[$i]] ?? $nothing;
             foreach ($jDict as $j) {
                 if ($j < $bLower) {
                     continue;
@@ -267,7 +265,7 @@ class SequenceMatcher
                     break;
                 }
 
-                $k = SequenceMatcherHelper::arrayGetDefault($j2Len, $j - 1, 0) + 1;
+                $k = ($j2Len[$j - 1] ?? 0) + 1;
                 $newJ2Len[$j] = $k;
                 if ($k > $bestSize) {
                     $bestI = $i - $k + 1;
@@ -414,7 +412,7 @@ class SequenceMatcher
         usort(
             $matchingBlocks,
             function ($aArray, $bArray) {
-                return SequenceMatcherHelper::tupleSort($aArray, $bArray);
+                return DiffUtils::tupleSort($aArray, $bArray);
             }
         );
 
