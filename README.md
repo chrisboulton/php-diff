@@ -64,36 +64,36 @@ A quick usage example can be found in the `example/` directory and under example
 
 #### HTML Side By Side Example
 
-![HTML Side By Side Example](htmlSideBySide.png "HTML Side By Side Example")
+![HTML Side By Side Example](assets/htmlSideBySide.png "HTML Side By Side Example")
 
 <details><summary>More Example Pictures</summary><br>
 
 #### HTML Inline Example
 
-![HTML Inline Example](htmlInline.png "HTML Inline Example")
+![HTML Inline Example](assets/htmlInline.png "HTML Inline Example")
 
 #### HTML Unified Example
 
-![HTML Unified Example](htmlUnified.png "HTML Unified Example")
+![HTML Unified Example](assets/htmlUnified.png "HTML Unified Example")
 
 #### Text Unified Example
 
-![Text Unified Example](textUnified.png "Text Unified Example")
+![Text Unified Example](assets/textUnified.png "Text Unified Example")
 
 #### Text Context Example
 
-![Text Context Example](textContext.png "Text Context Example")
+![Text Context Example](assets/textContext.png "Text Context Example")
 
 #### Text Unified Console Example
 
-![Text Unified Console Example](textUnifiedCli.png "Text Unified Console Example")
+![Text Unified Console Example](assets/textUnifiedCli.png "Text Unified Console Example")
 
 </details>
 
 <details><summary>HTML Side By Side Dark Theme Example</summary><br>
 
 
-![HTML Side By Side Dark Theme Example](htmlSidebySideDarkTheme.png "HTML Side By Side Dark Theme Example")
+![HTML Side By Side Dark Theme Example](assets/htmlSidebySideDarkTheme.png "HTML Side By Side Dark Theme Example")
 
 </details>
 
