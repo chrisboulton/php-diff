@@ -37,6 +37,9 @@ class HtmlRendererTest extends TestCase
         parent::__construct($name, $data, $dataName);
     }
 
+    /**
+     * @covers \jblond\Diff\Renderer\Html\SideBySide
+     */
     public function testSideBySide()
     {
         $diff = new Diff(
@@ -53,6 +56,9 @@ class HtmlRendererTest extends TestCase
         $this->assertStringEqualsFile('tests/resources/htmlSideBySide.txt', $result);
     }
 
+    /**
+     * @covers \jblond\Diff\Renderer\Html\Inline
+     */
     public function testInline()
     {
         $diff = new Diff(
@@ -69,6 +75,9 @@ class HtmlRendererTest extends TestCase
         $this->assertStringEqualsFile('tests/resources/htmlInline.txt', $result);
     }
 
+    /**
+     * @covers \jblond\Diff\Renderer\Html\Unified
+     */
     public function testUnified()
     {
         $diff = new Diff(

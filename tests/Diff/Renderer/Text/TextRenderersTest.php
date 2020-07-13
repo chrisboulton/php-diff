@@ -36,6 +36,10 @@ class TextRendererTest extends TestCase
         parent::__construct($name, $data, $dataName);
     }
 
+    /**
+     * Test context
+     * @covers \jblond\Diff\Renderer\Text\Context
+     */
     public function testContext()
     {
         $diff = new Diff(
@@ -52,6 +56,10 @@ class TextRendererTest extends TestCase
         $this->assertStringEqualsFile('tests/resources/textContext.txt', $result);
     }
 
+    /**
+     * Test Unified
+     * @covers \jblond\Diff\Renderer\Text\Unified
+     */
     public function testUnified()
     {
         $diff = new Diff(
@@ -68,6 +76,10 @@ class TextRendererTest extends TestCase
         $this->assertStringEqualsFile('tests/resources/textUnified.txt', $result);
     }
 
+    /**
+     * Test Unified Cli
+     * @covers \jblond\Diff\Renderer\Text\UnifiedCli
+     */
     public function testUnifiedCli()
     {
         $diff = new Diff(
