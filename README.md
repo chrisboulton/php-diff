@@ -27,8 +27,6 @@ composer require jblond/php-diff
 
 ## Example Use
 
-<details><summary>Example Code</summary><br>
-
 ```PHP
 <?php
 use jblond\Diff;
@@ -45,6 +43,7 @@ $options = [
     'ignoreWhitespace' => true,
     'ignoreCase'       => true,
     'context'          => 2,
+    'cliColor'         => 'simple' // for cli output
 ];
 
 // Initialize the diff class.
@@ -59,8 +58,6 @@ $renderer = new SideBySide([
 // Show it.
 echo $diff->Render($renderer);
 ```
-
-</details>
 
 ### Example Output
 A quick usage example can be found in the `example/` directory and under example.php. Included is a light theme and a dark theme.

@@ -2,8 +2,10 @@
 
 namespace jblond\Diff\Renderer\Text;
 
+use InvalidArgumentException;
 use jblond\cli\CliColors;
 use jblond\Diff\Renderer\RendererAbstract;
+
 
 /**
  * Unified diff generator for PHP DiffLib.
@@ -26,6 +28,11 @@ class UnifiedCli extends RendererAbstract
     private $colors;
 
     /**
+     * @var array
+     */
+    protected $options;
+
+    /**
      * UnifiedCli constructor.
      * @param array $options
      */
@@ -33,14 +40,45 @@ class UnifiedCli extends RendererAbstract
     {
         parent::__construct($options);
         $this->colors = new CliColors();
+        $this->options = $options;
     }
 
     /**
      * Render and return a unified diff.
      *
      * @return string Direct Output to the console
+     * @throws InvalidArgumentException
      */
     public function render(): string
+    {
+        if (!isset($this->options['cliColor'])) {
+            return $this->output();
+        }
+        if (isset($this->options['cliColor']) && $this->options['cliColor'] == 'simple') {
+            return $this->output();
+        }
+        throw new InvalidArgumentException('Invalid cliColor option');
+    }
+
+
+    /**
+     * @param $string
+     * @param string $color
+     * @return string
+     */
+    private function colorizeString($string, $color = ''): string
+    {
+        if (isset($this->options['cliColor']) && $this->options['cliColor'] == 'simple') {
+            return $this->colors->getColoredString($string, $color);
+        }
+        return $string;
+    }
+
+    /**
+     * Render and return a unified colored diff.
+     * @return string
+     */
+    private function output(): string
     {
         $diff = '';
         $opCodes = $this->diff->getGroupedOpCodes();
@@ -56,7 +94,7 @@ class UnifiedCli extends RendererAbstract
                 $i2 = -1;
             }
 
-            $diff .= $this->colors->getColoredString(
+            $diff .= $this->colorizeString(
                 '@@ -' . ($i1 + 1) . ',' . ($i2 - $i1) . ' +' . ($j1 + 1) . ',' . ($j2 - $j1) . " @@\n",
                 'purple'
             );
@@ -66,7 +104,7 @@ class UnifiedCli extends RendererAbstract
                         "\n ",
                         $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
                     );
-                    $diff .= $this->colors->getColoredString(' ' . $string . "\n", 'grey');
+                    $diff .= $this->colorizeString(' ' . $string . "\n", 'grey');
                     continue;
                 }
                 if ($tag == 'replace' || $tag == 'delete') {
@@ -74,14 +112,14 @@ class UnifiedCli extends RendererAbstract
                         "\n- ",
                         $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
                     );
-                    $diff .= $this->colors->getColoredString('-' . $string . "\n", 'light_red');
+                    $diff .= $this->colorizeString('-' . $string . "\n", 'light_red');
                 }
                 if ($tag == 'replace' || $tag == 'insert') {
                     $string = implode(
                         "\n+",
                         $this->diff->getArrayRange($this->diff->getVersion2(), $j1, $j2)
                     );
-                    $diff .= $this->colors->getColoredString('+' . $string . "\n", 'light_green');
+                    $diff .= $this->colorizeString('+' . $string . "\n", 'light_green');
                 }
             }
         }
