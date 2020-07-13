@@ -67,4 +67,20 @@ class TextRendererTest extends TestCase
 
         $this->assertStringEqualsFile('tests/resources/textUnified.txt', $result);
     }
+
+    public function testUnifiedCli()
+    {
+        $diff = new Diff(
+            file_get_contents('tests/resources/a.txt'),
+            file_get_contents('tests/resources/b.txt')
+        );
+
+        $renderer = new Diff\Renderer\Text\UnifiedCli();
+        $result   = $diff->render($renderer);
+        if ($this->genOutputFiles) {
+            file_put_contents('textUnifiedCli.txt', $result);
+        }
+        $this->assertStringEqualsFile('tests/resources/ab.diff', $result);
+    }
 }
+
