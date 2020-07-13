@@ -38,7 +38,3 @@ echo "\n\n Now Colored\n\n";
 $coloredRenderer = new UnifiedCli(['cliColor'=>'simple']);
 
 $cli->output($diff->render($coloredRenderer));
-
-$coloredWordBasedRenderer = new UnifiedCli(['cliColor'=>'wordBased']);
-
-$cli->output($diff->render($coloredWordBasedRenderer));
