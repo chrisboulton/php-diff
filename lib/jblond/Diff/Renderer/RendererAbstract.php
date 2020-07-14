@@ -11,14 +11,14 @@ use jblond\Diff;
  *
  * PHP version 7.2 or greater
  *
- * @package       jblond\Diff\Renderer
- * @author        Chris Boulton <chris.boulton@interspire.com>
- * @author Mario Brandt <leet31337@web.de>
- * @author        Ferry Cools <info@DigiLive.nl>
- * @copyright (c) 2009 Chris Boulton
- * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version       2.0.0
- * @link          https://github.com/JBlond/php-diff
+ * @package     jblond\Diff\Renderer
+ * @author      Chris Boulton <chris.boulton@interspire.com>
+ * @author      Mario Brandt <leet31337@web.de>
+ * @author      Ferry Cools <info@DigiLive.nl>
+ * @copyright   (c) 2020 Mario Brandt
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.1.0
+ * @link        https://github.com/JBlond/php-diff
  */
 abstract class RendererAbstract
 {
@@ -29,7 +29,7 @@ abstract class RendererAbstract
     public $diff;
 
     /**
-     * @var array Array of the default options that apply to this renderer.
+     * @var array<string> Array of the default options that apply to this renderer.
      */
     protected $defaultOptions = [
         'title1' => 'Version1',
@@ -37,7 +37,7 @@ abstract class RendererAbstract
     ];
 
     /**
-     * @var array Array containing the user applied and merged default options for the renderer.
+     * @var array<string> Array containing the user applied and merged default options for the renderer.
      */
     protected $options = [];
 
@@ -57,7 +57,7 @@ abstract class RendererAbstract
      * Options are merged with the default to ensure that there aren't any missing
      * options.
      *
-     * @param array $options Array of options to set.
+     * @param array<string> $options Array of options to set.
      */
     public function setOptions(array $options)
     {

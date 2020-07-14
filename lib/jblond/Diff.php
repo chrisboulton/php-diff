@@ -21,14 +21,14 @@ use OutOfRangeException;
  *
  * PHP version 7.2 or greater
  *
- * @package       jblond
- * @author        Chris Boulton <chris.boulton@interspire.com>
- * @author Mario Brandt <leet31337@web.de>
- * @author        Ferry Cools <info@DigiLive.nl>
- * @copyright (c) 2009 Chris Boulton
- * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version       2.0.0
- * @link          https://github.com/JBlond/php-diff
+ * @package     jblond
+ * @author      Chris Boulton <chris.boulton@interspire.com>
+ * @author      Mario Brandt <leet31337@web.de>
+ * @author      Ferry Cools <info@DigiLive.nl>
+ * @copyright   (c) 2020 Mario Brandt
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.1.0
+ * @link        https://github.com/JBlond/php-diff
  */
 class Diff
 {
@@ -50,8 +50,9 @@ class Diff
     private $groupedCodes;
 
     /**
-     * @var array   Associative array containing the default options available for the diff class and their default
-     *              value.
+     * @var array<string> Associative array containing the default options available
+     *                    for the diff class and their default value.
+     *
      *              - context           The amount of lines to include around blocks that differ.
      *              - trimEqual         Strip blocks of equal lines from the start and end of the text.
      *              - ignoreWhitespace  When true, tabs and spaces are ignored while comparing.
@@ -111,8 +112,8 @@ class Diff
      *
      * @param mixed $var Variable to get type from.
      *
-     * @return int  Number indicating the type of the variable. 0 for array type and 1 for string type.
-     * @throws InvalidArgumentException    When the type isn't 'array' or 'string'.
+     * @return int umber indicating the type of the variable. 0 for array type and 1 for string type.
+     * @throws InvalidArgumentException When the type isn't 'array' or 'string'.
      *
      */
     public function getArgumentType($var): int

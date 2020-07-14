@@ -9,14 +9,14 @@ namespace jblond\Diff\Renderer\Html;
  *
  * PHP version 7.2 or greater
  *
- * @package       jblond\Diff\Renderer\Html
- * @author        Chris Boulton <chris.boulton@interspire.com>
- * @author Mario Brandt <leet31337@web.de>
- * @author        Ferry Cools <info@DigiLive.nl>
- * @copyright (c) 2009 Chris Boulton
- * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version       2.0.0
- * @link          https://github.com/JBlond/php-diff
+ * @package     jblond\Diff\Renderer\Html
+ * @author      Chris Boulton <chris.boulton@interspire.com>
+ * @author      Mario Brandt <leet31337@web.de>
+ * @author      Ferry Cools <info@DigiLive.nl>
+ * @copyright   (c) 2009 Chris Boulton
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.1.0
+ * @link        https://github.com/JBlond/php-diff
  */
 class SideBySide extends HtmlArray
 {

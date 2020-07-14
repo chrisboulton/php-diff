@@ -11,20 +11,21 @@ use jblond\Diff\Renderer\RendererAbstract;
  *
  * PHP version 7.2 or greater
  *
- * @package       jblond\Diff\Renderer\Html
- * @author        Chris Boulton <chris.boulton@interspire.com>
- * @author Mario Brandt <leet31337@web.de>
- * @author        Ferry Cools <info@DigiLive.nl>
- * @copyright (c) 2009 Chris Boulton
- * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version       2.0.0
- * @link          https://github.com/JBlond/php-diff
+ * @package     jblond\Diff\Renderer\Html
+ * @author      Chris Boulton <chris.boulton@interspire.com>
+ * @author      Mario Brandt <leet31337@web.de>
+ * @author      Ferry Cools <info@DigiLive.nl>
+ * @copyright   (c) 2020 Mario Brandt
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.1.0
+ * @link        https://github.com/JBlond/php-diff
  */
 class HtmlArray extends RendererAbstract
 {
     /**
-     * @var array   Associative array containing the default options available for this renderer and their default
-     *              value.
+     * @var array<string> Associative array containing the default options available
+     *                    for this renderer and their default value.
+     *
      *              - tabSize   The amount of spaces to replace a tab character with.
      *              - title_a   Title of the "old" version of text.
      *              - title_b   Title of the "new" version of text.
@@ -46,7 +47,7 @@ class HtmlArray extends RendererAbstract
      *
      * This method is called by the renderers which extends this class.
      *
-     * @param array  $changes      Contains the op-codes about the differences between "old and "new".
+     * @param array $changes Contains the op-codes about the differences between "old and "new".
      * @param object|Inline|SideBySide|Unified $htmlRenderer Renderer which extends this class.
      *
      * @return string HTML representation of the differences.
