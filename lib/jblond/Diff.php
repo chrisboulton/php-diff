@@ -112,7 +112,7 @@ class Diff
      *
      * @param mixed $var Variable to get type from.
      *
-     * @return int umber indicating the type of the variable. 0 for array type and 1 for string type.
+     * @return int Number indicating the type of the variable. 0 for array type and 1 for string type.
      * @throws InvalidArgumentException When the type isn't 'array' or 'string'.
      *
      */
