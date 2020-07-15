@@ -4,33 +4,28 @@ namespace jblond\Diff\Renderer\Text;
 
 use InvalidArgumentException;
 use jblond\cli\CliColors;
-use jblond\Diff\Renderer\RendererAbstract;
-
+use jblond\Diff\Renderer\MainRendererAbstract;
 
 /**
  * Unified diff generator for PHP DiffLib.
  *
  * PHP version 7.2 or greater
  *
- * @package  jblond\Diff\Renderer\Text
- * @author Mario Brandt <leet31337@web.de>
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 2.0.0
- * @link https://github.com/JBlond/php-diff
+ * @package         jblond\Diff\Renderer\Text
+ * @author          Mario Brandt <leet31337@web.de>
+ * @copyright (c)   2020 Mario Brandt
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.0.0
+ * @link            https://github.com/JBlond/php-diff
  */
 
-class UnifiedCli extends RendererAbstract
+class UnifiedCli extends MainRendererAbstract
 {
 
     /**
      * @var CliColors
      */
     private $colors;
-
-    /**
-     * @var array
-     */
-    protected $options;
 
     /**
      * UnifiedCli constructor.

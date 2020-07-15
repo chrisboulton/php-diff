@@ -4,94 +4,91 @@ declare(strict_types=1);
 
 namespace jblond\Diff\Renderer\Html;
 
+use jblond\Diff\Renderer\MainRenderer;
+use jblond\Diff\Renderer\SubRenderer;
+
 /**
  * Unified HTML diff generator for PHP DiffLib.
  *
  * PHP version 7.2 or greater
  *
- * @package       jblond\Diff\Renderer\Html
- * @author Mario Brandt <leet31337@web.de>
- * @author        Ferry Cools <info@DigiLive.nl>
- * @copyright (c) 2009 Chris Boulton
- * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version       2.0.0
- * @link          https://github.com/JBlond/php-diff
+ * @package         jblond\Diff\Renderer\Html
+ * @author          Chris Boulton <chris.boulton@interspire.com>
+ * @author          Mario Brandt <leet31337@web.de>
+ * @author          Ferry Cools <info@DigiLive.nl>
+ * @copyright   (c) 2009 Chris Boulton
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.0.0
+ * @link            https://github.com/JBlond/php-diff
  */
-class Unified extends HtmlArray
+class Unified extends MainRenderer implements SubRenderer
 {
     /**
-     * Render and return a unified diff-view with changes between the two sequences displayed inline (under each other).
+     * @var array   Associative array containing the default options available for this renderer and their default
+     *              value.
+     *              - format            Format of the texts.
+     *              - insertMarkers     Markers for inserted text.
+     *              - deleteMarkers     Markers for removed text.
+     *              - title1            Title of the "old" version of text.
+     *              - title2            Title of the "new" version of text.
+     */
+    protected $subOptions = [
+        'format'        => 'html',
+        'insertMarkers' => ['<ins>', '</ins>'],
+        'deleteMarkers' => ['<del>', '</del>'],
+        'title1'        => 'Version1',
+        'title2'        => 'Version2',
+    ];
+
+    /**
+     * Unified constructor.
      *
-     * @return string The generated inline diff-view.
+     * @param array $options Custom defined options for the inline diff renderer.
+     *
+     * @see Inline::$subOptions
+     */
+    public function __construct(array $options = [])
+    {
+        parent::__construct();
+        $this->setOptions($this->subOptions);
+        $this->setOptions($options);
+    }
+
+    /**
+     * Render a and return diff-view with changes between the two sequences (under each other).
+     *
+     * @return string The generated unified diff-view.
      */
     public function render(): string
     {
-        $changes = parent::render();
+        $changes = parent::renderSequences();
 
-        return $this->renderHtml($changes);
+        return parent::renderOutput($changes, $this);
     }
 
     /**
-     * Render the unified diff-view as html.
+     * Generates a string representation of the opening of a predefined table and its header with titles from options.
      *
-     * Since this class extends the "HtmlArray" class which in turn extends "RendererAbstract" class, this method needs
-     * to match the signature of RendererAbstract::renderHTML(). However the second parameter isn't used and can be
-     * omitted.
-     *
-     * @param array $changes Contains the op-codes about the differences between "old and "new".
-     * @param null  $object  Unused.
-     *
-     * @return string HTML code containing the unified differences.
+     * @return string HTML code representation of the diff-view header.
      */
-    public function renderHtml($changes, $object = null): string
+    public function generateDiffHeader(): string
     {
-        if (empty($changes)) {
-            //No changes between "old" and "new"
-            return 'No differences found.';
-        }
+        return '<span class="Differences DifferencesUnified">';
+    }
 
-        $html = '<span class="Differences DifferencesUnified">';
-
-        foreach ($changes as $i => $blocks) {
-            if ($i > 0) {
-                // If this is a separate block, we're condensing code to output …,
-                // indicating a significant portion of the code has been collapsed as it did not change.
-                $html .= <<<HTML
-<span class="Skipped" title="Equal lines collapsed!">&hellip;</span>
-HTML;
-            }
-
-            foreach ($blocks as $change) {
-                $html .= '<span class="Change' . ucfirst($change['tag']) . '">';
-                switch ($change['tag']) {
-                    case 'equal':
-                        // Add unmodified lines.
-                        $html .= $this->generateLinesEqual($change);
-                        break;
-                    case 'insert':
-                        // Add Added lines.
-                        $html .= $this->generateLinesInsert($change);
-                        break;
-                    case 'delete':
-                        // Add deleted lines.
-                        $html .= $this->generateLinesDelete($change);
-                        break;
-                    case 'replace':
-                        // Add modified lines.
-                        $html .= $this->generateLinesReplace($change);
-                        break;
-                }
-                $html .= '</span>';
-            }
-        }
-        $html .= '</span>';
-
-        return $html;
+    /**
+     * Generates a string representation of lines that are skipped.
+     *
+     * @return string HTML code representation of a table's header.
+     */
+    public function generateSkippedLines(): string
+    {
+        return '<div class="Skipped" title="Equal lines collapsed!">&hellip;</div>';
     }
 
 
     /**
-     * Generates a string representation of blocks of text with no difference.
+     * Generate a string representation of lines without differences between both versions.
      *
      * @param array $change Contains the op-codes about the changes between two blocks.
      *
@@ -109,7 +106,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of a block of text, where new text was added.
+     * Generates a string representation of lines that are added to the 2nd version.
      *
      * @param array $change Contains the op-codes about the changes between two blocks.
      *
@@ -127,7 +124,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of a block of text, where text was removed.
+     * Generates a string representation of lines that are removed from the 2nd version.
      *
      * @param array $change Contains the op-codes about the changes between two blocks.
      *
@@ -144,7 +141,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of a block of text, where text was partially modified.
+     * Generates a string representation of a lines that are partially modified.
      *
      * @param array $change Contains the op-codes about the changes between two blocks.
      *
@@ -156,14 +153,50 @@ HTML;
 
         // Lines with characters removed.
         foreach ($change['base']['lines'] as $line) {
+            $line = str_replace(["\0", "\1"], $this->options['deleteMarkers'], $line);
             $html .= '<span class="Left">' . $line . '</span><br>';
         }
 
         // Lines with characters added.
         foreach ($change['changed']['lines'] as $line) {
+            $line = str_replace(["\0", "\1"], $this->options['insertMarkers'], $line);
             $html .= '<span class="Right">' . $line . '</span><br>';
         }
 
         return $html;
+    }
+
+    /**
+     * Generate a string representation of the start of a block.
+     *
+     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     *
+     * @return string Start of the diff view.
+     */
+    public function generateBlockHeader(array $changes): string
+    {
+        return '<span class="Change' . ucfirst($changes['tag']) . '">';
+    }
+
+    /**
+     * Generate a string representation of the end of a block.
+     *
+     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     *
+     * @return string End of the block.
+     */
+    public function generateBlockFooter(array $changes): string
+    {
+        return '</span>';
+    }
+
+    /**
+     * Generate a string representation of the end of a diff view.
+     *
+     * @return string End of the diff view.
+     */
+    public function generateDiffFooter(): string
+    {
+        return '</span>';
     }
 }

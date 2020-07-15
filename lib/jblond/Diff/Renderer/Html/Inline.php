@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace jblond\Diff\Renderer\Html;
 
+use jblond\Diff\Renderer\MainRenderer;
+use jblond\Diff\Renderer\SubRenderer;
+
 /**
  * Inline HTML diff generator for PHP DiffLib.
  *
@@ -11,34 +14,65 @@ namespace jblond\Diff\Renderer\Html;
  *
  * @package       jblond\Diff\Renderer\Html
  * @author        Chris Boulton <chris.boulton@interspire.com>
- * @author Mario Brandt <leet31337@web.de>
+ * @author        Mario Brandt <leet31337@web.de>
  * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version       2.0.0
  * @link          https://github.com/JBlond/php-diff
  */
-class Inline extends HtmlArray
+class Inline extends MainRenderer implements SubRenderer
 {
     /**
-     * Render a and return diff-view with changes between the two sequences displayed side by side. (under each other)
+     * @var array   Associative array containing the default options available for this renderer and their default
+     *              value.
+     *              - format            Format of the texts.
+     *              - insertMarkers     Markers for inserted text.
+     *              - deleteMarkers     Markers for removed text.
+     *              - title1            Title of the 1st version of text.
+     *              - title2            Title of the 2nd version of text.
+     */
+    protected $subOptions = [
+        'format'        => 'html',
+        'insertMarkers' => ['<ins>', '</ins>'],
+        'deleteMarkers' => ['<del>', '</del>'],
+        'title1'        => 'Version1',
+        'title2'        => 'Version2',
+    ];
+
+    /**
+     * Inline constructor.
+     *
+     * @param array $options Custom defined options for the inline diff renderer.
+     *
+     * @see Inline::$subOptions
+     */
+    public function __construct(array $options = [])
+    {
+        parent::__construct();
+        $this->setOptions($this->subOptions);
+        $this->setOptions($options);
+    }
+
+    /**
+     * Render and return a diff-view with changes between the two sequences displayed inline (under each other).
      *
      * @return string The generated inline diff-view.
      */
     public function render(): string
     {
-        $changes = parent::render();
+        $changes = parent::renderSequences();
 
-        return parent::renderHtml($changes, $this);
+        return parent::renderOutput($changes, $this);
     }
 
-
     /**
-     * Generates a string representation of the opening of a predefined table and its header with titles from options.
+     * Generates a string representation of the opening of a table and its header with titles from the sub renderer's
+     * options.
      *
      * @return string HTML code representation of a table's header.
      */
-    public function generateTableHeader(): string
+    public function generateDiffHeader(): string
     {
         return <<<HTML
 <table class="Differences DifferencesInline">
@@ -53,11 +87,11 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows showing lines are skipped.
+     * Generates a string representation of table rows with lines that are skipped.
      *
-     * @return string HTML code representation of a table's header.
+     * @return string HTML code representation of skipped lines.
      */
-    public function generateTableRowsSkipped(): string
+    public function generateSkippedLines(): string
     {
         return <<<HTML
 <tr>
@@ -69,13 +103,13 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows showing text with no difference.
+     * Generate a string representation of table rows with lines without differences between both versions.
      *
      * @param array $changes Contains the op-codes about the changes between two blocks.
      *
-     * @return string HTML code representing table rows showing text with no difference.
+     * @return string HTML code representing table rows showing text without differences.
      */
-    public function generateTableRowsEqual(array $changes): string
+    public function generateLinesEqual(array $changes): string
     {
         $html = '';
 
@@ -96,13 +130,13 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows showing added text.
+     * Generates a string representation of table rows with lines that are added to the 2nd version.
      *
      * @param array $changes Contains the op-codes about the changes between two blocks of text.
      *
      * @return string HTML code representing table rows showing with added text.
      */
-    public function generateTableRowsInsert(array $changes): string
+    public function generateLinesInsert(array $changes): string
     {
         $html = '';
 
@@ -125,13 +159,13 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows showing removed text.
+     * Generates a string representation of table rows with lines that are removed from the 2nd version.
      *
      * @param array $changes Contains the op-codes about the changes between two blocks of text.
      *
      * @return string HTML code representing table rows showing removed text.
      */
-    public function generateTableRowsDelete(array $changes): string
+    public function generateLinesDelete(array $changes): string
     {
         $html = '';
 
@@ -154,20 +188,20 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows showing partially modified text.
+     * Generates a string representation of table rows with lines that are partially modified.
      *
      * @param array $changes Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Html code representing table rows showing modified text.
      */
-    public function generateTableRowsReplace(array $changes): string
+    public function generateLinesReplace(array $changes): string
     {
         $html = '';
 
         foreach ($changes['base']['lines'] as $lineNo => $line) {
             $fromLine = $changes['base']['offset'] + $lineNo + 1;
-
-            $html .= <<<HTML
+            $line     = str_replace(["\0", "\1"], $this->options['deleteMarkers'], $line);
+            $html     .= <<<HTML
 <tr>
     <th>$fromLine</th>
     <th>&nbsp;</th>
@@ -180,8 +214,8 @@ HTML;
 
         foreach ($changes['changed']['lines'] as $lineNo => $line) {
             $toLine = $changes['changed']['offset'] + $lineNo + 1;
-
-            $html .= <<<HTML
+            $line   = str_replace(["\0", "\1"], $this->options['insertMarkers'], $line);
+            $html   .= <<<HTML
 <tr>
     <th>&nbsp;</th>
     <th>$toLine</th>
@@ -193,5 +227,39 @@ HTML;
         }
 
         return $html;
+    }
+
+    /**
+     * Generate a string representation of the start of a block.
+     *
+     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     *
+     * @return string Start of the diff view.
+     */
+    public function generateBlockHeader(array $changes): string
+    {
+        return '<tbody class="Change' . ucfirst($changes['tag']) . '">';
+    }
+
+    /**
+     * Generate a string representation of the end of a block.
+     *
+     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     *
+     * @return string End of the block.
+     */
+    public function generateBlockFooter(array $changes): string
+    {
+        return '</tbody>';
+    }
+
+    /**
+     * Generate a string representation of the end of a diff view.
+     *
+     * @return string End of the diff view.
+     */
+    public function generateDiffFooter(): string
+    {
+        return '</table>';
     }
 }

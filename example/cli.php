@@ -2,18 +2,23 @@
 
 use jblond\cli\Cli;
 use jblond\Diff;
+use jblond\Diff\Renderer\Text\InlineCli;
 use jblond\Diff\Renderer\Text\UnifiedCli;
+
+// Validate the interpreter.
+if (php_sapi_name() !== 'cli') {
+    echo 'This script demonstrates console support for the php-diff package.<br>';
+    echo 'Please execute it from a cli interpreter.';
+    exit;
+}
+
 
 // Include and instantiate autoloader.
 require '../vendor/autoload.php';
 
-// jblond\cli\Cli
-$cli = new Cli();
-
-
 // Include two sample files for comparison.
-$a = file_get_contents(dirname(__FILE__) . '/a.txt');
-$b = file_get_contents(dirname(__FILE__) . '/b.txt');
+$sampleA = file_get_contents(dirname(__FILE__) . '/a.txt');
+$sampleB = file_get_contents(dirname(__FILE__) . '/b.txt');
 
 $customOptions = [
     'context'          => 2,
@@ -23,18 +28,48 @@ $customOptions = [
 ];
 
 // Choose one of the initializations.
-$diff = new Diff($a, $b);
+$diff = new Diff($sampleA, $sampleB);
+//$diff = new Diff($a, $b, $customOptions); // Initialize the diff class with custom options.
 
+// Instantiate Cli wrapper
+$cli = new Cli();
 
 // Generate a unified diff.
-// \jblond\Diff\Renderer\Text
 $renderer = new UnifiedCli();
+echo "-= Unified Default =-\n\n";
+$cli->output($diff->render($renderer));
 
+echo "\n\n-= Unified Colored =-\n\n";
+
+$renderer = new UnifiedCli(
+// Define renderer options.
+    [
+        'cliColor' => 'simple',
+    ]
+);
 
 $cli->output($diff->render($renderer));
 
-echo "\n\n Now Colored\n\n";
 
-$coloredRenderer = new UnifiedCli(['cliColor'=>'simple']);
+// Generate an inline diff.
+$renderer = new InlineCli(
+// Define renderer options.
+    [
+        'deleteMarkers'   => ['-', '-'],
+        'insertMarkers'   => ['+', '+'],
+        'equalityMarkers' => ['=', 'x'],
+    ]
+);
+echo "-= Inline Marked =-\n\n";
+$cli->output($diff->render($renderer));
+
+echo "-= Inline Colored =-\n\n";
+
+$coloredRenderer = new InlineCli(
+// Define renderer options.
+    [
+        'cliColor' => true,
+    ]
+);
 
 $cli->output($diff->render($coloredRenderer));

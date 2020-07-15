@@ -12,9 +12,15 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class TextRendererTest
  *
- * PHPUnit tests to verify the output of the text renderers hasn't change by code changes.
+ * PHPUnit tests to verify that the output of the text renderers did not change due to code changes.
  *
- * @package Tests\Diff\Renderer\Text
+ * @package     Tests\Diff\Renderer\Text
+ * @author      Mario Brandt <leet31337@web.de>
+ * @author      Ferry Cools <info@DigiLive.nl>
+ * @copyright   (c) 2019 Mario Brandt
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.0.0
+ * @link        https://github.com/JBlond/php-diff
  */
 class TextRendererTest extends TestCase
 {
@@ -24,11 +30,11 @@ class TextRendererTest extends TestCase
     private $genOutputFiles = false;
 
     /**
-     * Constructor.
+     * TextRendererTest constructor.
      *
-     * @param null      $name
-     * @param array     $data
-     * @param string    $dataName
+     * @param null   $name
+     * @param array  $data
+     * @param string $dataName
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -37,7 +43,7 @@ class TextRendererTest extends TestCase
     }
 
     /**
-     * Test context
+     * Test the output of the text-context renderer.
      * @covers \jblond\Diff\Renderer\Text\Context
      */
     public function testContext()
@@ -47,8 +53,8 @@ class TextRendererTest extends TestCase
             file_get_contents('tests/resources/b.txt')
         );
 
-        $renderer   = new Context();
-        $result     = $diff->render($renderer);
+        $renderer = new Context();
+        $result   = $diff->render($renderer);
         if ($this->genOutputFiles) {
             file_put_contents('textContext.txt', $result);
         }
@@ -57,7 +63,7 @@ class TextRendererTest extends TestCase
     }
 
     /**
-     * Test Unified
+     * Test the output of the text-unified renderer.
      * @covers \jblond\Diff\Renderer\Text\Unified
      */
     public function testUnified()
@@ -67,8 +73,8 @@ class TextRendererTest extends TestCase
             file_get_contents('tests/resources/b.txt')
         );
 
-        $renderer   = new Unified();
-        $result     = $diff->render($renderer);
+        $renderer = new Unified();
+        $result   = $diff->render($renderer);
         if ($this->genOutputFiles) {
             file_put_contents('textUnified.txt', $result);
         }
@@ -77,7 +83,7 @@ class TextRendererTest extends TestCase
     }
 
     /**
-     * Test Unified Cli
+     * Test the output of the CLI text-context renderer.
      * @covers \jblond\Diff\Renderer\Text\UnifiedCli
      */
     public function testUnifiedCli()
@@ -92,7 +98,32 @@ class TextRendererTest extends TestCase
         if ($this->genOutputFiles) {
             file_put_contents('textUnifiedCli.txt', $result);
         }
-        $this->assertStringEqualsFile('tests/resources/ab.diff', $result);
+        $this->assertStringEqualsFile('tests/resources/textUnifiedCli.txt', $result);
+    }
+
+    /**
+     * Test the output of the CLI text-inline renderer.
+     * @covers \jblond\Diff\Renderer\Text\InlineCli
+     */
+    public function testInlineCli()
+    {
+        $diff = new Diff(
+            file_get_contents('tests/resources/a.txt'),
+            file_get_contents('tests/resources/b.txt')
+        );
+
+        $renderer = new Diff\Renderer\Text\InlineCli(
+            [
+                'cliColor'        => true,
+                'deleteMarkers'   => ['-', '-'],
+                'insertMarkers'   => ['+', '+'],
+                'equalityMarkers' => ['=', 'x'],
+            ]
+        );
+        $result   = $diff->render($renderer);
+        if ($this->genOutputFiles) {
+            file_put_contents('textInlineCli.txt', $result);
+        }
+        $this->assertStringEqualsFile('tests/resources/textInlineCli.txt', $result);
     }
 }
-

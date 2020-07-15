@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace jblond\Diff\Renderer\Text;
 
-use jblond\Diff\Renderer\RendererAbstract;
+use jblond\Diff\Renderer\MainRendererAbstract;
 
 /**
  * Context diff generator for PHP DiffLib.
@@ -20,7 +20,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  * @version       2.0.0
  * @link          https://github.com/JBlond/php-diff
  */
-class Context extends RendererAbstract
+class Context extends MainRendererAbstract
 {
     /**
      * @var array Array of the different op-code tags and how they map to the context diff-view equivalent.

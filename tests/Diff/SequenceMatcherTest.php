@@ -5,11 +5,25 @@ namespace Diff\Renderer;
 use jblond\Diff\SequenceMatcher;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * PHPUnit Test for the main renderer of PHP DiffLib.
+ *
+ * PHP version 7.2 or greater
+ *
+ * @package     Tests\Diff
+ * @author      Mario Brandt <leet31337@web.de>
+ * @author      Ferry Cools <info@DigiLive.nl>
+ * @copyright   (c) 2009 Mario Brandt
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.0.0
+ * @link        https://github.com/JBlond/php-diff
+ */
+
 class SequenceMatcherTest extends TestCase
 {
 
     /**
-     * Constructor.
+     * SequenceMatcherTest constructor.
      *
      * @param null   $name
      * @param array  $data

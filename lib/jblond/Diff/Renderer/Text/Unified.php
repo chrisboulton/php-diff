@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace jblond\Diff\Renderer\Text;
 
-use jblond\Diff\Renderer\RendererAbstract;
+use jblond\Diff\Renderer\MainRendererAbstract;
 
 /**
  * Unified diff generator for PHP DiffLib.
@@ -23,7 +23,7 @@ use jblond\Diff\Renderer\RendererAbstract;
 /**
  * Class Diff_Renderer_Text_Unified
  */
-class Unified extends RendererAbstract
+class Unified extends MainRendererAbstract
 {
     /**
      * Render and return a unified diff.
