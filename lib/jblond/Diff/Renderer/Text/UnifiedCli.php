@@ -6,7 +6,6 @@ use InvalidArgumentException;
 use jblond\cli\CliColors;
 use jblond\Diff\Renderer\RendererAbstract;
 
-
 /**
  * Unified diff generator for PHP DiffLib.
  *
