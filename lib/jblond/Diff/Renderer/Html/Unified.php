@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace jblond\Diff\Renderer\Html;
 
 use jblond\Diff\Renderer\MainRenderer;
-use jblond\Diff\Renderer\SubRenderer;
+use jblond\Diff\Renderer\SubRendererInterface;
 
 /**
  * Unified HTML diff generator for PHP DiffLib.
@@ -21,7 +21,7 @@ use jblond\Diff\Renderer\SubRenderer;
  * @version         2.0.0
  * @link            https://github.com/JBlond/php-diff
  */
-class Unified extends MainRenderer implements SubRenderer
+class Unified extends MainRenderer implements SubRendererInterface
 {
     /**
      * @var array   Associative array containing the default options available for this renderer and their default

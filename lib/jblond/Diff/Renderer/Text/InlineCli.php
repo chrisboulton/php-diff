@@ -6,7 +6,7 @@ namespace jblond\Diff\Renderer\Text;
 
 use jblond\cli\CliColors;
 use jblond\Diff\Renderer\MainRenderer;
-use jblond\Diff\Renderer\SubRenderer;
+use jblond\Diff\Renderer\SubRendererInterface;
 
 /**
  * Inline diff generator for PHP DiffLib.
@@ -20,7 +20,7 @@ use jblond\Diff\Renderer\SubRenderer;
  * @version     2.0.0
  * @link        https://github.com/JBlond/php-diff
  */
-class InlineCli extends MainRenderer implements SubRenderer
+class InlineCli extends MainRenderer implements SubRendererInterface
 {
     /**
      * @var array   Associative array containing the default options available for this renderer and their default

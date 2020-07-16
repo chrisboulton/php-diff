@@ -9,7 +9,7 @@ use jblond\Diff\Renderer\Text\UnifiedCli;
 if (php_sapi_name() !== 'cli') {
     echo 'This script demonstrates console support for the php-diff package.<br>';
     echo 'Please execute it from a cli interpreter.';
-    exit;
+    throw new RuntimeException('Script for CLI use only!');
 }
 
 

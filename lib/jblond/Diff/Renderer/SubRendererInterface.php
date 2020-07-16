@@ -16,7 +16,7 @@ namespace jblond\Diff\Renderer;
  * @version     2.0.0
  * @link        https://github.com/JBlond/php-diff
  */
-interface SubRenderer
+interface SubRendererInterface
 {
     /**
      * Render and return a diff-view with changes between two sequences.
