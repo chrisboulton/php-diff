@@ -11,14 +11,14 @@ use InvalidArgumentException;
  *
  * PHP version 7.2 or greater
  *
- * @package jblond\Diff
- * @author Chris Boulton <chris.boulton@interspire.com>
- * @author Mario Brandt <leet31337@web.de>
- * @author Ferry Cools <info@DigiLive.nl>
- * @copyright (c) 2009 Chris Boulton
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 2.0.0
- * @link https://github.com/JBlond/php-diff
+ * @package     jblond\Diff
+ * @author      Chris Boulton <chris.boulton@interspire.com>
+ * @author      Mario Brandt <leet31337@web.de>
+ * @author      Ferry Cools <info@DigiLive.nl>
+ * @copyright   (c) 2020 Mario Brandt
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.1.0
+ * @link        https://github.com/JBlond/php-diff
  */
 class SequenceMatcher
 {
@@ -79,9 +79,9 @@ class SequenceMatcher
      * sequence matcher and it will perform a basic cleanup & calculate junk
      * elements.
      *
-     * @param string|array $old A string or array containing the lines to compare against.
-     * @param string|array $new A string or array containing the lines to compare.
-     * @param array $options
+     * @param string|array      $old A string or array containing the lines to compare against.
+     * @param string|array      $new A string or array containing the lines to compare.
+     * @param array             $options
      * @param string|array|null $junkCallback Either an array or string that references a callback function
      * (if there is one) to determine 'junk' characters.
      */
@@ -212,7 +212,7 @@ class SequenceMatcher
      * for the list of junk characters.
      *
      * @param string $bString
-     * @return bool $b True if the character is considered junk. False if not.
+     * @return bool True if the character is considered junk. False if not.
      */
     private function isBJunk(string $bString): bool
     {

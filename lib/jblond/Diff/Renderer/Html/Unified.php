@@ -10,11 +10,11 @@ namespace jblond\Diff\Renderer\Html;
  * PHP version 7.2 or greater
  *
  * @package       jblond\Diff\Renderer\Html
- * @author Mario Brandt <leet31337@web.de>
+ * @author        Mario Brandt <leet31337@web.de>
  * @author        Ferry Cools <info@DigiLive.nl>
- * @copyright (c) 2009 Chris Boulton
+ * @copyright     (c) 2020 Mario Brandt
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version       2.0.0
+ * @version       2.1.0
  * @link          https://github.com/JBlond/php-diff
  */
 class Unified extends HtmlArray

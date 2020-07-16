@@ -12,11 +12,11 @@ use jblond\Diff\Renderer\RendererAbstract;
  *
  * PHP version 7.2 or greater
  *
- * @package  jblond\Diff\Renderer\Text
- * @author Mario Brandt <leet31337@web.de>
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 2.0.0
- * @link https://github.com/JBlond/php-diff
+ * @package     jblond\Diff\Renderer\Text
+ * @author      Mario Brandt <leet31337@web.de>
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.1.0
+ * @link        https://github.com/JBlond/php-diff
  */
 
 class UnifiedCli extends RendererAbstract
@@ -34,7 +34,7 @@ class UnifiedCli extends RendererAbstract
 
     /**
      * UnifiedCli constructor.
-     * @param array $options
+     * @param array<string, string> $options
      */
     public function __construct(array $options = [])
     {
@@ -62,11 +62,11 @@ class UnifiedCli extends RendererAbstract
 
 
     /**
-     * @param $string
+     * @param string $string
      * @param string $color
      * @return string
      */
-    private function colorizeString($string, $color = ''): string
+    private function colorizeString(string $string, string $color = ''): string
     {
         if (isset($this->options['cliColor']) && $this->options['cliColor'] == 'simple') {
             return $this->colors->getColoredString($string, $color);
