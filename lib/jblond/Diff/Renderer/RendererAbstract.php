@@ -29,7 +29,7 @@ abstract class RendererAbstract
     public $diff;
 
     /**
-     * @var array<string> Array of the default options that apply to this renderer.
+     * @var array<string, string> Array of the default options that apply to this renderer.
      */
     protected $defaultOptions = [
         'title1' => 'Version1',
@@ -37,7 +37,7 @@ abstract class RendererAbstract
     ];
 
     /**
-     * @var array<string> Array containing the user applied and merged default options for the renderer.
+     * @var array<string, string> Array containing the user applied and merged default options for the renderer.
      */
     protected $options = [];
 
@@ -57,7 +57,7 @@ abstract class RendererAbstract
      * Options are merged with the default to ensure that there aren't any missing
      * options.
      *
-     * @param array<string> $options Array of options to set.
+     * @param array<string, string> $options Array of options to set.
      */
     public function setOptions(array $options)
     {

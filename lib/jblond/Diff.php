@@ -50,7 +50,7 @@ class Diff
     private $groupedCodes;
 
     /**
-     * @var array<string> Associative array containing the default options available
+     * @var array<string, string> Associative array containing the default options available
      *                    for the diff class and their default value.
      *
      *              - context           The amount of lines to include around blocks that differ.

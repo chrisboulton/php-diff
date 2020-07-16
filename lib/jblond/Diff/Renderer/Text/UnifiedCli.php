@@ -34,7 +34,7 @@ class UnifiedCli extends RendererAbstract
 
     /**
      * UnifiedCli constructor.
-     * @param array<string> $options
+     * @param array<string, string> $options
      */
     public function __construct(array $options = [])
     {

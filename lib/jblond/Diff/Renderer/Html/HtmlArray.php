@@ -23,7 +23,7 @@ use jblond\Diff\Renderer\RendererAbstract;
 class HtmlArray extends RendererAbstract
 {
     /**
-     * @var array<string> Associative array containing the default options available
+     * @var array<string, string> Associative array containing the default options available
      *                    for this renderer and their default value.
      *
      *              - tabSize   The amount of spaces to replace a tab character with.
