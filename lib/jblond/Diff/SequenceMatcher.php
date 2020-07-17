@@ -555,7 +555,7 @@ class SequenceMatcher
 
         if ($this->options['trimEqual']) {
             if ($opCodes['0']['0'] == 'equal') {
-                // Remove sequences at the start which are out of context.
+                // Remove sequences at the start of the text, but keep the context lines.
                 $opCodes['0'] = [
                     $opCodes['0']['0'],
                     max($opCodes['0']['1'], $opCodes['0']['2'] - $this->options['context']),
@@ -568,7 +568,7 @@ class SequenceMatcher
             $lastItem = count($opCodes) - 1;
             if ($opCodes[$lastItem]['0'] == 'equal') {
                 [$tag, $item1, $item2, $item3, $item4] = $opCodes[$lastItem];
-                // Remove sequences at the end which are out of context.
+                // Remove sequences at the end of the text, but keep the context lines.
                 $opCodes[$lastItem] = [
                     $tag,
                     $item1,
@@ -607,8 +607,8 @@ class SequenceMatcher
             ];
         }
 
-        if ($this->options['trimEqual'] || (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal'))) {
-            //Do not add the last sequences. They're out of context.
+        if (!$this->options['trimEqual'] || (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal'))) {
+            // Add the last sequences when !trimEqual || When there are no differences between both versions.
             $groups[] = $group;
         }
 

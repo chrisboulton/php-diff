@@ -95,4 +95,3 @@ class TextRendererTest extends TestCase
         $this->assertStringEqualsFile('tests/resources/ab.diff', $result);
     }
 }
-
