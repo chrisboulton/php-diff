@@ -7,11 +7,11 @@ namespace jblond\Diff;
  *
  * PHP version 7.2 or greater
  *
- * @package jblond\Diff
- * @author Mario Brandt <leet31337@web.de>
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 2.0.0
- * @link https://github.com/JBlond/php-diff
+ * @package     jblond\Diff
+ * @author      Mario Brandt <leet31337@web.de>
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.1.1
+ * @link        https://github.com/JBlond/php-diff
  */
 class DiffUtils
 {

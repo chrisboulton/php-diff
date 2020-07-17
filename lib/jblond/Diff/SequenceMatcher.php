@@ -11,14 +11,14 @@ use InvalidArgumentException;
  *
  * PHP version 7.2 or greater
  *
- * @package jblond\Diff
- * @author Chris Boulton <chris.boulton@interspire.com>
- * @author Mario Brandt <leet31337@web.de>
- * @author Ferry Cools <info@DigiLive.nl>
- * @copyright (c) 2009 Chris Boulton
- * @license New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version 2.0.0
- * @link https://github.com/JBlond/php-diff
+ * @package     jblond\Diff
+ * @author      Chris Boulton <chris.boulton@interspire.com>
+ * @author      Mario Brandt <leet31337@web.de>
+ * @author      Ferry Cools <info@DigiLive.nl>
+ * @copyright   (c) 2020 Mario Brandt
+ * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version     2.1.1
+ * @link        https://github.com/JBlond/php-diff
  */
 class SequenceMatcher
 {
@@ -79,9 +79,9 @@ class SequenceMatcher
      * sequence matcher and it will perform a basic cleanup & calculate junk
      * elements.
      *
-     * @param string|array $old A string or array containing the lines to compare against.
-     * @param string|array $new A string or array containing the lines to compare.
-     * @param array $options
+     * @param string|array      $old A string or array containing the lines to compare against.
+     * @param string|array      $new A string or array containing the lines to compare.
+     * @param array             $options
      * @param string|array|null $junkCallback Either an array or string that references a callback function
      * (if there is one) to determine 'junk' characters.
      */
@@ -212,7 +212,7 @@ class SequenceMatcher
      * for the list of junk characters.
      *
      * @param string $bString
-     * @return bool $b True if the character is considered junk. False if not.
+     * @return bool True if the character is considered junk. False if not.
      */
     private function isBJunk(string $bString): bool
     {
@@ -555,7 +555,7 @@ class SequenceMatcher
 
         if ($this->options['trimEqual']) {
             if ($opCodes['0']['0'] == 'equal') {
-                // Remove sequences at the start which are out of context.
+                // Remove sequences at the start of the text, but keep the context lines.
                 $opCodes['0'] = [
                     $opCodes['0']['0'],
                     max($opCodes['0']['1'], $opCodes['0']['2'] - $this->options['context']),
@@ -568,7 +568,7 @@ class SequenceMatcher
             $lastItem = count($opCodes) - 1;
             if ($opCodes[$lastItem]['0'] == 'equal') {
                 [$tag, $item1, $item2, $item3, $item4] = $opCodes[$lastItem];
-                // Remove sequences at the end which are out of context.
+                // Remove sequences at the end of the text, but keep the context lines.
                 $opCodes[$lastItem] = [
                     $tag,
                     $item1,
@@ -607,8 +607,8 @@ class SequenceMatcher
             ];
         }
 
-        if ($this->options['trimEqual'] || (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal'))) {
-            //Do not add the last sequences. They're out of context.
+        if (!$this->options['trimEqual'] || (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal'))) {
+            // Add the last sequences when !trimEqual || When there are no differences between both versions.
             $groups[] = $group;
         }
 

@@ -34,23 +34,47 @@ class SequenceMatcherTest extends TestCase
         parent::__construct($name, $data, $dataName);
     }
 
-    public function testGetGroupedOpCodes()
+    public function testGetGroupedOpCodesDefault()
     {
         // Test with default options.
-        $sequenceMatcher = new SequenceMatcher('54321ABXDE12345', '54321ABxDE12345');
-        $this->assertEquals(
-            [[['equal', 4, 7, 4, 7], ['replace', 7, 8, 7, 8], ['equal', 8, 11, 8, 11]]],
-            $sequenceMatcher->getGroupedOpCodes()
+        $sequenceMatcher = new SequenceMatcher(
+            '54321ABXDE12345',
+            '54321ABxDE12345'
         );
 
+        $this->assertEquals(
+            [
+                [
+                    ['equal', 4, 7, 4, 7], ['replace', 7, 8, 7, 8], ['equal', 8, 11, 8, 11]
+                ]
+            ],
+            $sequenceMatcher->getGroupedOpCodes()
+        );
+    }
+
+    public function testGetGroupedOpCodesTrimEqualFalse()
+    {
         // Test with trimEqual disabled.
-        $sequenceMatcher = new SequenceMatcher('54321ABXDE12345', '54321ABxDE12345', ['trimEqual' => false]);
-        $this->assertEquals(
-            [[['equal', 0, 3, 0, 3]], [['equal', 4, 7, 4, 7], ['replace', 7, 8, 7, 8], ['equal', 8, 11, 8, 11]]],
-            $sequenceMatcher->getGroupedOpCodes()
+        // First and last context lines of the sequences are included.
+        $sequenceMatcher = new SequenceMatcher(
+            '54321ABXDE12345',
+            '54321ABxDE12345',
+            ['trimEqual' => false]
         );
 
-        // Test with ignoreWhitespace enabled.
+        $this->assertEquals(
+            [
+                [['equal', 0, 3, 0, 3]],
+                [['equal', 4, 7, 4, 7], ['replace', 7, 8, 7, 8], ['equal', 8, 11, 8, 11]],
+                [['equal', 12, 15, 12, 15]],
+            ],
+            $sequenceMatcher->getGroupedOpCodes()
+        );
+    }
+
+    public function testGetGroupedOpCodesIgnoreWhitespaceTrue()
+    {
+        // Test with ignoreWhitespace enabled. Both sequences are considered to be the same.
         // Note: The sequenceMatcher evaluates the string character by character. Option ignoreWhitespace will ignore
         //       if the difference if the character is a tab in one sequence and a space in the other.
         $sequenceMatcher = new SequenceMatcher(
@@ -58,15 +82,24 @@ class SequenceMatcherTest extends TestCase
             " 54321ABXDE12345\t",
             ['ignoreWhitespace' => true]
         );
+
         $this->assertEquals(
-            [[['equal', 14, 17, 14, 17]]],
+            [],
             $sequenceMatcher->getGroupedOpCodes()
         );
+    }
 
-        // Test with ignoreCase enabled.
-        $sequenceMatcher = new SequenceMatcher('54321ABXDE12345', '54321ABxDE12345', ['ignoreCase' => true]);
+    public function testGetGroupedOpCodesIgnoreCaseTrue()
+    {
+        // Test with ignoreCase enabled. Both sequences are considered to be the same.
+        $sequenceMatcher = new SequenceMatcher(
+            '54321ABXDE12345',
+            '54321ABxDE12345',
+            ['ignoreCase' => true]
+        );
+
         $this->assertEquals(
-            [[['equal', 12, 15, 12, 15]]],
+            [],
             $sequenceMatcher->getGroupedOpCodes()
         );
     }
