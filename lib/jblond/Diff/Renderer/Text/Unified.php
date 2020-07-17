@@ -16,7 +16,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  * @author      Mario Brandt <leet31337@web.de>
  * @copyright   (c) 2020 Mario Brandt
  * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.1.0
+ * @version     2.1.1
  * @link        https://github.com/JBlond/php-diff
  */
 

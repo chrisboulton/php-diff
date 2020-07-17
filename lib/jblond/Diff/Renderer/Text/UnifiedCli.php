@@ -14,7 +14,7 @@ use jblond\Diff\Renderer\RendererAbstract;
  * @package     jblond\Diff\Renderer\Text
  * @author      Mario Brandt <leet31337@web.de>
  * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.1.0
+ * @version     2.1.1
  * @link        https://github.com/JBlond/php-diff
  */
 
