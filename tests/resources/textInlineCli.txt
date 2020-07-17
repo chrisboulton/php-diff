@@ -1,0 +1,33 @@
+=|<html>
+=|    <head>
+=|        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+x|        <title>Hello [0;30m[41m-World-[0m[0;30m[42m+You+[0m!</title>
+=|    </head>
+=|    <body>
+=|        <h1>This is demo content to show features of the php-diff package.</h1>
+-|[0;30m[41m        <h2>This line is removed from version2.</h2>[0m
+=|        <h2>This line is the same for both versions.</h2>
+x|        <h2>This line has [0;30m[41m-inline -[0m[0;30m[42m++[0mdifferences between both versions.</h2>
+=|        <h2>This line is the same for both versions.</h2>
+x|        <h2>This line also has [0;30m[41m-inl-[0m[0;30m[42m+InL+[0mine differences between both versions.</h2>
+=|        <h2>This line is the same for both versions.</h2>
++|[0;30m[42m        <h2>This line is added to version2.</h2>[0m
+=|
+=|        <p>
+=|            It's also compatible with multibyte characters (like Chinese and emoji) as shown below:
+x|            另外我覺得那個評[0;30m[41m-價-[0m[0;30m[42m+鑑+[0m的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革”
+x|            Do you know what "[0;30m[41m-金槍魚罐頭-[0m[0;30m[42m+魚の缶詰+[0m" means in Chinese?
+x|            [0;30m[41m-🍏🍎-[0m[0;30m[42m+🍎🍏+[0m🙂
+=|        </p>
+=|
+=|        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+...
+=|        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+=|        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+=|        <p>Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.</p>
+x|[0;30m[41m-        -[0m[0;30m[42m+        +[0m<h2>This line also has inline differences between both versions. It's the whitespace in front.</h2>
+=|        <h2>This line is the same for both versions.</h2>
+x|        <h2>This line also has inline differences between both versions[0;30m[41m-.-[0m[0;30m[42m+!+[0m</h2>
+=|    </body>
+=|</html>
+=|

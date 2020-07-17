@@ -2,43 +2,31 @@
 
 declare(strict_types=1);
 
-namespace jblond\Diff\Renderer\Html;
-
-use jblond\Diff\Renderer\RendererAbstract;
+namespace jblond\Diff\Renderer;
 
 /**
- * Base renderer for rendering HTML based diffs for PHP DiffLib.
+ * Base renderer for rendering diffs for PHP DiffLib.
  *
  * PHP version 7.2 or greater
  *
- * @package     jblond\Diff\Renderer\Html
- * @author      Chris Boulton <chris.boulton@interspire.com>
- * @author      Mario Brandt <leet31337@web.de>
- * @author      Ferry Cools <info@DigiLive.nl>
- * @copyright   (c) 2020 Mario Brandt
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.1.1
- * @link        https://github.com/JBlond/php-diff
+ * @package       jblond\Diff\Renderer\Html
+ * @author        Chris Boulton <chris.boulton@interspire.com>
+ * @author        Mario Brandt <leet31337@web.de>
+ * @author        Ferry Cools <info@DigiLive.nl>
+ * @copyright (c) 2009 Chris Boulton
+ * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version       2.0.0
+ * @link          https://github.com/JBlond/php-diff
  */
-class HtmlArray extends RendererAbstract
+class MainRenderer extends MainRendererAbstract
 {
     /**
-     * @var array<string, string> Associative array containing the default options available
-     *                    for this renderer and their default value.
-     *
-     *              - tabSize   The amount of spaces to replace a tab character with.
-     *              - title_a   Title of the "old" version of text.
-     *              - title_b   Title of the "new" version of text.
+     * @var int
      */
-    protected $defaultOptions = [
-        'tabSize' => 4,
-        'title1'  => 'Version1',
-        'title2'  => 'Version2',
-    ];
-
+    protected $maxLineMarkerWidth = 0;
     /**
      * @var string The last operation which was recorded in the array which contains the changes, used by the renderer.
-     * @see HtmlArray::appendChangesArray()
+     * @see MainRenderer::appendChangesArray()
      */
     private $lastTag;
 
@@ -47,66 +35,74 @@ class HtmlArray extends RendererAbstract
      *
      * This method is called by the renderers which extends this class.
      *
-     * @param array $changes Contains the op-codes about the differences between "old and "new".
-     * @param object|Inline|SideBySide|Unified $htmlRenderer Renderer which extends this class.
+     * @param array  $changes     Contains the op-codes about the differences between "old and "new".
+     * @param object $subRenderer Renderer which is subClass of this class.
      *
-     * @return string HTML representation of the differences.
+     * @return string Representation of the differences.
      */
-    public function renderHtml(array $changes, object $htmlRenderer): string
+    public function renderOutput(array $changes, object $subRenderer): string
     {
-        if (empty($changes)) {
+        if (!$changes) {
             //No changes between "old" and "new"
             return 'No differences found.';
         }
 
-        $html = $htmlRenderer->generateTableHeader();
+        $output = $subRenderer->generateDiffHeader();
 
-        foreach ($changes as $i => $blocks) {
-            if ($i > 0) {
-                // If this is a separate block, we're condensing code to output …,
-                // indicating a significant portion of the code has been collapsed as it did not change.
-                $html .= $htmlRenderer->generateTableRowsSkipped();
+        foreach ($changes as $iterator => $blocks) {
+            if ($iterator > 0) {
+                // If this is a separate block, we're condensing code to indicate a significant portion of the code
+                // has been collapsed as it did not change.
+                $output .= $subRenderer->generateSkippedLines();
+            }
+
+            if ($this->options['format'] == 'plain') {
+                $this->maxLineMarkerWidth =
+                    max(
+                        strlen($this->options['insertMarkers'][0]),
+                        strlen($this->options['deleteMarkers'][0]),
+                        strlen($this->options['equalityMarkers'][0]),
+                        strlen($this->options['equalityMarkers'][1])
+                    );
             }
 
             foreach ($blocks as $change) {
-                $html .= '<tbody class="Change' . ucfirst($change['tag']) . '">';
+                $output .= $subRenderer->generateBlockHeader($change);
                 switch ($change['tag']) {
-                    // Equal changes should be shown on both sides of the diff
                     case 'equal':
-                        $html .= $htmlRenderer->generateTableRowsEqual($change);
+                        $output .= $subRenderer->generateLinesEqual($change);
                         break;
-                    // Added lines only on the right side
                     case 'insert':
-                        $html .= $htmlRenderer->generateTableRowsInsert($change);
+                        $output .= $subRenderer->generateLinesInsert($change);
                         break;
-                    // Show deleted lines only on the left side
                     case 'delete':
-                        $html .= $htmlRenderer->generateTableRowsDelete($change);
+                        $output .= $subRenderer->generateLinesDelete($change);
                         break;
-                    // Show modified lines on both sides
                     case 'replace':
-                        $html .= $htmlRenderer->generateTableRowsReplace($change);
+                        $output .= $subRenderer->generateLinesReplace($change);
                         break;
                 }
 
-                $html .= '</tbody>';
+                $output .= $subRenderer->generateBlockFooter($change);
             }
         }
 
-        $html .= '</table>';
+        $output .= $subRenderer->generateDiffFooter();
 
-        return $html;
+        return $output;
     }
 
     /**
-     * Render and return an array structure suitable for generating HTML based differences.
+     * Render the sequences where differences between them are marked.
      *
-     * Generally called by classes which extend this class and that generate a HTML based diff by returning an array of
-     * the changes to show in the diff.
+     * The marked sequences are returned as array which is suitable for rendering the final output.
      *
-     * @return array An array of the generated changes, suitable for presentation in HTML.
+     * Generally called by classes which extend this class and that generate a diff by returning an array of the changes
+     * to show in the diff.
+     *
+     * @return array An array of marked sequences.
      */
-    public function render()
+    protected function renderSequences(): array
     {
         // The old and New texts are copied so change markers can be added without modifying the original sequences.
         $oldText = $this->diff->getVersion1();
@@ -160,15 +156,11 @@ class HtmlArray extends RendererAbstract
 
                 if ($tag == 'replace' || $tag == 'delete') {
                     // Inline differences or old block doesn't exist in the new text.
-                    // Replace the markers, which where added above, by HTML delete tags.
-                    $oldBlock                            = str_replace(["\0", "\1"], ['<del>', '</del>'], $oldBlock);
                     $blocks[$lastBlock]['base']['lines'] += $oldBlock;
                 }
 
                 if ($tag == 'replace' || $tag == 'insert') {
                     // Inline differences or the new block doesn't exist in the old text.
-                    // Replace the markers, which where added above, by HTML insert tags.
-                    $newBlock                               = str_replace(["\0", "\1"], ['<ins>', '</ins>'], $newBlock);
                     $blocks[$lastBlock]['changed']['lines'] += $newBlock;
                 }
             }
@@ -200,10 +192,10 @@ class HtmlArray extends RendererAbstract
      */
     private function markInlineChange(array &$oldText, array &$newText, $startOld, $endOld, $startNew)
     {
-        for ($i = 0; $i < ($endOld - $startOld); ++$i) {
+        for ($iterator = 0; $iterator < ($endOld - $startOld); ++$iterator) {
             // Check each line in the block for differences.
-            $oldString = $oldText[$startOld + $i];
-            $newString = $newText[$startNew + $i];
+            $oldString = $oldText[$startOld + $iterator];
+            $newString = $newText[$startNew + $iterator];
 
             // Determine the start and end position of the line difference.
             [$start, $end] = $this->getInlineChange($oldString, $newString);
@@ -224,8 +216,8 @@ class HtmlArray extends RendererAbstract
                     mb_substr($newString, $sequenceEnd);
 
                 // Overwrite the strings in the old and new text so the changed lines include the markers.
-                $oldText[$startOld + $i] = $oldString;
-                $newText[$startNew + $i] = $newString;
+                $oldText[$startOld + $iterator] = $oldString;
+                $newText[$startNew + $iterator] = $newString;
             }
         }
     }
@@ -304,6 +296,7 @@ class HtmlArray extends RendererAbstract
         ];
 
         $this->lastTag = $tag;
+
         return count($blocks) - 1;
     }
 
@@ -322,32 +315,34 @@ class HtmlArray extends RendererAbstract
         if ($this->options['tabSize'] !== false) {
             // Replace tabs with spaces.
             $strings = array_map(
-                function ($item) {
-                    return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $item);
+                function ($line) {
+                    return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $line);
                 },
                 $strings
             );
         }
 
-        // Convert special characters to HTML entities
-        $strings = array_map(
-            function ($item) {
-                return htmlspecialchars($item, ENT_NOQUOTES, 'UTF-8');
-            },
-            $strings
-        );
-
-        // Replace leading spaces of a line with HTML entities.
-        foreach ($strings as &$line) {
-            $line = preg_replace_callback(
-                '/(^[ \0\1]*)/',
-                function ($matches) {
-                    return str_replace(' ', "&nbsp;", $matches[0]);
+        if (strtolower($this->options['format']) == 'html') {
+            // Convert special characters to HTML entities
+            $strings = array_map(
+                function ($line) {
+                    return htmlspecialchars($line, ENT_NOQUOTES, 'UTF-8');
                 },
-                $line
+                $strings
             );
+
+            // Replace leading spaces of a line with HTML entities.
+            foreach ($strings as &$line) {
+                $line = preg_replace_callback(
+                    '/(^[ \0\1]*)/',
+                    function ($matches) {
+                        return str_replace(' ', "&nbsp;", $matches[0]);
+                    },
+                    $line
+                );
+            }
+            unset($line);
         }
-        unset($line);
 
         return $strings;
     }

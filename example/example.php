@@ -2,8 +2,8 @@
 
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\Inline;
-use jblond\Diff\Renderer\Html\Unified as HtmlUnified;
 use jblond\Diff\Renderer\Html\SideBySide;
+use jblond\Diff\Renderer\Html\Unified as HtmlUnified;
 use jblond\Diff\Renderer\Text\Context;
 use jblond\Diff\Renderer\Text\Unified;
 
@@ -11,8 +11,8 @@ use jblond\Diff\Renderer\Text\Unified;
 require '../vendor/autoload.php';
 
 // Include two sample files for comparison.
-$a = file_get_contents(dirname(__FILE__) . '/a.txt');
-$b = file_get_contents(dirname(__FILE__) . '/b.txt');
+$sampleA = file_get_contents(dirname(__FILE__) . '/a.txt');
+$sampleB = file_get_contents(dirname(__FILE__) . '/b.txt');
 
 // Options for generating the diff.
 $customOptions = [
@@ -23,7 +23,7 @@ $customOptions = [
 ];
 
 // Choose one of the initializations.
-$diff = new Diff($a, $b);                   // Initialize the diff class with default options.
+$diff = new Diff($sampleA, $sampleB);       // Initialize the diff class with default options.
 //$diff = new Diff($a, $b, $customOptions); // Initialize the diff class with custom options.
 ?><!DOCTYPE html>
 <html lang="en">
@@ -34,14 +34,14 @@ $diff = new Diff($a, $b);                   // Initialize the diff class with de
         <script>
             function changeCSS(cssFile, cssLinkIndex) {
 
-                var oldLink = document.getElementsByTagName("link").item(cssLinkIndex);
+                const oldLink = document.getElementsByTagName('link').item(cssLinkIndex);
 
-                var newLink = document.createElement("link");
-                newLink.setAttribute("rel", "stylesheet");
-                newLink.setAttribute("type", "text/css");
-                newLink.setAttribute("href", cssFile);
+                const newLink = document.createElement('link');
+                newLink.setAttribute('rel', 'stylesheet');
+                newLink.setAttribute('type', 'text/css');
+                newLink.setAttribute('href', cssFile);
 
-                document.getElementsByTagName("head").item(0).replaceChild(newLink, oldLink);
+                document.getElementsByTagName('head').item(0).replaceChild(newLink, oldLink);
             }
         </script>
     </head>
@@ -52,17 +52,13 @@ $diff = new Diff($a, $b);                   // Initialize the diff class with de
             <a href="#" onclick="changeCSS('styles.css', 0);">Light Theme</a>
             <a href="#" onclick="changeCSS('dark-theme.css', 0);">Dark Theme</a>
         </aside>
-        <hr />
+        <hr>
 
         <h2>HTML Side by Side Diff</h2>
 
         <?php
         // Generate a side by side diff.
-        // \jblond\Diff\Renderer\Html
-        $renderer = new SideBySide([
-            'title1' => 'Custom title for version1',
-            'title2' => 'Custom title for version2',
-        ]);
+        $renderer = new SideBySide();
         echo $diff->Render($renderer);
         ?>
 
@@ -71,7 +67,6 @@ $diff = new Diff($a, $b);                   // Initialize the diff class with de
         <?php
 
         // Generate an inline diff.
-        // \jblond\Diff\Renderer\Html
         $renderer = new Inline();
         echo $diff->render($renderer);
         ?>
@@ -79,7 +74,6 @@ $diff = new Diff($a, $b);                   // Initialize the diff class with de
         <h2>HTML Unified Diff</h2>
         <?php
         // Generate a unified diff.
-        // \jblond\Diff\Renderer\Html
         $renderer = new HtmlUnified();
         echo "<pre>{$diff->render($renderer)}</pre>";
         ?>
@@ -87,7 +81,6 @@ $diff = new Diff($a, $b);                   // Initialize the diff class with de
         <h2>Text Unified Diff</h2>
         <?php
         // Generate a unified diff.
-        // \jblond\Diff\Renderer\Text
         $renderer = new Unified();
         echo '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>';
         ?>
@@ -95,7 +88,6 @@ $diff = new Diff($a, $b);                   // Initialize the diff class with de
         <h2>Text Context Diff</h2>
         <?php
         // Generate a context diff.
-        // jblond\Diff\Renderer\Text\Context
         $renderer = new Context();
         echo '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>';
         ?>
