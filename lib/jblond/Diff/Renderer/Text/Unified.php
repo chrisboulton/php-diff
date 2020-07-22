@@ -28,11 +28,11 @@ class Unified extends MainRendererAbstract
     /**
      * Render and return a unified diff.
      *
-     * @return string The unified diff.
+     * @return string|false The generated diff-view or false when there's no difference.
      */
-    public function render(): string
+    public function render()
     {
-        $diff = '';
+        $diff = false;
         $opCodes = $this->diff->getGroupedOpCodes();
         foreach ($opCodes as $group) {
             $lastItem = count($group) - 1;

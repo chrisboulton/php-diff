@@ -7,7 +7,7 @@
 ## Introduction
 
 A comprehensive library for generating differences between two hashable objects (strings or arrays).
-Generated differences can be rendered in all of the standard formats including:
+Generated differences can be rendered in all the standard formats including:
 
 * Unified
 * Context
@@ -35,8 +35,8 @@ use jblond\Diff\Renderer\Html\SideBySide;
 // Installed via composer...
 require 'vendor/autoload.php';
 
-$a = file_get_contents(dirname(__FILE__).'/a.txt');
-$b = file_get_contents(dirname(__FILE__).'/b.txt');
+$sampleA = file_get_contents(dirname(__FILE__).'/a.txt');
+$sampleB = file_get_contents(dirname(__FILE__).'/b.txt');
 
 // Options for generating the diff.
 $options = [
@@ -47,20 +47,26 @@ $options = [
 ];
 
 // Initialize the diff class.
-$diff = new Diff($a, $b /*, $options */);
+$diff = new Diff($sampleA, $sampleB /*, $options */);
 
 // Choose Renderer.
 $renderer = new SideBySide([
-    'title1' => 'Custom title for OLD version',
-    'title2' => 'Custom title for NEW version',
+    'title1' => 'Custom title for sample A',
+    'title2' => 'Custom title for sample B',
 ]);
 
-// Show it.
+// Show the output of the difference renderer.
 echo $diff->Render($renderer);
+
+// Alternative
+// Show the differences or a message.
+echo $diff->isIdentical() ? 'No differences found.' : '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>' ;
+
 ```
 
 ### Example Output
-A quick usage example can be found in the `example/` directory and under example.php. Included is a light theme and a dark theme.
+File `example.php` contains a quick demo and can be found in the `example/` directory.
+Included is a light and a dark theme.
 
 #### HTML Side By Side Example
 

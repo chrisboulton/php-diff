@@ -21,9 +21,9 @@ interface SubRendererInterface
     /**
      * Render and return a diff-view with changes between two sequences.
      *
-     * @return string The generated diff-view.
+     * @return string|false The generated diff-view or false when there's no difference.
      */
-    public function render(): string;
+    public function render();
 
     /**
      * Generate a string representation of the start of a diff view.
