@@ -74,6 +74,7 @@ class Diff
      * @see Diff::setOptions()
      */
     private $options = [];
+
     /**
      * @var bool True when compared versions are identical, False otherwise.
      */
