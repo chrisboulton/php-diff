@@ -109,6 +109,12 @@ Included is a light and a dark theme.
 * PHP Multibyte String
 * [jblond/php-cli](https://github.com/jblond/php-cli)
 
+## Issues and feature requests
+
+If you found a bug, or have an idea for new functionality, 
+feel free to report it on the issue tracker - just use search beforehand.
+[Issue tracker](https://github.com/JBlond/php-diff/issues)
+
 ## Merge files using jQuery
 
 Xiphe has build a jQuery plugin with that you can merge the compared files.
@@ -126,7 +132,7 @@ Contributors since I forked the repo.
 * maxxer
 * Creris
 * jfcherng
-* DigiLive
+* [DigiLive](https://github.com/DigiLive)
 
 ### License (BSD License)
 
