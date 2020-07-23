@@ -26,6 +26,7 @@
     "require": {
         "php": ">=7.2",
         "ext-mbstring": "*",
+        "ext-pcre": "*",
         "jblond/php-cli": "^1.0"
     },
     "require-dev": {
