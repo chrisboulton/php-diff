@@ -21,14 +21,14 @@ use OutOfRangeException;
  *
  * PHP version 7.2 or greater
  *
- * @package     jblond
- * @author      Chris Boulton <chris.boulton@interspire.com>
- * @author      Mario Brandt <leet31337@web.de>
- * @author      Ferry Cools <info@DigiLive.nl>
+ * @package         jblond
+ * @author          Chris Boulton <chris.boulton@interspire.com>
+ * @author          Mario Brandt <leet31337@web.de>
+ * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2020 Mario Brandt
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.1.1
- * @link        https://github.com/JBlond/php-diff
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.1.1
+ * @link            https://github.com/JBlond/php-diff
  */
 class Diff
 {
@@ -70,9 +70,14 @@ class Diff
     /**
      * @var array   Associative array containing the options that will be applied for generating the diff.
      *              The key-value pairs are set at the constructor of this class.
+     *
      * @see Diff::setOptions()
      */
     private $options = [];
+    /**
+     * @var bool True when compared versions are identical, False otherwise.
+     */
+    private $identical;
 
     /**
      * The constructor.
@@ -169,9 +174,9 @@ class Diff
      * Render a diff-view using a rendering class and get its results.
      *
      * @param object|Context|Unified|UnifiedHtml|Inline|SideBySide $renderer An instance of the rendering object,
-     * used for generating the diff-view.
+     *                                                                       used for generating the diff-view.
      *
-     * @return mixed The generated diff-view. The type of the return value depends on the applied rendereder.
+     * @return mixed The generated diff-view. The type of the return value depends on the applied renderer.
      */
     public function render(object $renderer)
     {
@@ -222,6 +227,20 @@ class Diff
     }
 
     /**
+     * Get if the compared versions are identical or have differences.
+     *
+     * @return bool True when identical.
+     */
+    public function isIdentical(): bool
+    {
+        if ($this->groupedCodes === null) {
+            $this->getGroupedOpCodes();
+        }
+
+        return $this->identical;
+    }
+
+    /**
      * Generate a list of the compiled and grouped op-codes for the differences between two strings.
      *
      * Generally called by the renderer, this class instantiates the sequence matcher and performs the actual diff
@@ -240,6 +259,8 @@ class Diff
         //Get and cache the grouped op-codes.
         $sequenceMatcher    = new SequenceMatcher($this->version1, $this->version2, $this->options);
         $this->groupedCodes = $sequenceMatcher->getGroupedOpCodes();
+        $opCodes            = $sequenceMatcher->getOpCodes();
+        $this->identical    = count($opCodes) == 1 && $opCodes[0][0] == 'equal';
 
         return $this->groupedCodes;
     }

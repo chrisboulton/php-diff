@@ -45,9 +45,9 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * Render a and return diff-view with changes between the two sequences displayed inline.
      *
-     * @return string The generated diff-view.
+     * @return string|false The generated diff-view or false when there's no difference.
      */
-    public function render(): string
+    public function render()
     {
         $changes = parent::renderSequences();
 
@@ -84,7 +84,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
      */
     public function generateSkippedLines(): string
     {
-        return '...' . PHP_EOL;
+        return "...\n";
     }
 
     /**
@@ -100,7 +100,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
         $padding     = str_repeat(' ', $this->maxLineMarkerWidth - strlen($this->options['equalityMarkers'][0]));
 
         foreach ($changes['base']['lines'] as $line) {
-            $returnValue .= $this->options['equalityMarkers'][0] . $padding . '|' . $line . PHP_EOL;
+            $returnValue .= $this->options['equalityMarkers'][0] . $padding . '|' . $line . "\n";
         }
 
         return $returnValue;
@@ -124,7 +124,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
                 [$fgColor, $bgColor] = $this->options['insertColors'];
                 $line = $colorize->getColoredString($line, $fgColor, $bgColor);
             }
-            $returnValue .= $this->options['insertMarkers'][0] . $padding . '|' . $line . PHP_EOL;
+            $returnValue .= $this->options['insertMarkers'][0] . $padding . '|' . $line . "\n";
         }
 
         return $returnValue;
@@ -148,7 +148,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
                 [$fgColor, $bgColor] = $this->options['deleteColors'];
                 $line = $colorize->getColoredString($line, $fgColor, $bgColor);
             }
-            $returnValue .= $this->options['deleteMarkers'][0] . $padding . '|' . $line . PHP_EOL;
+            $returnValue .= $this->options['deleteMarkers'][0] . $padding . '|' . $line . "\n";
         }
 
         return $returnValue;
@@ -172,7 +172,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
             $this->options['insertColors']
         );
 
-        $returnValue .= implode(PHP_EOL, $changes['base']['lines']) . PHP_EOL;
+        $returnValue .= implode("\n", $changes['base']['lines']) . "\n";
 
         return $returnValue;
     }

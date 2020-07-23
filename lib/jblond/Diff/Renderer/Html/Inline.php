@@ -57,9 +57,9 @@ class Inline extends MainRenderer implements SubRendererInterface
     /**
      * Render and return a diff-view with changes between the two sequences displayed inline (under each other).
      *
-     * @return string The generated inline diff-view.
+     * @return string|false The generated diff-view or false when there's no difference.
      */
-    public function render(): string
+    public function render()
     {
         $changes = parent::renderSequences();
 

@@ -23,73 +23,73 @@ $customOptions = [
 ];
 
 // Choose one of the initializations.
-$diff = new Diff($sampleA, $sampleB);       // Initialize the diff class with default options.
-//$diff = new Diff($a, $b, $customOptions); // Initialize the diff class with custom options.
+$diff = new Diff($sampleA, $sampleB);                   // Initialize the diff class with default options.
+//$diff = new Diff($sampleA, $sampleB, $customOptions); // Initialize the diff class with custom options.
 ?><!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <title>PHP LibDiff - Examples</title>
-        <link rel="stylesheet" type="text/css" href="styles.css" />
-        <script>
-            function changeCSS(cssFile, cssLinkIndex) {
+<head>
+    <meta charset="utf-8"/>
+    <title>PHP LibDiff - Examples</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+    <script>
+        function changeCSS(cssFile, cssLinkIndex) {
 
-                const oldLink = document.getElementsByTagName('link').item(cssLinkIndex);
+            const oldLink = document.getElementsByTagName('link').item(cssLinkIndex);
 
-                const newLink = document.createElement('link');
-                newLink.setAttribute('rel', 'stylesheet');
-                newLink.setAttribute('type', 'text/css');
-                newLink.setAttribute('href', cssFile);
+            const newLink = document.createElement('link');
+            newLink.setAttribute('rel', 'stylesheet');
+            newLink.setAttribute('type', 'text/css');
+            newLink.setAttribute('href', cssFile);
 
-                document.getElementsByTagName('head').item(0).replaceChild(newLink, oldLink);
-            }
-        </script>
-    </head>
-    <body>
-        <h1>PHP LibDiff - Examples</h1>
-        <aside>
-            <h2>Change Theme</h2>
-            <a href="#" onclick="changeCSS('styles.css', 0);">Light Theme</a>
-            <a href="#" onclick="changeCSS('dark-theme.css', 0);">Dark Theme</a>
-        </aside>
-        <hr>
+            document.getElementsByTagName('head').item(0).replaceChild(newLink, oldLink);
+        }
+    </script>
+</head>
+<body>
+    <h1>PHP LibDiff - Examples</h1>
+    <aside>
+        <h2>Change Theme</h2>
+        <a href="#" onclick="changeCSS('styles.css', 0);">Light Theme</a>
+        <a href="#" onclick="changeCSS('dark-theme.css', 0);">Dark Theme</a>
+    </aside>
+    <hr>
 
-        <h2>HTML Side by Side Diff</h2>
+    <h2>HTML Side by Side Diff</h2>
 
-        <?php
+    <?php
         // Generate a side by side diff.
         $renderer = new SideBySide();
-        echo $diff->Render($renderer);
-        ?>
+        echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
+    ?>
 
-        <h2>HTML Inline Diff</h2>
-
-        <?php
-
+    <h2>HTML Inline Diff</h2>
+    <?php
         // Generate an inline diff.
         $renderer = new Inline();
-        echo $diff->render($renderer);
-        ?>
+        echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
+    ?>
 
-        <h2>HTML Unified Diff</h2>
-        <?php
+    <h2>HTML Unified Diff</h2>
+    <?php
         // Generate a unified diff.
         $renderer = new HtmlUnified();
-        echo "<pre>{$diff->render($renderer)}</pre>";
-        ?>
+        echo $diff->isIdentical() ? 'No differences found.' : '<pre>' . $diff->Render($renderer) . '</pre>';
+    ?>
 
-        <h2>Text Unified Diff</h2>
-        <?php
+    <h2>Text Unified Diff</h2>
+    <?php
         // Generate a unified diff.
         $renderer = new Unified();
-        echo '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>';
-        ?>
+        echo $diff->isIdentical() ?
+            'No differences found.' : '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>';
+    ?>
 
-        <h2>Text Context Diff</h2>
-        <?php
+    <h2>Text Context Diff</h2>
+    <?php
         // Generate a context diff.
         $renderer = new Context();
-        echo '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>';
-        ?>
-    </body>
+        echo $diff->isIdentical() ?
+            'No differences found.' : '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>';
+    ?>
+</body>
 </html>

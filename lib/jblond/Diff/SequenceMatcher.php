@@ -481,6 +481,7 @@ class SequenceMatcher
     public function getOpCodes(): array
     {
         if (!empty($this->opCodes)) {
+            //Return the cached results.
             return $this->opCodes;
         }
 

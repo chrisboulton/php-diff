@@ -37,11 +37,11 @@ class Context extends MainRendererAbstract
      *
      * @link https://www.gnu.org/software/diffutils/manual/html_node/Detailed-Context.html#Detailed-Context
      *
-     * @return string The generated context diff-view.
+     * @return string|false The generated diff-view or false when there's no difference.
      */
-    public function render(): string
+    public function render()
     {
-        $diff    = '';
+        $diff    = false;
         $opCodes = $this->diff->getGroupedOpCodes();
 
         foreach ($opCodes as $group) {
