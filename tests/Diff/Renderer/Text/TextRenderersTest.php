@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  * @author      Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2019 Mario Brandt
  * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.0.0
+ * @version     2.2.0
  * @link        https://github.com/JBlond/php-diff
  */
 class TextRendererTest extends TestCase
