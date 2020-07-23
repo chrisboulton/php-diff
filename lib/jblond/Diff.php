@@ -70,6 +70,7 @@ class Diff
     /**
      * @var array   Associative array containing the options that will be applied for generating the diff.
      *              The key-value pairs are set at the constructor of this class.
+     *
      * @see Diff::setOptions()
      */
     private $options = [];
@@ -232,7 +233,7 @@ class Diff
      */
     public function isIdentical(): bool
     {
-        if ($this->getGroupedOpCodes() === null) {
+        if ($this->groupedCodes === null) {
             $this->getGroupedOpCodes();
         }
 
