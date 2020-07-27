@@ -25,6 +25,10 @@ package. The reason for doing so is primarily because of its high degree of accu
 composer require jblond/php-diff
 ```
 
+### Install for cli support
+
+For cli usage you need to install the suggested `jblond/php-cli` package.
+
 ## Example Use
 
 ```PHP
@@ -107,7 +111,7 @@ Included is a light and a dark theme.
 
 * PHP 7.2 or greater
 * PHP Multibyte String
-* [jblond/php-cli](https://github.com/jblond/php-cli)
+* [jblond/php-cli](https://github.com/jblond/php-cli) (suggested)
 
 ## Issues and feature requests
 

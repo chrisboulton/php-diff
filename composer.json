@@ -26,13 +26,15 @@
     "require": {
         "php": ">=7.2",
         "ext-mbstring": "*",
-        "ext-pcre": "*",
-        "jblond/php-cli": "^1.0"
+        "ext-pcre": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "8.*",
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "2.*"
+    },
+    "suggest": {
+        "jblond/php-cli": "^1.0"
     },
     "autoload": {
         "psr-4": {
