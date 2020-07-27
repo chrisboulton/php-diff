@@ -216,11 +216,7 @@ class SequenceMatcher
      */
     private function isBJunk(string $bString): bool
     {
-        if (isset($this->junkDict[$bString])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->junkDict[$bString]);
     }
 
     /**
