@@ -213,6 +213,9 @@ HTML;
                     $changedLine = $changes['changed']['lines'][$lineNo];
                 }
 
+                $line        = str_replace(["\0", "\1"], $this->options['deleteMarkers'], $line);
+                $changedLine = str_replace(["\0", "\1"], $this->options['insertMarkers'], $changedLine);
+
                 $html .= <<<HTML
 <tr>
     <th>$fromLine</th>
@@ -238,6 +241,9 @@ HTML;
                 $fromLine = $changes['base']['offset'] + $lineNo + 1;
                 $line     = $changes['base']['lines'][$lineNo];
             }
+
+            $line        = str_replace(["\0", "\1"], $this->options['deleteMarkers'], $line);
+            $changedLine = str_replace(["\0", "\1"], $this->options['insertMarkers'], $changedLine);
 
             $html .= <<<HTML
 <tr>
