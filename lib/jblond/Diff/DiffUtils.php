@@ -10,7 +10,7 @@ namespace jblond\Diff;
  * @package     jblond\Diff
  * @author      Mario Brandt <leet31337@web.de>
  * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.2.0
+ * @version     2.2.1
  * @link        https://github.com/JBlond/php-diff
  */
 class DiffUtils

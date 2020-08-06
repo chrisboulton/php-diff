@@ -15,7 +15,7 @@ namespace jblond\Diff\Renderer;
  * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version       2.2.0
+ * @version       2.2.1
  * @link          https://github.com/JBlond/php-diff
  */
 class MainRenderer extends MainRendererAbstract
