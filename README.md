@@ -47,7 +47,7 @@ $options = [
     'ignoreWhitespace' => true,
     'ignoreCase'       => true,
     'context'          => 2,
-    'cliColor'         => 'simple' // for cli output
+    'cliColor'         => true // for cli output
 ];
 
 // Initialize the diff class.
