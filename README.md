@@ -129,6 +129,13 @@ Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge
 * Ability to ignore blank line changes
 * 3 way diff support
 
+## Contribution
+
+You are welcome to contribute to this project.
+
+- Open an issue
+- create a PR
+
 ## Contributors
 
 Contributors since I forked the repo.
