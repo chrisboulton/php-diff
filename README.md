@@ -33,10 +33,10 @@ For cli usage you need to install the suggested `jblond/php-cli` package.
 
 See the [Wiki](https://github.com/JBlond/php-diff/wiki) for 
 
-* [Getting started](https://github.com/JBlond/php-diff/wiki/a)-Getting-Started)
-* [Parameters and Options](https://github.com/JBlond/php-diff/wiki/b)-Parameters-and-Options)
-* [Custom Renderer](https://github.com/JBlond/php-diff/wiki/c)-Custom-Renderer)
-* [Styling](https://github.com/JBlond/php-diff/wiki/d)-Styling)
+* [Getting started](https://github.com/JBlond/php-diff/wiki/1.-Getting-Started)
+* [Parameters and Options](https://github.com/JBlond/php-diff/wiki/2.-Parameters-and-Options)
+* [Custom Renderer](https://github.com/JBlond/php-diff/wiki/3.-Custom-Renderer)
+* [Styling](https://github.com/JBlond/php-diff/wiki/4.-Styling)
 
 ## Example Use
 
