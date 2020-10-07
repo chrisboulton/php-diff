@@ -65,7 +65,7 @@ class UnifiedCli extends MainRendererAbstract
      */
     private function colorizeString($string, $color = ''): string
     {
-        if (isset($this->options['cliColor'])) {
+        if ($this->options['cliColor']) {
             return $this->colors->getColoredString($string, $color);
         }
         return $string;
