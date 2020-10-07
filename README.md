@@ -29,6 +29,15 @@ composer require jblond/php-diff
 
 For cli usage you need to install the suggested `jblond/php-cli` package.
 
+## Documentation
+
+See the [Wiki](https://github.com/JBlond/php-diff/wiki) for 
+
+* [Getting started](https://github.com/JBlond/php-diff/wiki/a)-Getting-Started)
+* [Parameters and Options](https://github.com/JBlond/php-diff/wiki/b)-Parameters-and-Options)
+* [Custom Renderer](https://github.com/JBlond/php-diff/wiki/c)-Custom-Renderer)
+* [Styling](https://github.com/JBlond/php-diff/wiki/d)-Styling)
+
 ## Example Use
 
 ```PHP
@@ -47,7 +56,7 @@ $options = [
     'ignoreWhitespace' => true,
     'ignoreCase'       => true,
     'context'          => 2,
-    'cliColor'         => 'simple' // for cli output
+    'cliColor'         => true // for cli output
 ];
 
 // Initialize the diff class.
