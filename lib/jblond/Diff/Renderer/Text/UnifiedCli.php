@@ -54,9 +54,6 @@ class UnifiedCli extends MainRendererAbstract
      */
     public function render(): string
     {
-        if (!isset($this->options['cliColor'])) {
-            return $this->output();
-        }
         return $this->output();
     }
 
