@@ -190,7 +190,7 @@ class MainRenderer extends MainRendererAbstract
      * @param int   $endOld   last line of the block in old to replace.
      * @param int   $startNew First line of the block in new to replace.
      */
-    private function markInlineChange(array &$oldText, array &$newText, $startOld, $endOld, $startNew)
+    private function markInlineChange(array &$oldText, array &$newText, int $startOld, int $endOld, int $startNew)
     {
         for ($iterator = 0; $iterator < ($endOld - $startOld); ++$iterator) {
             // Check each line in the block for differences.

@@ -72,7 +72,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
      *
      * @return string Start of the diff view.
      */
-    public function generateBlockHeader($changes): string
+    public function generateBlockHeader(array $changes): string
     {
         return '';
     }
