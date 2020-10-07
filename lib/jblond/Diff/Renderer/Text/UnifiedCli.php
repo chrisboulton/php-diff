@@ -49,10 +49,7 @@ class UnifiedCli extends MainRendererAbstract
         if (!isset($this->options['cliColor'])) {
             return $this->output();
         }
-        if (isset($this->options['cliColor']) && $this->options['cliColor'] === true) {
-            return $this->output();
-        }
-        throw new InvalidArgumentException('Invalid cliColor option');
+        return $this->output();
     }
 
 
@@ -63,7 +60,7 @@ class UnifiedCli extends MainRendererAbstract
      */
     private function colorizeString($string, $color = ''): string
     {
-        if (isset($this->options['cliColor']) && $this->options['cliColor'] === true) {
+        if (isset($this->options['cliColor'])) {
             return $this->colors->getColoredString($string, $color);
         }
         return $string;
