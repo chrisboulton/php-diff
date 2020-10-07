@@ -28,14 +28,22 @@ class UnifiedCli extends MainRendererAbstract
     private $colors;
 
     /**
+     * @var array   Associative array containing the default options available for this renderer and their default
+     *              value.
+     */
+    protected $subOptions = [];
+
+    /**
      * UnifiedCli constructor.
      * @param array $options
+     *
      */
     public function __construct(array $options = [])
     {
-        parent::__construct($options);
+        parent::__construct();
+        $this->setOptions($this->subOptions);
+        $this->setOptions($options);
         $this->colors = new CliColors();
-        $this->options = $options;
     }
 
     /**
