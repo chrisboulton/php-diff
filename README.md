@@ -113,11 +113,13 @@ Included is a light and a dark theme.
 * PHP Multibyte String
 * [jblond/php-cli](https://github.com/jblond/php-cli) (suggested)
 
-## Issues and feature requests
+## Contribution, Issues and feature requests
 
 If you found a bug, or have an idea for new functionality, 
 feel free to report it on the issue tracker - just use search beforehand.
 [Issue tracker](https://github.com/JBlond/php-diff/issues)
+
+You can also fork this repository and open a PR.
 
 ## Merge files using jQuery
 
@@ -128,13 +130,6 @@ Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge
 
 * Ability to ignore blank line changes
 * 3 way diff support
-
-## Contribution
-
-You are welcome to contribute to this project.
-
-- Open an issue
-- create a PR
 
 ## Contributors
 
