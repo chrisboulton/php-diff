@@ -1,5 +1,10 @@
 # changelog
 
+## next
+
+- Fix: Unified Cli renderer options incompatible with Main renderer options
+- added change log
+
 ## 2.2.1 (2020-08-06)
 
 - This release fixed #58 - Side by side diff shows empty diff
