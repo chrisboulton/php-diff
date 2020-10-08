@@ -28,14 +28,22 @@ class UnifiedCli extends MainRendererAbstract
     private $colors;
 
     /**
+     * @var array   Associative array containing the default options available for this renderer and their default
+     *              value.
+     */
+    protected $subOptions = [];
+
+    /**
      * UnifiedCli constructor.
      * @param array $options
+     *
      */
     public function __construct(array $options = [])
     {
-        parent::__construct($options);
+        parent::__construct();
+        $this->setOptions($this->subOptions);
+        $this->setOptions($options);
         $this->colors = new CliColors();
-        $this->options = $options;
     }
 
     /**
@@ -46,13 +54,7 @@ class UnifiedCli extends MainRendererAbstract
      */
     public function render(): string
     {
-        if (!isset($this->options['cliColor'])) {
-            return $this->output();
-        }
-        if (isset($this->options['cliColor']) && $this->options['cliColor'] == 'simple') {
-            return $this->output();
-        }
-        throw new InvalidArgumentException('Invalid cliColor option');
+        return $this->output();
     }
 
 
@@ -63,7 +65,7 @@ class UnifiedCli extends MainRendererAbstract
      */
     private function colorizeString($string, $color = ''): string
     {
-        if (isset($this->options['cliColor']) && $this->options['cliColor'] == 'simple') {
+        if ($this->options['cliColor']) {
             return $this->colors->getColoredString($string, $color);
         }
         return $string;

@@ -36,8 +36,8 @@ abstract class MainRendererAbstract
      *              - deleteMarkers     Markers for removed text.
      *              - insertMarkers     Markers for inserted text.
      *              - equalityMarkers   Markers for unchanged and changed lines.
-     *              - insertColors      Fore- and background color for inserted text. Only when cloColor = true.
-     *              - deleteColors      Fore- and background color for removed text. Only when cloColor = true.
+     *              - insertColors      Fore- and background color for inserted text. Only when cliColor = true.
+     *              - deleteColors      Fore- and background color for removed text. Only when cliColor = true.
      */
     protected $mainOptions = [
         'tabSize'         => 4,

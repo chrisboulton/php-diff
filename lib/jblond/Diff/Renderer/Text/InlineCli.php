@@ -37,8 +37,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
      */
     public function __construct(array $options = [])
     {
-        parent::__construct();
-        $this->setOptions($this->subOptions);
+        parent::__construct($this->subOptions);
         $this->setOptions($options);
     }
 

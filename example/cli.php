@@ -44,7 +44,7 @@ echo "\n\n-= Unified Colored =-\n\n";
 $renderer = new UnifiedCli(
 // Define renderer options.
     [
-        'cliColor' => 'simple',
+        'cliColor' => true,
     ]
 );
 
