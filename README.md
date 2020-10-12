@@ -38,6 +38,10 @@ See the [Wiki](https://github.com/JBlond/php-diff/wiki) for
 * [Custom Renderer](https://github.com/JBlond/php-diff/wiki/3.-Custom-Renderer)
 * [Styling](https://github.com/JBlond/php-diff/wiki/4.-Styling)
 
+## Changelog
+
+[Changelog](changelog.md)
+
 ## Example Use
 
 ```PHP
