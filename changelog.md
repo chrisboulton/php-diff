@@ -3,6 +3,8 @@
 ## next
 
 - Fix: Unified Cli renderer options incompatible with Main renderer options
+- Fix: Calculation of maxLineMarkerWidth independent of input format.
+- Fix: Second parameter of string repeat function minimizes to 0.
 - added change log
 
 ## 2.2.1 (2020-08-06)
