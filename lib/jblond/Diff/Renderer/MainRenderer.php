@@ -35,8 +35,8 @@ class MainRenderer extends MainRendererAbstract
      *
      * This method is called by the renderers which extends this class.
      *
-     * @param array  $changes     Contains the op-codes about the differences between version1 and version2.
-     * @param object $subRenderer Renderer which is subClass of this class.
+     * @param   array   $changes      Contains the op-codes about the differences between version1 and version2.
+     * @param   object  $subRenderer  Renderer which is subClass of this class.
      *
      * @return string|false String representation of the differences or false when versions are identical.
      */
@@ -56,15 +56,12 @@ class MainRenderer extends MainRendererAbstract
                 $output .= $subRenderer->generateSkippedLines();
             }
 
-            if ($this->options['format'] == 'plain') {
-                $this->maxLineMarkerWidth =
-                    max(
-                        strlen($this->options['insertMarkers'][0]),
-                        strlen($this->options['deleteMarkers'][0]),
-                        strlen($this->options['equalityMarkers'][0]),
-                        strlen($this->options['equalityMarkers'][1])
-                    );
-            }
+            $this->maxLineMarkerWidth = max(
+                strlen($this->options['insertMarkers'][0]),
+                strlen($this->options['deleteMarkers'][0]),
+                strlen($this->options['equalityMarkers'][0]),
+                strlen($this->options['equalityMarkers'][1])
+            );
 
             foreach ($blocks as $change) {
                 $output .= $subRenderer->generateBlockHeader($change);
@@ -184,11 +181,11 @@ class MainRenderer extends MainRendererAbstract
      * New => "ab123fg"   End marker inserted at position 6
      * </pre>
      *
-     * @param array $oldText  Collection of lines of old text.
-     * @param array $newText  Collection of lines of new text.
-     * @param int   $startOld First line of the block in old to replace.
-     * @param int   $endOld   last line of the block in old to replace.
-     * @param int   $startNew First line of the block in new to replace.
+     * @param   array  $oldText   Collection of lines of old text.
+     * @param   array  $newText   Collection of lines of new text.
+     * @param   int    $startOld  First line of the block in old to replace.
+     * @param   int    $endOld    last line of the block in old to replace.
+     * @param   int    $startNew  First line of the block in new to replace.
      */
     private function markInlineChange(array &$oldText, array &$newText, int $startOld, int $endOld, int $startNew)
     {
@@ -231,8 +228,8 @@ class MainRenderer extends MainRendererAbstract
      * The second element defines the last (starting at -0) character from the end of the old string which is different.
      *
      *
-     * @param string $oldString The first string to compare.
-     * @param string $newString The second string to compare.
+     * @param   string  $oldString  The first string to compare.
+     * @param   string  $newString  The second string to compare.
      *
      * @return array Array containing the starting position (0 by default) and the ending position (-1 by default)
      */
@@ -270,10 +267,10 @@ class MainRenderer extends MainRendererAbstract
      *
      * The index of the last element of the array is always returned.
      *
-     * @param array   $blocks    The array which keeps the changes for the HTML renderer.
-     * @param string  $tag       Kind of difference.
-     * @param integer $lineInOld Start of block in "old".
-     * @param integer $lineInNew Start of block in "new".
+     * @param   array    $blocks     The array which keeps the changes for the HTML renderer.
+     * @param   string   $tag        Kind of difference.
+     * @param   integer  $lineInOld  Start of block in "old".
+     * @param   integer  $lineInNew  Start of block in "new".
      *
      * @return int The index of the last element.
      */
@@ -306,7 +303,7 @@ class MainRenderer extends MainRendererAbstract
      * This involves replacing tab characters with spaces, making the HTML safe for output by ensuring that double
      * spaces are replaced with &nbsp; etc.
      *
-     * @param array $strings Array of strings to format.
+     * @param   array  $strings  Array of strings to format.
      *
      * @return array Array of formatted strings.
      */

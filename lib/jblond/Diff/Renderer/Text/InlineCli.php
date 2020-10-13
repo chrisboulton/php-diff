@@ -13,12 +13,12 @@ use jblond\Diff\Renderer\SubRendererInterface;
  *
  * PHP version 7.2 or greater
  *
- * @package     jblond\Diff\Renderer\Text
- * @author      Ferry Cools <info@DigiLive.nl>
+ * @package         jblond\Diff\Renderer\Text
+ * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2020 Ferry Cools
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.2.1
- * @link        https://github.com/JBlond/php-diff
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.2.1
+ * @link            https://github.com/JBlond/php-diff
  */
 class InlineCli extends MainRenderer implements SubRendererInterface
 {
@@ -31,7 +31,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * InlineCli constructor.
      *
-     * @param array $options Custom defined options for the inline diff renderer.
+     * @param   array  $options  Custom defined options for the inline diff renderer.
      *
      * @see Inline::$subOptions
      */
@@ -67,7 +67,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * Generate a string representation of the start of a block.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of lines.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of lines.
      *
      * @return string Start of the diff view.
      */
@@ -89,14 +89,17 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * Generate a string representation lines without differences between the two versions.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of lines.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of lines.
      *
      * @return string Text with no difference.
      */
     public function generateLinesEqual(array $changes): string
     {
         $returnValue = '';
-        $padding     = str_repeat(' ', $this->maxLineMarkerWidth - strlen($this->options['equalityMarkers'][0]));
+        $padding     = str_repeat(
+            ' ',
+            max($this->maxLineMarkerWidth - strlen($this->options['equalityMarkers'][0]), 0)
+        );
 
         foreach ($changes['base']['lines'] as $line) {
             $returnValue .= $this->options['equalityMarkers'][0] . $padding . '|' . $line . "\n";
@@ -108,7 +111,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * Generate a string representation of lines that are added to the 2nd version.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Added text.
      */
@@ -116,7 +119,10 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     {
         $colorize    = new CliColors();
         $returnValue = '';
-        $padding     = str_repeat(' ', $this->maxLineMarkerWidth - strlen($this->options['insertMarkers'][0]));
+        $padding     = str_repeat(
+            ' ',
+            max($this->maxLineMarkerWidth - strlen($this->options['insertMarkers'][0]), 0)
+        );
 
         foreach ($changes['changed']['lines'] as $line) {
             if ($this->options['cliColor']) {
@@ -132,7 +138,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * Generate a string representation of lines that are removed from the 2nd version.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Removed text.
      */
@@ -140,7 +146,10 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     {
         $colorize    = new CliColors();
         $returnValue = '';
-        $padding     = str_repeat(' ', $this->maxLineMarkerWidth - strlen($this->options['deleteMarkers'][0]));
+        $padding     = str_repeat(
+            ' ',
+            max($this->maxLineMarkerWidth - strlen($this->options['deleteMarkers'][0]), 0)
+        );
 
         foreach ($changes['base']['lines'] as $line) {
             if ($this->options['cliColor']) {
@@ -156,7 +165,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * Generate a string representation of lines that are partially modified.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Modified text.
      */
@@ -179,10 +188,10 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * Merge the changes between two lines together and mark these changes.
      *
-     * @param array        $baseLines       Lines of version 1.
-     * @param array        $changedLines    Lines of version 2.
-     * @param array|null[] $deleteColors    Fore- and background colors of part that is removed from the 2nd version.
-     * @param array|null[] $insertColors    Fore- and background colors of part that is added to the 2nd version.
+     * @param   array         $baseLines     Lines of version 1.
+     * @param   array         $changedLines  Lines of version 2.
+     * @param   array|null[]  $deleteColors  Fore- and background colors of part that is removed from the 2nd version.
+     * @param   array|null[]  $insertColors  Fore- and background colors of part that is added to the 2nd version.
      *
      * Option $deleteColors and $insertColors only have affect when this class's cliColors option is set to true.
      *
@@ -194,7 +203,11 @@ class InlineCli extends MainRenderer implements SubRendererInterface
         array $deleteColors = [null, null],
         array $insertColors = [null, null]
     ): array {
-        $padding = str_repeat(' ', $this->maxLineMarkerWidth - strlen($this->options['equalityMarkers'][1]));
+        $padding = str_repeat(
+            ' ',
+            max($this->maxLineMarkerWidth - strlen($this->options['equalityMarkers'][1]), 0)
+        );
+
         if ($this->options['cliColor']) {
             $colorize = new CliColors();
         }
@@ -233,7 +246,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * Generate a string representation of the end of a block.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string End of the block
      */
