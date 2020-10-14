@@ -12,14 +12,14 @@ use jblond\Diff\Renderer\SubRendererInterface;
  *
  * PHP version 7.2 or greater
  *
- * @package     jblond\Diff\Renderer\Html
- * @author      Chris Boulton <chris.boulton@interspire.com>
- * @author      Mario Brandt <leet31337@web.de>
- * @author      Ferry Cools <info@DigiLive.nl>
+ * @package         jblond\Diff\Renderer\Html
+ * @author          Chris Boulton <chris.boulton@interspire.com>
+ * @author          Mario Brandt <leet31337@web.de>
+ * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2009 Chris Boulton
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.2.1
- * @link        https://github.com/JBlond/php-diff
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.2.1
+ * @link            https://github.com/JBlond/php-diff
  */
 class SideBySide extends MainRenderer implements SubRendererInterface
 {
@@ -43,7 +43,7 @@ class SideBySide extends MainRenderer implements SubRendererInterface
     /**
      * SideBySide constructor.
      *
-     * @param array $options Custom defined options for the inline diff renderer.
+     * @param   array  $options  Custom defined options for the inline diff renderer.
      *
      * @see Inline::$subOptions
      */
@@ -103,7 +103,10 @@ HTML;
     /**
      * Generate a string representation of table rows with lines without differences between both versions.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks.
+     * Note: Depending on the options, lines can be marked as being equal, while the contents actually differ.
+     * (E.g. ignoreWhitespace and ignoreCase)
+     *
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks.
      *
      * @return string HTML code representing table rows showing text with no difference.
      */
@@ -111,7 +114,7 @@ HTML;
     {
         $html = '';
 
-        foreach ($changes['base']['lines'] as $lineNo => $line) {
+        foreach ($changes['base']['lines'] as $lineNo => $baseLine) {
             $fromLine = $changes['base']['offset'] + $lineNo + 1;
             $toLine   = $changes['changed']['offset'] + $lineNo + 1;
 
@@ -119,11 +122,11 @@ HTML;
 <tr>
     <th>$fromLine</th>
     <td class="Left">
-        <span>$line</span>
+        <span>$baseLine</span>
     </td>
     <th>$toLine</th>
     <td class="Right">
-        <span>$line</span>
+        <span>{$changes['changed']['lines'][$lineNo]}</span>
     </td>
 </tr>
 HTML;
@@ -135,7 +138,7 @@ HTML;
     /**
      * Generates a string representation of table rows with lines that are added to the 2nd version.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string HTML code representing table rows showing with added text.
      */
@@ -164,7 +167,7 @@ HTML;
     /**
      * Generates a string representation of table rows with lines that are removed from the 2nd version.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string HTML code representing table rows showing removed text.
      */
@@ -193,7 +196,7 @@ HTML;
     /**
      * Generates a string representation of table rows with lines that are partially modified.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Html code representing table rows showing modified text.
      */
@@ -264,7 +267,7 @@ HTML;
     /**
      * Generate a string representation of the start of a block.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Start of the diff view.
      */
@@ -276,7 +279,7 @@ HTML;
     /**
      * Generate a string representation of the end of a block.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string End of the block.
      */
