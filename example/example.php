@@ -2,6 +2,7 @@
 
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\Inline;
+use jblond\Diff\Renderer\Html\Merged;
 use jblond\Diff\Renderer\Html\SideBySide;
 use jblond\Diff\Renderer\Html\Unified as HtmlUnified;
 use jblond\Diff\Renderer\Text\Context;
@@ -23,7 +24,7 @@ $diffOptions = [
 ];
 
 // Choose one of the initializations.
-$diff = new Diff($sampleA, $sampleB);                   // Initialize the diff class with default options.
+$diff = new Diff($sampleA, $sampleB);                 // Initialize the diff class with default options.
 //$diff = new Diff($sampleA, $sampleB, $diffOptions); // Initialize the diff class with custom options.
 
 // Options for rendering the diff.
@@ -80,6 +81,13 @@ echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
 <?php
 // Generate an inline diff.
 $renderer = new Inline($rendererOptions);
+echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
+?>
+
+<h2>HTML Merged Diff</h2>
+<?php
+// Generate an inline diff.
+$renderer = new Merged();
 echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
 ?>
 

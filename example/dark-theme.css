@@ -52,17 +52,23 @@ a, a:visited {
 
 .Differences .Skipped {
     background: #F7F7F7;
+    color: #000000;
+}
+
+.Differences ins,
+.Differences del {
+    text-decoration: none;
 }
 
 /*
  * HTML Side by Side Diff
  */
 .DifferencesSideBySide .ChangeInsert td.Left {
-    background: green;
+    background: #008000;
 }
 
 .DifferencesSideBySide .ChangeInsert td.Right {
-    background: green;
+    background: #008000;
 }
 
 .DifferencesSideBySide .ChangeDelete td.Left {
@@ -83,11 +89,6 @@ a, a:visited {
 .DifferencesSideBySide .ChangeReplace .Right {
     background: #FFDD88;
     color: #272822;
-}
-
-.Differences ins,
-.Differences del {
-    text-decoration: none;
 }
 
 .DifferencesSideBySide .ChangeReplace ins,
@@ -115,10 +116,35 @@ a, a:visited {
 }
 
 .DifferencesInline .ChangeReplace ins {
-    background: green;
+    background: #008000;
 }
 
 .DifferencesInline .ChangeReplace del {
+    background: #EE9999;
+    color: #272822;
+}
+
+/*
+ * HTML Merged Diff
+ */
+.DifferencesMerged .ChangeReplace .Left,
+.DifferencesMerged .ChangeDelete {
+    background: #FFDDDD;
+    color: #272822;
+}
+
+.DifferencesMerged .ChangeReplace .Right,
+.DifferencesMerged .ChangeInsert {
+    background: #DDFFDD;
+    color: #272822;
+}
+
+.DifferencesMerged .ChangeReplace ins {
+    background: #008000;
+    color: #272822;
+}
+
+.DifferencesMerged .ChangeReplace del {
     background: #EE9999;
     color: #272822;
 }
