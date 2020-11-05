@@ -269,7 +269,7 @@ HTML;
      *
      * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
-     * @return string Start of the diff view.
+     * @return string Start of the block.
      */
     public function generateBlockHeader(array $changes): string
     {
