@@ -6,6 +6,7 @@ namespace Tests\Diff\Renderer\Html;
 
 use jblond\Diff;
 use jblond\Diff\Renderer\Html\Inline;
+use jblond\Diff\Renderer\Html\Merged;
 use jblond\Diff\Renderer\Html\SideBySide;
 use jblond\Diff\Renderer\Html\Unified;
 use PHPUnit\Framework\TestCase;
@@ -87,6 +88,26 @@ class HtmlRenderersTest extends TestCase
         }
 
         $this->assertStringEqualsFile('tests/resources/htmlInline.txt', $result);
+    }
+
+    /**
+     * Test the output of the HTML Unified renderer.
+     * @covers \jblond\Diff\Renderer\Html\Merged
+     */
+    public function testMerged()
+    {
+        $diff = new Diff(
+            file_get_contents('tests/resources/a.txt'),
+            file_get_contents('tests/resources/b.txt')
+        );
+
+        $renderer = new Merged();
+        $result   = $diff->render($renderer);
+        if ($this->genOutputFiles) {
+            file_put_contents('htmlMerged.txt', $result);
+        }
+
+        $this->assertStringEqualsFile('tests/resources/htmlMerged.txt', $result);
     }
 
     /**
