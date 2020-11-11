@@ -35,18 +35,21 @@ class Merged extends MainRenderer implements SubRendererInterface
         'title1'        => 'Version1',
         'title2'        => 'Version2',
     ];
+    /**
+     * @var int Line offset to keep correct line number for merged diff.
+     */
     protected $lineOffset = 0;
     /**
-     * @var string
+     * @var string last block of lines which where removed from version 2.
      */
     protected $lastDeleted;
 
     /**
      * Merged constructor.
      *
-     * @param   array  $options  Custom defined options for the inline diff renderer.
+     * @param   array  $options  Custom defined options for the merged diff renderer.
      *
-     * @see Inline::$subOptions
+     * @see Merged::$subOptions
      */
     public function __construct(array $options = [])
     {
