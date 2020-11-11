@@ -199,6 +199,7 @@ TEXT;
             }
 
             // Capture added parts.
+            $addedParts = [];
             preg_match_all('/\x0.*?\x1/', $changes['changed']['lines'][$lineNo], $addedParts, PREG_PATTERN_ORDER);
             array_unshift($addedParts[0], '');
 
