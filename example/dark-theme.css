@@ -1,6 +1,6 @@
 body {
     background:  #3A3B46;
-    color: #F8F8F2;
+    color:       #F8F8F2;
     font-family: Arial, serif;
     font-size:   12px;
 }
@@ -36,7 +36,7 @@ a, a:visited {
 .Differences tbody th {
     text-align:     right;
     background:     #AAAAAA;
-    color: #272822;
+    color:          #272822;
     width:          4em;
     padding:        1px 2px;
     border-right:   1px solid #000000;
@@ -52,7 +52,7 @@ a, a:visited {
 
 .Differences .Skipped {
     background: #F7F7F7;
-    color: #000000;
+    color:      #000000;
 }
 
 .Differences ins,
@@ -73,22 +73,22 @@ a, a:visited {
 
 .DifferencesSideBySide .ChangeDelete td.Left {
     background: #FF8888;
-    color: #272822;
+    color:      #272822;
 }
 
 .DifferencesSideBySide .ChangeDelete td.Right {
     background: #FFAAAA;
-    color: #272822;
+    color:      #272822;
 }
 
 .DifferencesSideBySide .ChangeReplace .Left {
     background: #FFEE99;
-    color: #272822;
+    color:      #272822;
 }
 
 .DifferencesSideBySide .ChangeReplace .Right {
     background: #FFDD88;
-    color: #272822;
+    color:      #272822;
 }
 
 .DifferencesSideBySide .ChangeReplace ins,
@@ -107,7 +107,7 @@ a, a:visited {
 .DifferencesInline .ChangeReplace .Left,
 .DifferencesInline .ChangeDelete .Left {
     background: #FFDDDD;
-    color: #272822;
+    color:      #272822;
 }
 
 .DifferencesInline .ChangeReplace .Right,
@@ -121,7 +121,7 @@ a, a:visited {
 
 .DifferencesInline .ChangeReplace del {
     background: #EE9999;
-    color: #272822;
+    color:      #272822;
 }
 
 /*
@@ -130,23 +130,27 @@ a, a:visited {
 .DifferencesMerged .ChangeReplace .Left,
 .DifferencesMerged .ChangeDelete {
     background: #FFDDDD;
-    color: #272822;
+    color:      #272822;
 }
 
 .DifferencesMerged .ChangeReplace .Right,
 .DifferencesMerged .ChangeInsert {
     background: #DDFFDD;
-    color: #272822;
+    color:      #272822;
 }
 
 .DifferencesMerged .ChangeReplace ins {
     background: #008000;
-    color: #272822;
+    color:      #272822;
 }
 
 .DifferencesMerged .ChangeReplace del {
     background: #EE9999;
-    color: #272822;
+    color:      #272822;
+}
+
+.DifferencesMerged th.ChangeDelete {
+    background-image: linear-gradient(-45deg, #AAAAAA 0%, #EE9999 100%);
 }
 
 /*
@@ -160,13 +164,13 @@ a, a:visited {
 
 .DifferencesUnified .ChangeDelete .Left {
     background: #EE9999;
-    color: #272822;
+    color:      #272822;
 }
 
 /* Line modified in old and new */
 .DifferencesUnified .ChangeReplace {
     background: #FFEE99;
-    color: #272822;
+    color:      #272822;
     display:    table;
 }
 

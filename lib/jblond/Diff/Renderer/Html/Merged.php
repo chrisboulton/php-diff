@@ -87,7 +87,7 @@ HTML;
      */
     public function generateBlockHeader(array $changes): string
     {
-        return '<tbody class="Change' . ucfirst($changes['tag']) . '">';
+        return $changes['tag'] != 'delete' ? '<tbody class="Change' . ucfirst($changes['tag']) . '">' : '';
     }
 
     /**
@@ -95,16 +95,18 @@ HTML;
      */
     public function generateSkippedLines(): string
     {
-        $marker = '&hellip;';
+        $marker      = '&hellip;';
+        $headerClass = '';
+
         if ($this->lastDeleted !== null) {
-            $marker = "*$marker";
+            $headerClass = 'ChangeDelete';
         }
 
         $this->lastDeleted = null;
 
         return <<<HTML
 <tr>
-    <th title="{$this->lastDeleted}">$marker</th>
+    <th class="$headerClass" title="{$this->lastDeleted}">$marker</th>
     <td class="Skipped">&hellip;</td>
 </tr>
 HTML;
@@ -115,17 +117,18 @@ HTML;
      */
     public function generateLinesEqual(array $changes): string
     {
-        $html = '';
+        $html        = '';
+        $headerClass = '';
 
         foreach ($changes['base']['lines'] as $lineNo => $line) {
             $fromLine = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
             if (!$lineNo && $this->lastDeleted !== null) {
-                $fromLine = "*$fromLine";
+                $headerClass = 'ChangeDelete';
             }
 
             $html              .= <<<HTML
 <tr>
-    <th title="{$this->lastDeleted}">$fromLine</th>
+    <th class="$headerClass" title="{$this->lastDeleted}">$fromLine</th>
     <td>$line</td>
 </tr>
 HTML;
@@ -140,18 +143,19 @@ HTML;
      */
     public function generateLinesInsert(array $changes): string
     {
-        $html = '';
+        $html        = '';
+        $headerClass = '';
 
         foreach ($changes['changed']['lines'] as $lineNo => $line) {
             $this->lineOffset++;
             $toLine = $changes['base']['offset'] + $this->lineOffset;
             if (!$lineNo && $this->lastDeleted !== null) {
-                $toLine = "*$toLine";
+                $headerClass = 'ChangeDelete';
             }
 
             $html              .= <<<HTML
 <tr>
-    <th title="{$this->lastDeleted}">$toLine</th>
+    <th class="$headerClass" title="{$this->lastDeleted}">$toLine</th>
     <td><ins>$line</ins></td>
 </tr>
 HTML;
@@ -190,12 +194,13 @@ TEXT;
      */
     public function generateLinesReplace(array $changes): string
     {
-        $html = '';
+        $html        = '';
+        $headerClass = '';
 
         foreach ($changes['base']['lines'] as $lineNo => $line) {
             $fromLine = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
             if (!$lineNo && $this->lastDeleted !== null) {
-                $fromLine = "*$fromLine";
+                $headerClass = 'ChangeDelete';
             }
 
             // Capture added parts.
@@ -217,7 +222,7 @@ TEXT;
 
             $html              .= <<<HTML
 <tr>
-    <th title="{$this->lastDeleted}">$fromLine</th>
+    <th class="$headerClass" title="{$this->lastDeleted}">$fromLine</th>
     <td>$line</td>
 </tr>
 HTML;

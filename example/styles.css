@@ -1,6 +1,6 @@
 body {
     background:  #FFFFFF;
-    color: #000000;
+    color:       #000000;
     font-family: Arial, serif;
     font-size:   12px;
 }
@@ -126,6 +126,10 @@ pre {
 
 .DifferencesMerged .ChangeReplace del {
     background: #EE9999;
+}
+
+.DifferencesMerged th.ChangeDelete {
+    background-image: linear-gradient(-45deg, #CCCCCC 0%, #EE9999 100%);
 }
 
 /*
