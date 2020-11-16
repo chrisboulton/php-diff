@@ -39,7 +39,8 @@
     },
     "autoload": {
         "psr-4": {
-            "jblond\\": "lib/jblond"
+            "jblond\\": "lib/jblond",
+            "Tests\\": "tests"
         }
     },
     "config": {
