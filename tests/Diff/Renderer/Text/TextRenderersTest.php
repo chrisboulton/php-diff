@@ -10,7 +10,7 @@ use jblond\Diff\Renderer\Text\Unified;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class TextRendererTest
+ * Class TextRenderersTest
  *
  * PHPUnit tests to verify that the output of the text renderers did not change due to code changes.
  *
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  * @version     2.2.1
  * @link        https://github.com/JBlond/php-diff
  */
-class TextRendererTest extends TestCase
+class TextRenderersTest extends TestCase
 {
     /**
      * @var bool Store the renderer's output in a file, when set to true.
@@ -30,7 +30,7 @@ class TextRendererTest extends TestCase
     private $genOutputFiles = false;
 
     /**
-     * TextRendererTest constructor.
+     * TextRenderersTest constructor.
      *
      * @param null   $name
      * @param array  $data
