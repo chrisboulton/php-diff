@@ -9,7 +9,7 @@
           <h1>This is demo content to show features of the php-diff package.</h1>
 -         <h2>This line is removed from version2.</h2>
           <h2>This line is the same for both versions.</h2>
-!         <h2>This line has inline differences between both versions.</h2>
+!         <h2>this line has inline differences between both versions.</h2>
           <h2>This line is the same for both versions.</h2>
 !         <h2>This line also has inline differences between both versions.</h2>
           <h2>This line is the same for both versions.</h2>
