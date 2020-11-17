@@ -82,7 +82,7 @@ class Unified extends MainRenderer implements SubRendererInterface
      */
     public function generateSkippedLines(): string
     {
-        return '<div class="Skipped" title="Equal lines collapsed!">&hellip;</div>';
+        return '<span class="Skipped" title="Equal lines collapsed!">&hellip;</span>';
     }
 
 

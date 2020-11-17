@@ -53,6 +53,7 @@ a, a:visited {
 .Differences .Skipped {
     background: #F7F7F7;
     color:      #000000;
+    display:    block;
 }
 
 .Differences ins,
