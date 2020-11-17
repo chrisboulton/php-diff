@@ -31,7 +31,7 @@
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
     <th class="" title="">9</th>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line has <del>inline </del><ins></ins>differences between both versions.&lt;/h2&gt;</td>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;<del>this line has inline</del><ins>This line has</ins> differences between both versions.&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th class="" title="">10</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</td>
