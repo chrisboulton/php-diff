@@ -11,17 +11,32 @@ use jblond\Diff;
  *
  * PHP version 7.2 or greater
  *
- * @package     jblond\Diff\Renderer
- * @author      Mario Brandt <leet31337@web.de>
- * @author      Ferry Cools <info@DigiLive.nl>
+ * @package         jblond\Diff\Renderer
+ * @author          Mario Brandt <leet31337@web.de>
+ * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2009 Chris Boulton
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.2.1
- * @link        https://github.com/JBlond/php-diff
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.2.1
+ * @link            https://github.com/JBlond/php-diff
  */
 abstract class MainRendererAbstract
 {
-
+    /**
+     * Mark inline character differences.
+     */
+    public const CHANGE_LEVEL_CHAR = 0;
+    /**
+     * Mark inline word differences.
+     */
+    public const CHANGE_LEVEL_WORD = 1;
+    /**
+     * Mark line differences.
+     */
+    public const CHANGE_LEVEL_LINE = 2;
+    /**
+     * Mark no inline differences.
+     */
+    public const CHANGE_LEVEL_NONE = 4;
     /**
      * @var Diff $diff Instance of the diff class that this renderer is generating the rendered diff for.
      */
@@ -30,6 +45,11 @@ abstract class MainRendererAbstract
     /**
      * @var array   Associative array containing the default options available for this renderer and their default
      *              value.
+     *              - inlineMarking     The level of how differences are marked.
+     *                                  - self::CHANGE_LEVEL_NONE   Don't Inline-Mark.
+     *                                  - self::CHANGE_LEVEL_CHAR   Inline-Mark each different character.
+     *                                  - self::CHANGE_LEVEL_WORD   Inline-Mark each different word.
+     *                                  - self::CHANGE_LEVEL_LINE   Inline-Mark from first to last line diff.
      *              - tabSize           The amount of spaces to replace a tab character with.
      *              - format            The format of the input texts.
      *              - cliColor          Colorized output for cli.
@@ -40,6 +60,7 @@ abstract class MainRendererAbstract
      *              - deleteColors      Fore- and background color for removed text. Only when cliColor = true.
      */
     protected $mainOptions = [
+        'inlineMarking'   => self::CHANGE_LEVEL_LINE,
         'tabSize'         => 4,
         'format'          => 'plain',
         'cliColor'        => false,
@@ -60,7 +81,7 @@ abstract class MainRendererAbstract
      * The constructor. Instantiates the rendering engine and if options are passed,
      * sets the options for the renderer.
      *
-     * @param array $options Optionally, an array of the options for the renderer.
+     * @param   array  $options  Optionally, an array of the options for the renderer.
      */
     public function __construct(array $options = [])
     {
@@ -72,9 +93,11 @@ abstract class MainRendererAbstract
      *
      * Options are merged with the default to ensure that there aren't any missing options.
      * When custom options are added to the default ones, they can be overwritten, but they can't be removed.
+     *
+     * @param   array  $options  Array of options to set.
+     *
      * @see MainRendererAbstract::$mainOptions
      *
-     * @param array $options Array of options to set.
      */
     public function setOptions(array $options)
     {

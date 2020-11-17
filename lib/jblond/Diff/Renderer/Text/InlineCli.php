@@ -219,12 +219,14 @@ class InlineCli extends MainRenderer implements SubRendererInterface
 
             foreach ($baselineParts as $partKey => &$part) {
                 if ($iterator++ % 2) {
-                    // This part of the line has been changed. Surround it with user defied markers.
+                    // This part of the line has been changed. Surround it with user defined markers.
                     $basePart    = $this->options['deleteMarkers'][0] . $part . $this->options['deleteMarkers'][1];
-                    $changedPart =
-                        $this->options['insertMarkers'][0] .
-                        $changedLineParts[$partKey] .
-                        $this->options['insertMarkers'][1];
+                    if (isset($changedLineParts[$partKey])) {
+                        $changedPart =
+                            $this->options['insertMarkers'][0] .
+                            $changedLineParts[$partKey] .
+                            $this->options['insertMarkers'][1];
+                    }
 
                     if ($this->options['cliColor']) {
                         // Colorize the changed part.

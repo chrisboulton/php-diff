@@ -86,11 +86,11 @@
 </tr></tbody><tbody class="ChangeReplace"><tr>
     <th>10</th>
     <td class="Left">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line has <del>inline </del>differences between both versions.&lt;/h2&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;<del>this line has inline</del> differences between both versions.&lt;/h2&gt;</span>
     </td>
     <th>9</th>
     <td class="Right">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line has <ins></ins>differences between both versions.&lt;/h2&gt;</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;<ins>This line has</ins> differences between both versions.&lt;/h2&gt;</span>
     </td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th>11</th>

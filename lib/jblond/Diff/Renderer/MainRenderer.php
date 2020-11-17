@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace jblond\Diff\Renderer;
 
+use jblond\Diff\SequenceMatcher;
+
 /**
  * Base renderer for rendering diffs for PHP DiffLib.
  *
@@ -135,7 +137,7 @@ class MainRenderer extends MainRendererAbstract
 
                 if (($tag == 'replace') && ($blockSizeOld == $blockSizeNew)) {
                     // Inline differences between old and new block.
-                    $this->markInlineChange($oldText, $newText, $startOld, $endOld, $startNew);
+                    $this->markInlineChanges($oldText, $newText, $startOld, $endOld, $startNew);
                 }
 
                 $lastBlock = $this->appendChangesArray($blocks, $tag, $startOld, $startNew);
@@ -168,6 +170,118 @@ class MainRenderer extends MainRendererAbstract
     }
 
     /**
+     * Surround inline changes with markers.
+     *
+     * @param   array  $oldText   Collection of lines of old text.
+     * @param   array  $newText   Collection of lines of new text.
+     * @param   int    $startOld  First line of the block in old to replace.
+     * @param   int    $endOld    last line of the block in old to replace.
+     * @param   int    $startNew  First line of the block in new to replace.
+     */
+    private function markInlineChanges(
+        array &$oldText,
+        array &$newText,
+        int $startOld,
+        int $endOld,
+        int $startNew
+    ): void {
+        if ($this->options['inlineMarking'] < self::CHANGE_LEVEL_LINE) {
+            $this->markInnerChange($oldText, $newText, $startOld, $endOld, $startNew);
+
+            return;
+        }
+
+        if ($this->options['inlineMarking'] == self::CHANGE_LEVEL_LINE) {
+            $this->markOuterChange($oldText, $newText, $startOld, $endOld, $startNew);
+        }
+    }
+
+    /**
+     * Add markers around inline changes between old and new text.
+     *
+     * Each line of the old and new text is evaluated.
+     * When a line of old differs from the same line of new, a marker is inserted into both lines, just before the first
+     * different character/word. A second marker is added just before the following character/word which matches again.
+     *
+     * Setting parameter changeType to self::CHANGE_LEVEL_CHAR will mark differences at character level.
+     * Other values will mark differences at word level.
+     *
+     * E.g. Character level.
+     * <pre>
+     *         1234567890
+     * Old => "aa bbc cdd" Start marker inserted at position 4
+     * New => "aa 12c cdd" End marker inserted at position 6
+     * </pre>
+     * E.g. Word level.
+     * <pre>
+     *         1234567890
+     * Old => "aa bbc cdd" Start marker inserted at position 4
+     * New => "aa 12c cdd" End marker inserted at position 7
+     * </pre>
+     *
+     * @param   array  $oldText   Collection of lines of old text.
+     * @param   array  $newText   Collection of lines of new text.
+     * @param   int    $startOld  First line of the block in old to replace.
+     * @param   int    $endOld    last line of the block in old to replace.
+     * @param   int    $startNew  First line of the block in new to replace.
+     */
+    private function markInnerChange(array &$oldText, array &$newText, int $startOld, int $endOld, int $startNew): void
+    {
+        for ($iterator = 0; $iterator < ($endOld - $startOld); ++$iterator) {
+            // ChangeType 0: Character Level.
+            // ChangeType 1: Word Level.
+            $regex = $this->options['inlineMarking'] ? '/\w+|[^\w\s]|\s/u' : '/.?/u';
+
+            // Deconstruct the lines into arrays, including new empty element to the end in case a marker needs to be
+            // placed as last.
+            $oldLine   = $this->sequenceToArray($regex, $oldText[$startOld + $iterator]);
+            $newLine   = $this->sequenceToArray($regex, $newText[$startNew + $iterator]);
+            $oldLine[] = '';
+            $newLine[] = '';
+
+            $sequenceMatcher = new SequenceMatcher($oldLine, $newLine);
+            $opCodes         = $sequenceMatcher->getGroupedOpCodes();
+
+            foreach ($opCodes as $group) {
+                foreach ($group as [$tag, $changeStartOld, $changeEndOld, $changeStartNew, $changeEndNew]) {
+                    if ($tag == 'equal') {
+                        continue;
+                    }
+                    if ($tag == 'replace' || $tag == 'delete') {
+                        $oldLine[$changeStartOld] = "\0" . $oldLine[$changeStartOld];
+                        $oldLine[$changeEndOld]   = "\1" . $oldLine[$changeEndOld];
+                    }
+                    if ($tag == 'replace' || $tag == 'insert') {
+                        $newLine[$changeStartNew] = "\0" . $newLine[$changeStartNew];
+                        $newLine[$changeEndNew]   = "\1" . $newLine[$changeEndNew];
+                    }
+                }
+            }
+
+            // Reconstruct the lines and overwrite originals.
+            $oldText[$startOld + $iterator] = implode('', $oldLine);
+            $newText[$startNew + $iterator] = implode('', $newLine);
+        }
+    }
+
+    /**
+     * Split a sequence of characters into an array.
+     *
+     * Each element of the returned array contains a full pattern match of the regex pattern.
+     *
+     * @param   string  $pattern   Regex pattern to split by.
+     * @param   string  $sequence  The sequence to split.
+     *
+     * @return array  The split sequence.
+     */
+    public function sequenceToArray(string $pattern, string $sequence): array
+    {
+        preg_match_all($pattern, $sequence, $matches);
+
+        return $matches[0];
+    }
+
+    /**
      * Add markers around inline changes between old and new text.
      *
      * Each line of the old and new text is evaluated.
@@ -187,7 +301,7 @@ class MainRenderer extends MainRendererAbstract
      * @param   int    $endOld    last line of the block in old to replace.
      * @param   int    $startNew  First line of the block in new to replace.
      */
-    private function markInlineChange(array &$oldText, array &$newText, int $startOld, int $endOld, int $startNew)
+    private function markOuterChange(array &$oldText, array &$newText, int $startOld, int $endOld, int $startNew): void
     {
         for ($iterator = 0; $iterator < ($endOld - $startOld); ++$iterator) {
             // Check each line in the block for differences.
@@ -195,7 +309,7 @@ class MainRenderer extends MainRendererAbstract
             $newString = $newText[$startNew + $iterator];
 
             // Determine the start and end position of the line difference.
-            [$start, $end] = $this->getInlineChange($oldString, $newString);
+            [$start, $end] = $this->getOuterChange($oldString, $newString);
             if ($start != 0 || $end != 0) {
                 // Changes between the lines exist.
                 // Add markers around the changed character sequence in the old string.
@@ -233,7 +347,7 @@ class MainRenderer extends MainRendererAbstract
      *
      * @return array Array containing the starting position (0 by default) and the ending position (-1 by default)
      */
-    private function getInlineChange(string $oldString, string $newString): array
+    private function getOuterChange(string $oldString, string $newString): array
     {
         $start = 0;
         $limit = min(mb_strlen($oldString), mb_strlen($newString));
