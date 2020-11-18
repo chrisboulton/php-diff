@@ -68,6 +68,11 @@ $rendererOptions = [
     <a href="example.php?inlineMarking=4">None</a>
 </aside>
 <hr>
+<aside>
+    <h2>Informational</h2>
+    Between the two versions, there's a <?php echo round($diff->getSimilarity(),2) * 100; ?>% match.
+</aside>
+<hr>
 
 <h2>HTML Side by Side Diff</h2>
 

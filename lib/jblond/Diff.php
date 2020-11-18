@@ -11,6 +11,7 @@ use jblond\Diff\Renderer\Html\Unified as UnifiedHtml;
 use jblond\Diff\Renderer\Text\Context;
 use jblond\Diff\Renderer\Text\Unified;
 use jblond\Diff\SequenceMatcher;
+use jblond\Diff\Similarity;
 use OutOfRangeException;
 
 /**
@@ -79,6 +80,10 @@ class Diff
      * @var bool True when compared versions are identical, False otherwise.
      */
     private $identical;
+    /**
+     * @var float Similarity ratio of the two sequences.
+     */
+    private $similarity;
 
     /**
      * The constructor.
@@ -92,9 +97,9 @@ class Diff
      * When a keyName matches the name of a default option, that option's value will be overridden by the key's value.
      * Any other keyName (and it's value) can be added as an option, but will not be used if not implemented.
      *
-     * @param string|array $version1 Data to compare to.
-     * @param string|array $version2 Data to compare.
-     * @param array        $options  User defined option values.
+     * @param   string|array  $version1  Data to compare to.
+     * @param   string|array  $version2  Data to compare.
+     * @param   array         $options   User defined option values.
      *
      * @see Diff::$defaultOptions
      *
@@ -116,7 +121,7 @@ class Diff
      * 0    If the type is 'array'
      * 1    if the type is 'string'
      *
-     * @param mixed $var Variable to get type from.
+     * @param   mixed  $var  Variable to get type from.
      *
      * @return int Number indicating the type of the variable. 0 for array type and 1 for string type.
      * @throws InvalidArgumentException When the type isn't 'array' or 'string'.
@@ -137,7 +142,7 @@ class Diff
     /**
      * Set the options to be used by the sequence matcher, called by this class.
      *
-     * @param array $options User defined option names and values.
+     * @param   array  $options  User defined option names and values.
      *
      * @see Diff::$defaultOptions
      *
@@ -174,8 +179,8 @@ class Diff
     /**
      * Render a diff-view using a rendering class and get its results.
      *
-     * @param object|Context|Unified|UnifiedHtml|Inline|SideBySide $renderer An instance of the rendering object,
-     *                                                                       used for generating the diff-view.
+     * @param   object|Context|Unified|UnifiedHtml|Inline|SideBySide  $renderer  An instance of the rendering object,
+     *                                                                           used for generating the diff-view.
      *
      * @return mixed The generated diff-view. The type of the return value depends on the applied renderer.
      */
@@ -196,10 +201,10 @@ class Diff
      * If the arguments for both parameters are omitted, the entire array will be returned.
      * If the argument for the second parameter is omitted, the element defined as start will be returned.
      *
-     * @param array    $array   The source array.
-     * @param int      $start   The first element of the range to get.
-     * @param int|null $end     The last element of the range to get.
-     *                          If not supplied, only the element at start will be returned.
+     * @param   array     $array  The source array.
+     * @param   int       $start  The first element of the range to get.
+     * @param   int|null  $end    The last element of the range to get.
+     *                            If not supplied, only the element at start will be returned.
      *
      * @return array Array containing all of the elements of the specified range.
      * @throws OutOfRangeException When the value of start or end are invalid to define a range.
@@ -264,5 +269,26 @@ class Diff
         $this->identical    = count($opCodes) == 1 && $opCodes[0][0] == 'equal';
 
         return $this->groupedCodes;
+    }
+
+    /**
+     * Get the similarity ratio of the two sequences.
+     *
+     * Once calculated, the results are cached in the diff class instance.
+     *
+     * @param   int  $method  Calculation method.
+     *
+     * @return float Similarity ratio.
+     */
+    public function getSimilarity($method = Similarity::CALC_DEFAULT): float
+    {
+        if ($this->similarity !== null) {
+            return $this->similarity;
+        }
+
+        $similarity       = new Similarity($this->version1, $this->version2, $this->options);
+        $this->similarity = $similarity->getSimilarity($method);
+
+        return $this->similarity;
     }
 }
