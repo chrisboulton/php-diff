@@ -1,5 +1,6 @@
 body {
     background:  #FFFFFF;
+    color:       #000000;
     font-family: Arial, serif;
     font-size:   12px;
 }
@@ -104,6 +105,31 @@ pre {
 
 .DifferencesInline .ChangeReplace del {
     background: #EE9999;
+}
+
+/*
+ * HTML Merged Diff
+ */
+.DifferencesMerged .ChangeReplace .Left,
+.DifferencesMerged .ChangeDelete {
+    background: #FFDDDD;
+}
+
+.DifferencesMerged .ChangeReplace .Right,
+.DifferencesMerged .ChangeInsert {
+    background: #DDFFDD;
+}
+
+.DifferencesMerged .ChangeReplace ins {
+    background: #99EE99;
+}
+
+.DifferencesMerged .ChangeReplace del {
+    background: #EE9999;
+}
+
+.DifferencesMerged th.ChangeDelete {
+    background-image: linear-gradient(-45deg, #CCCCCC 0%, #EE9999 100%);
 }
 
 /*
