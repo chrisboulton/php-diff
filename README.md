@@ -6,8 +6,9 @@
 
 ## Introduction
 
-A comprehensive library for generating differences between two hashable objects (strings or arrays).
-Generated differences can be rendered in all the standard formats including:
+A comprehensive library for generating differences between two hashable
+objects (strings or arrays). Generated differences can be rendered in all the
+standard formats including:
 
 * Unified
 * Context
@@ -16,8 +17,9 @@ Generated differences can be rendered in all the standard formats including:
 * Unified HTML
 * Unified Commandline colored output
 
-The logic behind the core of the diff engine (ie, the sequence matcher) is primarily based on the Python difflib
-package. The reason for doing so is primarily because of its high degree of accuracy.
+The logic behind the core of the diff engine (ie, the sequence matcher) is
+primarily based on the Python difflib package. The reason for doing so is
+primarily because of its high degree of accuracy.
 
 ## Install
 
@@ -31,7 +33,7 @@ For cli usage you need to install the suggested `jblond/php-cli` package.
 
 ## Documentation
 
-See the [Wiki](https://github.com/JBlond/php-diff/wiki) for 
+See the [Wiki](https://github.com/JBlond/php-diff/wiki) for
 
 * [Getting started](https://github.com/JBlond/php-diff/wiki/1.-Getting-Started)
 * [Parameters and Options](https://github.com/JBlond/php-diff/wiki/2.-Parameters-and-Options)
@@ -82,8 +84,9 @@ echo $diff->isIdentical() ? 'No differences found.' : '<pre>' . htmlspecialchars
 ```
 
 ### Example Output
-File `example.php` contains a quick demo and can be found in the `example/` directory.
-Included is a light and a dark theme.
+
+File `example.php` contains a quick demo and can be found in the `example/`
+directory. Included is a light and a dark theme.
 
 #### HTML Side By Side Example
 
@@ -115,7 +118,6 @@ Included is a light and a dark theme.
 
 <details><summary>HTML Side By Side Dark Theme Example</summary><br>
 
-
 ![HTML Side By Side Dark Theme Example](assets/htmlSidebySideDarkTheme.png "HTML Side By Side Dark Theme Example")
 
 </details>
@@ -128,16 +130,18 @@ Included is a light and a dark theme.
 
 ## Contribution, Issues and feature requests
 
-If you found a bug, or have an idea for new functionality, 
-feel free to report it on the issue tracker - just use search beforehand.
+If you found a bug, or have an idea for new functionality, feel free to report
+it on the issue tracker - just use search beforehand.
 [Issue tracker](https://github.com/JBlond/php-diff/issues)
 
 You can also fork this repository and open a PR.
 
 ## Merge files using jQuery
 
-Xiphe has build a jQuery plugin with that you can merge the compared files.
-Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge-for-php-diff).
+Xiphe has build a jQuery plugin with that you can merge the compared files. Have
+a look
+at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge-for-php-diff)
+.
 
 ## Todo
 

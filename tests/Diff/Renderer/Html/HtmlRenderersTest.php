@@ -34,9 +34,9 @@ class HtmlRenderersTest extends TestCase
     /**
      * Constructor.
      *
-     * @param null   $name
-     * @param array  $data
-     * @param string $dataName
+     * @param   null    $name
+     * @param   array   $data
+     * @param   string  $dataName
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -46,6 +46,7 @@ class HtmlRenderersTest extends TestCase
 
     /**
      * Test the output of the HTML Side by Side renderer.
+     *
      * @covers \jblond\Diff\Renderer\Html\SideBySide
      */
     public function testSideBySide()
@@ -66,6 +67,7 @@ class HtmlRenderersTest extends TestCase
 
     /**
      * Test the output of the HTML Inline renderer.
+     *
      * @covers \jblond\Diff\Renderer\Html\Inline
      */
     public function testInline()
@@ -92,6 +94,7 @@ class HtmlRenderersTest extends TestCase
 
     /**
      * Test the output of the HTML Unified renderer.
+     *
      * @covers \jblond\Diff\Renderer\Html\Merged
      */
     public function testMerged()
@@ -112,6 +115,7 @@ class HtmlRenderersTest extends TestCase
 
     /**
      * Test the output of the HTML Unified renderer.
+     *
      * @covers \jblond\Diff\Renderer\Html\Unified
      */
     public function testUnified()
