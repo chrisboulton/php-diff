@@ -43,6 +43,9 @@ class SequenceMatcherTest extends TestCase
         );
     }
 
+    /**
+     * Test the opCodes of the differences between version1 and version2 with option trimEqual disabled.
+     */
     public function testGetGroupedOpCodesTrimEqualFalse()
     {
         // Test with trimEqual disabled.
@@ -63,6 +66,9 @@ class SequenceMatcherTest extends TestCase
         );
     }
 
+    /**
+     * Test the opCodes of the differences between version1 and version2 with option IgnoreWhitespace enabled.
+     */
     public function testGetGroupedOpCodesIgnoreWhitespaceTrue()
     {
         // Test with ignoreWhitespace enabled. Both sequences are considered to be the same.
@@ -77,6 +83,9 @@ class SequenceMatcherTest extends TestCase
         $this->assertEquals([], $sequenceMatcher->getGroupedOpCodes());
     }
 
+    /**
+     *T est the opCodes of the differences between version1 and version2 with option ignoreCase enabled.
+     */
     public function testGetGroupedOpCodesIgnoreCaseTrue()
     {
         // Test with ignoreCase enabled. Both sequences are considered to be the same.
