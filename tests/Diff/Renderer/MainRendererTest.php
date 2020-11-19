@@ -50,7 +50,7 @@ class MainRendererTest extends TestCase
         $renderer->diff = new Diff(['a'], []);
 
         /** @noinspection PhpUnhandledExceptionInspection */
-        static::assertEquals(
+        $this->assertEquals(
             [
                 [
                     [
