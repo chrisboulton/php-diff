@@ -32,7 +32,7 @@ class Inline extends MainRenderer implements SubRendererInterface
      *              - title1            Title of the 1st version of text.
      *              - title2            Title of the 2nd version of text.
      */
-    protected $subOptions = [
+    private $subOptions = [
         'format'        => 'html',
         'insertMarkers' => ['<ins>', '</ins>'],
         'deleteMarkers' => ['<del>', '</del>'],
@@ -43,7 +43,7 @@ class Inline extends MainRenderer implements SubRendererInterface
     /**
      * Inline constructor.
      *
-     * @param array $options Custom defined options for the inline diff renderer.
+     * @param   array  $options  Custom defined options for the inline diff renderer.
      *
      * @see Inline::$subOptions
      */
@@ -54,7 +54,7 @@ class Inline extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Render and return a diff-view with changes between the two sequences displayed inline (under each other).
+     * @inheritDoc
      *
      * @return string|false The generated diff-view or false when there's no difference.
      */
@@ -66,8 +66,7 @@ class Inline extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generates a string representation of the opening of a table and its header with titles from the sub renderer's
-     * options.
+     * @inheritDoc
      *
      * @return string HTML code representation of a table's header.
      */
@@ -86,7 +85,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows with lines that are skipped.
+     * @inheritDoc
      *
      * @return string HTML code representation of skipped lines.
      */
@@ -102,9 +101,7 @@ HTML;
     }
 
     /**
-     * Generate a string representation of table rows with lines without differences between both versions.
-     *
-     * @param array $changes Contains the op-codes about the changes between two blocks.
+     * @inheritDoc
      *
      * @return string HTML code representing table rows showing text without differences.
      */
@@ -129,9 +126,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows with lines that are added to the 2nd version.
-     *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string HTML code representing table rows showing with added text.
      */
@@ -158,9 +153,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows with lines that are removed from the 2nd version.
-     *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string HTML code representing table rows showing removed text.
      */
@@ -187,9 +180,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows with lines that are partially modified.
-     *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string Html code representing table rows showing modified text.
      */
@@ -229,9 +220,7 @@ HTML;
     }
 
     /**
-     * Generate a string representation of the start of a block.
-     *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string Start of the block.
      */
@@ -241,9 +230,7 @@ HTML;
     }
 
     /**
-     * Generate a string representation of the end of a block.
-     *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string End of the block.
      */
@@ -253,7 +240,7 @@ HTML;
     }
 
     /**
-     * Generate a string representation of the end of a diff view.
+     * @inheritDoc
      *
      * @return string End of the diff view.
      */
