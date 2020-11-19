@@ -9,12 +9,12 @@ namespace jblond\Diff\Renderer;
  *
  * PHP version 7.2 or greater
  *
- * @package     jblond\Diff\Renderer\Html
- * @author      Ferry Cools <info@DigiLive.nl>
+ * @package         jblond\Diff\Renderer\Html
+ * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2020 Ferry Cools
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.3.0
- * @link        https://github.com/JBlond/php-diff
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.3.0
+ * @link            https://github.com/JBlond/php-diff
  */
 interface SubRendererInterface
 {
@@ -35,7 +35,7 @@ interface SubRendererInterface
     /**
      * Generate a string representation of the start of a block.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Start of the block.
      */
@@ -51,7 +51,10 @@ interface SubRendererInterface
     /**
      * Generate a string representation of lines without differences between both versions.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * Note: Depending on the options, lines can be marked as being equal, while the contents actually differ.
+     * (E.g. ignoreWhitespace and ignoreCase)
+     *
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Text with no difference.
      */
@@ -60,7 +63,7 @@ interface SubRendererInterface
     /**
      * Generate a string representation of lines that are added to the 2nd version.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Added text.
      */
@@ -69,7 +72,7 @@ interface SubRendererInterface
     /**
      * Generate a string representation of lines that are removed from the 2nd version.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Removed text.
      */
@@ -78,7 +81,7 @@ interface SubRendererInterface
     /**
      * Generate a string representation of lines that are partially modified.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string Modified text.
      */
@@ -87,7 +90,7 @@ interface SubRendererInterface
     /**
      * Generate a string representation of the end of a block.
      *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
      *
      * @return string End of the block.
      */
