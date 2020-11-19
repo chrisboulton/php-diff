@@ -48,6 +48,8 @@ class MainRendererTest extends TestCase
     {
         $renderer       = new MainRenderer();
         $renderer->diff = new Diff(['a'], []);
+
+        /** @noinspection PhpUnhandledExceptionInspection */
         static::assertEquals(
             [
                 [
@@ -98,7 +100,8 @@ class MainRendererTest extends TestCase
             ['a']
         );
 
-        static::assertEquals(
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->assertEquals(
             [
                 [
                     [
