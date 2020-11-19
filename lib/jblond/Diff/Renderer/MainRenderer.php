@@ -381,10 +381,10 @@ class MainRenderer extends MainRendererAbstract
      *
      * The index of the last element of the array is always returned.
      *
-     * @param   array    $blocks     The array which keeps the changes for the HTML renderer.
-     * @param   string   $tag        Kind of difference.
-     * @param   integer  $lineInOld  Start of block in "old".
-     * @param   integer  $lineInNew  Start of block in "new".
+     * @param   array   $blocks     The array which keeps the changes for the HTML renderer.
+     * @param   string  $tag        Kind of difference.
+     * @param   int     $lineInOld  Start of block in "old".
+     * @param   int     $lineInNew  Start of block in "new".
      *
      * @return int The index of the last element.
      */
@@ -437,7 +437,7 @@ class MainRenderer extends MainRendererAbstract
             // Convert special characters to HTML entities
             $strings = array_map(
                 function ($line) {
-                    return htmlspecialchars($line, ENT_NOQUOTES, 'UTF-8');
+                    return htmlspecialchars($line, ENT_NOQUOTES);
                 },
                 $strings
             );
@@ -447,7 +447,7 @@ class MainRenderer extends MainRendererAbstract
                 $line = preg_replace_callback(
                     '/(^[ \0\1]*)/',
                     function ($matches) {
-                        return str_replace(' ', "&nbsp;", $matches[0]);
+                        return str_replace(' ', '&nbsp;', $matches[0]);
                     },
                     $line
                 );
