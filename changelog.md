@@ -1,12 +1,15 @@
 # changelog
 
-## next
+## 2.3.0
 
 - Add: Change log.
 - Fix: Html SideBySide renders equal lines of version 1 at both sides (Option ignoreCase).
 - Fix: Second parameter of string repeat function minimizes to 0.
 - Fix: #60 - Unified Cli renderer options incompatible with Main renderer options
 - Fix: #64 - Calculation of maxLineMarkerWidth independent of input format.
+- Add: Similarity calculation
+- Add: New marking levels for inline differences
+- Add: Html merged renderer
 
 ## 2.2.1 (2020-08-06)
 
