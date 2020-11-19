@@ -1,6 +1,6 @@
 # changelog
 
-## 2.3.0
+## 2.3.0 (2020-11-19)
 
 - Add: Change log.
 - Fix: Html SideBySide renders equal lines of version 1 at both sides (Option ignoreCase).
