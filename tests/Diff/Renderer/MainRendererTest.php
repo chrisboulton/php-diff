@@ -37,34 +37,17 @@ class MainRendererTest extends TestCase
     /**
      * @var string[] Defines the main renderer options.
      */
-    public $rendererOptions = [
+    private $rendererOptions = [
         'format' => 'html',
     ];
 
     /**
-     * MainRendererTest constructor.
-     *
-     * @param   null    $name
-     * @param   array   $data
-     * @param   string  $dataName
-     */
-    public function __construct($name = null, array $data = [], $dataName = '')
-    {
-        //new \jblond\Autoloader();
-        parent::__construct($name, $data, $dataName);
-    }
-
-    /**
-     *
+     * Test if a sequence of version1 which is removed from version2 is caught by the MainRenderer.
      */
     public function testRenderSimpleDelete()
     {
         $renderer       = new MainRenderer();
-        $renderer->diff = new Diff(
-            ['a'],
-            []
-        );
-        $result         = $this->invokeMethod($renderer, 'renderSequences');
+        $renderer->diff = new Diff(['a'], []);
         static::assertEquals(
             [
                 [
@@ -72,9 +55,7 @@ class MainRendererTest extends TestCase
                         'tag'     => 'delete',
                         'base'    => [
                             'offset' => 0,
-                            'lines'  => [
-                                'a',
-                            ],
+                            'lines'  => ['a'],
                         ],
                         'changed' => [
                             'offset' => 0,
@@ -83,7 +64,7 @@ class MainRendererTest extends TestCase
                     ],
                 ],
             ],
-            $result
+            $this->invokeMethod($renderer, 'renderSequences')
         );
     }
 
@@ -94,7 +75,7 @@ class MainRendererTest extends TestCase
      * @param   string  $methodName  Method name to call
      * @param   array   $parameters  Array of parameters to pass into method.
      *
-     * @return mixed Method return.
+     * @return mixed The return value of the invoked method.
      * @throws ReflectionException If the class doesn't exist.
      */
     public function invokeMethod(object $object, string $methodName, array $parameters = [])
@@ -107,7 +88,7 @@ class MainRendererTest extends TestCase
     }
 
     /**
-     *
+     * Test if leading spaces of a sequence are replaced with html entities.
      */
     public function testRenderFixesSpaces()
     {
@@ -116,7 +97,6 @@ class MainRendererTest extends TestCase
             ['    a'],
             ['a']
         );
-        $result         = $this->invokeMethod($renderer, 'renderSequences');
 
         static::assertEquals(
             [
@@ -131,14 +111,12 @@ class MainRendererTest extends TestCase
                         ],
                         'changed' => [
                             'offset' => 0,
-                            'lines'  => [
-                                "\0\1a",
-                            ],
+                            'lines'  => ["\0\1a"],
                         ],
                     ],
                 ],
             ],
-            $result
+            $this->invokeMethod($renderer, 'renderSequences')
         );
     }
 
