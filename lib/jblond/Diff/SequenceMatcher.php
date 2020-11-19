@@ -173,14 +173,12 @@ class SequenceMatcher
                 if ($length >= 200 && count($this->b2j[$char]) * 100 > $length) {
                     $popularDict[$char] = 1;
                     unset($this->b2j[$char]);
-                } else {
-                    $this->b2j[$char][] = $i;
+                    continue;
                 }
-            } else {
-                $this->b2j[$char] = [
-                    $i,
-                ];
+                $this->b2j[$char][] = $i;
+                continue;
             }
+            $this->b2j[$char] = [$i];
         }
 
         // Remove leftovers
@@ -436,20 +434,21 @@ class SequenceMatcher
         foreach ($matchingBlocks as [$list4, $list5, $list6]) {
             if ($i1 + $k1 == $list4 && $j1 + $k1 == $list5) {
                 $k1 += $list6;
-            } else {
-                if ($k1) {
-                    $nonAdjacent[] = [
-                        $i1,
-                        $j1,
-                        $k1,
-                    ];
-                }
-
-                $i1 = $list4;
-                $j1 = $list5;
-                $k1 = $list6;
+                continue;
             }
+            if ($k1) {
+                $nonAdjacent[] = [
+                    $i1,
+                    $j1,
+                    $k1,
+                ];
+            }
+
+            $i1 = $list4;
+            $j1 = $list5;
+            $k1 = $list6;
         }
+
 
         if ($k1) {
             $nonAdjacent[] = [
