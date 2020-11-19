@@ -210,7 +210,8 @@ class InlineCli extends MainRenderer implements SubRendererInterface
             foreach ($baselineParts as $partKey => &$part) {
                 if ($iterator++ % 2) {
                     // This part of the line has been changed. Surround it with user defined markers.
-                    $basePart = $this->options['deleteMarkers'][0] . $part . $this->options['deleteMarkers'][1];
+                    $basePart    = $this->options['deleteMarkers'][0] . $part . $this->options['deleteMarkers'][1];
+                    $changedPart = '';
                     if (isset($changedLineParts[$partKey])) {
                         $changedPart =
                             $this->options['insertMarkers'][0] .
@@ -219,13 +220,13 @@ class InlineCli extends MainRenderer implements SubRendererInterface
                     }
 
                     if ($this->options['cliColor']) {
-                        // Colorize the changed part.
-                        [$fgColor, $bgColor] = $deleteColors;
-                        $basePart = $colorize->getColoredString($basePart, $fgColor, $bgColor);
-                        [$fgColor, $bgColor] = $insertColors;
-                        $changedPart = $colorize->getColoredString($changedPart, $fgColor, $bgColor); // FIXME
+                        // Colorize the changed part. $colorize is defined above.
+                        $basePart = $colorize->getColoredString($basePart, ...$deleteColors);
+                        if (!empty($changedPart)) {
+                            $changedPart = $colorize->getColoredString($changedPart, ...$insertColors);
+                        }
                     }
-                    $part = $basePart . $changedPart; // FIXME
+                    $part = $basePart . $changedPart;
                 }
             }
             unset($part);
