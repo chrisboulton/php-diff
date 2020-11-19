@@ -13,9 +13,8 @@ namespace jblond\Diff;
  *
  * @package         jblond\Diff
  * @author          Chris Boulton <chris.boulton@interspire.com>
- * @author          Mario Brandt <leet31337@web.de>
  * @author          Ferry Cools <info@DigiLive.nl>
- * @copyright   (c) 2020 Mario Brandt
+ * @copyright   (c) 2020 Ferry Cools
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version         2.3.0
  * @link            https://github.com/JBlond/php-diff
@@ -62,6 +61,7 @@ class Similarity extends SequenceMatcher
      * @param   int  $type  Calculation method.
      *
      * @return float The calculated ratio.
+     *
      */
     public function getSimilarity(int $type = self::CALC_DEFAULT): float
     {
@@ -71,7 +71,13 @@ class Similarity extends SequenceMatcher
             case self::CALC_FASTEST:
                 return $this->getRatioFastest();
             default:
-                $matches = array_reduce($this->getMatchingBlocks(), [$this, 'ratioReduce'], 0);
+                $matches = array_reduce(
+                    $this->getMatchingBlocks(),
+                    function ($carry, $item) {
+                        return $this->ratioReduce($carry, $item);
+                    },
+                    0
+                );
 
                 return $this->calculateRatio($matches, count($this->old) + count($this->new));
         }
@@ -99,12 +105,8 @@ class Similarity extends SequenceMatcher
         $matches = 0;
         $aLength = count($this->old);
         for ($iterator = 0; $iterator < $aLength; ++$iterator) {
-            $char = $this->old[$iterator];
-            if (isset($avail[$char])) {
-                $numb = $avail[$char];
-            } else {
-                $numb = $this->uniqueCount2[$char] ?? 0;
-            }
+            $char         = $this->old[$iterator];
+            $numb         = isset($avail[$char]) ? $avail[$char] : $this->uniqueCount2[$char] ?? 0;
             $avail[$char] = $numb - 1;
             if ($numb > 0) {
                 ++$matches;
