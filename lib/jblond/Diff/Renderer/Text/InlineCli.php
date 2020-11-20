@@ -26,7 +26,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
      * @var array   Associative array containing the default options available for this renderer and their default
      *              value.
      */
-    protected $subOptions = [];
+    private $subOptions = [];
 
     /**
      * InlineCli constructor.
@@ -42,7 +42,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Render a and return diff-view with changes between the two sequences displayed inline.
+     * @inheritDoc
      *
      * @return string|false The generated diff-view or false when there's no difference.
      */
@@ -55,7 +55,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
 
 
     /**
-     * Generate a string representation of the start of a diff view.
+     * @inheritDoc
      *
      * @return string Start of the diff view.
      */
@@ -65,9 +65,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of the start of a block.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of lines.
+     * @inheritDoc
      *
      * @return string Start of the diff view.
      */
@@ -77,7 +75,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of the lines that are skipped in the diff view.
+     * @inheritDoc
      *
      * @return string Representation of skipped lines.
      */
@@ -87,9 +85,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation lines without differences between the two versions.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of lines.
+     * @inheritDoc
      *
      * @return string Text with no difference.
      */
@@ -109,9 +105,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of lines that are added to the 2nd version.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string Added text.
      */
@@ -136,9 +130,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of lines that are removed from the 2nd version.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string Removed text.
      */
@@ -163,9 +155,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of lines that are partially modified.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string Modified text.
      */
@@ -221,6 +211,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
                 if ($iterator++ % 2) {
                     // This part of the line has been changed. Surround it with user defined markers.
                     $basePart    = $this->options['deleteMarkers'][0] . $part . $this->options['deleteMarkers'][1];
+                    $changedPart = '';
                     if (isset($changedLineParts[$partKey])) {
                         $changedPart =
                             $this->options['insertMarkers'][0] .
@@ -229,11 +220,11 @@ class InlineCli extends MainRenderer implements SubRendererInterface
                     }
 
                     if ($this->options['cliColor']) {
-                        // Colorize the changed part.
-                        [$fgColor, $bgColor] = $deleteColors;
-                        $basePart = $colorize->getColoredString($basePart, $fgColor, $bgColor);
-                        [$fgColor, $bgColor] = $insertColors;
-                        $changedPart = $colorize->getColoredString($changedPart, $fgColor, $bgColor);
+                        // Colorize the changed part. $colorize is defined above.
+                        $basePart = $colorize->getColoredString($basePart, ...$deleteColors);
+                        if (!empty($changedPart)) {
+                            $changedPart = $colorize->getColoredString($changedPart, ...$insertColors);
+                        }
                     }
                     $part = $basePart . $changedPart;
                 }
@@ -246,9 +237,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of the end of a block.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string End of the block
      */
@@ -258,7 +247,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of the end of a diff view.
+     * @inheritDoc
      *
      * @return string End of the diff view.
      */

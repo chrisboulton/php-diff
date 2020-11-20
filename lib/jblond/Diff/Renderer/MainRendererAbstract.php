@@ -14,7 +14,7 @@ use jblond\Diff;
  * @package         jblond\Diff\Renderer
  * @author          Mario Brandt <leet31337@web.de>
  * @author          Ferry Cools <info@DigiLive.nl>
- * @copyright   (c) 2009 Chris Boulton
+ * @copyright   (c) 2020 Ferry Cools
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
  * @version         2.3.0
  * @link            https://github.com/JBlond/php-diff
@@ -33,10 +33,6 @@ abstract class MainRendererAbstract
      * Mark line differences.
      */
     public const CHANGE_LEVEL_LINE = 2;
-    /**
-     * Mark no inline differences.
-     */
-    public const CHANGE_LEVEL_NONE = 4;
     /**
      * @var Diff $diff Instance of the diff class that this renderer is generating the rendered diff for.
      */

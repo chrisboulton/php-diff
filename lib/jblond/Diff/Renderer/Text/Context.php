@@ -11,14 +11,14 @@ use jblond\Diff\Renderer\MainRendererAbstract;
  *
  * PHP version 7.2 or greater
  *
- * @package     jblond\Diff\Renderer\Text
- * @author      Chris Boulton <chris.boulton@interspire.com>
- * @author      Mario Brandt <leet31337@web.de>
- * @author      Ferry Cools <info@DigiLive.nl>
+ * @package         jblond\Diff\Renderer\Text
+ * @author          Chris Boulton <chris.boulton@interspire.com>
+ * @author          Mario Brandt <leet31337@web.de>
+ * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2009 Chris Boulton
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.3.0
- * @link        https://github.com/JBlond/php-diff
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.3.0
+ * @link            https://github.com/JBlond/php-diff
  */
 class Context extends MainRendererAbstract
 {
@@ -99,8 +99,8 @@ class Context extends MainRendererAbstract
      *
      * Given an array of groups, all groups which don't have the specified tag are returned.
      *
-     * @param array  $groups      A series of opCode groups.
-     * @param string $excludedTag Name of the opCode Tag to filter out.
+     * @param   array   $groups       A series of opCode groups.
+     * @param   string  $excludedTag  Name of the opCode Tag to filter out.
      *
      * @return array Filtered opCode Groups.
      */

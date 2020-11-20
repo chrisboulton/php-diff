@@ -28,7 +28,7 @@ class Merged extends MainRenderer implements SubRendererInterface
      *              - title1            Title of the 1st version of text.
      *              - title2            Title of the 2nd version of text.
      */
-    protected $subOptions = [
+    private $subOptions = [
         'format'        => 'html',
         'insertMarkers' => ['<ins>', '</ins>'],
         'deleteMarkers' => ['<del>', '</del>'],
@@ -38,11 +38,11 @@ class Merged extends MainRenderer implements SubRendererInterface
     /**
      * @var int Line offset to keep correct line number for merged diff.
      */
-    protected $lineOffset = 0;
+    private $lineOffset = 0;
     /**
      * @var string last block of lines which where removed from version 2.
      */
-    protected $lastDeleted;
+    private $lastDeleted;
 
     /**
      * Merged constructor.
@@ -69,6 +69,8 @@ class Merged extends MainRenderer implements SubRendererInterface
 
     /**
      * @inheritDoc
+     *
+     * @return string Start of the diff view.
      */
     public function generateDiffHeader(): string
     {
@@ -84,6 +86,8 @@ HTML;
 
     /**
      * @inheritDoc
+     *
+     * @return string Start of the block.
      */
     public function generateBlockHeader(array $changes): string
     {
@@ -92,6 +96,8 @@ HTML;
 
     /**
      * @inheritDoc
+     *
+     * @return string Representation of skipped lines.
      */
     public function generateSkippedLines(): string
     {
@@ -114,6 +120,8 @@ HTML;
 
     /**
      * @inheritDoc
+     *
+     * @return string Text with no difference.
      */
     public function generateLinesEqual(array $changes): string
     {
@@ -140,6 +148,8 @@ HTML;
 
     /**
      * @inheritDoc
+     *
+     * @return string Added text.
      */
     public function generateLinesInsert(array $changes): string
     {
@@ -168,6 +178,8 @@ HTML;
 
     /**
      * @inheritDoc
+     *
+     * @return string Removed text.
      */
     public function generateLinesDelete(array $changes): string
     {
@@ -191,6 +203,8 @@ TEXT;
 
     /**
      * @inheritDoc
+     *
+     * @return string Modified text.
      */
     public function generateLinesReplace(array $changes): string
     {
@@ -234,6 +248,8 @@ HTML;
 
     /**
      * @inheritDoc
+     *
+     * @return string End of the block.
      */
     public function generateBlockFooter(array $changes): string
     {
@@ -242,6 +258,8 @@ HTML;
 
     /**
      * @inheritDoc
+     *
+     * @return string End of the diff view.
      */
     public function generateDiffFooter(): string
     {

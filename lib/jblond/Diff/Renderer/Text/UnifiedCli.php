@@ -18,7 +18,6 @@ use jblond\Diff\Renderer\MainRendererAbstract;
  * @version         2.3.0
  * @link            https://github.com/JBlond/php-diff
  */
-
 class UnifiedCli extends MainRendererAbstract
 {
 
@@ -31,11 +30,12 @@ class UnifiedCli extends MainRendererAbstract
      * @var array   Associative array containing the default options available for this renderer and their default
      *              value.
      */
-    protected $subOptions = [];
+    private $subOptions = [];
 
     /**
      * UnifiedCli constructor.
-     * @param array $options
+     *
+     * @param   array  $options  Custom defined options for the inline diff renderer.
      *
      */
     public function __construct(array $options = [])
@@ -57,34 +57,21 @@ class UnifiedCli extends MainRendererAbstract
         return $this->output();
     }
 
-
-    /**
-     * @param $string
-     * @param string $color
-     * @return string
-     */
-    private function colorizeString($string, $color = ''): string
-    {
-        if ($this->options['cliColor']) {
-            return $this->colors->getColoredString($string, $color);
-        }
-        return $string;
-    }
-
     /**
      * Render and return a unified colored diff.
+     *
      * @return string
      */
     private function output(): string
     {
-        $diff = '';
+        $diff    = '';
         $opCodes = $this->diff->getGroupedOpCodes();
         foreach ($opCodes as $group) {
             $lastItem = count($group) - 1;
-            $i1 = $group['0']['1'];
-            $i2 = $group[$lastItem]['2'];
-            $j1 = $group['0']['3'];
-            $j2 = $group[$lastItem]['4'];
+            $i1       = $group['0']['1'];
+            $i2       = $group[$lastItem]['2'];
+            $j1       = $group['0']['3'];
+            $j2       = $group[$lastItem]['4'];
 
             if ($i1 == 0 && $i2 == 0) {
                 $i1 = -1;
@@ -101,7 +88,7 @@ class UnifiedCli extends MainRendererAbstract
                         "\n ",
                         $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
                     );
-                    $diff .= $this->colorizeString(' ' . $string . "\n", 'grey');
+                    $diff   .= $this->colorizeString(' ' . $string . "\n", 'grey');
                     continue;
                 }
                 if ($tag == 'replace' || $tag == 'delete') {
@@ -109,17 +96,33 @@ class UnifiedCli extends MainRendererAbstract
                         "\n- ",
                         $this->diff->getArrayRange($this->diff->getVersion1(), $i1, $i2)
                     );
-                    $diff .= $this->colorizeString('-' . $string . "\n", 'light_red');
+                    $diff   .= $this->colorizeString('-' . $string . "\n", 'light_red');
                 }
                 if ($tag == 'replace' || $tag == 'insert') {
                     $string = implode(
                         "\n+",
                         $this->diff->getArrayRange($this->diff->getVersion2(), $j1, $j2)
                     );
-                    $diff .= $this->colorizeString('+' . $string . "\n", 'light_green');
+                    $diff   .= $this->colorizeString('+' . $string . "\n", 'light_green');
                 }
             }
         }
+
         return $diff;
+    }
+
+    /**
+     * @param           $string
+     * @param   string  $color
+     *
+     * @return string
+     */
+    private function colorizeString($string, $color = ''): string
+    {
+        if ($this->options['cliColor']) {
+            return $this->colors->getColoredString($string, $color);
+        }
+
+        return $string;
     }
 }

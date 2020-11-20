@@ -14,13 +14,13 @@ use PHPUnit\Framework\TestCase;
  *
  * PHPUnit tests to verify that the output of the text renderers did not change due to code changes.
  *
- * @package     Tests\Diff\Renderer\Text
- * @author      Mario Brandt <leet31337@web.de>
- * @author      Ferry Cools <info@DigiLive.nl>
+ * @package         Tests\Diff\Renderer\Text
+ * @author          Mario Brandt <leet31337@web.de>
+ * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2019 Mario Brandt
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.3.0
- * @link        https://github.com/JBlond/php-diff
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.3.0
+ * @link            https://github.com/JBlond/php-diff
  */
 class TextRenderersTest extends TestCase
 {
@@ -32,9 +32,9 @@ class TextRenderersTest extends TestCase
     /**
      * TextRenderersTest constructor.
      *
-     * @param null   $name
-     * @param array  $data
-     * @param string $dataName
+     * @param   null    $name
+     * @param   array   $data
+     * @param   string  $dataName
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -44,6 +44,7 @@ class TextRenderersTest extends TestCase
 
     /**
      * Test the output of the text-context renderer.
+     *
      * @covers \jblond\Diff\Renderer\Text\Context
      */
     public function testContext()
@@ -64,6 +65,7 @@ class TextRenderersTest extends TestCase
 
     /**
      * Test the output of the text-unified renderer.
+     *
      * @covers \jblond\Diff\Renderer\Text\Unified
      */
     public function testUnified()
@@ -84,6 +86,7 @@ class TextRenderersTest extends TestCase
 
     /**
      * Test the output of the CLI text-context renderer.
+     *
      * @covers \jblond\Diff\Renderer\Text\UnifiedCli
      */
     public function testUnifiedCli()
@@ -103,6 +106,7 @@ class TextRenderersTest extends TestCase
 
     /**
      * Test the output of the CLI text-inline renderer.
+     *
      * @covers \jblond\Diff\Renderer\Text\InlineCli
      */
     public function testInlineCli()

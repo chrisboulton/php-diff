@@ -173,14 +173,12 @@ class SequenceMatcher
                 if ($length >= 200 && count($this->b2j[$char]) * 100 > $length) {
                     $popularDict[$char] = 1;
                     unset($this->b2j[$char]);
-                } else {
-                    $this->b2j[$char][] = $i;
+                    continue;
                 }
-            } else {
-                $this->b2j[$char] = [
-                    $i,
-                ];
+                $this->b2j[$char][] = $i;
+                continue;
             }
+            $this->b2j[$char] = [$i];
         }
 
         // Remove leftovers
@@ -398,6 +396,11 @@ class SequenceMatcher
         $matchingBlocks = [];
         while (!empty($queue)) {
             [$aLower, $aUpper, $bLower, $bUpper] = array_pop($queue);
+            /**
+             * @noinspection PhpStrictTypeCheckingInspection
+             * $aLower, $aUpper, $bLower, $bUpper reported as wrong type because of multiple definitions of function
+             * count above.
+             */
             $longestMatch = $this->findLongestMatch($aLower, $aUpper, $bLower, $bUpper);
             [$list1, $list2, $list3] = $longestMatch;
             if ($list3) {
@@ -436,20 +439,21 @@ class SequenceMatcher
         foreach ($matchingBlocks as [$list4, $list5, $list6]) {
             if ($i1 + $k1 == $list4 && $j1 + $k1 == $list5) {
                 $k1 += $list6;
-            } else {
-                if ($k1) {
-                    $nonAdjacent[] = [
-                        $i1,
-                        $j1,
-                        $k1,
-                    ];
-                }
-
-                $i1 = $list4;
-                $j1 = $list5;
-                $k1 = $list6;
+                continue;
             }
+            if ($k1) {
+                $nonAdjacent[] = [
+                    $i1,
+                    $j1,
+                    $k1,
+                ];
+            }
+
+            $i1 = $list4;
+            $j1 = $list5;
+            $k1 = $list6;
         }
+
 
         if ($k1) {
             $nonAdjacent[] = [

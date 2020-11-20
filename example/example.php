@@ -70,7 +70,10 @@ $rendererOptions = [
 <hr>
 <aside>
     <h2>Informational</h2>
-    Between the two versions, there's a <?php echo round($diff->getSimilarity(),2) * 100; ?>% match.
+    Between the two versions, there's a
+    <?php
+    echo round($diff->getSimilarity(), 2) * 100;
+    ?>% match.
 </aside>
 <hr>
 

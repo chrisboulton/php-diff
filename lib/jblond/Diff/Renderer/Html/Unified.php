@@ -32,7 +32,7 @@ class Unified extends MainRenderer implements SubRendererInterface
      *              - title1            Title of the "old" version of text.
      *              - title2            Title of the "new" version of text.
      */
-    protected $subOptions = [
+    private $subOptions = [
         'format'        => 'html',
         'insertMarkers' => ['<ins>', '</ins>'],
         'deleteMarkers' => ['<del>', '</del>'],
@@ -43,7 +43,7 @@ class Unified extends MainRenderer implements SubRendererInterface
     /**
      * Unified constructor.
      *
-     * @param array $options Custom defined options for the inline diff renderer.
+     * @param   array  $options  Custom defined options for the inline diff renderer.
      *
      * @see Inline::$subOptions
      */
@@ -54,7 +54,7 @@ class Unified extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Render a and return diff-view with changes between the two sequences (under each other).
+     * @inheritDoc
      *
      * @return string|false The generated diff-view or false when there's no difference.
      */
@@ -66,7 +66,7 @@ class Unified extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generates a string representation of the opening of a predefined table and its header with titles from options.
+     * @inheritDoc
      *
      * @return string HTML code representation of the diff-view header.
      */
@@ -76,28 +76,26 @@ class Unified extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generates a string representation of lines that are skipped.
+     * @inheritDoc
      *
      * @return string HTML code representation of a table's header.
      */
     public function generateSkippedLines(): string
     {
-        return '<div class="Skipped" title="Equal lines collapsed!">&hellip;</div>';
+        return '<span class="Skipped" title="Equal lines collapsed!">&hellip;</span>';
     }
 
 
     /**
-     * Generate a string representation of lines without differences between both versions.
-     *
-     * @param array $change Contains the op-codes about the changes between two blocks.
+     * @inheritDoc
      *
      * @return string HTML code representing the blocks of text with no difference.
      */
-    public function generateLinesEqual(array $change): string
+    public function generateLinesEqual(array $changes): string
     {
         $html = '';
 
-        foreach ($change['base']['lines'] as $line) {
+        foreach ($changes['base']['lines'] as $line) {
             $html .= '<span>' . $line . '</span><br>';
         }
 
@@ -105,17 +103,15 @@ class Unified extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generates a string representation of lines that are added to the 2nd version.
-     *
-     * @param array $change Contains the op-codes about the changes between two blocks.
+     * @inheritDoc
      *
      * @return string HTML code representing a block of added text.
      */
-    public function generateLinesInsert(array $change): string
+    public function generateLinesInsert(array $changes): string
     {
         $html = '';
 
-        foreach ($change['changed']['lines'] as $line) {
+        foreach ($changes['changed']['lines'] as $line) {
             $html .= '<span class="Right"><ins>' . $line . '</ins></span><br>';
         }
 
@@ -123,16 +119,14 @@ class Unified extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generates a string representation of lines that are removed from the 2nd version.
-     *
-     * @param array $change Contains the op-codes about the changes between two blocks.
+     * @inheritDoc
      *
      * @return string HTML code representing a block of removed text.
      */
-    public function generateLinesDelete(array $change): string
+    public function generateLinesDelete(array $changes): string
     {
         $html = '';
-        foreach ($change['base']['lines'] as $line) {
+        foreach ($changes['base']['lines'] as $line) {
             $html .= '<span class="Left"><del>' . $line . '</del></span><br>';
         }
 
@@ -140,24 +134,22 @@ class Unified extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generates a string representation of a lines that are partially modified.
-     *
-     * @param array $change Contains the op-codes about the changes between two blocks.
+     * @inheritDoc
      *
      * @return string HTML code representing a block of modified text.
      */
-    public function generateLinesReplace(array $change): string
+    public function generateLinesReplace(array $changes): string
     {
         $html = '';
 
         // Lines with characters removed.
-        foreach ($change['base']['lines'] as $line) {
+        foreach ($changes['base']['lines'] as $line) {
             $line = str_replace(["\0", "\1"], $this->options['deleteMarkers'], $line);
             $html .= '<span class="Left">' . $line . '</span><br>';
         }
 
         // Lines with characters added.
-        foreach ($change['changed']['lines'] as $line) {
+        foreach ($changes['changed']['lines'] as $line) {
             $line = str_replace(["\0", "\1"], $this->options['insertMarkers'], $line);
             $html .= '<span class="Right">' . $line . '</span><br>';
         }
@@ -166,9 +158,7 @@ class Unified extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of the start of a block.
-     *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string Start of the block.
      */
@@ -178,9 +168,7 @@ class Unified extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of the end of a block.
-     *
-     * @param array $changes Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string End of the block.
      */
@@ -190,7 +178,7 @@ class Unified extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generate a string representation of the end of a diff view.
+     * @inheritDoc
      *
      * @return string End of the diff view.
      */

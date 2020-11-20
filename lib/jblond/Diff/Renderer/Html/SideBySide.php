@@ -32,7 +32,7 @@ class SideBySide extends MainRenderer implements SubRendererInterface
      *              - title1            Title of the 1st version of text.
      *              - title2            Title of the 2nd version of text.
      */
-    protected $subOptions = [
+    private $subOptions = [
         'format'        => 'html',
         'insertMarkers' => ['<ins>', '</ins>'],
         'deleteMarkers' => ['<del>', '</del>'],
@@ -54,7 +54,7 @@ class SideBySide extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Render a and return diff-view with changes between the two sequences displayed side by side.
+     * @inheritDoc
      *
      * @return string|false The generated diff-view or false when there's no difference.
      */
@@ -66,7 +66,7 @@ class SideBySide extends MainRenderer implements SubRendererInterface
     }
 
     /**
-     * Generates a string representation of the opening of a predefined table and its header with titles from options.
+     * @inheritDoc
      *
      * @return string HTML code representation of a table's header.
      */
@@ -84,7 +84,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows with lines that are skipped.
+     * @inheritDoc
      *
      * @return string HTML code representation of a table's header.
      */
@@ -101,12 +101,7 @@ HTML;
     }
 
     /**
-     * Generate a string representation of table rows with lines without differences between both versions.
-     *
-     * Note: Depending on the options, lines can be marked as being equal, while the contents actually differ.
-     * (E.g. ignoreWhitespace and ignoreCase)
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks.
+     * @inheritDoc
      *
      * @return string HTML code representing table rows showing text with no difference.
      */
@@ -136,9 +131,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows with lines that are added to the 2nd version.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string HTML code representing table rows showing with added text.
      */
@@ -165,9 +158,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows with lines that are removed from the 2nd version.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string HTML code representing table rows showing removed text.
      */
@@ -194,9 +185,7 @@ HTML;
     }
 
     /**
-     * Generates a string representation of table rows with lines that are partially modified.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string Html code representing table rows showing modified text.
      */
@@ -208,8 +197,8 @@ HTML;
         if (count($changes['base']['lines']) >= count($changes['changed']['lines'])) {
             foreach ($changes['base']['lines'] as $lineNo => $line) {
                 $fromLine    = $changes['base']['offset'] + $lineNo + 1;
-                $toLine      = "&nbsp;";
-                $changedLine = "&nbsp;";
+                $toLine      = '&nbsp;';
+                $changedLine = '&nbsp;';
                 if (isset($changes['changed']['lines'][$lineNo])) {
                     $toLine      = $changes['changed']['offset'] + $lineNo + 1;
                     $changedLine = $changes['changed']['lines'][$lineNo];
@@ -237,8 +226,8 @@ HTML;
 
         foreach ($changes['changed']['lines'] as $lineNo => $changedLine) {
             $toLine   = $changes['changed']['offset'] + $lineNo + 1;
-            $fromLine = "&nbsp;";
-            $line     = "&nbsp;";
+            $fromLine = '&nbsp;';
+            $line     = '&nbsp;';
             if (isset($changes['base']['lines'][$lineNo])) {
                 $fromLine = $changes['base']['offset'] + $lineNo + 1;
                 $line     = $changes['base']['lines'][$lineNo];
@@ -265,9 +254,7 @@ HTML;
     }
 
     /**
-     * Generate a string representation of the start of a block.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string Start of the block.
      */
@@ -277,9 +264,7 @@ HTML;
     }
 
     /**
-     * Generate a string representation of the end of a block.
-     *
-     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     * @inheritDoc
      *
      * @return string End of the block.
      */
@@ -289,7 +274,7 @@ HTML;
     }
 
     /**
-     * Generate a string representation of the end of a diff view.
+     * @inheritDoc
      *
      * @return string End of the diff view.
      */

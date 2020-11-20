@@ -1,6 +1,6 @@
 <?php
 
-namespace Diff\Renderer;
+namespace Tests\Diff;
 
 use jblond\Diff\SequenceMatcher;
 use PHPUnit\Framework\TestCase;
@@ -10,30 +10,19 @@ use PHPUnit\Framework\TestCase;
  *
  * PHP version 7.2 or greater
  *
- * @package     Tests\Diff
- * @author      Mario Brandt <leet31337@web.de>
- * @author      Ferry Cools <info@DigiLive.nl>
+ * @package         Tests\Diff
+ * @author          Mario Brandt <leet31337@web.de>
+ * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2009 Mario Brandt
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.3.0
- * @link        https://github.com/JBlond/php-diff
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.3.0
+ * @link            https://github.com/JBlond/php-diff
  */
-
 class SequenceMatcherTest extends TestCase
 {
-
     /**
-     * SequenceMatcherTest constructor.
-     *
-     * @param null   $name
-     * @param array  $data
-     * @param string $dataName
+     * Test the opCodes of the differences between version1 and version2 with the default options.
      */
-    public function __construct($name = null, array $data = [], $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-    }
-
     public function testGetGroupedOpCodesDefault()
     {
         // Test with default options.
@@ -45,13 +34,18 @@ class SequenceMatcherTest extends TestCase
         $this->assertEquals(
             [
                 [
-                    ['equal', 4, 7, 4, 7], ['replace', 7, 8, 7, 8], ['equal', 8, 11, 8, 11]
-                ]
+                    ['equal', 4, 7, 4, 7],
+                    ['replace', 7, 8, 7, 8],
+                    ['equal', 8, 11, 8, 11],
+                ],
             ],
             $sequenceMatcher->getGroupedOpCodes()
         );
     }
 
+    /**
+     * Test the opCodes of the differences between version1 and version2 with option trimEqual disabled.
+     */
     public function testGetGroupedOpCodesTrimEqualFalse()
     {
         // Test with trimEqual disabled.
@@ -72,6 +66,9 @@ class SequenceMatcherTest extends TestCase
         );
     }
 
+    /**
+     * Test the opCodes of the differences between version1 and version2 with option IgnoreWhitespace enabled.
+     */
     public function testGetGroupedOpCodesIgnoreWhitespaceTrue()
     {
         // Test with ignoreWhitespace enabled. Both sequences are considered to be the same.
@@ -83,12 +80,12 @@ class SequenceMatcherTest extends TestCase
             ['ignoreWhitespace' => true]
         );
 
-        $this->assertEquals(
-            [],
-            $sequenceMatcher->getGroupedOpCodes()
-        );
+        $this->assertEquals([], $sequenceMatcher->getGroupedOpCodes());
     }
 
+    /**
+     *T est the opCodes of the differences between version1 and version2 with option ignoreCase enabled.
+     */
     public function testGetGroupedOpCodesIgnoreCaseTrue()
     {
         // Test with ignoreCase enabled. Both sequences are considered to be the same.
@@ -98,9 +95,6 @@ class SequenceMatcherTest extends TestCase
             ['ignoreCase' => true]
         );
 
-        $this->assertEquals(
-            [],
-            $sequenceMatcher->getGroupedOpCodes()
-        );
+        $this->assertEquals([], $sequenceMatcher->getGroupedOpCodes());
     }
 }

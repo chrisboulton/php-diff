@@ -11,13 +11,13 @@ use jblond\Diff\Renderer\MainRendererAbstract;
  *
  * PHP version 7.2 or greater
  *
- * @package     jblond\Diff\Renderer\Text
- * @author      Chris Boulton <chris.boulton@interspire.com>
- * @author      Mario Brandt <leet31337@web.de>
+ * @package         jblond\Diff\Renderer\Text
+ * @author          Chris Boulton <chris.boulton@interspire.com>
+ * @author          Mario Brandt <leet31337@web.de>
  * @copyright   (c) 2020 Mario Brandt
- * @license     New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version     2.3.0
- * @link        https://github.com/JBlond/php-diff
+ * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @version         2.3.0
+ * @link            https://github.com/JBlond/php-diff
  */
 
 /**
@@ -32,14 +32,14 @@ class Unified extends MainRendererAbstract
      */
     public function render()
     {
-        $diff = false;
+        $diff    = false;
         $opCodes = $this->diff->getGroupedOpCodes();
         foreach ($opCodes as $group) {
             $lastItem = count($group) - 1;
-            $i1 = $group['0']['1'];
-            $i2 = $group[$lastItem]['2'];
-            $j1 = $group['0']['3'];
-            $j2 = $group[$lastItem]['4'];
+            $i1       = $group['0']['1'];
+            $i2       = $group[$lastItem]['2'];
+            $j1       = $group['0']['3'];
+            $j2       = $group[$lastItem]['4'];
 
             if ($i1 == 0 && $i2 == 0) {
                 $i1 = -1;
@@ -72,6 +72,7 @@ class Unified extends MainRendererAbstract
                 }
             }
         }
+
         return $diff;
     }
 }
