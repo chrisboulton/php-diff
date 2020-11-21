@@ -4,7 +4,6 @@ use jblond\Diff;
 use jblond\Diff\Renderer\Html\Inline;
 use jblond\Diff\Renderer\Html\Merged;
 use jblond\Diff\Renderer\Html\SideBySide;
-use jblond\Diff\Renderer\Html\Unified as HtmlUnified;
 use jblond\Diff\Renderer\Text\Context;
 use jblond\Diff\Renderer\Text\Unified;
 
@@ -97,13 +96,6 @@ echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
 // Generate an inline diff.
 $renderer = new Merged();
 echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
-?>
-
-<h2>HTML Unified Diff</h2>
-<?php
-// Generate a unified diff.
-$renderer = new HtmlUnified($rendererOptions);
-echo $diff->isIdentical() ? 'No differences found.' : '<pre>' . $diff->Render($renderer) . '</pre>';
 ?>
 
 <h2>Text Unified Diff</h2>

@@ -98,10 +98,6 @@ directory. Included is a light and a dark theme.
 
 ![HTML Inline Example](assets/htmlInline.png "HTML Inline Example")
 
-#### HTML Unified Example
-
-![HTML Unified Example](assets/htmlUnified.png "HTML Unified Example")
-
 #### Text Unified Example
 
 ![Text Unified Example](assets/textUnified.png "Text Unified Example")
