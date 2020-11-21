@@ -8,7 +8,7 @@ use jblond\Diff\Renderer\MainRenderer;
 use jblond\Diff\Renderer\SubRendererInterface;
 
 /**
- * Inline HTML diff generator for PHP DiffLib.
+ * Unified HTML diff generator for PHP DiffLib.
  *
  * PHP version 7.2 or greater
  *
@@ -21,7 +21,7 @@ use jblond\Diff\Renderer\SubRendererInterface;
  * @version       2.3.0
  * @link          https://github.com/JBlond/php-diff
  */
-class Inline extends MainRenderer implements SubRendererInterface
+class Unified extends MainRenderer implements SubRendererInterface
 {
     /**
      * @var array   Associative array containing the default options available for this renderer and their default
@@ -41,11 +41,11 @@ class Inline extends MainRenderer implements SubRendererInterface
     ];
 
     /**
-     * Inline constructor.
+     * Unified constructor.
      *
-     * @param   array  $options  Custom defined options for the inline diff renderer.
+     * @param   array  $options  Custom defined options for the unified diff renderer.
      *
-     * @see Inline::$subOptions
+     * @see Unified::$subOptions
      */
     public function __construct(array $options = [])
     {
@@ -73,7 +73,7 @@ class Inline extends MainRenderer implements SubRendererInterface
     public function generateDiffHeader(): string
     {
         return <<<HTML
-<table class="Differences DifferencesInline">
+<table class="Differences DifferencesUnified">
     <thead>
         <tr>
             <th>{$this->options['title1']}</th>

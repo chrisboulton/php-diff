@@ -1,11 +1,11 @@
 <?php
 
 use jblond\Diff;
-use jblond\Diff\Renderer\Html\Inline;
 use jblond\Diff\Renderer\Html\Merged;
 use jblond\Diff\Renderer\Html\SideBySide;
+use jblond\Diff\Renderer\Html\Unified;
 use jblond\Diff\Renderer\Text\Context;
-use jblond\Diff\Renderer\Text\Unified;
+use jblond\Diff\Renderer\Text\Unified as TextUnified;
 
 // Include and instantiate autoloader.
 require '../vendor/autoload.php';
@@ -84,16 +84,16 @@ $renderer = new SideBySide($rendererOptions);
 echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
 ?>
 
-<h2>HTML Inline Diff</h2>
+<h2>HTML Unified Diff</h2>
 <?php
-// Generate an inline diff.
-$renderer = new Inline($rendererOptions);
+// Generate an unified diff.
+$renderer = new Unified($rendererOptions);
 echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
 ?>
 
 <h2>HTML Merged Diff</h2>
 <?php
-// Generate an inline diff.
+// Generate an merged diff.
 $renderer = new Merged();
 echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
 ?>
@@ -101,7 +101,7 @@ echo $diff->isIdentical() ? 'No differences found.' : $diff->Render($renderer);
 <h2>Text Unified Diff</h2>
 <?php
 // Generate a unified diff.
-$renderer = new Unified();
+$renderer = new TextUnified();
 echo $diff->isIdentical() ?
     'No differences found.' : '<pre>' . htmlspecialchars($diff->render($renderer)) . '</pre>';
 ?>

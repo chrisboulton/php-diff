@@ -1,4 +1,4 @@
-<table class="Differences DifferencesInline">
+<table class="Differences DifferencesUnified">
     <thead>
         <tr>
             <th>Version1</th>

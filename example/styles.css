@@ -88,23 +88,23 @@ pre {
 }
 
 /*
- * HTML Inline Diff
+ * HTML Unified Diff
  */
-.DifferencesInline .ChangeReplace .Left,
-.DifferencesInline .ChangeDelete .Left {
+.DifferencesUnified .ChangeReplace .Left,
+.DifferencesUnified .ChangeDelete .Left {
     background: #FFDDDD;
 }
 
-.DifferencesInline .ChangeReplace .Right,
-.DifferencesInline .ChangeInsert .Right {
+.DifferencesUnified .ChangeReplace .Right,
+.DifferencesUnified .ChangeInsert .Right {
     background: #DDFFDD;
 }
 
-.DifferencesInline .ChangeReplace ins {
+.DifferencesUnified .ChangeReplace ins {
     background: #99EE99;
 }
 
-.DifferencesInline .ChangeReplace del {
+.DifferencesUnified .ChangeReplace del {
     background: #EE9999;
 }
 
