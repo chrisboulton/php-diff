@@ -1,5 +1,11 @@
 # changelog
 
+## next
+
+* Refactored HTML Inline renderer to HTML Unified.
+
+* The non table unified renderer is cut from the code.
+
 ## 2.3.0 (2020-11-19)
 
 * Add: Change log.
