@@ -12,7 +12,6 @@ standard formats including:
 
 * Unified
 * Context
-* Inline HTML
 * Side by Side HTML
 * Unified HTML
 * Unified Commandline colored output
@@ -93,10 +92,6 @@ directory. Included is a light and a dark theme.
 ![HTML Side By Side Example](assets/htmlSideBySide.png "HTML Side By Side Example")
 
 <details><summary>More Example Pictures</summary><br>
-
-#### HTML Inline Example
-
-![HTML Inline Example](assets/htmlInline.png "HTML Inline Example")
 
 #### HTML Unified Example
 

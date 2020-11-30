@@ -35,7 +35,7 @@ class UnifiedCli extends MainRendererAbstract
     /**
      * UnifiedCli constructor.
      *
-     * @param   array  $options  Custom defined options for the inline diff renderer.
+     * @param   array  $options  Custom defined options for the UnifiedCli diff renderer.
      *
      */
     public function __construct(array $options = [])

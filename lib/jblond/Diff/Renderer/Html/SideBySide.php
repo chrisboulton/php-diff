@@ -43,9 +43,9 @@ class SideBySide extends MainRenderer implements SubRendererInterface
     /**
      * SideBySide constructor.
      *
-     * @param   array  $options  Custom defined options for the inline diff renderer.
+     * @param   array  $options  Custom defined options for the SideBySide diff renderer.
      *
-     * @see Inline::$subOptions
+     * @see SideBySide::$subOptions
      */
     public function __construct(array $options = [])
     {

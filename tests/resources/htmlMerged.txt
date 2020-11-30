@@ -24,7 +24,7 @@
 </tr><tr>
     <th class="" title="">7</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;This is demo content to show features of the php-diff package.&lt;/h1&gt;</td>
-</tr></tbody></tbody><tbody class="ChangeEqual"><tr>
+</tr></tbody><tbody class="ChangeEqual"><tr>
     <th class="ChangeDelete" title="Lines deleted at Version2:
 8: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is removed from version2.&lt;/h2&gt;
 ">8</th>

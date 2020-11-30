@@ -98,29 +98,29 @@ a, a:visited {
 }
 
 /*
- * HTML Inline Diff
+ * HTML Unified Diff
  */
 
-.DifferencesInline .ChangeReplace {
+.DifferencesUnified .ChangeReplace {
     color: #272822;
 }
 
-.DifferencesInline .ChangeReplace .Left,
-.DifferencesInline .ChangeDelete .Left {
+.DifferencesUnified .ChangeReplace .Left,
+.DifferencesUnified .ChangeDelete .Left {
     background: #FFDDDD;
     color:      #272822;
 }
 
-.DifferencesInline .ChangeReplace .Right,
-.DifferencesInline .ChangeInsert .Right {
+.DifferencesUnified .ChangeReplace .Right,
+.DifferencesUnified .ChangeInsert .Right {
     background: #DDFFDD;
 }
 
-.DifferencesInline .ChangeReplace ins {
+.DifferencesUnified .ChangeReplace ins {
     background: #008000;
 }
 
-.DifferencesInline .ChangeReplace del {
+.DifferencesUnified .ChangeReplace del {
     background: #EE9999;
     color:      #272822;
 }
@@ -152,66 +152,4 @@ a, a:visited {
 
 .DifferencesMerged th.ChangeDelete {
     background-image: linear-gradient(-45deg, #AAAAAA 0%, #EE9999 100%);
-}
-
-/*
- * HTML Unified Diff
- */
-
-/* Line removed in new */
-.DifferencesUnified .ChangeDelete .Left::before {
-    content: "- \00a0";
-}
-
-.DifferencesUnified .ChangeDelete .Left {
-    background: #EE9999;
-    color:      #272822;
-}
-
-/* Line modified in old and new */
-.DifferencesUnified .ChangeReplace {
-    background: #FFEE99;
-    color:      #272822;
-    display:    table;
-}
-
-/* Line in old replaced by line in new */
-.DifferencesUnified .ChangeReplace .Left:first-child:before {
-    content: "\250C \00a0";
-}
-
-.DifferencesUnified .ChangeReplace .Left:before {
-    content: "\251C \00a0";
-}
-
-.DifferencesUnified .ChangeReplace .Left {
-    background: #FFEE99;
-}
-
-/* Line in new replaced line in old */
-.DifferencesUnified .ChangeReplace .Right:last-of-type:before {
-    content: "\2514 \00a0";
-}
-
-.DifferencesUnified .ChangeReplace .Right:before {
-    content: "\251C \00a0";
-}
-
-.DifferencesUnified .ChangeReplace .Right {
-    background: #FFEE99;
-}
-
-/* Line inserted in new */
-.DifferencesUnified .ChangeInsert .Right:before {
-    content: "+ \00A0";
-}
-
-/* Character inserted in line of new */
-.DifferencesUnified .ChangeReplace ins {
-    background: #99EE99;
-}
-
-/* Character removed from line in old */
-.DifferencesUnified .ChangeReplace del {
-    background: #EE9999;
 }

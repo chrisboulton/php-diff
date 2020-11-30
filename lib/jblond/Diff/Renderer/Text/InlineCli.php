@@ -31,9 +31,9 @@ class InlineCli extends MainRenderer implements SubRendererInterface
     /**
      * InlineCli constructor.
      *
-     * @param   array  $options  Custom defined options for the inline diff renderer.
+     * @param   array  $options  Custom defined options for the InlineCli diff renderer.
      *
-     * @see Inline::$subOptions
+     * @see InlineCli::$subOptions
      */
     public function __construct(array $options = [])
     {

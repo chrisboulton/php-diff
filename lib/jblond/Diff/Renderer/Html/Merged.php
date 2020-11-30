@@ -253,7 +253,7 @@ HTML;
      */
     public function generateBlockFooter(array $changes): string
     {
-        return '</tbody>';
+        return $changes['tag'] != 'delete' ? '</tbody>' : '';
     }
 
     /**
