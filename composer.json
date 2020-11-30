@@ -29,7 +29,7 @@
         "ext-pcre": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "8.*",
+        "phpunit/phpunit": "^8 || ^9",
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "2.*",
         "jblond/php-cli": "^1.0"
