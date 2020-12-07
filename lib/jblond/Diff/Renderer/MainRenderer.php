@@ -9,7 +9,7 @@ use jblond\Diff\SequenceMatcher;
 /**
  * Base renderer for rendering diffs for PHP DiffLib.
  *
- * PHP version 7.2 or greater
+ * PHP version 7.3 or greater
  *
  * @package       jblond\Diff\Renderer\Html
  * @author        Chris Boulton <chris.boulton@interspire.com>

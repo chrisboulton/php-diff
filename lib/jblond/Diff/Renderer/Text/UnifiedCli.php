@@ -9,7 +9,7 @@ use jblond\Diff\Renderer\MainRendererAbstract;
 /**
  * Unified diff generator for PHP DiffLib.
  *
- * PHP version 7.2 or greater
+ * PHP version 7.3 or greater
  *
  * @package         jblond\Diff\Renderer\Text
  * @author          Mario Brandt <leet31337@web.de>

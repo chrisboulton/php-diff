@@ -9,7 +9,7 @@ use InvalidArgumentException;
 /**
  * Sequence matcher for Diff
  *
- * PHP version 7.2 or greater
+ * PHP version 7.3 or greater
  *
  * @package         jblond\Diff
  * @author          Chris Boulton <chris.boulton@interspire.com>
