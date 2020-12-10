@@ -46,17 +46,12 @@ class SequenceMatcher
     private $b2j = [];
 
     /**
-     * @var array
-     */
-    private $options = [];
-
-    /**
-     * @var null|array
+     * @var array A list of all of the op-codes for the differences between the compared strings.
      */
     private $opCodes;
 
     /**
-     * @var null|array
+     * @var array A nested set of arrays for all of the matching sub-sequences the compared strings.
      */
     private $matchingBlocks;
 
@@ -72,9 +67,8 @@ class SequenceMatcher
     ];
 
     /**
-     * The constructor. With the sequences being passed, they'll be set for the
-     * sequence matcher and it will perform a basic cleanup & calculate junk
-     * elements.
+     * The constructor. With the sequences being passed, they'll be set for the sequence matcher and it will perform a
+     * basic cleanup & calculate junk elements.
      *
      * @param   string|array       $old           A string or array containing the lines to compare against.
      * @param   string|array       $new           A string or array containing the lines to compare.
@@ -295,11 +289,9 @@ class SequenceMatcher
     }
 
     /**
-     * Return a list of all of the op codes for the differences between the
-     * two strings.
+     * Return a list of all of the op codes for the differences between the two strings.
      *
-     * The nested array returned contains an array describing the op code
-     * which includes:
+     * The nested array returned contains an array describing the op code which includes:
      * 0 - The type of tag (as described below) for the op code.
      * 1 - The beginning line in the first sequence.
      * 2 - The end line in the first sequence.
@@ -366,12 +358,10 @@ class SequenceMatcher
     }
 
     /**
-     * Return a nested set of arrays for all of the matching sub-sequences
-     * in the strings $a and $b.
+     * Return a nested set of arrays for all of the matching sub-sequences in compared strings $a and $b.
      *
-     * Each block contains the lower constraint of the block in $a, the lower
-     * constraint of the block in $b and finally the number of lines that the
-     * block continues for.
+     * Each block contains the lower constraint of the block in $a, the lower constraint of the block in $b and finally
+     * the number of lines that the block continues for.
      *
      * @return array Nested array of the matching blocks, as described by the function.
      */

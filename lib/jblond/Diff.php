@@ -46,8 +46,7 @@ class Diff
     private $groupedCodes;
 
     /**
-     * @var array<string, string> Associative array containing the default options available
-     *                    for the diff class and their default value.
+     * @var array Associative array containing the default options available for the diff class and their default value.
      *
      *              - context           The amount of lines to include around blocks that differ.
      *              - trimEqual         Strip blocks of equal lines from the start and end of the text.

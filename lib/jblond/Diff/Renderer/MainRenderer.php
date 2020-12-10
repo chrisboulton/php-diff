@@ -124,7 +124,7 @@ class MainRenderer extends MainRendererAbstract
                  * 4 - The end line in the second sequence.
                  *
                  * The different types of tags include:
-                 * replace - The string from $startOld to $endOld in $oldText should be replaced by
+                 * replace - The string in $oldText from $startOld to $endOld, should be replaced by
                  *           the string in $newText from $startNew to $endNew.
                  * delete  - The string in $oldText from $startOld to $endNew should be deleted.
                  * insert  - The string in $newText from $startNew to $endNew should be inserted at $startOld in
@@ -291,7 +291,7 @@ class MainRenderer extends MainRendererAbstract
      * E.g.
      * <pre>
      *         1234567
-     * OLd => "abcdefg" Start marker inserted at position 3
+     * Old => "abcdefg" Start marker inserted at position 3
      * New => "ab123fg"   End marker inserted at position 6
      * </pre>
      *
