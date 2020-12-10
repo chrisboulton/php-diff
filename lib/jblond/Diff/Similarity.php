@@ -71,6 +71,9 @@ class Similarity extends SequenceMatcher
             case self::CALC_FASTEST:
                 return $this->getRatioFastest();
             default:
+                if ($this->options['ignoreLines']) {
+                    $this->stripLines();
+                }
                 $matches = array_reduce(
                     $this->getMatchingBlocks(),
                     function ($carry, $item) {
@@ -80,6 +83,7 @@ class Similarity extends SequenceMatcher
                 );
 
                 return $this->calculateRatio($matches, count($this->old) + count($this->new));
+                // TODO: Restore original (un-stripped) versions?
         }
     }
 
@@ -151,6 +155,33 @@ class Similarity extends SequenceMatcher
         return $this->calculateRatio(min($aLength, $bLength), $aLength + $bLength);
     }
 
+    /**
+     * Strip empty or blank lines from the sequences to compare.
+     *
+     */
+    private function stripLines(): void
+    {
+        foreach (['old', 'new'] as $version) {
+            if ($this->options['ignoreLines'] == self::DIFF_IGNORE_LINE_BLANK) {
+                array_walk(
+                    $this->$version,
+                    function (&$line) {
+                        $line = trim($line);
+                    }
+                );
+                unset($line);
+            }
+
+            $this->$version = array_filter(
+                $this->$version,
+                function ($line) {
+                    return $line != '';
+                }
+            );
+        }
+
+        $this->setSequences(array_values($this->old), array_values($this->new));
+    }
 
     /**
      * Helper function to calculate the number of matches for Ratio().

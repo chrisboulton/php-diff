@@ -23,6 +23,18 @@ use InvalidArgumentException;
 class SequenceMatcher
 {
     /**
+     * Flag to disable ignore of successive empty/blank lines.
+     */
+    public const DIFF_IGNORE_LINE_NONE = 0;
+    /**
+     * Flag to ignore empty lines.
+     */
+    public const DIFF_IGNORE_LINE_EMPTY = 1;
+    /**
+     * Flag to ignore blank lines. (Lines which contain no or only non printable characters.)
+     */
+    public const DIFF_IGNORE_LINE_BLANK = 2;
+    /**
      * @var array The first sequence to compare against.
      */
     protected $old;
@@ -30,6 +42,13 @@ class SequenceMatcher
      * @var array The second sequence.
      */
     protected $new;
+    /**
+     * @var array   Associative array containing the options that will be applied for generating the diff.
+     *              The key-value pairs are set at the constructor of this class.
+     *
+     * @see SequenceMatcher::setOptions()
+     */
+    protected $options = [];
     /**
      * @var string|array Either a string or an array containing a callback function to determine
      * if a line is "junk" or not.
@@ -39,12 +58,10 @@ class SequenceMatcher
      * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
      */
     private $junkDict = [];
-
     /**
      * @var array Array of indices that do not contain junk elements.
      */
     private $b2j = [];
-
     /**
      * @var array A list of all of the op-codes for the differences between the compared strings.
      */
@@ -56,14 +73,22 @@ class SequenceMatcher
     private $matchingBlocks;
 
     /**
-     * @var array
+     * @var array Associative array containing the default options available for the diff class and their default value.
+     *
+     *            - context           The amount of lines to include around blocks that differ.
+     *            - trimEqual         Strip blocks of equal lines from the start and end of the text.
+     *            - ignoreWhitespace  True to ignore differences in tabs and spaces.
+     *            - ignoreCase        True to ignore differences in character casing.
+     *            - ignoreLines       0: None.
+     *                                1: Ignore empty lines.
+     *                                2: Ignore blank lines.
      */
     private $defaultOptions = [
         'context'          => 3,
         'trimEqual'        => true,
         'ignoreWhitespace' => false,
         'ignoreCase'       => false,
-        'ignoreNewLines'   => false,
+        'ignoreLines'      => self::DIFF_IGNORE_LINE_NONE,
     ];
 
     /**
@@ -328,6 +353,28 @@ class SequenceMatcher
                 $tag = 'delete';
             } elseif ($j < $bj) {
                 $tag = 'insert';
+            }
+
+            if ($this->options['ignoreLines']) {
+                $part1 = array_slice($this->old, $i, $ai - $i);
+                $part2 = array_slice($this->new, $j, $bj - $j);
+
+                if ($this->options['ignoreLines'] == 2) {
+                    array_walk($part1, function (&$line) {
+                        $line = trim($line);
+                    });
+                    array_walk($part2, function (&$line) {
+                        $line = trim($line);
+                    });
+                    unset($line);
+                }
+
+                if (
+                    ($tag == 'delete' && implode('', $part1) == '') ||
+                    ($tag == 'insert' && implode('', $part2) == '')
+                ) {
+                    $tag = 'ignore';
+                }
             }
 
             if ($tag) {
