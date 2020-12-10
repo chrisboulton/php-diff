@@ -61,7 +61,8 @@ $options = [
     'ignoreWhitespace' => true,
     'ignoreCase'       => true,
     'context'          => 2,
-    'cliColor'         => true // for cli output
+    'cliColor'         => true, // for cli output
+    'ignoreLines'      => Diff::DIFF_IGNORE_LINE_BLANK,
 ];
 
 // Initialize the diff class.
@@ -140,7 +141,6 @@ at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge-for-php-dif
 
 ## Todo
 
-* Ability to ignore blank line changes
 * 3 way diff support
 
 ## Contributors
