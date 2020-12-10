@@ -80,6 +80,10 @@ class MainRenderer extends MainRendererAbstract
                     case 'replace':
                         $output .= $subRenderer->generateLinesReplace($change);
                         break;
+                    case 'ignore':
+                        // TODO: Keep backward compatible with renderers?
+                        $output .= $subRenderer->generateLinesIgnore($change);
+                        break;
                 }
 
                 $output .= $subRenderer->generateBlockFooter($change);
@@ -130,6 +134,8 @@ class MainRenderer extends MainRendererAbstract
                  * insert  - The string in $newText from $startNew to $endNew should be inserted at $startOld in
                  *           $oldText.
                  * equal   - The two strings with the specified ranges are equal.
+                 * ignore  - The string in $oldText from $startOld to $endOld and
+                 *           the string in $newText from $startNew to $endNew are different, but considered to be equal.
                  */
 
                 $blockSizeOld = $endOld - $startOld;

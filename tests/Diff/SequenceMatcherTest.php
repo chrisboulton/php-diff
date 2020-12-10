@@ -84,7 +84,7 @@ class SequenceMatcherTest extends TestCase
     }
 
     /**
-     *T est the opCodes of the differences between version1 and version2 with option ignoreCase enabled.
+     * Test the opCodes of the differences between version1 and version2 with option ignoreCase enabled.
      */
     public function testGetGroupedOpCodesIgnoreCaseTrue()
     {
@@ -96,5 +96,53 @@ class SequenceMatcherTest extends TestCase
         );
 
         $this->assertEquals([], $sequenceMatcher->getGroupedOpCodes());
+    }
+
+    /**
+     * Test the opCodes of the differences between version1 and version2 with option ignoreLines set to empty.
+     */
+    public function testGetGroupedOpCodesIgnoreLinesEmpty()
+    {
+        // Test with ignoreCase enabled. Both sequences are considered to be the same.
+        $sequenceMatcher = new SequenceMatcher(
+            [0, 1, 2, 3],
+            [0, 1, '', 2, 3],
+            ['ignoreLines' => SequenceMatcher::DIFF_IGNORE_LINE_EMPTY]
+        );
+
+        $this->assertEquals(
+            [
+                [
+                    ['equal', 0, 2, 0, 2],
+                    ['ignore', 2, 2, 2, 3],
+                    ['equal', 2, 4, 3, 5],
+                ],
+            ],
+            $sequenceMatcher->getGroupedOpCodes()
+        );
+    }
+
+    /**
+     * Test the opCodes of the differences between version1 and version2 with option ignoreLines set to blank.
+     */
+    public function testGetGroupedOpCodesIgnoreLinesBlank()
+    {
+        // Test with ignoreCase enabled. Both sequences are considered to be the same.
+        $sequenceMatcher = new SequenceMatcher(
+            [0, 1, 2, 3],
+            [0, 1, "\t", 2, 3],
+            ['ignoreLines' => SequenceMatcher::DIFF_IGNORE_LINE_BLANK]
+        );
+
+        $this->assertEquals(
+            [
+                [
+                    ['equal', 0, 2, 0, 2],
+                    ['ignore', 2, 2, 2, 3],
+                    ['equal', 2, 4, 3, 5],
+                ],
+            ],
+            $sequenceMatcher->getGroupedOpCodes()
+        );
     }
 }
