@@ -146,23 +146,23 @@ class MainRenderer extends MainRendererAbstract
                 $oldBlock = $this->formatLines(array_slice($oldText, $startOld, $blockSizeOld));
                 $newBlock = $this->formatLines(array_slice($newText, $startNew, $blockSizeNew));
 
-                if ($tag == 'equal') {
-                    // Old block equals New block
+                if ($tag != 'delete' && $tag != 'insert') {
+                    // Old block "equals" New block or is replaced.
                     $blocks[$lastBlock]['base']['lines']    += $oldBlock;
                     $blocks[$lastBlock]['changed']['lines'] += $newBlock;
                     continue;
                 }
 
-                if ($tag == 'replace' || $tag == 'delete') {
-                    // Inline differences or old block doesn't exist in the new text.
+                if ($tag == 'delete') {
+                    // Block of version1 doesn't exist in version2.
                     $blocks[$lastBlock]['base']['lines'] += $oldBlock;
+                    continue;
                 }
 
-                if ($tag == 'replace' || $tag == 'insert') {
-                    // Inline differences or the new block doesn't exist in the old text.
-                    $blocks[$lastBlock]['changed']['lines'] += $newBlock;
-                }
+                // Block of version2 doesn't exist in version1.
+                $blocks[$lastBlock]['changed']['lines'] += $newBlock;
             }
+
             $changes[] = $blocks;
         }
 
