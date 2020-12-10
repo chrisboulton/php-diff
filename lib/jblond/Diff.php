@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace jblond;
 
 use InvalidArgumentException;
+use jblond\Diff\ConstantsInterface;
 use jblond\Diff\SequenceMatcher;
 use jblond\Diff\Similarity;
 use OutOfRangeException;
@@ -26,20 +27,8 @@ use OutOfRangeException;
  * @version         2.3.0
  * @link            https://github.com/JBlond/php-diff
  */
-class Diff
+class Diff implements ConstantsInterface
 {
-    /**
-     * Flag to disable ignore of successive empty/blank lines.
-     */
-    public const DIFF_IGNORE_LINE_NONE = 0;
-    /**
-     * Flag to ignore successive empty lines.
-     */
-    public const DIFF_IGNORE_LINE_EMPTY = 1;
-    /**
-     * Flag to ignore successive blank lines. (Lines which contain no or only non printable characters.)
-     */
-    public const DIFF_IGNORE_LINE_BLANK = 2;
     /**
      * @var array   The first version to compare.
      *              Each element contains a line of this string.

@@ -20,20 +20,8 @@ use InvalidArgumentException;
  * @version         2.3.0
  * @link            https://github.com/JBlond/php-diff
  */
-class SequenceMatcher
+class SequenceMatcher implements ConstantsInterface
 {
-    /**
-     * Flag to disable ignore of successive empty/blank lines.
-     */
-    public const DIFF_IGNORE_LINE_NONE = 0;
-    /**
-     * Flag to ignore empty lines.
-     */
-    public const DIFF_IGNORE_LINE_EMPTY = 1;
-    /**
-     * Flag to ignore blank lines. (Lines which contain no or only non printable characters.)
-     */
-    public const DIFF_IGNORE_LINE_BLANK = 2;
     /**
      * @var array The first sequence to compare against.
      */
@@ -360,12 +348,18 @@ class SequenceMatcher
                 $part2 = array_slice($this->new, $j, $bj - $j);
 
                 if ($this->options['ignoreLines'] == 2) {
-                    array_walk($part1, function (&$line) {
-                        $line = trim($line);
-                    });
-                    array_walk($part2, function (&$line) {
-                        $line = trim($line);
-                    });
+                    array_walk(
+                        $part1,
+                        function (&$line) {
+                            $line = trim($line);
+                        }
+                    );
+                    array_walk(
+                        $part2,
+                        function (&$line) {
+                            $line = trim($line);
+                        }
+                    );
                     unset($line);
                 }
 
