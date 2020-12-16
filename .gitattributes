@@ -1,0 +1,4 @@
+tests export-ignore
+.editorconfig export-ignore
+.gitattributes export-ignore
+phpcs.xml export-ignore
