@@ -344,18 +344,18 @@ class SequenceMatcher implements ConstantsInterface
             }
 
             if ($this->options['ignoreLines']) {
-                $part1 = array_slice($this->old, $i, $ai - $i);
-                $part2 = array_slice($this->new, $j, $bj - $j);
+                $slice1 = array_slice($this->old, $i, $ai - $i);
+                $slice2 = array_slice($this->new, $j, $bj - $j);
 
                 if ($this->options['ignoreLines'] == 2) {
                     array_walk(
-                        $part1,
+                        $slice1,
                         function (&$line) {
                             $line = trim($line);
                         }
                     );
                     array_walk(
-                        $part2,
+                        $slice2,
                         function (&$line) {
                             $line = trim($line);
                         }
@@ -364,8 +364,8 @@ class SequenceMatcher implements ConstantsInterface
                 }
 
                 if (
-                    ($tag == 'delete' && implode('', $part1) == '') ||
-                    ($tag == 'insert' && implode('', $part2) == '')
+                    ($tag == 'delete' && implode('', $slice1) == '') ||
+                    ($tag == 'insert' && implode('', $slice2) == '')
                 ) {
                     $tag = 'ignore';
                 }
