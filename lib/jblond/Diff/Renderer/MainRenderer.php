@@ -65,7 +65,23 @@ class MainRenderer extends MainRendererAbstract
                 strlen($this->options['equalityMarkers'][1])
             );
 
+            $deprecationTriggered = false;
             foreach ($blocks as $change) {
+                if (
+                    $subRenderer instanceof MainRenderer &&
+                    !method_exists($subRenderer, 'generateLinesIgnore') &&
+                    $change['tag'] == 'ignore'
+                ) {
+                    if (!$deprecationTriggered) {
+                        trigger_error(
+                            'The use of a subRenderer without method generateLinesIgnore() is deprecated!',
+                            E_USER_DEPRECATED
+                        );
+                        $deprecationTriggered = true;
+                    }
+                    $change['tag'] =
+                        (count($change['base']['lines']) > count($change['changed']['lines'])) ? 'delete' : 'insert';
+                }
                 $output .= $subRenderer->generateBlockHeader($change);
                 switch ($change['tag']) {
                     case 'equal':
