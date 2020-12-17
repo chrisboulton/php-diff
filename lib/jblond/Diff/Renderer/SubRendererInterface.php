@@ -42,13 +42,6 @@ interface SubRendererInterface
     public function generateBlockHeader(array $changes): string;
 
     /**
-     * Generate a string representation of lines that are skipped in the diff view.
-     *
-     * @return string Representation of skipped lines.
-     */
-    public function generateSkippedLines(): string;
-
-    /**
      * Generate a string representation of lines without differences between both versions.
      *
      * Note: Depending on the options, lines can be marked as being equal, while the contents actually differ.
@@ -68,6 +61,23 @@ interface SubRendererInterface
      * @return string Added text.
      */
     public function generateLinesInsert(array $changes): string;
+
+    /**
+     * Generate a string representation of lines that are skipped in the diff view.
+     *
+     * @return string Representation of skipped lines.
+     */
+    public function generateSkippedLines(): string;
+
+    /**
+     * Generate a string representation of lines with ignored differences between both versions.
+     *
+     * @param   array  $changes  Contains the op-codes about the changes between two blocks of text.
+     *
+     * @return string Text with no difference.
+     * @todo: Uncomment once deprecation period is over.
+     */
+    // public function generateLinesIgnore(array $changes): string;
 
     /**
      * Generate a string representation of lines that are removed from the 2nd version.
