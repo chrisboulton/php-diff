@@ -50,7 +50,7 @@
         "classmap-authoritative": true
     },
     "scripts": {
-        "phpunit": "phpunit ./tests/",
+        "phpunit": "phpunit",
         "php_src": "phpcs --standard=phpcs.xml -s -p --colors ./lib/",
         "php_test": "phpcs --standard=phpcs.xml -s -p --colors ./tests/",
         "phpmd": "phpmd ./ ansi cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor"
