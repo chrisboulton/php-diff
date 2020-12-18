@@ -222,6 +222,44 @@ HTML;
     /**
      * @inheritDoc
      *
+     * @return string Html code representing table rows showing modified text.
+     */
+    public function generateLinesIgnore(array $changes): string
+    {
+        $html = '';
+
+        foreach ($changes['base']['lines'] as $lineNo => $line) {
+            $fromLine = $changes['base']['offset'] + $lineNo + 1;
+            $html     .= <<<HTML
+<tr>
+    <th>$fromLine</th>
+    <th></th>
+    <td class="Left Ignore">
+        <span>$line</span>
+    </td>
+</tr>
+HTML;
+        }
+
+        foreach ($changes['changed']['lines'] as $lineNo => $line) {
+            $toLine = $changes['changed']['offset'] + $lineNo + 1;
+            $html   .= <<<HTML
+<tr>
+    <th></th>
+    <th>$toLine</th>
+    <td class="Right Ignore">
+        <span>$line</span>
+    </td>
+</tr>
+HTML;
+        }
+
+        return $html;
+    }
+
+    /**
+     * @inheritDoc
+     *
      * @return string Start of the block.
      */
     public function generateBlockHeader(array $changes): string

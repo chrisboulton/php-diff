@@ -121,6 +121,19 @@ pre {
     background: #EE9999;
 }
 
+.DifferencesUnified .ChangeIgnore .Left,
+.DifferencesUnified .ChangeIgnore .Right {
+    background: #FBF2BF;
+}
+
+.DifferencesUnified .ChangeIgnore .Left.Ignore {
+    background: #F7F7F7;
+}
+
+.DifferencesUnified .ChangeIgnore .Right.Ignore {
+    background: #F7F7F7;
+}
+
 /*
  * HTML Merged Diff
  */
@@ -144,4 +157,8 @@ pre {
 
 .DifferencesMerged th.ChangeDelete {
     background-image: linear-gradient(-45deg, #CCCCCC 0%, #EE9999 100%);
+}
+
+.DifferencesMerged th.ChangeIgnore {
+    background-image: linear-gradient(-45deg, #CCCCCC 0%, #F7F7F7 100%);
 }
