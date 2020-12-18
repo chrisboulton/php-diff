@@ -65,6 +65,7 @@ class Context extends MainRendererAbstract
                 // Line differences between versions or lines of version 1 are removed from version 2.
                 // Add all operations to diff-view of version 1, except for insert.
                 $filteredGroups = $this->filterGroups($group, 'insert');
+                $filteredGroups = $this->filterGroups($filteredGroups, 'ignore');
                 foreach ($filteredGroups as [$tag, $start1, $end1, $start2, $end2]) {
                     $diff .= $this->tagMap[$tag] . ' ' .
                         implode(
@@ -81,6 +82,7 @@ class Context extends MainRendererAbstract
                 // Line differences between versions or lines are inserted into version 2.
                 // Add all operations to diff-view of version 2, except for delete.
                 $filteredGroups = $this->filterGroups($group, 'delete');
+                $filteredGroups = $this->filterGroups($filteredGroups, 'ignore');
                 foreach ($filteredGroups as [$tag, $start1, $end1, $start2, $end2]) {
                     $diff .= $this->tagMap[$tag] . ' ' .
                         implode(

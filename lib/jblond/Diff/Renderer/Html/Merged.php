@@ -43,6 +43,10 @@ class Merged extends MainRenderer implements SubRendererInterface
      * @var string last block of lines which where removed from version 2.
      */
     private $lastDeleted;
+    /**
+     * @var string
+     */
+    private $headerClass = '';
 
     /**
      * Merged constructor.
@@ -101,21 +105,17 @@ HTML;
      */
     public function generateSkippedLines(): string
     {
-        $marker      = '&hellip;';
-        $headerClass = '';
-
-        if ($this->lastDeleted !== null) {
-            $headerClass = 'ChangeDelete';
-        }
-
-        $this->lastDeleted = null;
-
-        return <<<HTML
+        $html = <<<HTML
 <tr>
-    <th class="$headerClass" title="{$this->lastDeleted}">$marker</th>
+    <th class="{$this->headerClass}" title="{$this->lastDeleted}">&hellip;</th>
     <td class="Skipped">&hellip;</td>
 </tr>
 HTML;
+
+        $this->headerClass = '';
+        $this->lastDeleted = null;
+
+        return $html;
     }
 
     /**
@@ -125,22 +125,20 @@ HTML;
      */
     public function generateLinesEqual(array $changes): string
     {
-        $html        = '';
-        $headerClass = '';
+        $html = '';
 
         foreach ($changes['base']['lines'] as $lineNo => $line) {
             $fromLine = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
-            if (!$lineNo && $this->lastDeleted !== null) {
-                $headerClass = 'ChangeDelete';
-            }
 
-            $html              .= <<<HTML
+            $html .= <<<HTML
 <tr>
-    <th class="$headerClass" title="{$this->lastDeleted}">$fromLine</th>
+    <th class="{$this->headerClass}" title="{$this->lastDeleted}">$fromLine</th>
     <td>$line</td>
 </tr>
 HTML;
+
             $this->lastDeleted = null;
+            $this->headerClass = '';
         }
 
         return $html;
@@ -153,22 +151,20 @@ HTML;
      */
     public function generateLinesInsert(array $changes): string
     {
-        $html        = '';
-        $headerClass = '';
+        $html = '';
 
-        foreach ($changes['changed']['lines'] as $lineNo => $line) {
+        foreach ($changes['changed']['lines'] as $line) {
             $this->lineOffset++;
             $toLine = $changes['base']['offset'] + $this->lineOffset;
-            if (!$lineNo && $this->lastDeleted !== null) {
-                $headerClass = 'ChangeDelete';
-            }
 
             $html              .= <<<HTML
 <tr>
-    <th class="$headerClass" title="{$this->lastDeleted}">$toLine</th>
+    <th class="{$this->headerClass}" title="{$this->lastDeleted}">$toLine</th>
     <td><ins>$line</ins></td>
 </tr>
 HTML;
+
+            $this->headerClass = '';
             $this->lastDeleted = null;
         }
 
@@ -197,6 +193,7 @@ TEXT;
         }
 
         $this->lastDeleted = $title;
+        $this->headerClass = 'ChangeDelete';
 
         return '';
     }
@@ -208,14 +205,10 @@ TEXT;
      */
     public function generateLinesReplace(array $changes): string
     {
-        $html        = '';
-        $headerClass = '';
+        $html = '';
 
         foreach ($changes['base']['lines'] as $lineNo => $line) {
             $fromLine = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
-            if (!$lineNo && $this->lastDeleted !== null) {
-                $headerClass = 'ChangeDelete';
-            }
 
             // Capture added parts.
             $addedParts = [];
@@ -236,10 +229,11 @@ TEXT;
 
             $html              .= <<<HTML
 <tr>
-    <th class="$headerClass" title="{$this->lastDeleted}">$fromLine</th>
+    <th class="{$this->headerClass}" title="{$this->lastDeleted}">$fromLine</th>
     <td>$line</td>
 </tr>
 HTML;
+            $this->headerClass = '';
             $this->lastDeleted = null;
         }
 
@@ -264,5 +258,31 @@ HTML;
     public function generateDiffFooter(): string
     {
         return '</table>';
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @return string Modified text.
+     */
+    public function generateLinesIgnore(array $changes): string
+    {
+        $baseLineCount    = count($changes['base']['lines']);
+        $changedLineCount = count($changes['changed']['lines']);
+
+        $this->lineOffset -= $baseLineCount;
+
+        $title = "Lines ignored at {$this->options['title2']}: ";
+        $title .= $changes['changed']['offset'] + 1 . '-' . ($changes['changed']['offset'] + $changedLineCount);
+
+        if ($baseLineCount > $changedLineCount) {
+            $title = "Lines ignored at {$this->options['title1']}: ";
+            $title .= $changes['base']['offset'] + 1 . '-' . ($changes['base']['offset'] + $baseLineCount);
+        }
+
+        $this->lastDeleted = $title;
+        $this->headerClass = 'ChangeIgnore';
+
+        return '';
     }
 }
