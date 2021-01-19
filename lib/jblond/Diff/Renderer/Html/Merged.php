@@ -8,7 +8,7 @@ use jblond\Diff\Renderer\SubRendererInterface;
 /**
  * Merged diff generator for PHP DiffLib.
  *
- * PHP version 7.2 or greater
+ * PHP version 7.3 or greater
  *
  * @package         jblond\Diff\Renderer\Text
  * @author          Ferry Cools <info@DigiLive.nl>

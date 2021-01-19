@@ -119,7 +119,7 @@ directory. Included is a light and a dark theme.
 
 ## Requirements
 
-* PHP 7.2 or greater
+* PHP 7.3 or greater
 * PHP Multibyte String
 * [jblond/php-cli](https://github.com/jblond/php-cli) (suggested)
 

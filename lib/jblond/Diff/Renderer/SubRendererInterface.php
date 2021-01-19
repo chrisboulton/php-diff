@@ -7,7 +7,7 @@ namespace jblond\Diff\Renderer;
 /**
  * Sub rendering class interface for PHP DiffLib.
  *
- * PHP version 7.2 or greater
+ * PHP version 7.3 or greater
  *
  * @package         jblond\Diff\Renderer\Html
  * @author          Ferry Cools <info@DigiLive.nl>

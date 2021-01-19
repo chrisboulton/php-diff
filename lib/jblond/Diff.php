@@ -15,7 +15,7 @@ use OutOfRangeException;
  * A comprehensive library for comparing two strings and generating the differences between them in multiple formats.
  * (unified, side by side, inline, HTML, etc.)
  *
- * PHP version 7.2 or greater
+ * PHP version 7.3 or greater
  *
  * @package         jblond
  * @author          Chris Boulton <chris.boulton@interspire.com>

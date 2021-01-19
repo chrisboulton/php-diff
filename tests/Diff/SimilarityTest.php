@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * PHPUnit Test for the Similarity class of PHP DiffLib.
  *
- * PHP version 7.2 or greater
+ * PHP version 7.3 or greater
  *
  * @package         Tests\Diff
  * @author          Ferry Cools <info@DigiLive.nl>

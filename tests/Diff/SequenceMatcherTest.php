@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * PHPUnit Test for the main renderer of PHP DiffLib.
  *
- * PHP version 7.2 or greater
+ * PHP version 7.3 or greater
  *
  * @package         Tests\Diff
  * @author          Mario Brandt <leet31337@web.de>
