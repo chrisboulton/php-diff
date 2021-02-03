@@ -35,7 +35,8 @@
         "phpunit/phpunit": "^8 || ^9",
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "2.*",
-        "jblond/php-cli": "^1.0"
+        "jblond/php-cli": "^1.0",
+        "digilive/git-changelog": "^1"
     },
     "suggest": {
         "jblond/php-cli": "^1.0"
@@ -53,12 +54,14 @@
         "phpunit": "phpunit",
         "php_src": "phpcs --standard=phpcs.xml -s -p --colors ./lib/",
         "php_test": "phpcs --standard=phpcs.xml -s -p --colors ./tests/",
-        "phpmd": "phpmd ./ ansi cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor"
+        "phpmd": "phpmd ./ ansi cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor",
+        "changelog": "php generateChangelog.php"
     },
     "scripts-descriptions": {
         "phpunit": "Run PHPUnit tests",
         "php_src": "Run code sniffer on lib directory",
         "php_test": "Run code sniffer on tests directory",
-        "phpmd": "Run php mess detector"
+        "phpmd": "Run php mess detector",
+        "changelog": "generate changelog from commits"
     }
 }
