@@ -1,140 +1,188 @@
-# changelog
+# Changelog
 
-## next
+## 2.3.1 (2021-02-03)
 
-* Refactored HTML Inline renderer to HTML Unified.
+* Add DigiLive/gitChangelog for change log generation ([0a6a84f](https://github.com/JBlond/php-diff/commit/0a6a84f))
+* Bump library version ([013f862](https://github.com/JBlond/php-diff/commit/013f862))
+* Cut HTML Unified Renderer ([1ba255f](https://github.com/JBlond/php-diff/commit/1ba255f))
+* Document PhpUnit Similarity Test ([7ec484c](https://github.com/JBlond/php-diff/commit/7ec484c))
+* Document Update Changelog ([7d6c8bb](https://github.com/JBlond/php-diff/commit/7d6c8bb), [c9881d3](https://github.com/JBlond/php-diff/commit/c9881d3))
+* Document disabled inspection ([909e195](https://github.com/JBlond/php-diff/commit/909e195))
+* Document generateLinesEqual() ([8a193c9](https://github.com/JBlond/php-diff/commit/8a193c9))
+* Document methods ([94c8bd5](https://github.com/JBlond/php-diff/commit/94c8bd5))
+* Fix [#83](https://github.com/JBlond/php-diff/issues/83) - Lines not properly marked ([6fcafe1](https://github.com/JBlond/php-diff/commit/6fcafe1))
+* Fix HTML Merged Renderer ([07da484](https://github.com/JBlond/php-diff/commit/07da484))
+* Fix constructor DocBlocks ([b13ff84](https://github.com/JBlond/php-diff/commit/b13ff84))
+* Fix html syntax error ([11ec623](https://github.com/JBlond/php-diff/commit/11ec623))
+* Fix namespace and unused code ([77a7b59](https://github.com/JBlond/php-diff/commit/77a7b59))
+* Fix probably undefined variable ([3954a2b](https://github.com/JBlond/php-diff/commit/3954a2b))
+* Fix property visibility and method docBlocks ([3bc0839](https://github.com/JBlond/php-diff/commit/3bc0839))
+* Fix property visibility and unused code ([34a032f](https://github.com/JBlond/php-diff/commit/34a032f))
+* Fix redundant and unused code. ([73f6776](https://github.com/JBlond/php-diff/commit/73f6776))
+* add phpunit config file ([7382ee8](https://github.com/JBlond/php-diff/commit/7382ee8))
 
-* The non table unified renderer is cut from the code.
+## v2.3.0 (2020-11-19)
 
-## 2.3.0 (2020-11-19)
+* Add Html Merged renderer. ([d70eaf6](https://github.com/JBlond/php-diff/commit/d70eaf6))
+* Add PhpUnit test for html merged renderer ([4512c03](https://github.com/JBlond/php-diff/commit/4512c03))
+* Add calculation for similarity ratio. ([3e4bbe6](https://github.com/JBlond/php-diff/commit/3e4bbe6))
+* Add choosing marking levels to html example ([c27035a](https://github.com/JBlond/php-diff/commit/c27035a))
+* Add new marking levels for inline differences ([75358da](https://github.com/JBlond/php-diff/commit/75358da))
+* Document properties and constructor ([6c95ccd](https://github.com/JBlond/php-diff/commit/6c95ccd))
+* Fix: Html SideBySide renders equal lines of version 1 at both sides. ([ccfc465](https://github.com/JBlond/php-diff/commit/ccfc465))
+* Fix Merged::generateLinesReplace() ([cef85b5](https://github.com/JBlond/php-diff/commit/cef85b5))
+* Fix PSR-4 Auto loading Typo ([6e2ad47](https://github.com/JBlond/php-diff/commit/6e2ad47))
+* Fix PhpUnit test ([3ccaa10](https://github.com/JBlond/php-diff/commit/3ccaa10))
+* Fix Undefined offset notice ([b10fd38](https://github.com/JBlond/php-diff/commit/b10fd38))
+* Fixes [#64](https://github.com/JBlond/php-diff/issues/64) - maxLineMarkerWidth only calculated for input format plain. ([c5f6d72](https://github.com/JBlond/php-diff/commit/c5f6d72))
+* Fix generateBlockHeader docBlocks ([b5cfbd5](https://github.com/JBlond/php-diff/commit/b5cfbd5))
+* Fix visibility of removed lines ([ec0918b](https://github.com/JBlond/php-diff/commit/ec0918b))
+* add changelog ([4b7a56f](https://github.com/JBlond/php-diff/commit/4b7a56f))
+* add changelog to Readme file ([09aea70](https://github.com/JBlond/php-diff/commit/09aea70))
+* add date ([c64c0cc](https://github.com/JBlond/php-diff/commit/c64c0cc))
+* add declaration ([cff7db1](https://github.com/JBlond/php-diff/commit/cff7db1))
+* add wiki links to README.md ([ccd5a6d](https://github.com/JBlond/php-diff/commit/ccd5a6d))
 
-* Add: Change log.
-  
-* Fix: Html SideBySide renders equal lines of version 1 at both sides (Option
-  ignoreCase).
+## v2.2.1 (2020-08-06)
 
-* Fix: Second parameter of string repeat function minimizes to 0.
+* Fix [#58](https://github.com/JBlond/php-diff/issues/58) - Side by side diff shows empty diff ([0946d59](https://github.com/JBlond/php-diff/commit/0946d59), [369b146](https://github.com/JBlond/php-diff/commit/369b146), [02695d5](https://github.com/JBlond/php-diff/commit/02695d5))
+* add to dev for unit tests ([acd12cb](https://github.com/JBlond/php-diff/commit/acd12cb))
 
-* Fix: #60 - Unified Cli renderer options incompatible with Main renderer
-  options
+## v2.2.0 (2020-07-23)
 
-* Fix: #64 - Calculation of maxLineMarkerWidth independent of input format.
+* Fix code quality. ([0ef6def](https://github.com/JBlond/php-diff/commit/0ef6def))
+* add line for readabiltity ([e28511b](https://github.com/JBlond/php-diff/commit/e28511b))
 
-* Add: Similarity calculation
+## v2.1.1 (2020-07-17)
 
-* Add: New marking levels for inline differences
+* Fix [#50](https://github.com/JBlond/php-diff/issues/50). ([47d6288](https://github.com/JBlond/php-diff/commit/47d6288))
+* add unit test for cli output ([0c75757](https://github.com/JBlond/php-diff/commit/0c75757))
 
-* Add: Html merged renderer
+## v2.1.0 (2020-07-13)
 
-## 2.2.1 (2020-08-06)
+* add plain output for cli ([d7bbe12](https://github.com/JBlond/php-diff/commit/d7bbe12))
 
-* Fix: #58 - Side by side diff shows empty diff
+## v2.0.0 (2020-07-09)
 
-## 2.2.0 (2020-07-23)
+* Add Cli color support ([4192d8b](https://github.com/JBlond/php-diff/commit/4192d8b))
+* Add dark theme example ([6f41894](https://github.com/JBlond/php-diff/commit/6f41894))
+* Add example picture ([ee37a28](https://github.com/JBlond/php-diff/commit/ee37a28))
+* add composer scripts descriptions. Update key words ([6bfd4f9](https://github.com/JBlond/php-diff/commit/6bfd4f9))
+* add missing tag from merge ([639f3cc](https://github.com/JBlond/php-diff/commit/639f3cc))
 
-* Add: Option for a custom override renderer. #53
+## v1.18 (2020-07-01)
 
-* Add: No output when there are no differences between the compared strings /
-  files. #52 #54
+* add author ([e132cdb](https://github.com/JBlond/php-diff/commit/e132cdb))
+* add dark theme example ([b9d0ef6](https://github.com/JBlond/php-diff/commit/b9d0ef6))
 
-## 2.1.1 (2020-07-17)
+## v1.17 (2020-06-08)
 
-* Fix: #50 - Renderers produce output with equal texts, while they shouldn't.
+* Fix issue [#32](https://github.com/JBlond/php-diff/issues/32). ([7ef67e6](https://github.com/JBlond/php-diff/commit/7ef67e6))
+* fix typo in phpdoc ([db259fc](https://github.com/JBlond/php-diff/commit/db259fc))
 
-## 2.1.0 (2020-07-13)
+## v1.16 (2020-03-02)
 
-* Add: Cli uncolored output. This allows it to be piped.
+* Add composer package PHP Mess Detector v2.* ([3e527d1](https://github.com/JBlond/php-diff/commit/3e527d1))
+* Add contributor to author lists. ([4c2cbb7](https://github.com/JBlond/php-diff/commit/4c2cbb7), [c11b4ba](https://github.com/JBlond/php-diff/commit/c11b4ba))
+* Add trimEqual option. ([98d993e](https://github.com/JBlond/php-diff/commit/98d993e))
+* Add types of elements for renderer ([4d1b4a0](https://github.com/JBlond/php-diff/commit/4d1b4a0), [83b4104](https://github.com/JBlond/php-diff/commit/83b4104))
+* Fix PHPMD Violation. ([5d03eae](https://github.com/JBlond/php-diff/commit/5d03eae))
+* Fix expected value for HtmlRendererTest::testUnified() ([fbda2bd](https://github.com/JBlond/php-diff/commit/fbda2bd))
 
-## 2.0.0 (2020-07-09)
+## v1.15 (2020-01-24)
 
-* Add: Unified Commandline colored output.
-* Change: switch to semantic versioning.
+* fix notation ([795fe20](https://github.com/JBlond/php-diff/commit/795fe20))
 
-## 1.18 (2020-07-01)
+## v1.14 (2019-12-03)
 
-* Add: A dark theme to the example.
-* Fix: Avoid variables with short names (some).
+* No changes.
 
-## 1.17 (2020-06-08)
+## v1.13 (2019-10-08)
 
-* Fix #32 - Side by side diff shows only partially all deleted lines.
+* No changes.
 
-## 1.16 (2020-03-02)
+## v1.12 (2019-03-18)
 
-* Features
-  * Add: option trimEqual.
+* add more files to .gitignore ([27b21eb](https://github.com/JBlond/php-diff/commit/27b21eb))
+* add phpunit test to composer ([e8a3f71](https://github.com/JBlond/php-diff/commit/e8a3f71))
+* add tests ([6d165a6](https://github.com/JBlond/php-diff/commit/6d165a6))
 
-* Fixes
-  * Fix PHPMD Violation.
-  * Code Optimization, cleanup, refactoring and commenting.
+## v1.11 (2019-02-22)
 
-## 1.15 (2020-01-24)
+* No changes.
 
-* Add: New Unified HTML.
-* Fix: Code clean up.
+## v1.10 (2019-02-20)
 
-## 1.14 (2019-12-03)
+* fix codacy warnings of unused functions ([8037d99](https://github.com/JBlond/php-diff/commit/8037d99))
+* fix example ([9207f73](https://github.com/JBlond/php-diff/commit/9207f73))
 
-* Fix: Remove some old dead code.
+## v1.9 (2019-02-19)
 
-## 1.13 (2019-10-08)
+* add comment like in the other file ([8b68a5d](https://github.com/JBlond/php-diff/commit/8b68a5d))
+* add stronger type hinting ([3a6ef42](https://github.com/JBlond/php-diff/commit/3a6ef42))
 
-* Change: Switch to PSR12.
+## v1.8 (2019-02-13)
 
-## 1.12 (2019-03-18)
+* fix test ([b4cfce1](https://github.com/JBlond/php-diff/commit/b4cfce1))
 
-* Change: Update Composer Configuration.
-* Fix: PSR-2 conventions.
+## v1.7 (2019-01-19)
 
-## 1.11 (2019-02-22)
+* add code sniffer PSR2 file ([6fa3c76](https://github.com/JBlond/php-diff/commit/6fa3c76))
+* adding curly brackets ([148e787](https://github.com/JBlond/php-diff/commit/148e787))
+* fix PSR1.Files.SideEffects.FoundWithSymbols ([fe21917](https://github.com/JBlond/php-diff/commit/fe21917))
+* fix tabs ([354bf5c](https://github.com/JBlond/php-diff/commit/354bf5c))
 
-* Fix: Code clean up.
-* Fix: Composer autoloader for unit tests.
+## v1.6 (2019-01-19)
 
-## 1.10 (2019-02-20)
+* Fix warning with PHP 7.2 when trying to count NULL ([fe69c4f](https://github.com/JBlond/php-diff/commit/fe69c4f))
+* add ci file ([add8165](https://github.com/JBlond/php-diff/commit/add8165))
+* add dock block ([2aafad1](https://github.com/JBlond/php-diff/commit/2aafad1))
+* add unit tests ([0db511d](https://github.com/JBlond/php-diff/commit/0db511d))
+* fix tests ([44a6ab0](https://github.com/JBlond/php-diff/commit/44a6ab0))
 
-* Fix: Code clean up.
+## v1.5 (2019-01-15)
 
-## 1.9 (2019-02-19)
+* No changes.
 
-* Fix: Code clean up.
+## v1.4 (2019-01-14)
 
-## 1.8
+* Add PSR4 autoloader ([bda1da9](https://github.com/JBlond/php-diff/commit/bda1da9))
+* add badge ([0fac082](https://github.com/JBlond/php-diff/commit/0fac082))
+* add keywords ([e64716d](https://github.com/JBlond/php-diff/commit/e64716d))
+* add name spacing ([1d15164](https://github.com/JBlond/php-diff/commit/1d15164))
 
-* Change: Update Readme and bumping versions.
+## v1.3 (2019-01-11)
 
-* Fix: Moved include of Autoloader from the constructor to global space for
-  HtmlArray unit test.
+* Fixed lengths of functions ([3591789](https://github.com/JBlond/php-diff/commit/3591789))
+* Fix some typos ([5ca2257](https://github.com/JBlond/php-diff/commit/5ca2257))
+* added missing doc block ([c6f3745](https://github.com/JBlond/php-diff/commit/c6f3745))
+* add lang to html ([1623626](https://github.com/JBlond/php-diff/commit/1623626))
+* add second image ([176b647](https://github.com/JBlond/php-diff/commit/176b647))
 
-## 1.7
+## v1.2 (2018-01-23)
 
-* Fix: PSR-2 code alignment.
+* added example code from https://github.com/JBlond/php-diff/issues/1 ([258b976](https://github.com/JBlond/php-diff/commit/258b976))
+* add image to README.md ([0432f78](https://github.com/JBlond/php-diff/commit/0432f78))
 
-## 1.6
+## v1.1 (2017-05-05)
 
-* Change: Bump required version of PHP to v7.1.
-* Add: Return type hinting.
+* Add ability not to expand tabs ([f5da126](https://github.com/JBlond/php-diff/commit/f5da126))
+* Added note about https://github.com/Xiphe/jQuery-Merge-for-php-diff ([2ebc51f](https://github.com/JBlond/php-diff/commit/2ebc51f))
+* Add in working ignoreWhitespace and ignoreCase options (self-describing), fix up an issue where a diff of two files exactly the same would show the last $context lines, general cleanup ([690419d](https://github.com/JBlond/php-diff/commit/690419d))
+* Add mbstring extension as package dependency ([a929467](https://github.com/JBlond/php-diff/commit/a929467))
+* Add missing docblock. Rename isLineDifferent to linesAreDifferent ([516c4be](https://github.com/JBlond/php-diff/commit/516c4be))
+* Fix ' ([c81931f](https://github.com/JBlond/php-diff/commit/c81931f))
+* Fix an issue with insertions being skipped. ([b13d23d](https://github.com/JBlond/php-diff/commit/b13d23d))
+* Fix links ([2c38d0e](https://github.com/JBlond/php-diff/commit/2c38d0e))
+* Fix tab expansion and deprecated preg_replace use on fixSpaces. ([f0aba03](https://github.com/JBlond/php-diff/commit/f0aba03))
+* Fix the ignoring of option context ([60de296](https://github.com/JBlond/php-diff/commit/60de296))
+* add composer file ([be8dc58](https://github.com/JBlond/php-diff/commit/be8dc58))
+* added ' ([09d0c4c](https://github.com/JBlond/php-diff/commit/09d0c4c))
+* added License ([3b5b338](https://github.com/JBlond/php-diff/commit/3b5b338))
+* added widget ([d1a5e18](https://github.com/JBlond/php-diff/commit/d1a5e18))
+* adding composer manifest to distribute as a library ([9083bd6](https://github.com/JBlond/php-diff/commit/9083bd6))
+* add missing doc blocks ([d3b9a63](https://github.com/JBlond/php-diff/commit/d3b9a63))
 
-## 1.5 (2019-01-15)
+## v1.0 (2010-03-11)
 
-* Fix: Autoloader naming issues.
-
-## 1.4 (2019-01-14)
-
-* Add: PSR-4 namespace support.
-
-## 1.3 (2019-01-11)
-
-* Fix: PHP methods contained too much logic. That has been simplified.
-
-## 1.2 (2018-01-23)
-
-* Add: Support for custom titles.
-
-## 1.1 (2017-05-06)
-
-* Fix: Wrong highlight area for chinese characters.
-
-## 1.0
-
-* Initial version.
+* No changes.
