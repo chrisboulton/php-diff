@@ -6,8 +6,8 @@ body {
 }
 
 pre {
-    width:    100%;
     overflow: auto;
+    width:    100%;
 }
 
 /*
@@ -15,34 +15,35 @@ pre {
  */
 
 .Differences {
-    width:           100%;
     border-collapse: collapse;
     border-spacing:  0;
     empty-cells:     show;
+    width:           100%;
 }
 
 .Differences thead th {
-    text-align:    left;
-    border-bottom: 1px solid #000000;
     background:    #AAAAAA;
+    border-bottom: 1px solid #000000;
     color:         #000000;
     padding:       4px;
+    text-align:    left;
 }
 
 .Differences tbody th {
-    text-align:     right;
     background:     #CCCCCC;
-    width:          4em;
-    padding:        1px 2px;
     border-right:   1px solid #000000;
-    vertical-align: top;
     font-size:      13px;
+    padding:        1px 2px;
+    text-align:     right;
+    vertical-align: top;
+    width:          4em;
 }
 
 .Differences td {
-    padding:     1px 2px;
-    font-family: Consolas, monospace;
-    font-size:   13px;
+    font-family:    Consolas, monospace;
+    font-size:      13px;
+    padding:        1px 2px;
+    vertical-align: top;
 }
 
 .Differences .Skipped {
@@ -111,12 +112,14 @@ pre {
 /*
  * HTML Merged Diff
  */
-.DifferencesMerged .ChangeReplace .Left,
+.DifferencesMerged td.ChangeInsert {
+    background: #FFDD88;
+}
+
 .DifferencesMerged .ChangeDelete {
     background: #FFDDDD;
 }
 
-.DifferencesMerged .ChangeReplace .Right,
 .DifferencesMerged .ChangeInsert {
     background: #DDFFDD;
 }
@@ -131,4 +134,8 @@ pre {
 
 .DifferencesMerged th.ChangeDelete {
     background-image: linear-gradient(-45deg, #CCCCCC 0%, #EE9999 100%);
+}
+
+.DifferencesMerged th.ChangeReplace {
+    background-image: linear-gradient(-45deg, #CCCCCC 0%, #FFDD88 100%);
 }
