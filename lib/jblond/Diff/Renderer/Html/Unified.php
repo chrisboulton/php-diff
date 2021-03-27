@@ -18,7 +18,7 @@ use jblond\Diff\Renderer\SubRendererInterface;
  * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version       2.3.0
+ * @version      2.3.2
  * @link          https://github.com/JBlond/php-diff
  */
 class Unified extends MainRenderer implements SubRendererInterface

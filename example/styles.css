@@ -40,9 +40,10 @@ pre {
 }
 
 .Differences td {
-    font-family: Consolas, monospace;
-    font-size:   13px;
-    padding:     1px 2px;
+    font-family:    Consolas, monospace;
+    font-size:      13px;
+    padding:        1px 2px;
+    vertical-align: top;
 }
 
 .Differences .Skipped {
@@ -137,12 +138,14 @@ pre {
 /*
  * HTML Merged Diff
  */
-.DifferencesMerged .ChangeReplace .Left,
+.DifferencesMerged td.ChangeReplace {
+    background: #FFDD88;
+}
+
 .DifferencesMerged .ChangeDelete {
     background: #FFDDDD;
 }
 
-.DifferencesMerged .ChangeReplace .Right,
 .DifferencesMerged .ChangeInsert {
     background: #DDFFDD;
 }
@@ -159,6 +162,6 @@ pre {
     background-image: linear-gradient(-45deg, #CCCCCC 0%, #EE9999 100%);
 }
 
-.DifferencesMerged th.ChangeIgnore {
-    background-image: linear-gradient(-45deg, #CCCCCC 0%, #F7F7F7 100%);
+.DifferencesMerged th.ChangeReplace {
+    background-image: linear-gradient(-45deg, #CCCCCC 0%, #FFDD88 100%);
 }
