@@ -130,7 +130,7 @@ a, a:visited {
 /*
  * HTML Merged Diff
  */
-.DifferencesMerged td.ChangeInsert {
+.DifferencesMerged td.ChangeReplace {
     background: #FFDD88;
     color:      #272822;
 }

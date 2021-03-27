@@ -112,7 +112,7 @@ pre {
 /*
  * HTML Merged Diff
  */
-.DifferencesMerged td.ChangeInsert {
+.DifferencesMerged td.ChangeReplace {
     background: #FFDD88;
 }
 
