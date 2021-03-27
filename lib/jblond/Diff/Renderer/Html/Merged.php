@@ -112,7 +112,7 @@ HTML;
 
         return <<<HTML
 <tr>
-    <th class="$headerClass" title="{$this->lastDeleted}">$marker</th>
+    <th class="$headerClass" title="$this->lastDeleted">$marker</th>
     <td class="Skipped">&hellip;</td>
 </tr>
 HTML;
@@ -125,18 +125,19 @@ HTML;
      */
     public function generateLinesEqual(array $changes): string
     {
-        $html        = '';
-        $headerClass = '';
+        $html = '';
 
         foreach ($changes['base']['lines'] as $lineNo => $line) {
-            $fromLine = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
+            $fromLine    = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
+            $headerClass = '';
+
             if (!$lineNo && $this->lastDeleted !== null) {
                 $headerClass = 'ChangeDelete';
             }
 
             $html              .= <<<HTML
 <tr>
-    <th class="$headerClass" title="{$this->lastDeleted}">$fromLine</th>
+    <th class="$headerClass" title="$this->lastDeleted">$fromLine</th>
     <td>$line</td>
 </tr>
 HTML;
@@ -153,19 +154,19 @@ HTML;
      */
     public function generateLinesInsert(array $changes): string
     {
-        $html        = '';
-        $headerClass = '';
+        $html = '';
 
         foreach ($changes['changed']['lines'] as $lineNo => $line) {
             $this->lineOffset++;
-            $toLine = $changes['base']['offset'] + $this->lineOffset;
+            $toLine      = $changes['base']['offset'] + $this->lineOffset;
+            $headerClass = '';
             if (!$lineNo && $this->lastDeleted !== null) {
                 $headerClass = 'ChangeDelete';
             }
 
             $html              .= <<<HTML
 <tr>
-    <th class="$headerClass" title="{$this->lastDeleted}">$toLine</th>
+    <th class="$headerClass" title="$this->lastDeleted">$toLine</th>
     <td><ins>$line</ins></td>
 </tr>
 HTML;
@@ -185,7 +186,7 @@ HTML;
     {
         $this->lineOffset -= count($changes['base']['lines']);
 
-        $title = "Lines deleted at {$this->options['title2']}:\n";
+        $title = "Lines of {$this->options['title1']} deleted at {$this->options['title2']}:\n";
 
         foreach ($changes['base']['lines'] as $lineNo => $line) {
             $fromLine = $changes['base']['offset'] + $lineNo + 1;
@@ -196,7 +197,7 @@ $fromLine: $line
 TEXT;
         }
 
-        $this->lastDeleted = $title;
+        $this->lastDeleted = htmlentities($title);
 
         return '';
     }
@@ -208,40 +209,67 @@ TEXT;
      */
     public function generateLinesReplace(array $changes): string
     {
-        $html        = '';
-        $headerClass = '';
+        $html             = '';
+        $baseLineCount    = count($changes['base']['lines']);
+        $changedLineCount = count($changes['changed']['lines']);
 
-        foreach ($changes['base']['lines'] as $lineNo => $line) {
-            $fromLine = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
-            if (!$lineNo && $this->lastDeleted !== null) {
-                $headerClass = 'ChangeDelete';
-            }
+        if (count($changes['base']['lines']) == $changedLineCount) {
+            // Lines of Version 1 are modified at version 2.
+            foreach ($changes['base']['lines'] as $lineNo => $line) {
+                $fromLine = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
 
-            // Capture added parts.
-            $addedParts = [];
-            preg_match_all('/\x0.*?\x1/', $changes['changed']['lines'][$lineNo], $addedParts, PREG_PATTERN_ORDER);
-            array_unshift($addedParts[0], '');
+                // Capture line-parts which are added to the same line at version 2.
+                $addedParts = [];
+                preg_match_all('/\x0.*?\x1/', $changes['changed']['lines'][$lineNo], $addedParts, PREG_PATTERN_ORDER);
+                array_unshift($addedParts[0], '');
 
-            // Concatenate removed parts with added parts.
-            $line = preg_replace_callback(
-                '/\x0.*?\x1/',
-                function ($removedParts) use ($addedParts) {
-                    $addedPart   = str_replace(["\0", "\1"], $this->options['insertMarkers'], next($addedParts[0]));
-                    $removedPart = str_replace(["\0", "\1"], $this->options['deleteMarkers'], $removedParts[0]);
+                // Inline Replacement:
+                // Concatenate line-parts which are removed at version2 with line-parts which are added at version 2.
+                $line = preg_replace_callback(
+                    '/\x0.*?\x1/',
+                    function ($removedParts) use ($addedParts) {
+                        $addedPart   = str_replace(["\0", "\1"], $this->options['insertMarkers'], next($addedParts[0]));
+                        $removedPart = str_replace(["\0", "\1"], $this->options['deleteMarkers'], $removedParts[0]);
 
-                    return "$removedPart$addedPart";
-                },
-                $line
-            );
+                        return "$removedPart$addedPart";
+                    },
+                    $line
+                );
 
-            $html              .= <<<HTML
+                $html .= <<<HTML
 <tr>
-    <th class="$headerClass" title="{$this->lastDeleted}">$fromLine</th>
+    <th>$fromLine</th>
     <td>$line</td>
 </tr>
 HTML;
-            $this->lastDeleted = null;
+            }
+
+            return $html;
         }
+
+        // More or less lines at version 2. Block of version 1 is replaced by block of version 2.
+        $title       = '';
+
+        foreach ($changes['changed']['lines'] as $lineNo => $line) {
+            $toLine = $changes['changed']['offset'] + $lineNo + 1;
+
+            if (!$lineNo) {
+                $title       = "Lines replaced at {$this->options['title1']}:\n";
+                foreach ($changes['base']['lines'] as $baseLineNo => $baseLine) {
+                    $title .= $changes['base']['offset'] + $baseLineNo + 1 . ": $baseLine\n";
+                }
+            }
+
+            $title = htmlentities($title);
+            $html  .= <<<HTML
+<tr>
+    <th class="ChangeReplace" title="$title">$toLine</th>
+    <td class="ChangeReplace">$line</td>
+</tr>
+HTML;
+        }
+
+        $this->lineOffset = $this->lineOffset + $changedLineCount - $baseLineCount;
 
         return $html;
     }
