@@ -186,7 +186,7 @@ HTML;
     {
         $this->lineOffset -= count($changes['base']['lines']);
 
-        $title = "Lines deleted at {$this->options['title2']}:\n";
+        $title = "Lines of {$this->options['title1']} deleted at {$this->options['title2']}:\n";
 
         foreach ($changes['base']['lines'] as $lineNo => $line) {
             $fromLine = $changes['base']['offset'] + $lineNo + 1;
@@ -197,7 +197,7 @@ $fromLine: $line
 TEXT;
         }
 
-        $this->lastDeleted = $title;
+        $this->lastDeleted = htmlentities($title);
 
         return '';
     }
