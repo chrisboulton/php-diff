@@ -13,7 +13,7 @@
     <th class="" title="">3</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"/&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
-    <th class="" title="">4</th>
+    <th>4</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Hello <del>World</del><ins>You</ins>!&lt;/title&gt;</td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th class="" title="">5</th>
@@ -25,18 +25,18 @@
     <th class="" title="">7</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;This is demo content to show features of the php-diff package.&lt;/h1&gt;</td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
-    <th class="ChangeDelete" title="Lines deleted at Version2:
-8: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is removed from version2.&lt;/h2&gt;
+    <th class="ChangeDelete" title="Lines of Version1 deleted at Version2:
+8: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;lt;h2&amp;gt;This line is removed from version2.&amp;lt;/h2&amp;gt;
 ">8</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
-    <th class="" title="">9</th>
+    <th>9</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;<del>this line has inline</del><ins>This line has</ins> differences between both versions.&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th class="" title="">10</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
-    <th class="" title="">11</th>
+    <th>11</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line also has <del>inl</del><ins>InL</ins>ine differences between both versions.&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th class="" title="">12</th>
@@ -54,13 +54,13 @@
     <th class="" title="">16</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's also compatible with multibyte characters (like Chinese and emoji) as shown below:</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
-    <th class="" title="">17</th>
+    <th>17</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外我覺得那個評<del>價</del><ins>鑑</ins>的白色櫃子有點沒有必要欸。外觀我就不說了 ，怎麼連空間都那麼狹隘。不過倒是從這個地方看出所謂的“改革”</td>
 </tr><tr>
-    <th class="" title="">18</th>
+    <th>18</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do you know what "<del>金槍魚罐頭</del><ins>魚の缶詰</ins>" means in Chinese?</td>
 </tr><tr>
-    <th class="" title="">19</th>
+    <th>19</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<del>🍏🍎</del><ins>🍎🍏</ins>🙂</td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th class="" title="">20</th>
@@ -84,13 +84,13 @@
     <th class="" title="">27</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
-    <th class="" title="">28</th>
+    <th>28</th>
     <td><del>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</del><ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ins>&lt;h2&gt;This line also has inline differences between both versions. It's the whitespace in front.&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th class="" title="">29</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line is the same for both versions.&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeReplace"><tr>
-    <th class="" title="">30</th>
+    <th>30</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;This line also has inline differences between both versions<del>.</del><ins>!</ins>&lt;/h2&gt;</td>
 </tr></tbody><tbody class="ChangeEqual"><tr>
     <th class="" title="">31</th>
