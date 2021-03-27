@@ -1,12 +1,20 @@
 # Changelog
 
-## 2.3.1 (2021-02-03)
+## 2.3.2 (2021-03-27)
+
+* Bump library version ([6e42d96](https://github.com/JBlond/php-diff/commit/6e42d96))
+* Fix [#90](https://github.com/JBlond/php-diff/issues/90) - Merged Diff shows result only partially ([acbfd7d](https://github.com/JBlond/php-diff/commit/acbfd7d))
+* Fix colors ([7eba340](https://github.com/JBlond/php-diff/commit/7eba340))
+* Fix repeating class assignment of line header ([fb32453](https://github.com/JBlond/php-diff/commit/fb32453))
+* Fix title attribute values ([533a6bf](https://github.com/JBlond/php-diff/commit/533a6bf))
+
+## v2.3.1 (2021-02-03)
 
 * Add DigiLive/gitChangelog for change log generation ([0a6a84f](https://github.com/JBlond/php-diff/commit/0a6a84f))
 * Bump library version ([013f862](https://github.com/JBlond/php-diff/commit/013f862))
 * Cut HTML Unified Renderer ([1ba255f](https://github.com/JBlond/php-diff/commit/1ba255f))
 * Document PhpUnit Similarity Test ([7ec484c](https://github.com/JBlond/php-diff/commit/7ec484c))
-* Document Update Changelog ([7d6c8bb](https://github.com/JBlond/php-diff/commit/7d6c8bb), [c9881d3](https://github.com/JBlond/php-diff/commit/c9881d3))
+* Document Update Changelog ([28e1dc0](https://github.com/JBlond/php-diff/commit/28e1dc0), [c9881d3](https://github.com/JBlond/php-diff/commit/c9881d3))
 * Document disabled inspection ([909e195](https://github.com/JBlond/php-diff/commit/909e195))
 * Document generateLinesEqual() ([8a193c9](https://github.com/JBlond/php-diff/commit/8a193c9))
 * Document methods ([94c8bd5](https://github.com/JBlond/php-diff/commit/94c8bd5))
