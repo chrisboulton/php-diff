@@ -125,11 +125,12 @@ HTML;
      */
     public function generateLinesEqual(array $changes): string
     {
-        $html        = '';
-        $headerClass = '';
+        $html = '';
 
         foreach ($changes['base']['lines'] as $lineNo => $line) {
-            $fromLine = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
+            $fromLine    = $changes['base']['offset'] + $lineNo + 1 + $this->lineOffset;
+            $headerClass = '';
+
             if (!$lineNo && $this->lastDeleted !== null) {
                 $headerClass = 'ChangeDelete';
             }
@@ -153,12 +154,12 @@ HTML;
      */
     public function generateLinesInsert(array $changes): string
     {
-        $html        = '';
-        $headerClass = '';
+        $html = '';
 
         foreach ($changes['changed']['lines'] as $lineNo => $line) {
             $this->lineOffset++;
-            $toLine = $changes['base']['offset'] + $this->lineOffset;
+            $toLine      = $changes['base']['offset'] + $this->lineOffset;
+            $headerClass = '';
             if (!$lineNo && $this->lastDeleted !== null) {
                 $headerClass = 'ChangeDelete';
             }
