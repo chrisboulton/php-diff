@@ -106,7 +106,7 @@ class Similarity extends SequenceMatcher
         $aLength = count($this->old);
         for ($iterator = 0; $iterator < $aLength; ++$iterator) {
             $char         = $this->old[$iterator];
-            $numb         = isset($avail[$char]) ? $avail[$char] : $this->uniqueCount2[$char] ?? 0;
+            $numb         = $avail[$char] ?? ($this->uniqueCount2[$char] ?? 0);
             $avail[$char] = $numb - 1;
             if ($numb > 0) {
                 ++$matches;
