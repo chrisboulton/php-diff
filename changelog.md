@@ -1,8 +1,12 @@
 # Changelog
 
-## 2.3.2 (2021-03-27)
+## 2.3.3 (2021-08-23)
 
-* Bump library version ([6e42d96](https://github.com/JBlond/php-diff/commit/6e42d96))
+* Fix Autoload test classes only in development ([31b4222](https://github.com/JBlond/php-diff/commit/31b4222))
+
+## v2.3.2 (2021-03-27)
+
+* Bump library version und update Changelog ([8a83b39](https://github.com/JBlond/php-diff/commit/8a83b39))
 * Fix [#90](https://github.com/JBlond/php-diff/issues/90) - Merged Diff shows result only partially ([acbfd7d](https://github.com/JBlond/php-diff/commit/acbfd7d))
 * Fix colors ([7eba340](https://github.com/JBlond/php-diff/commit/7eba340))
 * Fix repeating class assignment of line header ([fb32453](https://github.com/JBlond/php-diff/commit/fb32453))
