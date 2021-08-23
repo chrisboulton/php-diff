@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2009 Mario Brandt
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version        2.3.2
+ * @version         2.3.3
  * @link            https://github.com/JBlond/php-diff
  */
 class SequenceMatcherTest extends TestCase

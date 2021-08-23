@@ -43,7 +43,11 @@
     },
     "autoload": {
         "psr-4": {
-            "jblond\\": "lib/jblond",
+            "jblond\\": "lib/jblond"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Tests\\": "tests"
         }
     },
