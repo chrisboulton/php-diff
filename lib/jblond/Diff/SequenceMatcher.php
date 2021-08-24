@@ -73,7 +73,7 @@ class SequenceMatcher
 
     /**
      * The constructor. With the sequences being passed, they'll be set for the
-     * sequence matcher and it will perform a basic cleanup & calculate junk
+     * sequence matcher, and it will perform a basic cleanup & calculate junk
      * elements.
      *
      * @param   string|array       $old           A string or array containing the lines to compare against.
@@ -215,7 +215,7 @@ class SequenceMatcher
      * content of the different files but can still provide context as to where the
      * changes are.
      *
-     * @return array Nested array of all of the grouped op codes.
+     * @return array Nested array of all the grouped op codes.
      */
     public function getGroupedOpCodes(): array
     {
@@ -295,7 +295,7 @@ class SequenceMatcher
     }
 
     /**
-     * Return a list of all of the op codes for the differences between the
+     * Return a list of all the op codes for the differences between the
      * two strings.
      *
      * The nested array returned contains an array describing the op code
@@ -366,7 +366,7 @@ class SequenceMatcher
     }
 
     /**
-     * Return a nested set of arrays for all of the matching sub-sequences
+     * Return a nested set of arrays for all the matching sub-sequences
      * in the strings $a and $b.
      *
      * Each block contains the lower constraint of the block in $a, the lower
@@ -479,7 +479,7 @@ class SequenceMatcher
      * lower and upper constraints for each sequence. (for the first sequence,
      * $alo - $ahi and for the second sequence, $blo - $bhi)
      *
-     * Essentially, of all of the maximal matching blocks, return the one that
+     * Essentially, of all the maximal matching blocks, return the one that
      * starts earliest in $a, and all of those maximal matching blocks that
      * start earliest in $a, return the one that starts earliest in $b.
      *

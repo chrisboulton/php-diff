@@ -73,7 +73,7 @@ class SequenceMatcherTest extends TestCase
     {
         // Test with ignoreWhitespace enabled. Both sequences are considered to be the same.
         // Note: The sequenceMatcher evaluates the string character by character. Option ignoreWhitespace will ignore
-        //       if the difference if the character is a tab in one sequence and a space in the other.
+        //       if the difference is the character or is a tab in one sequence and a space in the other.
         $sequenceMatcher = new SequenceMatcher(
             "\t54321ABXDE12345 ",
             " 54321ABXDE12345\t",

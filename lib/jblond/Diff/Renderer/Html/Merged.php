@@ -22,7 +22,7 @@ class Merged extends MainRenderer implements SubRendererInterface
     /**
      * @var array   Associative array containing the default options available for this renderer and their default
      *              value.
-     *              - format            Format of the texts.
+     *              - format            The Format of the texts.
      *              - insertMarkers     Markers for inserted text.
      *              - deleteMarkers     Markers for removed text.
      *              - title1            Title of the 1st version of text.
