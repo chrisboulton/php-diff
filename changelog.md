@@ -5,7 +5,7 @@
 * Add deprecation notice for missing method ([f494b3a](https://github.com/JBlond/php-diff/commit/f494b3a), [9403eba](https://github.com/JBlond/php-diff/commit/9403eba))
 * Add generator for ignored lines ([6b8662e](https://github.com/JBlond/php-diff/commit/6b8662e), [4dec4ad](https://github.com/JBlond/php-diff/commit/4dec4ad))
 * Add method `generateLinesIgnore` ([6ef61bc](https://github.com/JBlond/php-diff/commit/6ef61bc), [75f5ce0](https://github.com/JBlond/php-diff/commit/75f5ce0))
-* Bump library version und update Changelog ([a5c49d1](https://github.com/JBlond/php-diff/commit/a5c49d1))
+* Bump library version und update Changelog ([e88dffb](https://github.com/JBlond/php-diff/commit/e88dffb))
 * Document methods ([9699b5b](https://github.com/JBlond/php-diff/commit/9699b5b), [7d973d3](https://github.com/JBlond/php-diff/commit/7d973d3))
 * Document option `ignoreLines` ([0849a1e](https://github.com/JBlond/php-diff/commit/0849a1e), [19634bb](https://github.com/JBlond/php-diff/commit/19634bb))
 * Document update grammar in the comments ([3f44195](https://github.com/JBlond/php-diff/commit/3f44195))
