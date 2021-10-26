@@ -1,6 +1,7 @@
 <?php
 
 namespace jblond\Diff;
+
 /**
  * Constant Interface
  *
@@ -29,5 +30,4 @@ interface ConstantsInterface
      * Flag to ignore blank lines. (Lines which contain no or only non printable characters.)
      */
     public const DIFF_IGNORE_LINE_BLANK = 2;
-
 }
