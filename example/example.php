@@ -11,8 +11,8 @@ use jblond\Diff\Renderer\Text\Unified as TextUnified;
 require '../vendor/autoload.php';
 
 // Include two sample files for comparison.
-$sampleA = file_get_contents(dirname(__FILE__) . '/a.txt');
-$sampleB = file_get_contents(dirname(__FILE__) . '/b.txt');
+$sampleA = file_get_contents(__DIR__ . '/a.txt');
+$sampleB = file_get_contents(__DIR__ . '/b.txt');
 
 // Options for generating the diff.
 $diffOptions = [
@@ -20,7 +20,7 @@ $diffOptions = [
     'trimEqual'        => false,
     'ignoreWhitespace' => true,
     'ignoreCase'       => true,
-    'ignoreLines'      => Diff::DIFF_IGNORE_LINE_EMPTY,
+    'ignoreLines'      => Diff\ConstantsInterface::DIFF_IGNORE_LINE_EMPTY,
 ];
 
 // Choose one of the initializations.
@@ -29,7 +29,7 @@ $diff = new Diff($sampleA, $sampleB);                 // Initialize the diff cla
 
 // Options for rendering the diff.
 $rendererOptions = [
-    'inlineMarking' => $_GET['inlineMarking'] ?? Diff\Renderer\MainRenderer::CHANGE_LEVEL_LINE,
+    'inlineMarking' => $_GET['inlineMarking'] ?? Diff\Renderer\MainRendererAbstract::CHANGE_LEVEL_LINE,
 ]
 ?>
 <!DOCTYPE html>

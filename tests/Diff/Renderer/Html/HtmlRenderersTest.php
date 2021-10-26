@@ -48,7 +48,7 @@ class HtmlRenderersTest extends TestCase
      *
      * @covers \jblond\Diff\Renderer\Html\SideBySide
      */
-    public function testSideBySide()
+    public function testSideBySide(): void
     {
         $diff = new Diff(
             file_get_contents('tests/resources/a.txt'),
@@ -69,7 +69,7 @@ class HtmlRenderersTest extends TestCase
      *
      * @covers \jblond\Diff\Renderer\Html\Merged
      */
-    public function testMerged()
+    public function testMerged(): void
     {
         $diff = new Diff(
             file_get_contents('tests/resources/a.txt'),
@@ -90,7 +90,7 @@ class HtmlRenderersTest extends TestCase
      *
      * @covers \jblond\Diff\Renderer\Html\Unified
      */
-    public function testUnified()
+    public function testUnified(): void
     {
         $diff = new Diff(
             file_get_contents('tests/resources/a.txt'),

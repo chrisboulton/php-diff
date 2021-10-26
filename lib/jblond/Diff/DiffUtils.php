@@ -30,7 +30,9 @@ class DiffUtils
         for ($counter = 0; $counter < $max; ++$counter) {
             if ($aArray[$counter] < $bArray[$counter]) {
                 return -1;
-            } elseif ($aArray[$counter] > $bArray[$counter]) {
+            }
+
+            if ($aArray[$counter] > $bArray[$counter]) {
                 return 1;
             }
         }

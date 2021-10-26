@@ -44,7 +44,7 @@ class MainRendererTest extends TestCase
     /**
      * Test if a sequence of version1 which is removed from version2 is caught by the MainRenderer.
      */
-    public function testRenderSimpleDelete()
+    public function testRenderSimpleDelete(): void
     {
         $renderer       = new MainRenderer();
         $renderer->diff = new Diff(['a'], []);
@@ -92,7 +92,7 @@ class MainRendererTest extends TestCase
     /**
      * Test if leading spaces of a sequence are replaced with html entities.
      */
-    public function testRenderFixesSpaces()
+    public function testRenderFixesSpaces(): void
     {
         $renderer       = new MainRenderer($this->rendererOptions);
         $renderer->diff = new Diff(
@@ -130,7 +130,7 @@ class MainRendererTest extends TestCase
      *
      * @throws ReflectionException When invoking the method fails.
      */
-    public function testMarkOuterChange()
+    public function testMarkOuterChange(): void
     {
         $renderer = new MainRenderer();
         $text1    = ['one two three four'];
@@ -150,7 +150,7 @@ class MainRendererTest extends TestCase
      *
      * @throws ReflectionException When invoking the method fails.
      */
-    public function testMarkInnerChange()
+    public function testMarkInnerChange(): void
     {
         $renderer = new MainRenderer();
 

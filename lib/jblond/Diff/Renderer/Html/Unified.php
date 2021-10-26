@@ -60,9 +60,9 @@ class Unified extends MainRenderer implements SubRendererInterface
      */
     public function render()
     {
-        $changes = parent::renderSequences();
+        $changes = $this->renderSequences();
 
-        return parent::renderOutput($changes, $this);
+        return $this->renderOutput($changes, $this);
     }
 
     /**
@@ -220,7 +220,7 @@ HTML;
     }
 
     /**
-     * @inheritDoc
+     *
      *
      * @return string Html code representing table rows showing modified text.
      */

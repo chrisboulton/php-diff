@@ -110,7 +110,7 @@ class Context extends MainRendererAbstract
     {
         return array_filter(
             $groups,
-            function ($operation) use ($excludedTag) {
+            static function ($operation) use ($excludedTag) {
                 return $operation[0] != $excludedTag;
             }
         );

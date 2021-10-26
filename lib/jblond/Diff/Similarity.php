@@ -47,7 +47,7 @@ class Similarity extends SequenceMatcher
     /**
      * @inheritDoc
      */
-    public function setSeq2($version2)
+    public function setSeq2($version2): void
     {
         $this->uniqueCount2 = null;
         parent::setSeq2($version2);
@@ -147,18 +147,16 @@ class Similarity extends SequenceMatcher
         if ($this->uniqueCount2 === null) {
             // Build unless cached.
             $this->uniqueCount2 = [];
-            $bLength            = count($this->new);
-            for ($iterator = 0; $iterator < $bLength; ++$iterator) {
-                $char                      = $this->new[$iterator];
+            foreach ($this->new as $iteratorValue) {
+                $char                      = $iteratorValue;
                 $this->uniqueCount2[$char] = ($this->uniqueCount2[$char] ?? 0) + 1;
             }
         }
 
         $avail   = [];
         $matches = 0;
-        $aLength = count($this->old);
-        for ($iterator = 0; $iterator < $aLength; ++$iterator) {
-            $char         = $this->old[$iterator];
+        foreach ($this->old as $iteratorValue) {
+            $char         = $iteratorValue;
             $numb         = $avail[$char] ?? ($this->uniqueCount2[$char] ?? 0);
             $avail[$char] = $numb - 1;
             if ($numb > 0) {
@@ -189,7 +187,7 @@ class Similarity extends SequenceMatcher
         return $returnValue;
     }
 
-    private function restoreLines()
+    private function restoreLines(): void
     {
         foreach (['old', 'new'] as $version) {
             foreach ($this->stripped[$version] as $index => $line) {

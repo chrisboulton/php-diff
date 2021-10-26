@@ -95,7 +95,7 @@ abstract class MainRendererAbstract
      * @see MainRendererAbstract::$mainOptions
      *
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         $this->options = array_merge($this->mainOptions, $this->options, $options);
     }
