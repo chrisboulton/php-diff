@@ -24,7 +24,7 @@ use OutOfRangeException;
  * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2020 Mario Brandt
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version         2.3.2
+ * @version         2.3.3
  * @link            https://github.com/JBlond/php-diff
  */
 class Diff implements ConstantsInterface
@@ -89,7 +89,7 @@ class Diff implements ConstantsInterface
      * The values can be of type string or array.
      * If the type is string, it's split into array elements by line-end characters.
      *
-     * Options for comparison can be set by using the third parameter. The format of this value is expected to be a
+     * Options for comparison can be set by using the third parameter. The format of this value is expected to be an
      * associative array where each key-value pair represents an option and its value (E.g. ['context' => 3], ...).
      * When a keyName matches the name of a default option, that option's value will be overridden by the key's value.
      * Any other keyName (and it's value) can be added as an option, but will not be used if not implemented.
@@ -112,7 +112,7 @@ class Diff implements ConstantsInterface
     }
 
     /**
-     * Get the type of a variable.
+     * Get the kind of variable.
      *
      * The return value depend on the type of variable:
      * 0    If the type is 'array'
@@ -202,11 +202,11 @@ class Diff implements ConstantsInterface
      * @param   int|null  $end    The last element of the range to get.
      *                            If not supplied, only the element at start will be returned.
      *
-     * @return array Array containing all of the elements of the specified range.
+     * @return array Array containing all the elements of the specified range.
      * @throws OutOfRangeException When the value of start or end are invalid to define a range.
      *
      */
-    public function getArrayRange(array $array, int $start = 0, $end = null): array
+    public function getArrayRange(array $array, int $start = 0, ?int $end = null): array
     {
         if ($start < 0 || $end < 0 || $end < $start) {
             throw new OutOfRangeException('Start parameter must be lower than End parameter while both are positive!');
@@ -276,7 +276,7 @@ class Diff implements ConstantsInterface
      *
      * @return float Similarity ratio.
      */
-    public function getSimilarity($method = Similarity::CALC_DEFAULT): float
+    public function getSimilarity(int $method = Similarity::CALC_DEFAULT): float
     {
         if ($this->similarity !== null) {
             return $this->similarity;

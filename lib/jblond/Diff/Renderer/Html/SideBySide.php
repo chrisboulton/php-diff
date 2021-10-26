@@ -18,7 +18,7 @@ use jblond\Diff\Renderer\SubRendererInterface;
  * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2009 Chris Boulton
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version        2.3.2
+ * @version         2.3.3
  * @link            https://github.com/JBlond/php-diff
  */
 class SideBySide extends MainRenderer implements SubRendererInterface
@@ -26,7 +26,7 @@ class SideBySide extends MainRenderer implements SubRendererInterface
     /**
      * @var array   Associative array containing the default options available for this renderer and their default
      *              value.
-     *              - format            Format of the texts.
+     *              - format            The Format of the texts.
      *              - insertMarkers     Markers for inserted text.
      *              - deleteMarkers     Markers for removed text.
      *              - title1            Title of the 1st version of text.

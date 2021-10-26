@@ -17,7 +17,7 @@ use jblond\Diff\Renderer\SubRendererInterface;
  * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2020 Ferry Cools
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version        2.3.2
+ * @version         2.3.3
  * @link            https://github.com/JBlond/php-diff
  */
 class InlineCli extends MainRenderer implements SubRendererInterface
@@ -198,10 +198,6 @@ class InlineCli extends MainRenderer implements SubRendererInterface
             max($this->maxLineMarkerWidth - strlen($this->options['equalityMarkers'][1]), 0)
         );
 
-        if ($this->options['cliColor']) {
-            $colorize = new CliColors();
-        }
-
         foreach ($baseLines as $lineKey => $line) {
             $iterator         = 0;
             $baselineParts    = preg_split('/\x00(.*?)\x01/', $line, -1, PREG_SPLIT_DELIM_CAPTURE);
@@ -220,7 +216,7 @@ class InlineCli extends MainRenderer implements SubRendererInterface
                     }
 
                     if ($this->options['cliColor']) {
-                        // Colorize the changed part. $colorize is defined above.
+                        $colorize = new CliColors();
                         $basePart = $colorize->getColoredString($basePart, ...$deleteColors);
                         if (!empty($changedPart)) {
                             $changedPart = $colorize->getColoredString($changedPart, ...$insertColors);

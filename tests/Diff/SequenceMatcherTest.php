@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2009 Mario Brandt
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version        2.3.2
+ * @version         2.3.3
  * @link            https://github.com/JBlond/php-diff
  */
 class SequenceMatcherTest extends TestCase
@@ -73,7 +73,7 @@ class SequenceMatcherTest extends TestCase
     {
         // Test with ignoreWhitespace enabled. Both sequences are considered to be the same.
         // Note: The sequenceMatcher evaluates the string character by character. Option ignoreWhitespace will ignore
-        //       if the difference if the character is a tab in one sequence and a space in the other.
+        //       if the difference is the character or is a tab in one sequence and a space in the other.
         $sequenceMatcher = new SequenceMatcher(
             "\t54321ABXDE12345 ",
             " 54321ABXDE12345\t",

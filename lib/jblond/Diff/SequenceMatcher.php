@@ -17,7 +17,7 @@ use InvalidArgumentException;
  * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2020 Mario Brandt
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version         2.3.2
+ * @version         2.3.3
  * @link            https://github.com/JBlond/php-diff
  */
 class SequenceMatcher implements ConstantsInterface
@@ -80,8 +80,9 @@ class SequenceMatcher implements ConstantsInterface
     ];
 
     /**
-     * The constructor. With the sequences being passed, they'll be set for the sequence matcher and it will perform a
-     * basic cleanup & calculate junk elements.
+     * The constructor. With the sequences being passed, they'll be set for the
+     * sequence matcher, and it will perform a basic cleanup & calculate junk
+     * elements.
      *
      * @param   string|array       $old           A string or array containing the lines to compare against.
      * @param   string|array       $new           A string or array containing the lines to compare.
@@ -222,7 +223,7 @@ class SequenceMatcher implements ConstantsInterface
      * content of the different files but can still provide context as to where the
      * changes are.
      *
-     * @return array Nested array of all of the grouped op codes.
+     * @return array Nested array of all the grouped op codes.
      */
     public function getGroupedOpCodes(): array
     {
@@ -302,7 +303,8 @@ class SequenceMatcher implements ConstantsInterface
     }
 
     /**
-     * Return a list of all of the op codes for the differences between the two strings.
+     * Return a list of all the op codes for the differences between the
+     * two strings.
      *
      * The nested array returned contains an array describing the op code which includes:
      * 0 - The type of tag (as described below) for the op code.
@@ -399,7 +401,8 @@ class SequenceMatcher implements ConstantsInterface
     }
 
     /**
-     * Return a nested set of arrays for all of the matching sub-sequences in compared strings $a and $b.
+     * Return a nested set of arrays for all the matching sub-sequences
+     * in the strings $a and $b.
      *
      * Each block contains the lower constraint of the block in $a, the lower constraint of the block in $b and finally
      * the number of lines that the block continues for.
@@ -510,7 +513,7 @@ class SequenceMatcher implements ConstantsInterface
      * lower and upper constraints for each sequence. (for the first sequence,
      * $alo - $ahi and for the second sequence, $blo - $bhi)
      *
-     * Essentially, of all of the maximal matching blocks, return the one that
+     * Essentially, of all the maximal matching blocks, return the one that
      * starts earliest in $a, and all of those maximal matching blocks that
      * start earliest in $a, return the one that starts earliest in $b.
      *

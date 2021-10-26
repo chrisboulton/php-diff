@@ -17,7 +17,7 @@ use jblond\Diff\SequenceMatcher;
  * @author        Ferry Cools <info@DigiLive.nl>
  * @copyright (c) 2009 Chris Boulton
  * @license       New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version      2.3.2
+ * @version       2.3.3
  * @link          https://github.com/JBlond/php-diff
  */
 class MainRenderer extends MainRendererAbstract
@@ -136,7 +136,7 @@ class MainRenderer extends MainRendererAbstract
             foreach ($group as $code) {
                 [$tag, $startOld, $endOld, $startNew, $endNew] = $code;
                 /**
-                 * $code is an array describing a op-code which includes:
+                 * $code is an array describing an op-code which includes:
                  * 0 - The type of tag (as described below) for the op code.
                  * 1 - The beginning line in the first sequence.
                  * 2 - The end line in the first sequence.
@@ -373,7 +373,7 @@ class MainRenderer extends MainRendererAbstract
         $limit = min(mb_strlen($oldString), mb_strlen($newString));
 
         // Find the position of the first character which is different between old and new.
-        // Starts at the begin of the strings.
+        // Starts at the beginning of the strings.
         // Stops at the end of the shortest string.
         while ($start < $limit && mb_substr($oldString, $start, 1) == mb_substr($newString, $start, 1)) {
             ++$start;
@@ -397,7 +397,7 @@ class MainRenderer extends MainRendererAbstract
 
     /**
      * Helper function that will fill the changes-array for the renderer with default values.
-     * Every time a operation changes (specified by $tag) , a new element will be appended to this array.
+     * Every time an operation changes (specified by $tag) , a new element will be appended to this array.
      *
      * The index of the last element of the array is always returned.
      *
