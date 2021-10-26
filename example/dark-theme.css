@@ -97,6 +97,19 @@ a, a:visited {
     background: #EEBB00;
 }
 
+.DifferencesSideBySide .ChangeIgnore .Left,
+.DifferencesSideBySide .ChangeIgnore .Right {
+    background: #FBF2BF;
+}
+
+.DifferencesSideBySide .ChangeIgnore .Left.Ignore {
+    background: #4B4C57;
+}
+
+.DifferencesSideBySide .ChangeIgnore .Right.Ignore {
+    background: #4B4C57;
+}
+
 /*
  * HTML Unified Diff
  */
@@ -125,6 +138,19 @@ a, a:visited {
 .DifferencesUnified .ChangeReplace del {
     background: #EE9999;
     color:      #272822;
+}
+
+.DifferencesUnified .ChangeIgnore .Left,
+.DifferencesUnified .ChangeIgnore .Right {
+    background: #FBF2BF;
+}
+
+.DifferencesUnified .ChangeIgnore .Left.Ignore {
+    background: #4B4C57;
+}
+
+.DifferencesUnified .ChangeIgnore .Right.Ignore {
+    background: #4B4C57;
 }
 
 /*

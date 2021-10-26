@@ -65,7 +65,23 @@ class MainRenderer extends MainRendererAbstract
                 strlen($this->options['equalityMarkers'][1])
             );
 
+            $deprecationTriggered = false;
             foreach ($blocks as $change) {
+                if (
+                    $subRenderer instanceof MainRenderer &&
+                    !method_exists($subRenderer, 'generateLinesIgnore') &&
+                    $change['tag'] == 'ignore'
+                ) {
+                    if (!$deprecationTriggered) {
+                        trigger_error(
+                            'The use of a subRenderer without method generateLinesIgnore() is deprecated!',
+                            E_USER_DEPRECATED
+                        );
+                        $deprecationTriggered = true;
+                    }
+                    $change['tag'] =
+                        (count($change['base']['lines']) > count($change['changed']['lines'])) ? 'delete' : 'insert';
+                }
                 $output .= $subRenderer->generateBlockHeader($change);
                 switch ($change['tag']) {
                     case 'equal':
@@ -79,6 +95,10 @@ class MainRenderer extends MainRendererAbstract
                         break;
                     case 'replace':
                         $output .= $subRenderer->generateLinesReplace($change);
+                        break;
+                    case 'ignore':
+                        // TODO: Keep backward compatible with renderers?
+                        $output .= $subRenderer->generateLinesIgnore($change);
                         break;
                 }
 
@@ -124,12 +144,14 @@ class MainRenderer extends MainRendererAbstract
                  * 4 - The end line in the second sequence.
                  *
                  * The different types of tags include:
-                 * replace - The string from $startOld to $endOld in $oldText should be replaced by
+                 * replace - The string in $oldText from $startOld to $endOld, should be replaced by
                  *           the string in $newText from $startNew to $endNew.
                  * delete  - The string in $oldText from $startOld to $endNew should be deleted.
                  * insert  - The string in $newText from $startNew to $endNew should be inserted at $startOld in
                  *           $oldText.
                  * equal   - The two strings with the specified ranges are equal.
+                 * ignore  - The string in $oldText from $startOld to $endOld and
+                 *           the string in $newText from $startNew to $endNew are different, but considered to be equal.
                  */
 
                 $blockSizeOld = $endOld - $startOld;
@@ -146,23 +168,23 @@ class MainRenderer extends MainRendererAbstract
                 $oldBlock = $this->formatLines(array_slice($oldText, $startOld, $blockSizeOld));
                 $newBlock = $this->formatLines(array_slice($newText, $startNew, $blockSizeNew));
 
-                if ($tag == 'equal') {
-                    // Old block equals New block
+                if ($tag != 'delete' && $tag != 'insert') {
+                    // Old block "equals" New block or is replaced.
                     $blocks[$lastBlock]['base']['lines']    += $oldBlock;
                     $blocks[$lastBlock]['changed']['lines'] += $newBlock;
                     continue;
                 }
 
-                if ($tag == 'replace' || $tag == 'delete') {
-                    // Inline differences or old block doesn't exist in the new text.
+                if ($tag == 'delete') {
+                    // Block of version1 doesn't exist in version2.
                     $blocks[$lastBlock]['base']['lines'] += $oldBlock;
+                    continue;
                 }
 
-                if ($tag == 'replace' || $tag == 'insert') {
-                    // Inline differences or the new block doesn't exist in the old text.
-                    $blocks[$lastBlock]['changed']['lines'] += $newBlock;
-                }
+                // Block of version2 doesn't exist in version1.
+                $blocks[$lastBlock]['changed']['lines'] += $newBlock;
             }
+
             $changes[] = $blocks;
         }
 
@@ -291,7 +313,7 @@ class MainRenderer extends MainRendererAbstract
      * E.g.
      * <pre>
      *         1234567
-     * OLd => "abcdefg" Start marker inserted at position 3
+     * Old => "abcdefg" Start marker inserted at position 3
      * New => "ab123fg"   End marker inserted at position 6
      * </pre>
      *

@@ -20,6 +20,7 @@ $diffOptions = [
     'trimEqual'        => false,
     'ignoreWhitespace' => true,
     'ignoreCase'       => true,
+    'ignoreLines'      => Diff::DIFF_IGNORE_LINE_EMPTY,
 ];
 
 // Choose one of the initializations.

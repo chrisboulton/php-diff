@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace jblond;
 
 use InvalidArgumentException;
+use jblond\Diff\ConstantsInterface;
 use jblond\Diff\SequenceMatcher;
 use jblond\Diff\Similarity;
 use OutOfRangeException;
@@ -26,7 +27,7 @@ use OutOfRangeException;
  * @version         2.3.3
  * @link            https://github.com/JBlond/php-diff
  */
-class Diff
+class Diff implements ConstantsInterface
 {
     /**
      * @var array   The first version to compare.
@@ -46,21 +47,22 @@ class Diff
     private $groupedCodes;
 
     /**
-     * @var array<string, string> Associative array containing the default options available
-     *                    for the diff class and their default value.
+     * @var array Associative array containing the default options available for the diff class and their default value.
      *
-     *              - context           The amount of lines to include around blocks that differ.
-     *              - trimEqual         Strip blocks of equal lines from the start and end of the text.
-     *              - ignoreWhitespace  When true, tabs and spaces are ignored while comparing.
-     *                                  The spacing of version1 is leading.
-     *              - ignoreCase        When true, character casing is ignored while comparing.
-     *                                  The casing of version1 is leading.
+     *            - context           The amount of lines to include around blocks that differ.
+     *            - trimEqual         Strip blocks of equal lines from the start and end of the text.
+     *            - ignoreWhitespace  True to ignore differences in tabs and spaces.
+     *            - ignoreCase        True to ignore differences in character casing.
+     *            - ignoreLines       0: None.
+     *                                1: Ignore empty lines.
+     *                                2: Ignore blank lines.
      */
     private $defaultOptions = [
         'context'          => 3,
         'trimEqual'        => true,
         'ignoreWhitespace' => false,
         'ignoreCase'       => false,
+        'ignoreLines'      => self::DIFF_IGNORE_LINE_NONE,
     ];
 
     /**

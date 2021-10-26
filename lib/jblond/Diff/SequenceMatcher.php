@@ -20,7 +20,7 @@ use InvalidArgumentException;
  * @version         2.3.3
  * @link            https://github.com/JBlond/php-diff
  */
-class SequenceMatcher
+class SequenceMatcher implements ConstantsInterface
 {
     /**
      * @var array The first sequence to compare against.
@@ -31,6 +31,13 @@ class SequenceMatcher
      */
     protected $new;
     /**
+     * @var array   Associative array containing the options that will be applied for generating the diff.
+     *              The key-value pairs are set at the constructor of this class.
+     *
+     * @see SequenceMatcher::setOptions()
+     */
+    protected $options = [];
+    /**
      * @var string|array Either a string or an array containing a callback function to determine
      * if a line is "junk" or not.
      */
@@ -39,36 +46,37 @@ class SequenceMatcher
      * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
      */
     private $junkDict = [];
-
     /**
      * @var array Array of indices that do not contain junk elements.
      */
     private $b2j = [];
-
     /**
-     * @var array
-     */
-    private $options = [];
-
-    /**
-     * @var null|array
+     * @var array A list of all of the op-codes for the differences between the compared strings.
      */
     private $opCodes;
 
     /**
-     * @var null|array
+     * @var array A nested set of arrays for all of the matching sub-sequences the compared strings.
      */
     private $matchingBlocks;
 
     /**
-     * @var array
+     * @var array Associative array containing the default options available for the diff class and their default value.
+     *
+     *            - context           The amount of lines to include around blocks that differ.
+     *            - trimEqual         Strip blocks of equal lines from the start and end of the text.
+     *            - ignoreWhitespace  True to ignore differences in tabs and spaces.
+     *            - ignoreCase        True to ignore differences in character casing.
+     *            - ignoreLines       0: None.
+     *                                1: Ignore empty lines.
+     *                                2: Ignore blank lines.
      */
     private $defaultOptions = [
         'context'          => 3,
         'trimEqual'        => true,
         'ignoreWhitespace' => false,
         'ignoreCase'       => false,
-        'ignoreNewLines'   => false,
+        'ignoreLines'      => self::DIFF_IGNORE_LINE_NONE,
     ];
 
     /**
@@ -298,8 +306,7 @@ class SequenceMatcher
      * Return a list of all the op codes for the differences between the
      * two strings.
      *
-     * The nested array returned contains an array describing the op code
-     * which includes:
+     * The nested array returned contains an array describing the op code which includes:
      * 0 - The type of tag (as described below) for the op code.
      * 1 - The beginning line in the first sequence.
      * 2 - The end line in the first sequence.
@@ -338,6 +345,34 @@ class SequenceMatcher
                 $tag = 'insert';
             }
 
+            if ($this->options['ignoreLines']) {
+                $slice1 = array_slice($this->old, $i, $ai - $i);
+                $slice2 = array_slice($this->new, $j, $bj - $j);
+
+                if ($this->options['ignoreLines'] == 2) {
+                    array_walk(
+                        $slice1,
+                        function (&$line) {
+                            $line = trim($line);
+                        }
+                    );
+                    array_walk(
+                        $slice2,
+                        function (&$line) {
+                            $line = trim($line);
+                        }
+                    );
+                    unset($line);
+                }
+
+                if (
+                    ($tag == 'delete' && implode('', $slice1) == '') ||
+                    ($tag == 'insert' && implode('', $slice2) == '')
+                ) {
+                    $tag = 'ignore';
+                }
+            }
+
             if ($tag) {
                 $this->opCodes[] = [
                     $tag,
@@ -369,9 +404,8 @@ class SequenceMatcher
      * Return a nested set of arrays for all the matching sub-sequences
      * in the strings $a and $b.
      *
-     * Each block contains the lower constraint of the block in $a, the lower
-     * constraint of the block in $b and finally the number of lines that the
-     * block continues for.
+     * Each block contains the lower constraint of the block in $a, the lower constraint of the block in $b and finally
+     * the number of lines that the block continues for.
      *
      * @return array Nested array of the matching blocks, as described by the function.
      */

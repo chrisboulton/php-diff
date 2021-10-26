@@ -37,6 +37,11 @@ class Similarity extends SequenceMatcher
      * @var array Count of each unique sequence at version 2.
      */
     private $uniqueCount2;
+    /**
+     * @var array Contains the indexes of lines which are stripped from the sequences by Similarity::stripLines().
+     * @see Similarity::stripLines()
+     */
+    private $stripped = ['old' => [], 'new' => []];
 
 
     /**
@@ -65,12 +70,22 @@ class Similarity extends SequenceMatcher
      */
     public function getSimilarity(int $type = self::CALC_DEFAULT): float
     {
+        if ($this->options['ignoreLines']) {
+            // Backup original sequences and filter non blank lines.
+            $this->stripLines();
+        }
+
         switch ($type) {
             case self::CALC_FAST:
-                return $this->getRatioFast();
+                $ratio = $this->getRatioFast();
+                $this->restoreLines();
+                break;
             case self::CALC_FASTEST:
-                return $this->getRatioFastest();
+                $ratio = $this->getRatioFastest();
+                $this->restoreLines();
+                break;
             default:
+                $this->setSequences($this->old, $this->new);
                 $matches = array_reduce(
                     $this->getMatchingBlocks(),
                     function ($carry, $item) {
@@ -79,7 +94,44 @@ class Similarity extends SequenceMatcher
                     0
                 );
 
-                return $this->calculateRatio($matches, count($this->old) + count($this->new));
+                $ratio = $this->calculateRatio($matches, count($this->old) + count($this->new));
+                $this->restoreLines();
+                $this->setSequences($this->old, $this->new);
+        }
+
+        return $ratio;
+    }
+
+    /**
+     * Strip empty or blank lines from the sequences to compare.
+     *
+     */
+    private function stripLines(): void
+    {
+        foreach (['old', 'new'] as $version) {
+            // Remove empty lines.
+            $this->$version = array_filter(
+                $this->$version,
+                function ($line, $index) use ($version) {
+                    $sanitizedLine = $line;
+                    if ($this->options['ignoreLines'] == self::DIFF_IGNORE_LINE_BLANK) {
+                        $sanitizedLine = trim($line);
+                    }
+
+                    if ($sanitizedLine == '') {
+                        // Store line to be able to restore later.
+                        $this->stripped[$version][$index] = $line;
+
+                        return false;
+                    }
+
+                    return true;
+                },
+                ARRAY_FILTER_USE_BOTH
+            );
+
+            // Re-index sequence.
+            $this->$version = array_values($this->$version);
         }
     }
 
@@ -93,6 +145,7 @@ class Similarity extends SequenceMatcher
     private function getRatioFast(): float
     {
         if ($this->uniqueCount2 === null) {
+            // Build unless cached.
             $this->uniqueCount2 = [];
             $bLength            = count($this->new);
             for ($iterator = 0; $iterator < $bLength; ++$iterator) {
@@ -136,6 +189,15 @@ class Similarity extends SequenceMatcher
         return $returnValue;
     }
 
+    private function restoreLines()
+    {
+        foreach (['old', 'new'] as $version) {
+            foreach ($this->stripped[$version] as $index => $line) {
+                array_splice($this->$version, $index, 0, $line);
+            }
+        }
+    }
+
     /**
      * Return an upper bound ratio really quickly for the similarity of the strings.
      *
@@ -150,7 +212,6 @@ class Similarity extends SequenceMatcher
 
         return $this->calculateRatio(min($aLength, $bLength), $aLength + $bLength);
     }
-
 
     /**
      * Helper function to calculate the number of matches for Ratio().
