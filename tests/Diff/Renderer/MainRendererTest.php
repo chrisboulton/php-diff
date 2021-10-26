@@ -22,7 +22,7 @@ use ReflectionException;
  * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2009 Mario Brandt
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version        2.3.3
+ * @version        2.4.0
  * @link            https://github.com/JBlond/php-diff
  */
 

@@ -13,7 +13,7 @@ namespace jblond\Diff\Renderer;
  * @author          Ferry Cools <info@DigiLive.nl>
  * @copyright   (c) 2020 Ferry Cools
  * @license         New BSD License http://www.opensource.org/licenses/bsd-license.php
- * @version         2.3.3
+ * @version         2.4.0
  * @link            https://github.com/JBlond/php-diff
  */
 interface SubRendererInterface
