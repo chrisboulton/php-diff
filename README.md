@@ -1,6 +1,6 @@
 # PHP Diff Class
 
-[[![Codacy Badge](https://api.codacy.com/project/badge/Grade/db5f8d57b1234502aeb852afc87e0dfe)](https://www.codacy.com/app/leet31337/php-diff)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/db5f8d57b1234502aeb852afc87e0dfe)](https://www.codacy.com/app/leet31337/php-diff)
 [![Latest Version](https://img.shields.io/github/release/JBlond/php-diff.svg?style=flat-square&label=Release)](https://github.com/JBlond/php-diff/releases)
 [![Packagist Installs](https://badgen.net/packagist/dt/JBlond/php-diff)](https://packagist.org/packages/jblond/php-diff)
 
