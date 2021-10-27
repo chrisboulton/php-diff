@@ -150,9 +150,10 @@ class SequenceMatcher implements ConstantsInterface
      *
      * Also resets internal caches to indicate that, when calling the calculation methods, we need to recalculate them.
      *
-     * @param   string|array|void  $version2  The sequence to set as the second sequence.
+     * @param  string|array  $version2  The sequence to set as the second sequence.
+     * @return void
      */
-    public function setSeq2($version2)
+    public function setSeq2($version2): void
     {
         if (!is_array($version2)) {
             $version2 = str_split($version2);
