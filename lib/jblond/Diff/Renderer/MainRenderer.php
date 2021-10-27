@@ -70,7 +70,7 @@ class MainRenderer extends MainRendererAbstract
                 if (
                     $subRenderer instanceof self &&
                     !method_exists($subRenderer, 'generateLinesIgnore') &&
-                    $change['tag'] === 'ignore'
+                    $change['tag'] == 'ignore'
                 ) {
                     if (!$deprecationTriggered) {
                         trigger_error(
@@ -157,7 +157,7 @@ class MainRenderer extends MainRendererAbstract
                 $blockSizeOld = $endOld - $startOld;
                 $blockSizeNew = $endNew - $startNew;
 
-                if (($tag === 'replace') && ($blockSizeOld == $blockSizeNew)) {
+                if (($tag == 'replace') && ($blockSizeOld == $blockSizeNew)) {
                     // Inline differences between old and new block.
                     $this->markInlineChanges($oldText, $newText, $startOld, $endOld, $startNew);
                 }
@@ -168,14 +168,14 @@ class MainRenderer extends MainRendererAbstract
                 $oldBlock = $this->formatLines(array_slice($oldText, $startOld, $blockSizeOld));
                 $newBlock = $this->formatLines(array_slice($newText, $startNew, $blockSizeNew));
 
-                if ($tag !== 'delete' && $tag !== 'insert') {
+                if ($tag != 'delete' && $tag != 'insert') {
                     // Old block "equals" New block or is replaced.
                     $blocks[$lastBlock]['base']['lines']    += $oldBlock;
                     $blocks[$lastBlock]['changed']['lines'] += $newBlock;
                     continue;
                 }
 
-                if ($tag === 'delete') {
+                if ($tag == 'delete') {
                     // Block of version1 doesn't exist in version2.
                     $blocks[$lastBlock]['base']['lines'] += $oldBlock;
                     continue;
@@ -266,14 +266,14 @@ class MainRenderer extends MainRendererAbstract
 
             foreach ($opCodes as $group) {
                 foreach ($group as [$tag, $changeStartOld, $changeEndOld, $changeStartNew, $changeEndNew]) {
-                    if ($tag === 'equal') {
+                    if ($tag == 'equal') {
                         continue;
                     }
-                    if ($tag === 'replace' || $tag === 'delete') {
+                    if ($tag == 'replace' || $tag == 'delete') {
                         $oldLine[$changeStartOld] = "\0" . $oldLine[$changeStartOld];
                         $oldLine[$changeEndOld]   = "\1" . $oldLine[$changeEndOld];
                     }
-                    if ($tag === 'replace' || $tag === 'insert') {
+                    if ($tag == 'replace' || $tag == 'insert') {
                         $newLine[$changeStartNew] = "\0" . $newLine[$changeStartNew];
                         $newLine[$changeEndNew]   = "\1" . $newLine[$changeEndNew];
                     }
@@ -453,7 +453,7 @@ class MainRenderer extends MainRendererAbstract
             );
         }
 
-        if (strtolower($this->options['format']) === 'html') {
+        if (strtolower($this->options['format']) == 'html') {
             // Convert special characters to HTML entities
             $strings = array_map(
                 static function ($line) {

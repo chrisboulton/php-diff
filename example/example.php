@@ -29,7 +29,7 @@ $diff = new Diff($sampleA, $sampleB);                 // Initialize the diff cla
 
 // Options for rendering the diff.
 $rendererOptions = [
-    'inlineMarking' => $_GET['inlineMarking'] ?? Diff\Renderer\MainRendererAbstract::CHANGE_LEVEL_LINE,
+    'inlineMarking' => $_GET['inlineMarking'] ?? Diff\Renderer\MainRenderer::CHANGE_LEVEL_LINE,
 ]
 ?>
 <!DOCTYPE html>
