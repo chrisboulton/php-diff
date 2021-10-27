@@ -62,7 +62,7 @@ class SideBySide extends MainRenderer implements SubRendererInterface
     {
         $changes = parent::renderSequences();
 
-        return $this->renderOutput($changes, $this);
+        return parent::renderOutput($changes, $this);
     }
 
     /**
