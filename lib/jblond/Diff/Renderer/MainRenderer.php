@@ -68,7 +68,7 @@ class MainRenderer extends MainRendererAbstract
             $deprecationTriggered = false;
             foreach ($blocks as $change) {
                 if (
-                    $subRenderer instanceof self &&
+                    $subRenderer instanceof MainRenderer &&
                     !method_exists($subRenderer, 'generateLinesIgnore') &&
                     $change['tag'] == 'ignore'
                 ) {

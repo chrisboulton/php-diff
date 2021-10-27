@@ -132,7 +132,7 @@ class SequenceMatcherTest extends TestCase
         $sequenceMatcher = new SequenceMatcher(
             [0, 1, 2, 3],
             [0, 1, "\t", 2, 3],
-            ['ignoreLines' => ConstantsInterface::DIFF_IGNORE_LINE_BLANK]
+            ['ignoreLines' => SequenceMatcher::DIFF_IGNORE_LINE_BLANK]
         );
 
         $this->assertEquals(
