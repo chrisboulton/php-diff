@@ -380,7 +380,7 @@ class MainRenderer extends MainRendererAbstract
         }
 
         $end   = -1;
-        $limit = $limit - $start;
+        $limit -= $start;
 
         // Find the position of the last character which is different between old and new.
         // Starts at the end of the shortest string.
@@ -456,7 +456,7 @@ class MainRenderer extends MainRendererAbstract
         if (strtolower($this->options['format']) == 'html') {
             // Convert special characters to HTML entities
             $strings = array_map(
-                function ($line) {
+                static function ($line) {
                     return htmlspecialchars($line, ENT_NOQUOTES);
                 },
                 $strings
@@ -466,7 +466,7 @@ class MainRenderer extends MainRendererAbstract
             foreach ($strings as &$line) {
                 $line = preg_replace_callback(
                     '/(^[ \0\1]*)/',
-                    function ($matches) {
+                    static function ($matches) {
                         return str_replace(' ', '&nbsp;', $matches[0]);
                     },
                     $line

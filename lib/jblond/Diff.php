@@ -148,7 +148,7 @@ class Diff implements ConstantsInterface
      * When a keyName matches the name of a default option, that option's value will be overridden by the key's value.
      * Any other keyName (and it's value) will be added as an option, but will not be used if not implemented.
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         $this->options = array_merge($this->defaultOptions, $options);
     }

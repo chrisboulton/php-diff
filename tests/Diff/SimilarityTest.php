@@ -23,7 +23,7 @@ class SimilarityTest extends TestCase
     /**
      * Test the similarity ratio between two sequences with different methods.
      */
-    public function testGetSimilarity()
+    public function testGetSimilarity(): void
     {
         $similarity = new Similarity(range(1, 10), range(1, 5));
 

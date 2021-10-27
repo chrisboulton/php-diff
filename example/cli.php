@@ -6,7 +6,7 @@ use jblond\Diff\Renderer\Text\InlineCli;
 use jblond\Diff\Renderer\Text\UnifiedCli;
 
 // Validate the interpreter.
-if (php_sapi_name() !== 'cli') {
+if (PHP_SAPI !== 'cli') {
     echo 'This script demonstrates console support for the php-diff package.<br>';
     echo 'Please execute it from a cli interpreter.';
     throw new RuntimeException('Script for CLI use only!');
@@ -17,8 +17,8 @@ if (php_sapi_name() !== 'cli') {
 require '../vendor/autoload.php';
 
 // Include two sample files for comparison.
-$sampleA = file_get_contents(dirname(__FILE__) . '/a.txt');
-$sampleB = file_get_contents(dirname(__FILE__) . '/b.txt');
+$sampleA = file_get_contents(__DIR__ . '/a.txt');
+$sampleB = file_get_contents(__DIR__ . '/b.txt');
 
 $customOptions = [
     'context'          => 2,

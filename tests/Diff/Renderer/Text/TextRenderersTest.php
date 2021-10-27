@@ -47,7 +47,7 @@ class TextRenderersTest extends TestCase
      *
      * @covers \jblond\Diff\Renderer\Text\Context
      */
-    public function testContext()
+    public function testContext(): void
     {
         $diff = new Diff(
             file_get_contents('tests/resources/a.txt'),
@@ -68,7 +68,7 @@ class TextRenderersTest extends TestCase
      *
      * @covers \jblond\Diff\Renderer\Text\Unified
      */
-    public function testUnified()
+    public function testUnified(): void
     {
         $diff = new Diff(
             file_get_contents('tests/resources/a.txt'),
@@ -89,7 +89,7 @@ class TextRenderersTest extends TestCase
      *
      * @covers \jblond\Diff\Renderer\Text\UnifiedCli
      */
-    public function testUnifiedCli()
+    public function testUnifiedCli(): void
     {
         $diff = new Diff(
             file_get_contents('tests/resources/a.txt'),
@@ -109,7 +109,7 @@ class TextRenderersTest extends TestCase
      *
      * @covers \jblond\Diff\Renderer\Text\InlineCli
      */
-    public function testInlineCli()
+    public function testInlineCli(): void
     {
         $diff = new Diff(
             file_get_contents('tests/resources/a.txt'),

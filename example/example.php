@@ -11,8 +11,8 @@ use jblond\Diff\Renderer\Text\Unified as TextUnified;
 require '../vendor/autoload.php';
 
 // Include two sample files for comparison.
-$sampleA = file_get_contents(dirname(__FILE__) . '/a.txt');
-$sampleB = file_get_contents(dirname(__FILE__) . '/b.txt');
+$sampleA = file_get_contents(__DIR__ . '/a.txt');
+$sampleB = file_get_contents(__DIR__ . '/b.txt');
 
 // Options for generating the diff.
 $diffOptions = [

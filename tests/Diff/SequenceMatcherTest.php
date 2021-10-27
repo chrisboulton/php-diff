@@ -2,6 +2,7 @@
 
 namespace Tests\Diff;
 
+use jblond\Diff\ConstantsInterface;
 use jblond\Diff\SequenceMatcher;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +24,7 @@ class SequenceMatcherTest extends TestCase
     /**
      * Test the opCodes of the differences between version1 and version2 with the default options.
      */
-    public function testGetGroupedOpCodesDefault()
+    public function testGetGroupedOpCodesDefault(): void
     {
         // Test with default options.
         $sequenceMatcher = new SequenceMatcher(
@@ -46,7 +47,7 @@ class SequenceMatcherTest extends TestCase
     /**
      * Test the opCodes of the differences between version1 and version2 with option trimEqual disabled.
      */
-    public function testGetGroupedOpCodesTrimEqualFalse()
+    public function testGetGroupedOpCodesTrimEqualFalse(): void
     {
         // Test with trimEqual disabled.
         // First and last context lines of the sequences are included.
@@ -69,7 +70,7 @@ class SequenceMatcherTest extends TestCase
     /**
      * Test the opCodes of the differences between version1 and version2 with option IgnoreWhitespace enabled.
      */
-    public function testGetGroupedOpCodesIgnoreWhitespaceTrue()
+    public function testGetGroupedOpCodesIgnoreWhitespaceTrue(): void
     {
         // Test with ignoreWhitespace enabled. Both sequences are considered to be the same.
         // Note: The sequenceMatcher evaluates the string character by character. Option ignoreWhitespace will ignore
@@ -86,7 +87,7 @@ class SequenceMatcherTest extends TestCase
     /**
      * Test the opCodes of the differences between version1 and version2 with option ignoreCase enabled.
      */
-    public function testGetGroupedOpCodesIgnoreCaseTrue()
+    public function testGetGroupedOpCodesIgnoreCaseTrue(): void
     {
         // Test with ignoreCase enabled. Both sequences are considered to be the same.
         $sequenceMatcher = new SequenceMatcher(
@@ -101,7 +102,7 @@ class SequenceMatcherTest extends TestCase
     /**
      * Test the opCodes of the differences between version1 and version2 with option ignoreLines set to empty.
      */
-    public function testGetGroupedOpCodesIgnoreLinesEmpty()
+    public function testGetGroupedOpCodesIgnoreLinesEmpty(): void
     {
         // Test with ignoreCase enabled. Both sequences are considered to be the same.
         $sequenceMatcher = new SequenceMatcher(
@@ -125,7 +126,7 @@ class SequenceMatcherTest extends TestCase
     /**
      * Test the opCodes of the differences between version1 and version2 with option ignoreLines set to blank.
      */
-    public function testGetGroupedOpCodesIgnoreLinesBlank()
+    public function testGetGroupedOpCodesIgnoreLinesBlank(): void
     {
         // Test with ignoreCase enabled. Both sequences are considered to be the same.
         $sequenceMatcher = new SequenceMatcher(

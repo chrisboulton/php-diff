@@ -102,7 +102,7 @@ class SequenceMatcher implements ConstantsInterface
     /**
      * @param   array  $options
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         if (isset($options['context']) && $options['context'] < 0) {
             throw new InvalidArgumentException('The context option cannot be a negative value!');
@@ -115,8 +115,9 @@ class SequenceMatcher implements ConstantsInterface
      *
      * @param   string|array  $version1  A string or array containing the lines to compare against.
      * @param   string|array  $version2  A string or array containing the lines to compare.
+     * @return void
      */
-    public function setSequences($version1, $version2)
+    public function setSequences($version1, $version2): void
     {
         $this->setSeq1($version1);
         $this->setSeq2($version2);
@@ -127,9 +128,10 @@ class SequenceMatcher implements ConstantsInterface
      *
      * Also resets internal caches to indicate that, when calling the calculation methods, we need to recalculate them.
      *
-     * @param   string|array  $version1  The sequence to set as the first sequence.
+     * @param   string|array|void  $version1  The sequence to set as the first sequence.
+     * @return void
      */
-    public function setSeq1($version1)
+    public function setSeq1($version1): void
     {
         if (!is_array($version1)) {
             $version1 = str_split($version1);
@@ -148,9 +150,10 @@ class SequenceMatcher implements ConstantsInterface
      *
      * Also resets internal caches to indicate that, when calling the calculation methods, we need to recalculate them.
      *
-     * @param   string|array  $version2  The sequence to set as the second sequence.
+     * @param  string|array  $version2  The sequence to set as the second sequence.
+     * @return void
      */
-    public function setSeq2($version2)
+    public function setSeq2($version2): void
     {
         if (!is_array($version2)) {
             $version2 = str_split($version2);
@@ -169,14 +172,14 @@ class SequenceMatcher implements ConstantsInterface
      * Generate the internal arrays containing the list of junk and non-junk
      * characters for the second ($b) sequence.
      */
-    private function chainB()
+    private function chainB(): void
     {
         $length      = count($this->new);
         $this->b2j   = [];
         $popularDict = [];
 
-        for ($i = 0; $i < $length; ++$i) {
-            $char = $this->new[$i];
+        foreach ($this->new as $i => $iValue) {
+            $char = $iValue;
             if (isset($this->b2j[$char])) {
                 if ($length >= 200 && count($this->b2j[$char]) * 100 > $length) {
                     $popularDict[$char] = 1;
@@ -352,13 +355,13 @@ class SequenceMatcher implements ConstantsInterface
                 if ($this->options['ignoreLines'] == 2) {
                     array_walk(
                         $slice1,
-                        function (&$line) {
+                        static function (&$line) {
                             $line = trim($line);
                         }
                     );
                     array_walk(
                         $slice2,
-                        function (&$line) {
+                        static function (&$line) {
                             $line = trim($line);
                         }
                     );
@@ -461,7 +464,7 @@ class SequenceMatcher implements ConstantsInterface
 
         usort(
             $matchingBlocks,
-            function ($aArray, $bArray) {
+            static function ($aArray, $bArray) {
                 return DiffUtils::tupleSort($aArray, $bArray);
             }
         );
@@ -647,10 +650,6 @@ class SequenceMatcher implements ConstantsInterface
             $lineB = strtolower($lineB);
         }
 
-        if ($lineA != $lineB) {
-            return true;
-        }
-
-        return false;
+        return $lineA != $lineB;
     }
 }
