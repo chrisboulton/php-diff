@@ -62,7 +62,7 @@ class Merged extends MainRenderer implements SubRendererInterface
      */
     public function render()
     {
-        $changes = $this->renderSequences();
+        $changes = parent::renderSequences();
 
         return $this->renderOutput($changes, $this);
     }
