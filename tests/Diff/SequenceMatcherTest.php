@@ -108,7 +108,7 @@ class SequenceMatcherTest extends TestCase
         $sequenceMatcher = new SequenceMatcher(
             [0, 1, 2, 3],
             [0, 1, '', 2, 3],
-            ['ignoreLines' => ConstantsInterface::DIFF_IGNORE_LINE_EMPTY]
+            ['ignoreLines' => SequenceMatcher::DIFF_IGNORE_LINE_EMPTY]
         );
 
         $this->assertEquals(

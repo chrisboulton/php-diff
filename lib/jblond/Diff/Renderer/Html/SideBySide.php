@@ -284,7 +284,7 @@ HTML;
     }
 
     /**
-     *
+     * @inheritDoc
      *
      * @return string Html code representing table rows showing ignored text.
      */
