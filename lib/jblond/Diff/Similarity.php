@@ -234,7 +234,6 @@ class Similarity extends SequenceMatcher
         $return = [
             'inserted' => 0,
             'deleted'  => 0,
-            'equal'    => 0,
             'replaced' => 0,
         ];
 
