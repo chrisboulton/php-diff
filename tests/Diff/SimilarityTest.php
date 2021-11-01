@@ -42,7 +42,7 @@ class SimilarityTest extends TestCase
             [
                 'inserted'    => 13,
                 'deleted'     => 1,
-                'notModified' => 10,
+                'equal' => 10,
                 'replaced'    => 0,
             ],
             $similarity->getDifference()

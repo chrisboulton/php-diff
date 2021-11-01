@@ -232,10 +232,10 @@ class Similarity extends SequenceMatcher
     public function getDifference(): array
     {
         $return = [
-            'inserted'     => 0,
-            'deleted'      => 0,
-            'notModified'  => 0,
-            'replaced'     => 0,
+            'inserted' => 0,
+            'deleted'  => 0,
+            'equal'    => 0,
+            'replaced' => 0,
         ];
 
         foreach ($this->getGroupedOpCodes() as $chunk) {
@@ -254,7 +254,7 @@ class Similarity extends SequenceMatcher
             }
         }
 
-        $return['notModified'] = count($this->old) - $return['replaced'] - $return['deleted'];
+        $return['equal'] = count($this->old) - $return['replaced'] - $return['deleted'];
 
         return $return;
     }

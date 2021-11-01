@@ -77,7 +77,7 @@ $rendererOptions = [
     ?>% match.<br>
     Inserted lines: <?php echo $stats['inserted']; ?><br>
     Deleted lines: <?php echo $stats['deleted']; ?><br>
-    Not modified lines: <?php echo $stats['notModified']; ?><br>
+    Not modified lines: <?php echo $stats['equal']; ?><br>
     Lines with replacement: <?php echo $stats['replaced']; ?><br>
 </aside>
 <hr>
