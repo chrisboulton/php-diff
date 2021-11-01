@@ -2,7 +2,6 @@
 
 namespace Tests\Diff;
 
-use jblond\Diff\ConstantsInterface;
 use jblond\Diff\SequenceMatcher;
 use PHPUnit\Framework\TestCase;
 
