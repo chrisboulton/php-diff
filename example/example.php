@@ -72,8 +72,13 @@ $rendererOptions = [
     <h2>Informational</h2>
     Between the two versions, there's a
     <?php
+    $stats = $diff->getStatistics();
     echo round($diff->getSimilarity(), 2) * 100;
-    ?>% match.
+    ?>% match.<br>
+    Inserted lines: <?php echo $stats['inserted']; ?><br>
+    Deleted lines: <?php echo $stats['deleted']; ?><br>
+    Not modified lines: <?php echo $stats['equal']; ?><br>
+    Lines with replacement: <?php echo $stats['replaced']; ?><br>
 </aside>
 <hr>
 

@@ -31,4 +31,21 @@ class SimilarityTest extends TestCase
         $this->assertEquals(2 / 3, $similarity->getSimilarity(Similarity::CALC_FAST));
         $this->assertEquals(2 / 3, $similarity->getSimilarity(Similarity::CALC_FASTEST));
     }
+
+    /**
+     * Test the statistics function
+     */
+    public function testGetDifference(): void
+    {
+        $similarity = new Similarity(range(0, 10), range(1, 23));
+        $this->assertEquals(
+            [
+                'inserted'    => 13,
+                'deleted'     => 1,
+                'equal' => 10,
+                'replaced'    => 0,
+            ],
+            $similarity->getDifference()
+        );
+    }
 }

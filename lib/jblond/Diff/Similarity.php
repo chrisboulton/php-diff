@@ -223,4 +223,38 @@ class Similarity extends SequenceMatcher
     {
         return $sum + ($triple[count($triple) - 1]);
     }
+
+    /**
+     * Get diff statistics
+     *
+     * @return array
+     */
+    public function getDifference(): array
+    {
+        $return = [
+            'inserted' => 0,
+            'deleted'  => 0,
+            'replaced' => 0,
+        ];
+
+        foreach ($this->getGroupedOpCodes() as $chunk) {
+            foreach ($chunk as [$string, $one, $two, $three, $four]) {
+                switch ($string) {
+                    case 'delete':
+                        $return['deleted'] += $two - $one;
+                        break;
+                    case 'insert':
+                        $return['inserted'] += $four - $three;
+                        break;
+                    case 'replace':
+                        $return['replaced'] += $two - $one;
+                        break;
+                }
+            }
+        }
+
+        $return['equal'] = count($this->old) - $return['replaced'] - $return['deleted'];
+
+        return $return;
+    }
 }

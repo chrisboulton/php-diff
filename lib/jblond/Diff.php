@@ -287,4 +287,15 @@ class Diff implements ConstantsInterface
 
         return $this->similarity;
     }
+
+    /**
+     * Get diff statistics
+     *
+     * @return array
+     */
+    public function getStatistics(): array
+    {
+        $similarity = new Similarity($this->version1, $this->version2, $this->options);
+        return $similarity->getDifference();
+    }
 }
