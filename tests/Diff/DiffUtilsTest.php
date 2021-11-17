@@ -23,7 +23,7 @@ class DiffUtilsTest extends TestCase
     /**
      * Test the sorting of an array by the nested arrays it contains
      */
-    public function testTupleSort(): void
+    public function testTupleSortOne(): void
     {
         $this->assertEquals(
             1,
@@ -65,7 +65,13 @@ class DiffUtilsTest extends TestCase
                 ],
             )
         );
+    }
 
+    /**
+     * Test the sorting of an array by the nested arrays it contains
+     */
+    public function testTupleSortZero(): void
+    {
         $this->assertEquals(
             0,
             DiffUtils::tupleSort(
@@ -109,7 +115,13 @@ class DiffUtilsTest extends TestCase
                 ],
             )
         );
+    }
 
+    /**
+     * Test the sorting of an array by the nested arrays it contains
+     */
+    public function testTupleSortMinusOne(): void
+    {
         $this->assertEquals(
             -1,
             DiffUtils::tupleSort(
