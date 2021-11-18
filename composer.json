@@ -64,13 +64,16 @@
             "@php_src",
             "@php_test",
             "phpunit --colors=always --testdox"
-        ]
+        ],
+        "coverage": "phpunit --colors=always --coverage-html codeCoverage"
     },
     "scripts-descriptions": {
         "phpunit": "Run PHPUnit tests",
         "php_src": "Run code sniffer on lib directory",
         "php_test": "Run code sniffer on tests directory",
         "phpmd": "Run php mess detector",
-        "changelog": "generate changelog from commits"
+        "changelog": "generate changelog from commits",
+        "test": "Run code formatting test and phpunit",
+        "coverage": "Run phpunit code overage"
     }
 }
