@@ -23,6 +23,7 @@ class DiffUtils
      * @param   array  $bArray  Second array to compare.
      *
      * @return int -1, 0 or 1, as expected by the usort function.
+     * @deprecated
      */
     public static function tupleSort(array $aArray, array $bArray): int
     {
