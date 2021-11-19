@@ -4,6 +4,7 @@
 
 ### Composer ###
 composer.phar
+/codeCoverage
 /vendor/
 /composer.lock
 /.phpunit.result.cache

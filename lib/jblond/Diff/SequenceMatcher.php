@@ -462,12 +462,7 @@ class SequenceMatcher implements ConstantsInterface
             }
         }
 
-        usort(
-            $matchingBlocks,
-            static function ($aArray, $bArray) {
-                return DiffUtils::tupleSort($aArray, $bArray);
-            }
-        );
+        sort($matchingBlocks);
 
         $i1          = 0;
         $j1          = 0;
