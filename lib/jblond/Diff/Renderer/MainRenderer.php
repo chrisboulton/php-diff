@@ -51,13 +51,7 @@ class MainRenderer extends MainRendererAbstract
 
         $output = $subRenderer->generateDiffHeader();
 
-        foreach ($changes as $iterator => $blocks) {
-            if ($iterator > 0) {
-                // If this is a separate block, we're condensing code to indicate a significant portion of the code
-                // has been collapsed as it did not change.
-                $output .= $subRenderer->generateSkippedLines();
-            }
-
+        foreach ($changes as $blocks) {
             $this->maxLineMarkerWidth = max(
                 strlen($this->options['insertMarkers'][0]),
                 strlen($this->options['deleteMarkers'][0]),
@@ -99,6 +93,10 @@ class MainRenderer extends MainRendererAbstract
                     case 'ignore':
                         // TODO: Keep backward compatible with renderers?
                         $output .= $subRenderer->generateLinesIgnore($change);
+                        break;
+                    case 'outOfContext':
+                        // TODO: Keep backward compatible with renderers?
+                        $output .= $subRenderer->generateLinesOutOfContext($change);
                         break;
                 }
 
@@ -335,17 +333,15 @@ class MainRenderer extends MainRendererAbstract
             // Changes between the lines exist.
             // Add markers around the changed character sequence in the old string.
             $sequenceEnd = mb_strlen($oldString) + $end;
-            $oldString
-                         = mb_substr($oldString, 0, $start) . "\0" .
-                mb_substr($oldString, $start, $sequenceEnd - $start) . "\1" .
-                mb_substr($oldString, $sequenceEnd);
+            $oldString   = mb_substr($oldString, 0, $start) . "\0" .
+                           mb_substr($oldString, $start, $sequenceEnd - $start) . "\1" .
+                           mb_substr($oldString, $sequenceEnd);
 
             // Add markers around the changed character sequence in the new string.
             $sequenceEnd = mb_strlen($newString) + $end;
-            $newString
-                         = mb_substr($newString, 0, $start) . "\0" .
-                mb_substr($newString, $start, $sequenceEnd - $start) . "\1" .
-                mb_substr($newString, $sequenceEnd);
+            $newString   = mb_substr($newString, 0, $start) . "\0" .
+                           mb_substr($newString, $start, $sequenceEnd - $start) . "\1" .
+                           mb_substr($newString, $sequenceEnd);
 
             // Overwrite the strings in the old and new text so the changed lines include the markers.
             $oldText[$startOld + $iterator] = $oldString;
@@ -397,7 +393,7 @@ class MainRenderer extends MainRendererAbstract
 
     /**
      * Helper function that will fill the changes-array for the renderer with default values.
-     * Every time an operation changes (specified by $tag) , a new element will be appended to this array.
+     * Every time an operation changes (specified by $tag), a new element will be appended to this array.
      *
      * The index of the last element of the array is always returned.
      *

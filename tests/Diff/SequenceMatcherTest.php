@@ -59,7 +59,9 @@ class SequenceMatcherTest extends TestCase
         $this->assertEquals(
             [
                 [['equal', 0, 3, 0, 3]],
+                [['outOfContext', 3, 4, 3, 4]],
                 [['equal', 4, 7, 4, 7], ['replace', 7, 8, 7, 8], ['equal', 8, 11, 8, 11]],
+                [['outOfContext', 11, 12, 11, 12]],
                 [['equal', 12, 15, 12, 15]],
             ],
             $sequenceMatcher->getGroupedOpCodes()

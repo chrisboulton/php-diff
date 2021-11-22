@@ -97,9 +97,9 @@ HTML;
     /**
      * @inheritDoc
      *
-     * @return string Representation of skipped lines.
+     * @return string HTML code representing table rows showing text which is 'Out Of Context'
      */
-    public function generateSkippedLines(): string
+    public function generateLinesOutOfContext($change): string
     {
         $marker      = '&hellip;';
         $headerClass = '';

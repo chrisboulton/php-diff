@@ -44,9 +44,13 @@ class Context extends MainRendererAbstract
         $diff    = false;
         $opCodes = $this->diff->getGroupedOpCodes();
 
-        foreach ($opCodes as $group) {
+        foreach ($opCodes as $key => $group) {
+            if ($key % 2) {
+                // Skip lines which are Out Of Context.
+                continue;
+            }
             $diff     .= "***************\n";
-            $lastItem = count($group) - 1;
+            $lastItem = array_key_last($group);
             $start1   = $group['0']['1'];
             $end1     = $group[$lastItem]['2'];
             $start2   = $group['0']['3'];
