@@ -136,7 +136,7 @@ You can also fork this repository and open a PR.
 
 Xiphe has build a jQuery plugin with that you can merge the compared files. Have
 a look
-at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge-for-php-diff)
+at [jQuery-Merge-for-php-diff](https://github.com/DigiLive/jQuery-Merge-for-php-diff)
 .
 
 ## Todo
