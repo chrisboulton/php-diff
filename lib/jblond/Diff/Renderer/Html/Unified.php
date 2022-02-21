@@ -222,7 +222,7 @@ HTML;
     /**
      * @inheritDoc
      *
-     * @return string Html code representing table rows showing modified text.
+     * @return string Html code representing table rows showing ignored text.
      */
     public function generateLinesIgnore(array $changes): string
     {
