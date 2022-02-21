@@ -71,10 +71,10 @@
 </tr><tr>
     <th class="" title="">22</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
-</tr></tbody><tr>
+</tr></tbody><tbody class="ChangeOutOfContext"><tr>
     <th class="" title="">&hellip;</th>
     <td class="Skipped">&hellip;</td>
-</tr><tbody class="ChangeEqual"><tr>
+</tr></tbody><tbody class="ChangeEqual"><tr>
     <th class="" title="">25</th>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
 </tr><tr>
