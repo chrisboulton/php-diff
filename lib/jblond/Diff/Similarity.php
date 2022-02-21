@@ -71,7 +71,7 @@ class Similarity extends SequenceMatcher
     public function getSimilarity(int $type = self::CALC_DEFAULT): float
     {
         if ($this->options['ignoreLines']) {
-            // Backup original sequences and filter non blank lines.
+            // Backup original sequences and filter non-blank lines.
             $this->stripLines();
         }
 

@@ -51,12 +51,12 @@ class SequenceMatcher implements ConstantsInterface
      */
     private $b2j = [];
     /**
-     * @var array A list of all of the op-codes for the differences between the compared strings.
+     * @var array A list of all the op-codes for the differences between the compared strings.
      */
     private $opCodes;
 
     /**
-     * @var array A nested set of arrays for all of the matching sub-sequences the compared strings.
+     * @var array A nested set of arrays for all the matching sub-sequences the compared strings.
      */
     private $matchingBlocks;
 
@@ -623,8 +623,8 @@ class SequenceMatcher implements ConstantsInterface
     /**
      * Check if the two lines at the given indexes are different or not.
      *
-     * @param   int  $aIndex  Line number to check against in a.
-     * @param   int  $bIndex  Line number to check against in b.
+     * @param   int  $aIndex  Number of line to check against in A.
+     * @param   int  $bIndex  Number of line to check against in B.
      *
      * @return bool True if the lines are different and false if not.
      */

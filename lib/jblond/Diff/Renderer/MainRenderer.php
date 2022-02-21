@@ -429,7 +429,7 @@ class MainRenderer extends MainRendererAbstract
     }
 
     /**
-     * Format a series of strings which are suitable for output in a HTML rendered diff.
+     * Format a series of strings which are suitable for output in an HTML rendered diff.
      *
      * This involves replacing tab characters with spaces, making the HTML safe for output by ensuring that double
      * spaces are replaced with &nbsp; etc.
