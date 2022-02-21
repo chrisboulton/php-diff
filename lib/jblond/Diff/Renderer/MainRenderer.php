@@ -37,12 +37,13 @@ class MainRenderer extends MainRendererAbstract
      *
      * This method is called by the renderers which extends this class.
      *
-     * @param   array   $changes      Contains the op-codes about the differences between version1 and version2.
-     * @param   object  $subRenderer  Renderer which is subClass of this class.
+     * @param   array                 $changes      Contains the op-codes about the differences between version1 and
+     *                                              version2.
+     * @param   SubRendererInterface  $subRenderer  Renderer which is child class of this class.
      *
      * @return string|false String representation of the differences or false when versions are identical.
      */
-    public function renderOutput(array $changes, object $subRenderer)
+    public function renderOutput(array $changes, SubRendererInterface $subRenderer)
     {
         if (!$changes) {
             //No changes between version1 and version2
