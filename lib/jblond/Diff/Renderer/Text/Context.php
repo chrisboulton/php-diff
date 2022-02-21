@@ -51,10 +51,10 @@ class Context extends MainRendererAbstract
             }
             $diff     .= "***************\n";
             $lastItem = array_key_last($group);
-            $start1   = $group['0']['1'];
-            $end1     = $group[$lastItem]['2'];
-            $start2   = $group['0']['3'];
-            $end2     = $group[$lastItem]['4'];
+            $start1   = $group[0][1];
+            $end1     = $group[$lastItem][2];
+            $start2   = $group[0][3];
+            $end2     = $group[$lastItem][4];
 
             // Line to line header for version 1.
             $diffStart = $end1 - $start1 >= 2 ? $start1 + 1 . ',' : '';

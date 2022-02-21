@@ -40,10 +40,10 @@ class Unified extends MainRendererAbstract
                 continue;
             }
             $lastItem = array_key_last($group);
-            $i1       = $group['0']['1'];
-            $i2       = $group[$lastItem]['2'];
-            $j1       = $group['0']['3'];
-            $j2       = $group[$lastItem]['4'];
+            $i1       = $group[0][1];
+            $i2       = $group[$lastItem][2];
+            $j1       = $group[0][3];
+            $j2       = $group[$lastItem][4];
 
             if ($i1 == 0 && $i2 == 0) {
                 $i1 = -1;
