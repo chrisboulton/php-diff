@@ -437,11 +437,6 @@ class SequenceMatcher implements ConstantsInterface
         $matchingBlocks = [];
         while (!empty($queue)) {
             [$aLower, $aUpper, $bLower, $bUpper] = array_pop($queue);
-            /**
-             * @noinspection PhpStrictTypeCheckingInspection
-             * $aLower, $aUpper, $bLower, $bUpper reported as wrong type because of multiple definitions of function
-             * count above.
-             */
             $longestMatch = $this->findLongestMatch($aLower, $aUpper, $bLower, $bUpper);
             [$list1, $list2, $list3] = $longestMatch;
             if ($list3) {
