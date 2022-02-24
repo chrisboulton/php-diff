@@ -86,9 +86,9 @@ HTML;
     /**
      * @inheritDoc
      *
-     * @return string HTML code representation of a table's header.
+     * @return string HTML code representing table rows showing text which is "Out Of Context"
      */
-    public function generateSkippedLines(): string
+    public function generateLinesOutOfContext($change): string
     {
         return <<<HTML
 <tr>

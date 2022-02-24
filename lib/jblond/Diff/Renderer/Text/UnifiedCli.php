@@ -66,12 +66,16 @@ class UnifiedCli extends MainRendererAbstract
     {
         $diff    = '';
         $opCodes = $this->diff->getGroupedOpCodes();
-        foreach ($opCodes as $group) {
-            $lastItem = count($group) - 1;
-            $i1       = $group['0']['1'];
-            $i2       = $group[$lastItem]['2'];
-            $j1       = $group['0']['3'];
-            $j2       = $group[$lastItem]['4'];
+        foreach ($opCodes as $key => $group) {
+            if ($key % 2) {
+                // Skip lines which are Out Of Context.
+                continue;
+            }
+            $lastItem = array_key_last($group);
+            $i1       = $group[0][1];
+            $i2       = $group[$lastItem][2];
+            $j1       = $group[0][3];
+            $j2       = $group[$lastItem][4];
 
             if ($i1 == 0 && $i2 == 0) {
                 $i1 = -1;
@@ -82,6 +86,7 @@ class UnifiedCli extends MainRendererAbstract
                 '@@ -' . ($i1 + 1) . ',' . ($i2 - $i1) . ' +' . ($j1 + 1) . ',' . ($j2 - $j1) . " @@\n",
                 'purple'
             );
+
             foreach ($group as [$tag, $i1, $i2, $j1, $j2]) {
                 if ($tag == 'equal') {
                     $string = implode(
@@ -112,8 +117,8 @@ class UnifiedCli extends MainRendererAbstract
     }
 
     /**
-     * @param string $string
-     * @param string $color
+     * @param   string  $string
+     * @param   string  $color
      *
      * @return string
      */

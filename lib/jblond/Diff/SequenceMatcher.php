@@ -51,12 +51,12 @@ class SequenceMatcher implements ConstantsInterface
      */
     private $b2j = [];
     /**
-     * @var array A list of all of the op-codes for the differences between the compared strings.
+     * @var array A list of all the op-codes for the differences between the compared strings.
      */
     private $opCodes;
 
     /**
-     * @var array A nested set of arrays for all of the matching sub-sequences the compared strings.
+     * @var array A nested set of arrays for all the matching sub-sequences the compared strings.
      */
     private $matchingBlocks;
 
@@ -115,6 +115,7 @@ class SequenceMatcher implements ConstantsInterface
      *
      * @param   string|array  $version1  A string or array containing the lines to compare against.
      * @param   string|array  $version2  A string or array containing the lines to compare.
+     *
      * @return void
      */
     public function setSequences($version1, $version2): void
@@ -129,6 +130,7 @@ class SequenceMatcher implements ConstantsInterface
      * Also resets internal caches to indicate that, when calling the calculation methods, we need to recalculate them.
      *
      * @param   string|array|void  $version1  The sequence to set as the first sequence.
+     *
      * @return void
      */
     public function setSeq1($version1): void
@@ -150,7 +152,8 @@ class SequenceMatcher implements ConstantsInterface
      *
      * Also resets internal caches to indicate that, when calling the calculation methods, we need to recalculate them.
      *
-     * @param  string|array  $version2  The sequence to set as the second sequence.
+     * @param   string|array  $version2  The sequence to set as the second sequence.
+     *
      * @return void
      */
     public function setSeq2($version2): void
@@ -186,9 +189,11 @@ class SequenceMatcher implements ConstantsInterface
                     unset($this->b2j[$char]);
                     continue;
                 }
+
                 $this->b2j[$char][] = $i;
                 continue;
             }
+
             $this->b2j[$char] = [$i];
         }
 
@@ -216,49 +221,34 @@ class SequenceMatcher implements ConstantsInterface
     }
 
     /**
-     * Return a series of nested arrays containing different groups of generated
-     * op codes for the differences between the strings with up to $this->options['context'] lines
-     * of surrounding content.
+     * Return a series of nested arrays containing different groups of generated op codes for the differences between
+     * the strings with up to $this->options['context'] lines of surrounding content.
      *
-     * Essentially what happens here is any big equal blocks of strings are stripped
-     * out, the smaller subsets of changes are then arranged in to their groups.
-     * This means that the sequence matcher and diffs do not need to include the full
-     * content of the different files but can still provide context as to where the
-     * changes are.
+     * Any large equal block of strings is separated into smaller subsets which are "Within- or Out Of Context".
      *
      * @return array Nested array of all the grouped op codes.
      */
     public function getGroupedOpCodes(): array
     {
         $opCodes = $this->getOpCodes();
-        if (empty($opCodes)) {
-            $opCodes = [
-                [
-                    'equal',
-                    0,
-                    1,
-                    0,
-                    1,
-                ],
-            ];
-        }
+        $opCodes = $opCodes ?: [['equal', 0, 1, 0, 1,],];
 
         if ($this->options['trimEqual']) {
-            if ($opCodes['0']['0'] == 'equal') {
-                // Remove sequences at the start of the text, but keep the context lines.
-                $opCodes['0'] = [
-                    $opCodes['0']['0'],
-                    max($opCodes['0']['1'], $opCodes['0']['2'] - $this->options['context']),
-                    $opCodes['0']['2'],
-                    max($opCodes['0']['3'], $opCodes['0']['4'] - $this->options['context']),
-                    $opCodes['0']['4'],
+            if ($opCodes[0][0] == 'equal') {
+                // Remove equal sequences at the start of the text, but keep the context lines.
+                $opCodes[0] = [
+                    $opCodes[0][0],
+                    max($opCodes[0][1], $opCodes[0][2] - $this->options['context']),
+                    $opCodes[0][2],
+                    max($opCodes[0][3], $opCodes[0][4] - $this->options['context']),
+                    $opCodes[0][4],
                 ];
             }
 
-            $lastItem = count($opCodes) - 1;
-            if ($opCodes[$lastItem]['0'] == 'equal') {
+            $lastItem = array_key_last($opCodes);
+            if ($opCodes[$lastItem][0] == 'equal') {
+                // Remove equal sequences at the end of the text, but keep the context lines.
                 [$tag, $item1, $item2, $item3, $item4] = $opCodes[$lastItem];
-                // Remove sequences at the end of the text, but keep the context lines.
                 $opCodes[$lastItem] = [
                     $tag,
                     $item1,
@@ -271,35 +261,49 @@ class SequenceMatcher implements ConstantsInterface
 
         $maxRange = $this->options['context'] * 2;
         $groups   = [];
-        $group    = [];
+        $newGroup = [];
 
         foreach ($opCodes as [$tag, $item1, $item2, $item3, $item4]) {
             if ($tag == 'equal' && $item2 - $item1 > $maxRange) {
-                $group[]  = [
+                // Count of equal lines is greater than defined maximum context.
+                // Define lines before "Out of Context".
+                $newGroup[] = [
                     $tag,
                     $item1,
                     min($item2, $item1 + $this->options['context']),
                     $item3,
                     min($item4, $item3 + $this->options['context']),
                 ];
-                $groups[] = $group;
-                $group    = [];
+
+                $groups[] = $newGroup;
+
+                // Define lines which are "Out Of Context".
+                $newGroup   = [];
+                $newGroup[] = [
+                    'outOfContext',
+                    min($item2, $item1 + $this->options['context']),
+                    max($item1, $item2 - $this->options['context']),
+                    min($item4, $item3 + $this->options['context']),
+                    max($item3, $item4 - $this->options['context']),
+                ];
+                $groups[]   = $newGroup;
+
+                // Define start of lines after "Out Of Context".
+                $newGroup = [];
                 $item1    = max($item1, $item2 - $this->options['context']);
                 $item3    = max($item3, $item4 - $this->options['context']);
             }
 
-            $group[] = [
-                $tag,
-                $item1,
-                $item2,
-                $item3,
-                $item4,
-            ];
+            // Define lines "Within Context".
+            $newGroup[] = [$tag, $item1, $item2, $item3, $item4,];
         }
 
-        if (!$this->options['trimEqual'] || (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal'))) {
+        if (
+            !$this->options['trimEqual'] ||
+            (!empty($newGroup) && !(count($newGroup) == 1 && $newGroup[0][0] == 'equal'))
+        ) {
             // Add the last sequences when !trimEqual || When there are no differences between both versions.
-            $groups[] = $group;
+            $groups[] = $newGroup;
         }
 
         return $groups;
@@ -433,11 +437,6 @@ class SequenceMatcher implements ConstantsInterface
         $matchingBlocks = [];
         while (!empty($queue)) {
             [$aLower, $aUpper, $bLower, $bUpper] = array_pop($queue);
-            /**
-             * @noinspection PhpStrictTypeCheckingInspection
-             * $aLower, $aUpper, $bLower, $bUpper reported as wrong type because of multiple definitions of function
-             * count above.
-             */
             $longestMatch = $this->findLongestMatch($aLower, $aUpper, $bLower, $bUpper);
             [$list1, $list2, $list3] = $longestMatch;
             if ($list3) {
@@ -624,8 +623,8 @@ class SequenceMatcher implements ConstantsInterface
     /**
      * Check if the two lines at the given indexes are different or not.
      *
-     * @param   int  $aIndex  Line number to check against in a.
-     * @param   int  $bIndex  Line number to check against in b.
+     * @param   int  $aIndex  Number of line to check against in A.
+     * @param   int  $bIndex  Number of line to check against in B.
      *
      * @return bool True if the lines are different and false if not.
      */

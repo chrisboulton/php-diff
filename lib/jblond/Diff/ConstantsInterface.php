@@ -27,7 +27,7 @@ interface ConstantsInterface
      */
     public const DIFF_IGNORE_LINE_EMPTY = 1;
     /**
-     * Flag to ignore blank lines. (Lines which contain no or only non printable characters.)
+     * Flag to ignore blank lines. (Lines which contain no or only non-printable characters.)
      */
     public const DIFF_IGNORE_LINE_BLANK = 2;
 }

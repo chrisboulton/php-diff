@@ -34,12 +34,16 @@ class Unified extends MainRendererAbstract
     {
         $diff    = false;
         $opCodes = $this->diff->getGroupedOpCodes();
-        foreach ($opCodes as $group) {
-            $lastItem = count($group) - 1;
-            $i1       = $group['0']['1'];
-            $i2       = $group[$lastItem]['2'];
-            $j1       = $group['0']['3'];
-            $j2       = $group[$lastItem]['4'];
+        foreach ($opCodes as $key => $group) {
+            if ($key % 2) {
+                // Skip lines which are Out Of Context.
+                continue;
+            }
+            $lastItem = array_key_last($group);
+            $i1       = $group[0][1];
+            $i2       = $group[$lastItem][2];
+            $j1       = $group[0][3];
+            $j2       = $group[$lastItem][4];
 
             if ($i1 == 0 && $i2 == 0) {
                 $i1 = -1;

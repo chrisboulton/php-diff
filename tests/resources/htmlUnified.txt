@@ -151,11 +151,11 @@
     <th>22</th>
     <th>22</th>
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>
-</tr></tbody><tr>
+</tr></tbody><tbody class="ChangeOutOfContext"><tr>
     <th>&hellip;</th>
     <th>&hellip;</th>
     <td class="Left Skipped">&hellip;</td>
-</tr><tbody class="ChangeEqual"><tr>
+</tr></tbody><tbody class="ChangeEqual"><tr>
     <th>25</th>
     <th>25</th>
     <td class="Left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Just some lines to demonstrate the collapsing of a block of lines which are the same in both versions.&lt;/p&gt;</td>

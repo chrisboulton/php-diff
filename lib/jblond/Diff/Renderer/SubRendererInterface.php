@@ -63,11 +63,11 @@ interface SubRendererInterface
     public function generateLinesInsert(array $changes): string;
 
     /**
-     * Generate a string representation of lines that are skipped in the diff view.
+     * Generate a string representation of lines that are "Out Of Context" for the diff view.
      *
-     * @return string Representation of skipped lines.
+     * @return string Representation of 'Out Of Context' lines.
      */
-    public function generateSkippedLines(): string;
+    public function generateLinesOutOfContext($change): string;
 
     /**
      * Generate a string representation of lines with ignored differences between both versions.
