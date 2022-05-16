@@ -36,7 +36,8 @@
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "2.*",
         "jblond/php-cli": "^1.0",
-        "digilive/git-changelog": "^1"
+        "digilive/git-changelog": "^1",
+        "vimeo/psalm": "^4.23"
     },
     "suggest": {
         "jblond/php-cli": "^1.0"

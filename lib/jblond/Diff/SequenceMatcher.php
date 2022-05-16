@@ -369,7 +369,6 @@ class SequenceMatcher implements ConstantsInterface
                             $line = trim($line);
                         }
                     );
-                    unset($line);
                 }
 
                 if (
