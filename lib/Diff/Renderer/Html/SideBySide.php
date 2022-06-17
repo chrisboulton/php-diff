@@ -50,7 +50,7 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 	 *
 	 * @return string The generated side by side diff.
 	 */
-	public function render()
+	public function render($renderer_options=array())
 	{
 		$changes = parent::render();
 
@@ -62,8 +62,8 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 		$html .= '<table class="Differences DifferencesSideBySide">';
 		$html .= '<thead>';
 		$html .= '<tr>';
-		$html .= '<th colspan="2">Old Version</th>';
-		$html .= '<th colspan="2">New Version</th>';
+		$html .= '<th colspan="2">'.(!empty($renderer_options['old']) ? htmlspecialchars($renderer_options['old']) :'Old Version').'</th>';
+		$html .= '<th colspan="2">'.(!empty($renderer_options['new']) ? htmlspecialchars($renderer_options['new']) :'New Version').'</th>';
 		$html .= '</tr>';
 		$html .= '</thead>';
 		foreach($changes as $i => $blocks) {

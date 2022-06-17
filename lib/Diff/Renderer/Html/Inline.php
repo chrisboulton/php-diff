@@ -50,7 +50,7 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 	 *
 	 * @return string The generated inline diff.
 	 */
-	public function render()
+	public function render($renderer_options=array())
 	{
 		$changes = parent::render();
 		$html = '';
@@ -61,8 +61,8 @@ class Diff_Renderer_Html_Inline extends Diff_Renderer_Html_Array
 		$html .= '<table class="Differences DifferencesInline">';
 		$html .= '<thead>';
 		$html .= '<tr>';
-		$html .= '<th>Old</th>';
-		$html .= '<th>New</th>';
+		$html .= '<th>'.(!empty($renderer_options['old']) ? htmlspecialchars($renderer_options['old']) :'Old').'</th>';
+		$html .= '<th>'.(!empty($renderer_options['new']) ? htmlspecialchars($renderer_options['new']) :'New').'</th>';
 		$html .= '<th>Differences</th>';
 		$html .= '</tr>';
 		$html .= '</thead>';

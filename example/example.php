@@ -24,6 +24,12 @@
 			//'ignoreCase' => true,
 		);
 
+		// Options for the renderer (change labels)
+		$renderer_options = array(
+			'old'=> 'Production',
+			'new'=>	'Development'
+		);
+
 		// Initialize the diff class
 		$diff = new Diff($a, $b, $options);
 
@@ -37,6 +43,13 @@
 		echo $diff->Render($renderer);
 
 		?>
+		<h2>Side by Side Diff with custom labels</h2>
+		<?php
+
+		// Generate a side by side diff with custom labels
+		echo $diff->Render($renderer, $renderer_options);
+
+		?>
 		<h2>Inline Diff</h2>
 		<?php
 
@@ -44,6 +57,13 @@
 		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Html/Inline.php';
 		$renderer = new Diff_Renderer_Html_Inline;
 		echo $diff->render($renderer);
+
+		?>
+		<h2>Inline Diff with custom labels</h2>
+		<?php
+
+		// Generate an inline diff with custom labels
+		echo $diff->render($renderer, $renderer_options);
 
 		?>
 		<h2>Unified Diff</h2>
