@@ -50,12 +50,12 @@ class Diff_SequenceMatcher
 	/**
 	 * @var array The first sequence to compare against.
 	 */
-	private $a = null;
+	private $a = array();
 
 	/**
 	 * @var array The second sequence.
 	 */
-	private $b = null;
+	private $b = array();
 
 	/**
 	 * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
@@ -86,8 +86,8 @@ class Diff_SequenceMatcher
 	 */
 	public function __construct($a, $b, $junkCallback=null, $options)
 	{
-		$this->a = null;
-		$this->b = null;
+		$this->a = array();
+		$this->b = array();
 		$this->junkCallback = $junkCallback;
 		$this->setOptions($options);
 		$this->setSequences($a, $b);
