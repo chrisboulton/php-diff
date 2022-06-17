@@ -2,7 +2,9 @@
 
 namespace Tests\Diff\Renderer\Html;
 
-class ArrayTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArrayTest extends TestCase
 {
     public function testRenderSimpleDelete()
     {
