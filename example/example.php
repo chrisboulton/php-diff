@@ -33,7 +33,7 @@
 
 		// Generate a side by side diff
 		require_once dirname(__FILE__).'/../lib/Diff/Renderer/Html/SideBySide.php';
-		$renderer = new Diff_Renderer_Html_SideBySide;
+		$renderer = new Diff_Renderer_Html_SideBySide("a.txt","b.txt");
 		echo $diff->Render($renderer);
 
 		?>
