@@ -174,6 +174,13 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 	 */
 	protected function formatLines($lines)
 	{
+		foreach($lines as &$line) {
+			$coding = mb_detect_encoding($line, array("ASCII", "UTF-8", "GB2312", "GBK", "BIG5"), true);
+			if ($coding == "")
+				$line = "<unsupported charset>";
+			else if ($coding != "UTF-8")
+				$line = mb_convert_encoding($line, 'UTF-8', $coding);
+		}
 		$lines = array_map(array($this, 'ExpandTabs'), $lines);
 		$lines = array_map(array($this, 'HtmlSafe'), $lines);
 		foreach($lines as &$line) {

@@ -126,7 +126,7 @@ class Diff_Renderer_Html_SideBySide extends Diff_Renderer_Html_Array
 								$changedLine = '&nbsp;';
 							}
 							else {
-								$toLine = $change['base']['offset'] + $no + 1;
+								$toLine = $change['changed']['offset'] + $no + 1;
 								$changedLine = '<span>'.$change['changed']['lines'][$no].'</span>';
 							}
 							$html .= '<th>'.$toLine.'</th>';
