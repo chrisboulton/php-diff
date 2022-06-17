@@ -67,13 +67,16 @@ class Diff
 		'context' => 3,
 		'ignoreNewLines' => false,
 		'ignoreWhitespace' => false,
-		'ignoreCase' => false
+		'ignoreCase' => false,
+		'title_a'=>'Old Version',
+		'title_b'=>'New Version',
+        'labelDifferences'=>'Differences'
 	);
 
 	/**
 	 * @var array Array of the options that have been applied for generating the diff.
 	 */
-	private $options = array();
+	public $options = array();
 
 	/**
 	 * The constructor.
