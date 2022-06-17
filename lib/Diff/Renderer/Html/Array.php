@@ -65,6 +65,9 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 		// we're not going to destroy the original data
 		$a = $this->diff->getA();
 		$b = $this->diff->getB();
+		// empty all entries for a1/b1 (we just need the count)
+		$a1 = array_fill(0, count($a), null);
+		$b1 = array_fill(0, count($a), null);
 
 		$changes = array();
 		$opCodes = $this->diff->getGroupedOpcodes();
@@ -90,19 +93,23 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 							$toLine = substr_replace($toLine, "\1", $last + 1, 0);
 							$a[$i1 + $i] = $fromLine;
 							$b[$j1 + $i] = $toLine;
+							// store the detail start/end location
+							$a1[$i1 + $i] = array ('start' => $start, 'end' => $end + strlen($fromLine) + 1);
+							$b1[$j1 + $i] = array ('start' => $start, 'end' => $end + strlen($toLine) + 1);
 						}
 					}
 				}
-
 				if($tag != $lastTag) {
 					$blocks[] = array(
 						'tag' => $tag,
 						'base' => array(
 							'offset' => $i1,
+							'location' => array (),
 							'lines' => array()
 						),
 						'changed' => array(
 							'offset' => $j1,
+							'location' => array (),
 							'lines' => array()
 						)
 					);
@@ -123,6 +130,9 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 						$lines = $this->formatLines($lines);
 						$lines = str_replace(array("\0", "\1"), array('<del>', '</del>'), $lines);
 						$blocks[$lastBlock]['base']['lines'] += $lines;
+						// store the detail start/end locations
+						$locations = array_slice($a1, $i1, ($i2 - $i1));
+						$blocks[$lastBlock]['base']['location'] += $locations;
 					}
 
 					if($tag == 'replace' || $tag == 'insert') {
@@ -130,6 +140,9 @@ class Diff_Renderer_Html_Array extends Diff_Renderer_Abstract
 						$lines =  $this->formatLines($lines);
 						$lines = str_replace(array("\0", "\1"), array('<ins>', '</ins>'), $lines);
 						$blocks[$lastBlock]['changed']['lines'] += $lines;
+						// store the detail start/end locations
+						$locations = array_slice($b1, $j1, ($j2 - $j1));
+						$blocks[$lastBlock]['changed']['location'] += $locations;
 					}
 				}
 			}
